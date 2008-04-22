@@ -13,5 +13,16 @@ package net.guttershark
 		 * The version of the entire guttershark package.
 		 */
 		guttershark_internal static var version:String = "0.2";
+		
+		/**
+		 * Package dependencies.
+		 * 
+		 * <ul>
+		 * <li>TweenLite,TweenFilterLite,TweenMax</li>
+		 * <li>Adobe Corelib</li>
+		 * <li>FZip</li>
+		 * </ul>
+		 */
+		guttershark_internal static var dependencies:Array = ["gs.*","com.adobe.*","deng.*"];
 	}
 }
