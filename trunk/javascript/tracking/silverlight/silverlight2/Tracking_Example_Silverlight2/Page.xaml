@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Tracking_Example_Silverlight2.Page"
+    xmlns="http://schemas.microsoft.com/client/2007" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="240" Height="240" 
+    >
+    <StackPanel x:Name="LayoutRoot" Orientation="Vertical" Margin="15" Background="#FF000000" >
+    	<Button Height="20" Width="200" x:Name="button1" Content="Track - then popup" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0" MouseLeftButtonDown="button_MouseLeftButtonDown"/>
+    	<Button Height="20" Width="200" x:Name="button2" Content="Track - then redirect in self" MouseLeftButtonDown="button_MouseLeftButtonDown" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+		<Button Height="20" Width="200" x:Name="button3" Content="Track - no redirects or popups" MouseLeftButtonDown="button_MouseLeftButtonDown" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+		<Button Height="20" Width="200" x:Name="button4" Content="Track - webtrends only" MouseLeftButtonDown="button_MouseLeftButtonDown" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+		<Button Height="20" Width="200" x:Name="button5" Content="Track - atlas only" MouseLeftButtonDown="button_MouseLeftButtonDown" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+		<Button Height="20" Width="200" x:Name="button6" Content="Track - webtrends only and popups" MouseLeftButtonDown="button_MouseLeftButtonDown" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+		<Button Height="20" Width="200" x:Name="button7" Content="Track - atlas only and popups" MouseLeftButtonDown="button_MouseLeftButtonDown" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>SilverlightSite1</title>
+	<script type="text/javascript" src="silverlight/silverlight1/Silverlight.js"></script>
+	<script type="text/javascript" src="silverlight/silverlight1/Page.xaml.js"></script>
+	<script type="text/javascript" src="js/tracking/tracking.js"></script>
+	<script type="text/javascript" src="js/tracking/delegates.js"></script>
+	<script type="text/javascript" src="js/tracking/tracking_init.js"></script>
+	<script type="text/javascript" src="js/wt.js"></script>
+	<style type="text/css">
+		#silverlightControlHost{
+			height: 480px;
+			width: 640px;
+		}
+		#errorLocation{
+			font-size: small;
+			color: Gray;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		setupTracking('tracking.xml');
+	</script>
+	
+	<script type="text/javascript">
+		function createSilverlight()
+		{
+			var scene = new SilverlightSite1.Page();
+			Silverlight.createObjectEx({
+				source: "silverlight/silverlight1/Page.xaml",
+				parentElement: document.getElementById("silverlightControlHost"),
+				id: "SilverlightControl",
+				properties: {
+					width: "100%",
+					height: "100%",
+					version: "1.0"
+				},
+				events: {
+					onLoad: Silverlight.createDelegate(scene, scene.handleLoad),
+					onError: function(sender, args) {
+						var errorDiv = document.getElementById("errorLocation");
+						if (errorDiv != null) {
+							var errorText = args.errorType + "- " + args.errorMessage;
+									
+							if (args.ErrorType == "ParserError") {
+								errorText += "<br>File: " + args.xamlFile;
+								errorText += ", line " + args.lineNumber;
+								errorText += " character " + args.charPosition;
+							}
+							else if (args.ErrorType == "RuntimeError") {
+								errorText += "<br>line " + args.lineNumber;
+								errorText += " character " +  args.charPosition;
+							}
+							errorDiv.innerHTML = errorText;
+						}	
+					}
+				}
+			});
+		}
+
+		if (!window.Silverlight) 
+			Silverlight = {};
+
+		Silverlight.createDelegate = function(instance, method) {
+			return function() {
+				return method.apply(instance, arguments);
+			}
+		}
+	</script>
+</head>
+<!-- setup tracking -->
+<body>
+
+<!--silverlight-->
+<div id="silverlightControlHost">
+	<script type="text/javascript">
+	    createSilverlight();
+	</script>
+</div>
+	
+<!-- Runtime errors from Silverlight will be displayed here.
+This will contain debugging information and should be removed or hidden when debugging is completed -->
+<div id='errorLocation'></div>
+</body>
+</html>
