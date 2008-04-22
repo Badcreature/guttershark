@@ -101,7 +101,8 @@ package net.guttershark.preloading
 				new Asset("assets/Pizza_Song.flv","pizza"),
 				new Asset("assets/zip1.zip","zip1")
 			];
-			preloadController = new PreloadController(assets,400);
+			preloadController = new PreloadController(400);
+			preloadController.addItems(assets);
 			preloadController.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);
 			preloadController.addEventListener(Event.COMPLETE,onPreloaderComplete);
 			preloadController.addEventListener(AssetCompleteEvent.COMPLETE, onItemComplete);
