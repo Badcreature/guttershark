@@ -1,5 +1,0 @@
-I don't distribute dependencies through SVN as it's not legal, and
-not my code. So you'll need these in your class path in order
-for Guttershark to work.
-
-See GuttersharkMeta.as for package dependencies.

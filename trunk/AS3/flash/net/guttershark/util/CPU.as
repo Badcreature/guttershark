@@ -1,1 +1,0 @@
-package net.guttershark.util {	public class CPU 	{	}}
