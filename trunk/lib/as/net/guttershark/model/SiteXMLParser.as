@@ -6,7 +6,7 @@ package net.guttershark.model
 	/**
 	 * The SiteXMLParser class provides shortcuts for parsing a
 	 * site xml file. This provides methods that work with a
-	 * default implentation of a site xml file.
+	 * default implementation of a site xml file.
 	 */
 	public class SiteXMLParser
 	{

@@ -2,13 +2,14 @@
 ME=`whoami`
 rm -rf ./docs/*
 ${ASDOC}asdoc \
--source-path ./lib/ \
+-source-path ./lib/as/ \
 -source-path ${AS_PATH}/externals/ \
 -source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/User Interface" \
 -source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/FLVPlayback" \
 -source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/ActionScript 3.0/Classes"  \
--doc-sources ./lib/net/guttershark/ \
+-doc-sources ./lib/as/net/guttershark/ \
 -main-title "Guttershark Flash API Docs" \
+-window-title "Guttershark Flash API Docs" \
 -output ./docs/ \
 -exclude-classes gs.TweenMax \
 -exclude-classes gs.TweenLite \
@@ -44,6 +45,7 @@ ${ASDOC}asdoc \
 -package net.guttershark.events "The net.guttershark.events package contains events used throughout the entire net.guttershark package." \
 -package net.guttershark.lang "The net.guttershark.lang package contains classes used for localizing content." \
 -package net.guttershark.managers "The net.guttershark.managers package contains classes for managing player wide functionality." \
+-package net.guttershark.model "The net.guttershark.model package contains classes for working with model classes and site xml files." \
 -package net.guttershark.preloading "The net.guttershark.preloading package contains classes for preloading assets." \
 -package net.guttershark.preloading.events "The net.guttershark.preloading.events package contains event classes used within the preloading package." \
 -package net.guttershark.preloading.workers "The net.guttershark.preloading.worker package contains worker classes that implement loading of different types of assets. These classes are base classes used with a PreloadingController." \

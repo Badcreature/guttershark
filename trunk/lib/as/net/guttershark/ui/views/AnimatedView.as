@@ -1,5 +1,6 @@
 package net.guttershark.ui.views 
 {
+	import net.guttershark.util.Assert;	
 	import net.guttershark.util.FramePulse;	
 	
 	import flash.events.Event;	
@@ -65,9 +66,13 @@ package net.guttershark.ui.views
 		 */
 		public function set watchForLastFrameAndCallComplete(value:Boolean):void
 		{
-			_watchEndAndComplete = value;
-			if(!value && listenerAdded) FramePulse.RemoveEnterFrameListener(__onEnterFrame);
-			if(value && !listenerAdded)
+			Assert.NotNull(value, "Value cannot be null");
+			if(!value && listenerAdded)
+			{
+				listenerAdded = false;
+				FramePulse.RemoveEnterFrameListener(__onEnterFrame);
+			}
+			else if(value && !listenerAdded)
 			{
 				listenerAdded = true;
 				FramePulse.AddEnterFrameListener(__onEnterFrame);
@@ -87,7 +92,12 @@ package net.guttershark.ui.views
 		 */
 		private function __onEnterFrame(e:Event):void
 		{
-			if(currentFrame == totalFrames) animationComplete();
+			if(currentFrame == totalFrames)
+			{
+				listenerAdded = false;
+				FramePulse.RemoveEnterFrameListener(__onEnterFrame);
+				animationComplete();
+			}
 		}
 		
 		/**
