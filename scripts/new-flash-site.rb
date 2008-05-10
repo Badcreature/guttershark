@@ -32,4 +32,4 @@ if OPTIONS[:exit]
 end
 
 system("mkdir -p #{OPTIONS[:location]}")
-system("cp -R ./flashsites/#{OPTIONS[:template]}/ #{OPTIONS[:location]}")
+system("cp -R ./scripts/flashsites/#{OPTIONS[:template]}/ #{OPTIONS[:location]}")
