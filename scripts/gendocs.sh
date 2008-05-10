@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+ME=`whoami`
+rm -rf ./docs/*
+${ASDOC}asdoc \
+-source-path ./lib/ \
+-source-path ${AS_PATH}/externals/ \
+-source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/User Interface" \
+-source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/FLVPlayback" \
+-source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/ActionScript 3.0/Classes"  \
+-doc-sources ./lib/net/guttershark/ \
+-main-title "Guttershark Flash API Docs" \
+-output ./docs/ \
+-exclude-classes gs.TweenMax \
+-exclude-classes gs.TweenLite \
+-exclude-classes gs.TweenFilterLite \
+-exclude-classes fl.events.ScrollEvent \
+-exclude-classes fl.video.INCManager \
+-exclude-classes fl.video.IVPEvent \
+-exclude-classes fl.video.AutoLayoutEvent \
+-exclude-classes fl.video.CuePointEvent \
+-exclude-classes fl.video.CuePointType \
+-exclude-classes fl.video.FLVPlayback \
+-exclude-classes fl.video.LayoutEvent \
+-exclude-classes fl.video.MetadataEvent \
+-exclude-classes fl.video.NCManager \
+-exclude-classes fl.video.SkinErrorEvent \
+-exclude-classes fl.video.SoundEvent \
+-exclude-classes fl.video.VideoAlign \
+-exclude-classes fl.video.VideoError \
+-exclude-classes fl.video.VideoEvent \
+-exclude-classes fl.video.VideoPlayer \
+-exclude-classes fl.video.VideoProgressEvent \
+-exclude-classes fl.video.VideoScaleMode \
+-exclude-classes fl.video.VideoState \
+-left-frameset-width 350 \
+-package net.guttershark "The net.guttershark package contains all Actionscript 3 classes, namespaces, and meta data for the net.guttershark package." \
+-package net.guttershark.akamai "The net.guttershark.akamai package contains classes for Akamai services." \
+-package net.guttershark.command "The net.guttershark.command package contains classes for working with Commands." \
+-package net.guttershark.control "The net.guttershark.control package contains classes for working with Flash sites and Document classes." \
+-package net.guttershark.core "The net.guttershark.core package contains core base classes and interfaces." \
+-package net.guttershark.effects "The net.guttershark.effects package contains classes specifically for working with scripted motion effects." \
+-package net.guttershark.effects.stencils "The net.guttershark.effects.stencils package contains classes needed for implementing the StencilRenderer effect." \
+-package net.guttershark.errors "The net.guttershark.errors package contains a set of commonly used error classes." \
+-package net.guttershark.events "The net.guttershark.events package contains events used throughout the entire net.guttershark package." \
+-package net.guttershark.lang "The net.guttershark.lang package contains classes used for localizing content." \
+-package net.guttershark.managers "The net.guttershark.managers package contains classes for managing player wide functionality." \
+-package net.guttershark.preloading "The net.guttershark.preloading package contains classes for preloading assets." \
+-package net.guttershark.preloading.events "The net.guttershark.preloading.events package contains event classes used within the preloading package." \
+-package net.guttershark.preloading.workers "The net.guttershark.preloading.worker package contains worker classes that implement loading of different types of assets. These classes are base classes used with a PreloadingController." \
+-package net.guttershark.remoting "The net.guttershark.service.remoting package contains classes for working with Flash Remoting." \
+-package net.guttershark.remoting.events "The net.guttershark.service.remoting.events package contains event classes used throughout the remoting package." \
+-package net.guttershark.remoting.errors "The net.guttershark.service.remoting.errors package contains error classes used throughout the remoting package." \
+-package net.guttershark.remoting.limiting "The net.guttershark.service.remoting.limiting package contains classes that implement limiting logic for remoting service calls." \
+-package net.guttershark.remoting.paging "The net.guttershark.service.remoting.paging package contains classes for implementing paging with a remoting service." \
+-package net.guttershark.sound "The net.guttershark.sound package contains classes for working with Sounds." \
+-package net.guttershark.sound.events "The net.guttershark.sound.events package contains sound events." \
+-package net.guttershark.ui "The net.guttershark.ui package contains classes and packages that are for working with user interface controls." \
+-package net.guttershark.ui.controls "The net.guttershark.ui.controls package contains base classes for generic user interface elements." \
+-package net.guttershark.ui.controls.buttons "The net.guttershark.ui.controls.buttons package contains base classes for generic button user interface elements." \
+-package net.guttershark.ui.controls.scrolling "The net.guttershark.ui.controls.scrolling package contains base classes for generic scrolling elements." \
+-package net.guttershark.ui.views "The net.guttershark.ui.controls.views package contains base classes for generic views." \
+-package net.guttershark.util "The net.guttershark.util package contains utility classes, such as AutoSuggest." \
+-package net.guttershark.util.autosuggest "The net.guttershark.util.autosuggest package contains classes that implement an auto suggest." \
+-package net.guttershark.util.cache "The net.guttershark.util.cache package contains classes that implement caching of objects into cache stores." \
+-package net.guttershark.video "The net.guttershark.video package contains classes use for video implementations." 
