@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<script type="text/javascript" src="js/swfobject.js"></script>
+	<script type="text/javascript">
+		function addSWF()
+		{
+			var so = new SWFObject('', 'flaswf', '100%', '100%', '9', '#000000');
+			so.addVariable("siteXML","site.xml");
+			so.addVariable("sniffBandwidth",false);
+			so.addVariable("sniffCPU",false);
+			so.write("flashcontent");
+		}
+		window.onload = function()
+		{
+			addSWF()
+		}
+	</script>
+	<style type="text/css">
+	<!--
+	/* hide from ie5 mac \*/
+	html{
+	  height: 100%;
+	  overflow: hidden;
+	}
+	#flashcontent{
+	  height: 100%;
+	}
+	/* end hide */
+	body{
+	  height: 100%;
+	  margin: 0;
+	  padding: 0;
+	  background-color: #eee;
+	}-->
+	</style>
+</head>
+<body>
+<div id="flashcontent">
+	<noscript>
+		<h2>Oops! You need to install or upgrade your <a href="http://www.adobe.com/products/flashplayer/">Flash Player.</a></h2>
+	</noscript>
+</div>
+</body>
+</html>
