@@ -1,0 +1,6 @@
+RUNNING THE EXAMPLES.
+To run examples, you need to add the "lib" folder to your document class paths in Flash. (Flash>Preferences>Actionscript>Actionscript 3.0 Settings>).
+
+ALL OTHER EDITORS.
+1. You can use either the "lib" folder as a classpath an any editor. 
+2. Or you can use the bin/guttershark.swc file.
