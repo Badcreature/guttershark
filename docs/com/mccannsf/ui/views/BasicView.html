@@ -1,0 +1,409 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../print.css" type="text/css" media="print">
+<meta content="BasicView,com.mccannsf.ui.views.BasicView,activated,addListeners,addedToStage,cleanup,deactivated,dispose,hide,init,removeAllChildren,removeListeners,removedFromStage,reorderChildren,resized,show" name="keywords">
+<title>com.mccannsf.ui.views.BasicView</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'BasicView - API Documentation';
+				var baseRef = '../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Mccann Worldgroup Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../index-list.html')" href="../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../index.html?com/mccannsf/ui/views/BasicView.html&amp;com/mccannsf/ui/views/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;BasicView</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class BasicView"); titleBar_setSubNav(false,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.mccannsf.ui.views</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class BasicView</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">BasicView <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../images/inherit-arrow.gif"> flash.display.MovieClip</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Implements</td><td><a href="../../core/IDisposable.html">IDisposable</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Subclasses</td><td><a href="../views/AnimatedView.html">AnimatedView</a></td>
+</tr>
+</table>
+<p></p>
+  The BasicView class provides common case functionality needed
+  90% of the time a "view" must be implemented.
+  
+  <p>The common functionality:</p>
+  <ul>
+  <li>Wait to initialize the clip until it's added to the stage.</li>
+  <li>Initiate the clip on add to stage.</li>
+  <li>Add event listeners on children objects.</li>
+  <li>Perform cleanup when removed from stage.</li>
+  </ul>
+  
+  <p>The init method is the last step in the setup chain for a view, 
+  this should be used to continue initializing a view, like changing
+  visibility / alpha on children properties, etc.</p>
+  
+  <p>The cleanup method should be overwritten as well. The cleanup method
+  is called when the clip is removed from the stage. This is not 
+  supposed to replace <code>dispose()</code>, it's for "off the display list"
+  cleanup.</p>
+  
+  <p>Override the dispose mothod for complete dispose logic, the cleanup
+  method should be implemented to have temporary "not in display list"
+  cleanup code.</p>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#BasicView()">BasicView</a>()</div>
+<div class="summaryTableDescription">
+   Constructor for BasicView instances.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#dispose()">dispose</a>():void</div>
+<div class="summaryTableDescription">
+   Override this method and write your own dispose logic.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hide()">hide</a>():void</div>
+<div class="summaryTableDescription">
+   Stub method for hiding this view.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removeAllChildren()">removeAllChildren</a>():void</div>
+<div class="summaryTableDescription">
+   Remove all children from this instance.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#reorderChildren()">reorderChildren</a>():void</div>
+<div class="summaryTableDescription">
+   Stub method you should override to re-arrange children on the display
+   list.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#show()">show</a>():void</div>
+<div class="summaryTableDescription">
+   Stub method for showing this view.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#activated()">activated</a>():void</div>
+<div class="summaryTableDescription">
+   Override this method to hook into when the operating system gains focus
+   on the flash movie.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addedToStage()">addedToStage</a>():void</div>
+<div class="summaryTableDescription">
+   Override this method to hook into the added to stage event.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addListeners()">addListeners</a>():void</div>
+<div class="summaryTableDescription">
+   The addListeners method is a stub method you should override 
+   and use for adding event listeners onto children objects.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#cleanup()">cleanup</a>():void</div>
+<div class="summaryTableDescription">
+   The cleanup method is called after the clip has been removed from
+   the display list.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#deactivated()">deactivated</a>():void</div>
+<div class="summaryTableDescription">
+   Override this method to hook into when the operating system loses focus
+   on the flash movie.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#init()">init</a>():void</div>
+<div class="summaryTableDescription">
+   The init method is the final method after initial setup stage listeners
+   and other logic is complete.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removedFromStage()">removedFromStage</a>():void</div>
+<div class="summaryTableDescription">
+   Override this method to hook into the removed from stage event.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removeListeners()">removeListeners</a>():void</div>
+<div class="summaryTableDescription">
+   The removeListeners method is a stub method you should override 
+   and use for removing event listeners from children objects.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#resized()">resized</a>():void</div>
+<div class="summaryTableDescription">
+   Override this method to hook into resize events from the stage.</div>
+</td><td class="summaryTableOwnerCol">BasicView</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="BasicView()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">BasicView</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function BasicView()</code><p>
+   Constructor for BasicView instances.
+   </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="activated()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">activated</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function activated():void</code><p>
+   Override this method to hook into when the operating system gains focus
+   on the flash movie.
+   </p></div>
+<a name="addedToStage()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addedToStage</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function addedToStage():void</code><p>
+   Override this method to hook into the added to stage event.
+   </p></div>
+<a name="addListeners()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addListeners</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function addListeners():void</code><p>
+   The addListeners method is a stub method you should override 
+   and use for adding event listeners onto children objects. This is
+   called after the clip has been added to the stage, so the
+   stage property is always available.
+   
+   </p><p>This method also implements logic for the stage resize event
+   so make sure to call super.addListeners() if you need the resize
+   events to work correctly.</p>
+   </div>
+<a name="cleanup()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">cleanup</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function cleanup():void</code><p>
+   The cleanup method is called after the clip has been removed from
+   the display list. This is intended to do temporary cleanup until the clip
+   is added back to the display list. Not for final disposing logic. See
+   the dispose method for final disposal.
+   </p></div>
+<a name="deactivated()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">deactivated</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function deactivated():void</code><p>
+   Override this method to hook into when the operating system loses focus
+   on the flash movie.
+   </p></div>
+<a name="dispose()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dispose</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function dispose():void</code><p>
+   Override this method and write your own dispose logic.
+   </p></div>
+<a name="hide()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hide</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hide():void</code><p>
+   Stub method for hiding this view. It sets the visible property to false.
+   </p></div>
+<a name="init()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">init</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function init():void</code><p>
+   The init method is the final method after initial setup stage listeners
+   and other logic is complete. Override this and provide you're own
+   custom children initialization logic.
+   </p></div>
+<a name="removeAllChildren()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removeAllChildren</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function removeAllChildren():void</code><p>
+   Remove all children from this instance.
+   </p></div>
+<a name="removedFromStage()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removedFromStage</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function removedFromStage():void</code><p>
+   Override this method to hook into the removed from stage event.
+   </p></div>
+<a name="removeListeners()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removeListeners</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function removeListeners():void</code><p>
+   The removeListeners method is a stub method you should override 
+   and use for removing event listeners from children objects. This is
+   called after the clip has been removed from the stage.
+   </p></div>
+<a name="reorderChildren()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">reorderChildren</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function reorderChildren():void</code><p>
+   Stub method you should override to re-arrange children on the display
+   list. This is in place for naming convention.
+   </p></div>
+<a name="resized()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">resized</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function resized():void</code><p>
+   Override this method to hook into resize events from the stage.
+   </p></div>
+<a name="show()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">show</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function show():void</code><p>
+   Stub method for showing this view. It sets the visible property to true.
+   </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

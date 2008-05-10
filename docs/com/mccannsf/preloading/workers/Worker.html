@@ -1,0 +1,557 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../print.css" type="text/css" media="print">
+<meta content="Worker,com.mccannsf.preloading.workers.Worker,asset,loader,request,close,load,onComplete,onHTTPStatus,onIOLoadError,onOpen,onProgress,onSecurityError,start" name="keywords">
+<title>com.mccannsf.preloading.workers.Worker</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Worker - API Documentation';
+				var baseRef = '../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Mccann Worldgroup Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../index-list.html')" href="../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../index.html?com/mccannsf/preloading/workers/Worker.html&amp;com/mccannsf/preloading/workers/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Worker</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Worker"); titleBar_setSubNav(false,true,false,false,true,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.mccannsf.preloading.workers</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Worker</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Worker <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../images/inherit-arrow.gif"> flash.events.EventDispatcher</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Implements</td><td><a href="ILoadWorker.html">ILoadWorker</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Subclasses</td><td><a href="../workers/BitmapWorker.html">BitmapWorker</a>, <a href="../workers/ProgressiveFLVWorker.html">ProgressiveFLVWorker</a>, <a href="../workers/SoundWorker.html">SoundWorker</a>, <a href="../workers/XMLWorker.html">XMLWorker</a></td>
+</tr>
+</table>
+<p></p>
+  The Worker class is a generic worker that implements base logic for loading 
+  an Asset. Most subclasses don't need to override all of the logic in this
+  class.
+  
+  <p>It provides default behavior like listening to events from the internal
+  loader and taking care of the callbacks, and routing the events
+  to the associated preload controller.</p>
+  
+  <p>This worker class cannot be used directly, it must be subclassed. You
+  must override the "load" method and implement your own logic to prepare
+  the internal loader and request objects.</p>
+    <p>Worker subclasses must also be registered with the WorkerInstances class. An Asset
+  uses WorkerInstances to get a worker for it's type being loaded.</p>
+    <p>Here is a snippet taken from the BitmapWorker class that shows overriding the load method
+  and setting up the internal loader and request properties.</p>
+  
+  <div class='listing'><pre>
+  override public function load(asset:Asset):void
+  {
+   this.asset = asset;
+   request = new URLRequest(asset.source);
+   loader = new Loader();
+   loader.contentLoaderInfo.addEventListener(Event.OPEN, super.onOpen);
+   loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, super.onProgress);
+   loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, super.onHTTPStatus);
+   loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, super.onIOLoadError);
+   loader.contentLoaderInfo.addEventListener(IOErrorEvent.DISK_ERROR, super.onIOLoadError);
+   loader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR, super.onIOLoadError);
+   loader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR, super.onIOLoadError);
+   loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, super.onSecurityError);
+   loader.contentLoaderInfo.addEventListener(Event.COMPLETE, super.onComplete);
+   start(); //kicks off the loading, default loading logic is in the Worker class.
+  }
+  </pre></div>
+  
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../workers/Worker.html#loader" target="">loader</a>
+<br>
+<a href="../workers/Worker.html#request" target="">request</a>
+<br>
+<a href="../workers/Worker.html#load()" target="">load()</a>
+<br>
+<a href="../../preloading/Asset.html" target="">com.mccannsf.preloading.Asset</a>
+<br>See the source code of any one of the workers in this package for a subclassing example.</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a><a name="protectedPropertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Properties</div>
+<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#asset">asset</a> : <a href="../../preloading/Asset.html">Asset</a>
+<div class="summaryTableDescription">
+   The asset this worker is loading.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#loader">loader</a> : *<div class="summaryTableDescription">
+   Internal loader used for loading the asset.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#request">request</a> : URLRequest<div class="summaryTableDescription">
+   The URLRequest for the asset.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#close()">close</a>():void</div>
+<div class="summaryTableDescription">
+   Close the internal loader.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#load()">load</a>(asset:<a href="../Asset.html">Asset</a>):void</div>
+<div class="summaryTableDescription">
+   Interface compliance only.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#start()">start</a>():void</div>
+<div class="summaryTableDescription">
+   Starts loading of the internal loader instance.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#onComplete()">onComplete</a>(e:Event):void</div>
+<div class="summaryTableDescription">
+   The event handler for the internal loaders complete event.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#onHTTPStatus()">onHTTPStatus</a>(hse:HTTPStatusEvent):void</div>
+<div class="summaryTableDescription">
+   The event handler for the internal loaders http status event.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#onIOLoadError()">onIOLoadError</a>(e:IOErrorEvent):void</div>
+<div class="summaryTableDescription">
+   The event handler for the internal loaders error event.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#onOpen()">onOpen</a>(e:Event):void</div>
+<div class="summaryTableDescription"> 
+   The event handler for the internal loaders open event.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#onProgress()">onProgress</a>(pe:ProgressEvent):void</div>
+<div class="summaryTableDescription">
+   The event handler for the internal loaders progress.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#onSecurityError()">onSecurityError</a>(se:SecurityErrorEvent):void</div>
+<div class="summaryTableDescription">
+   The event handler for the internal loaders security error event.</div>
+</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+</table>
+</div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetComplete">assetComplete</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when the worker has completed downloading the asset.</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetError">assetError</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when there is an error loading an asset.</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetOpen">assetOpen</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when the loader starts loading the asset.</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetProgress">assetProgress</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched on progress from the loader that is loading the asset.</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetStatus">assetStatus</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when an HTTPStatus event occurs from the internal loader.</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:seecurityError">seecurityError</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when a security error happens while attempting to load the item.</td><td class="summaryTableOwnerCol">Worker</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="asset"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">asset</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var asset:<a href="../../preloading/Asset.html">Asset</a></code><p>
+   The asset this worker is loading.
+   </p></div>
+<a name="loader"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">loader</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var loader:*</code><p>
+   Internal loader used for loading the asset.
+   
+   </p><p>This is untyped so that any type of loader can be used. The loader you
+   use must have a "load" method declared on it that accepts a URLRequest.</p>
+   </div>
+<a name="request"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">request</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var request:URLRequest</code><p>
+   The URLRequest for the asset.
+   </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="close()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">close</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function close():void</code><p>
+   Close the internal loader.
+   </p></div>
+<a name="load()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">load</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function load(asset:<a href="../Asset.html">Asset</a>):void</code><p>
+   Interface compliance only.
+   
+   </p><p>This will throw an exception if you do not override the method.</p>
+   
+   <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">asset</span>:<a href="../Asset.html">Asset</a></code> &mdash; the asset to load.
+   </td>
+</tr>
+</table>
+</div>
+<a name="onComplete()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onComplete</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function onComplete(e:Event):void</code><p>
+   The event handler for the internal loaders complete event.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">e</span>:Event</code> &mdash; The event from the internal loaders complete event.
+   </td>
+</tr>
+</table>
+</div>
+<a name="onHTTPStatus()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onHTTPStatus</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function onHTTPStatus(hse:HTTPStatusEvent):void</code><p>
+   The event handler for the internal loaders http status event.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">hse</span>:HTTPStatusEvent</code> &mdash;  The status event from the internal loader.
+   </td>
+</tr>
+</table>
+</div>
+<a name="onIOLoadError()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onIOLoadError</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function onIOLoadError(e:IOErrorEvent):void</code><p>
+   The event handler for the internal loaders error event.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">e</span>:IOErrorEvent</code> &mdash; The error event from the internal loader.
+   </td>
+</tr>
+</table>
+</div>
+<a name="onOpen()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onOpen</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function onOpen(e:Event):void</code><p> 
+   The event handler for the internal loaders open event.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">e</span>:Event</code> &mdash; The open event from the internal loader.
+   </td>
+</tr>
+</table>
+</div>
+<a name="onProgress()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onProgress</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function onProgress(pe:ProgressEvent):void</code><p>
+   The event handler for the internal loaders progress.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">pe</span>:ProgressEvent</code> &mdash;  The progress event from the internal loader.
+   </td>
+</tr>
+</table>
+</div>
+<a name="onSecurityError()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onSecurityError</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function onSecurityError(se:SecurityErrorEvent):void</code><p>
+   The event handler for the internal loaders security error event.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">se</span>:SecurityErrorEvent</code> &mdash; The security error event from the internal loader.
+   </td>
+</tr>
+</table>
+</div>
+<a name="start()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">start</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function start():void</code><p>
+   Starts loading of the internal loader instance.
+   
+   </p><p>The loader you set for the internal loader must have a "load" method
+   defined and accept a URLRequest</p>
+   </div>
+<div class="detailSectionHeader">Event detail</div>
+<a name="event:assetComplete"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetComplete</td><td class="detailHeaderType">event&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>com.mccann.floss.preloading.machinist.events.AssetCompleteEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when the worker has completed downloading the asset.
+  
+  </p></div>
+<a name="event:assetError"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetError</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>com.mccann.floss.preloading.events.AssetErrorEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when there is an error loading an asset.
+  
+  </p></div>
+<a name="event:assetOpen"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetOpen</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>com.mccann.floss.preloading.events.AssetOpenEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when the loader starts loading the asset.
+  
+  </p></div>
+<a name="event:assetProgress"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetProgress</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>com.mccann.floss.preloading.events.AssetProgressEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched on progress from the loader that is loading the asset.
+  
+  </p></div>
+<a name="event:assetStatus"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetStatus</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>com.mccann.floss.preloading.events.AssetStatusEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when an HTTPStatus event occurs from the internal loader. This only dispatches
+  for HTTP status codes other than 0 and 200.
+  
+  </p></div>
+<a name="event:seecurityError"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">seecurityError</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>flash.events.SecurityErrorEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when a security error happens while attempting to load the item.
+  
+  </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

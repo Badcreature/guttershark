@@ -1,0 +1,581 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="RemotingService,com.mccannsf.remoting.RemotingService,Halted,MaxTimeoutsBeforeHault,NumTimeouts,remotingCache,remotingConnection,service,addEventListener,dispatchEvent,hasEventListener,removeEventListener,willTrigger" name="keywords">
+<title>com.mccannsf.remoting.RemotingService</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'RemotingService - API Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Mccann Worldgroup Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?com/mccannsf/remoting/RemotingService.html&amp;com/mccannsf/remoting/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;RemotingService</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class RemotingService"); titleBar_setSubNav(false,true,false,false,true,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.mccannsf.remoting</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public dynamic  class RemotingService</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">RemotingService <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> flash.utils.Proxy</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Implements</td><td>flash.events.IEventDispatcher</td>
+</tr>
+</table>
+<p></p>
+  The RemotingService class simplifies Flash Remoting by wraping all functionality
+  needed for Remoting, as well as adding many features that aren't implemented by default
+  in Flash.
+  
+  <p>The RemotingService class can be used with Flash or Flex.</p>
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>Simple setup:
+  <div class='listing'><pre> 
+  var rc:RemotingConnection = new RemotingConnection("http://localhost/amfphp/gateway.php",3);
+  rc.addEventListener(ConnectionEvent.CONNECTED, MY_HANDLER);
+  rc.addEventListener(ConnectionEvent.FAILED, MY_HANDLER);
+  rc.addEventListener(ConnectionEvent.DISCONNECT, MY_HANDLER);
+  rc.addEventListener(ConnectionEvent.FORMAT_ERROR, MY_HANDLER);
+  rc.addEventListener(ConnectionEvent.SECURITY_ERROR, MY_HANDLER);
+  
+  var rs:RemotingService = new RemotingService(rc,"MY_SERVICE",4000,3,true);
+  rs.remotingCache = new Cache() //optional cache store for requests and responses.
+  rs.addEventListener(CallEvent.TIMEOUT, MY_HANDLER);
+  rs.addEventListener(CallEvent.RETRY, MY_HANDLER);
+  rs.addEventListener(CallEvent.REQUEST_SENT, MY_HANDLER);
+  rs.addEventListener(CallEvent.SERVICE_HALTED, MY_HANDLER);
+  
+  //these next two calls are the same, except one you can specify a string as the method to call using apply.
+  //rs.myServiceMethod([],onr,onf,false);
+  rs.apply("myServiceMethod",[],onr,onf,false);
+  
+  function onr(re:ResultEvent)
+  {
+    var res = re.result;
+  }
+  function onf(fe:FaultEvent):void
+  {
+    trace(fe.fault.description);
+  }
+  </pre></div>
+  
+  <p>In the example above, the MY_HANDLER represents an event function
+  callback.
+  
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../remoting/RemotingConnection.html" target="">com.mccannsf.remoting.RemotingConnection</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#Halted">Halted</a> : Boolean = false<div class="summaryTableDescription">[static]
+   A flag variable to test whether or not all services have been halted.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MaxTimeoutsBeforeHault">MaxTimeoutsBeforeHault</a> : Number = 0<div class="summaryTableDescription">[static]
+   The maxiumum timeouts that can happen before every service is haulted.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#NumTimeouts">NumTimeouts</a> : int = -1<div class="summaryTableDescription">[static]
+   The number of timeouts that have occured between any remoting service.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#remotingCache">remotingCache</a> : <a href="../util/cache/ICacheStore.html">ICacheStore</a>
+<div class="summaryTableDescription">
+   A Cache instance that caches remoting calls and the responses.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#remotingConnection">remotingConnection</a> : <a href="../remoting/RemotingConnection.html">RemotingConnection</a>
+<div class="summaryTableDescription">
+   The remoting connection instance.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#service">service</a> : String<div class="summaryTableDescription">
+   The service to make remote calls on.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#RemotingService()">RemotingService</a>(remotingConnection:<a href="RemotingConnection.html">RemotingConnection</a>, service:String, callTimeout:int, maxRetriesPerCall:int, useLimiter:Boolean = true)</div>
+<div class="summaryTableDescription">
+   Constructor for RemotingService instances.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addEventListener()">addEventListener</a>(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, weakRef:Boolean = false):void</div>
+<div class="summaryTableDescription">
+   Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#dispatchEvent()">dispatchEvent</a>(event:Event):Boolean</div>
+<div class="summaryTableDescription">
+   Dispatches an event into the event flow.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hasEventListener()">hasEventListener</a>(type:String):Boolean</div>
+<div class="summaryTableDescription">
+   Checks whether the RemotingService object has any listeners registered for a specific type of event.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removeEventListener()">removeEventListener</a>(type:String, listener:Function, useCapture:Boolean = false):void</div>
+<div class="summaryTableDescription">
+   Remove and event listener.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#willTrigger()">willTrigger</a>(type:String):Boolean</div>
+<div class="summaryTableDescription">
+   Checks whether an event listener is registered with this EventDispatcher object or any of its ancestors for the specified event type.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+</table>
+</div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:requestSent">requestSent</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when a remoting request was sent.</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:retry">retry</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when a remoting call retries.</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:serviceHalted">serviceHalted</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when RemotingService is halted, and no requests further will be sent.</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:timeout">timeout</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when a remoting call times out.</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="Halted"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Halted</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var Halted:Boolean = false</code><p>
+   A flag variable to test whether or not all services have been halted.
+   </p></div>
+<a name="MaxTimeoutsBeforeHault"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MaxTimeoutsBeforeHault</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var MaxTimeoutsBeforeHault:Number = 0</code><p>
+   The maxiumum timeouts that can happen before every service is haulted.
+   </p></div>
+<a name="NumTimeouts"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">NumTimeouts</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var NumTimeouts:int = -1</code><p>
+   The number of timeouts that have occured between any remoting service.
+   </p></div>
+<a name="remotingCache"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">remotingCache</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var remotingCache:<a href="../util/cache/ICacheStore.html">ICacheStore</a></code><p>
+   A Cache instance that caches remoting calls and the responses.
+   </p></div>
+<a name="remotingConnection"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">remotingConnection</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var remotingConnection:<a href="../remoting/RemotingConnection.html">RemotingConnection</a></code><p>
+   The remoting connection instance.
+   </p></div>
+<a name="service"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">service</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var service:String</code><p>
+   The service to make remote calls on.
+   </p></div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="RemotingService()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">RemotingService</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function RemotingService(remotingConnection:<a href="RemotingConnection.html">RemotingConnection</a>, service:String, callTimeout:int, maxRetriesPerCall:int, useLimiter:Boolean = true)</code><p>
+   Constructor for RemotingService instances.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">remotingConnection</span>:<a href="RemotingConnection.html">RemotingConnection</a></code> &mdash; The RemotingConnection calls get made on.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">service</span>:String</code> &mdash; service The service to make calls on the connection to.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">callTimeout</span>:int</code> &mdash; The time one call waits before timeing it out, and retrying.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">maxRetriesPerCall</span>:int</code> &mdash; The number of retries.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">useLimiter</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; Put call limiting in place.
+   
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; If the remoting connection was null.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; If the service path was null.
+   
+   </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../remoting/RemotingConnection.html" target="">com.mccannsf.remoting.RemotingConnection</a>
+</div>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="addEventListener()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addEventListener</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, weakRef:Boolean = false):void</code><p>
+   Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:String</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">listener</span>:Function</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">useCapture</span>:Boolean</code> (default = <code>false</code>)<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">priority</span>:int</code> (default = <code>0</code>)<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">weakRef</span>:Boolean</code> (default = <code>false</code>)<code></code></td>
+</tr>
+</table>
+</div>
+<a name="dispatchEvent()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dispatchEvent</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function dispatchEvent(event:Event):Boolean</code><p>
+   Dispatches an event into the event flow.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">event</span>:Event</code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="hasEventListener()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hasEventListener</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hasEventListener(type:String):Boolean</code><p>
+   Checks whether the RemotingService object has any listeners registered for a specific type of event.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:String</code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="removeEventListener()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removeEventListener</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void</code><p>
+   Remove and event listener.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:String</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">listener</span>:Function</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">useCapture</span>:Boolean</code> (default = <code>false</code>)<code></code></td>
+</tr>
+</table>
+</div>
+<a name="willTrigger()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">willTrigger</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function willTrigger(type:String):Boolean</code><p>
+   Checks whether an event listener is registered with this EventDispatcher object or any of its ancestors for the specified event type.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:String</code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<div class="detailSectionHeader">Event detail</div>
+<a name="event:requestSent"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">requestSent</td><td class="detailHeaderType">event&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="events/CallEvent.html"><code>com.mccannsf.remoting.events.CallEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when a remoting request was sent.
+  
+  </p></div>
+<a name="event:retry"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">retry</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="events/CallEvent.html"><code>com.mccannsf.remoting.events.CallEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when a remoting call retries.
+  
+  </p></div>
+<a name="event:serviceHalted"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">serviceHalted</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="events/CallEvent.html"><code>com.mccannsf.remoting.events.CallEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when RemotingService is halted, and no requests further will be sent.
+  Note that this effects all instances of RemotingService, meaning that no calls from
+  any RemotingService will be made.
+  
+  </p></div>
+<a name="event:timeout"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">timeout</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="events/CallEvent.html"><code>com.mccannsf.remoting.events.CallEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched when a remoting call times out.
+  
+  </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

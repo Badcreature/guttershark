@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../print.css" type="text/css" media="print">
+<meta content="AutoSuggestMatch,com.mccannsf.util.autosuggest.AutoSuggestMatch,highlightedTerm,term,dispose" name="keywords">
+<title>com.mccannsf.util.autosuggest.AutoSuggestMatch</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'AutoSuggestMatch - API Documentation';
+				var baseRef = '../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Mccann Worldgroup Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../index-list.html')" href="../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../index.html?com/mccannsf/util/autosuggest/AutoSuggestMatch.html&amp;com/mccannsf/util/autosuggest/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;AutoSuggestMatch</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class AutoSuggestMatch"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.mccannsf.util.autosuggest</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class AutoSuggestMatch</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Implements</td><td><a href="../../core/IDisposable.html">IDisposable</a></td>
+</tr>
+</table>
+<p></p>
+  The AutoSuggestMatch class represents a matched search term that was found
+  in an AutoSuggest instance.
+  
+  <p>It provide you with the unchanged original term from the auto suggest, as
+  well as a highlighted term that is wrapped in HTML to provide you with a way
+  to do highlighting</p>
+  
+  <p>Consider this example of a "highlightedTerm":</p>
+  
+  <div class='listing'><pre> 
+  &lt;span class='suggestedTerm'&gt;&lt;span class="matchedLetters"&gt;Georg&lt;/span&gt;e Bush&lt;/span&gt;
+  </pre></div>
+  
+  <p>In that example, the original term was "George Bush" and the matched part of the
+  term was "Georg".</p>
+  
+  <p>The highlightedTerm is provided specifically for working with textfields
+  and styles. You can set the style of both the span class's to provide a highlight
+  effect.</p>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#highlightedTerm">highlightedTerm</a> : String<div class="summaryTableDescription">
+   An HTML representation of the term that provides a way to utilize
+   styles on a textfield for highlights.</div>
+</td><td class="summaryTableOwnerCol">AutoSuggestMatch</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#term">term</a> : String<div class="summaryTableDescription">
+   The un-changed full term from the auto suggest searchable terms.</div>
+</td><td class="summaryTableOwnerCol">AutoSuggestMatch</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#AutoSuggestMatch()">AutoSuggestMatch</a>(term:String, highlightedTerm:String)</div>
+<div class="summaryTableDescription">
+   Constructor for AutoSuggestMatch instances.</div>
+</td><td class="summaryTableOwnerCol">AutoSuggestMatch</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#dispose()">dispose</a>():void</div>
+<div class="summaryTableDescription">
+   Dispose of internal objects in memory.</div>
+</td><td class="summaryTableOwnerCol">AutoSuggestMatch</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="highlightedTerm"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">highlightedTerm</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var highlightedTerm:String</code><p>
+   An HTML representation of the term that provides a way to utilize
+   styles on a textfield for highlights.
+   
+   </p><p>Example:</p>
+   <pre><span class='suggestedTerm'><span class="matchedLetters">Georg</span>e Bush</span></pre></p>
+   </div>
+<a name="term"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">term</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var term:String</code><p>
+   The un-changed full term from the auto suggest searchable terms.
+   </p></div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="AutoSuggestMatch()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">AutoSuggestMatch</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function AutoSuggestMatch(term:String, highlightedTerm:String)</code><p>
+   Constructor for AutoSuggestMatch instances.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">term</span>:String</code> &mdash; The un-changed term from the auto suggest search terms.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">highlightedTerm</span>:String</code> &mdash;  An HTML wrapped representation of the term.
+   </td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="dispose()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dispose</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function dispose():void</code><p>
+   Dispose of internal objects in memory.
+   </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

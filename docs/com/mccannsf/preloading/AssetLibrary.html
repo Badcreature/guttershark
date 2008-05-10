@@ -1,0 +1,612 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="AssetLibrary,com.mccannsf.preloading.AssetLibrary,addAsset,dispose,getAsset,getBitmap,getBitmapFromSWFLibrary,getClassFromSWFLibrary,getFontFromSWFLibrary,getMovieClipFromSWFLibrary,getSWF,getSound,getSoundFromSWFLibrary,getSpriteFromSWFLibrary,getXML" name="keywords">
+<title>com.mccannsf.preloading.AssetLibrary</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'AssetLibrary - API Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Mccann Worldgroup Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?com/mccannsf/preloading/AssetLibrary.html&amp;com/mccannsf/preloading/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;AssetLibrary</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class AssetLibrary"); titleBar_setSubNav(false,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.mccannsf.preloading</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class AssetLibrary</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Implements</td><td><a href="../core/IDisposable.html">IDisposable</a></td>
+</tr>
+</table>
+<p></p>
+  The AssetLibrary is primarily used with a PreloadController, as
+  the library in the preload controller that stores loaded Assets.
+  
+  <p>This class can also be used by itself to manage assets.</p>
+  
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../preloading/PreloadController.html" target="">PreloadController class</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#AssetLibrary()">AssetLibrary</a>()</div>
+<div class="summaryTableDescription">
+   Constructor for AssetLibrary instances.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addAsset()">addAsset</a>(libraryName:String, obj:*):void</div>
+<div class="summaryTableDescription">
+   Register an asset in the library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#dispose()">dispose</a>():void</div>
+<div class="summaryTableDescription">
+   Purge all assets from the library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getAsset()">getAsset</a>(libraryName:String):*</div>
+<div class="summaryTableDescription">
+   A generic method to get any asset from the library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getBitmap()">getBitmap</a>(libraryName:String):Bitmap</div>
+<div class="summaryTableDescription">
+   Get a loaded asset as a Bitmap.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getBitmapFromSWFLibrary()">getBitmapFromSWFLibrary</a>(libraryName:String, bitmapLinkageId:String):Bitmap</div>
+<div class="summaryTableDescription">
+   Get a Bitmap from a swf library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getClassFromSWFLibrary()">getClassFromSWFLibrary</a>(libraryName:String, classNameInLibrary:String):Class</div>
+<div class="summaryTableDescription">
+   Get a Class reference from a swf library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getFontFromSWFLibrary()">getFontFromSWFLibrary</a>(libraryName:String, fontLinkageId:String):Font</div>
+<div class="summaryTableDescription">
+   Get an embedded Font from a SWF library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getMovieClipFromSWFLibrary()">getMovieClipFromSWFLibrary</a>(libraryName:String, classNameInLibrary:String):MovieClip</div>
+<div class="summaryTableDescription">
+   Get a movie clip from a swf library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getSound()">getSound</a>(libraryName:String):Sound</div>
+<div class="summaryTableDescription">
+   Get a Sound asset.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getSoundFromSWFLibrary()">getSoundFromSWFLibrary</a>(libraryName:String, soundLinkageId:String):Sound</div>
+<div class="summaryTableDescription">
+   Get a Sound from a swf library
+   
+   </div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getSpriteFromSWFLibrary()">getSpriteFromSWFLibrary</a>(libraryName:String, classNameInLibrary:String):Sprite</div>
+<div class="summaryTableDescription">
+   Get a sprite from a swf library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getSWF()">getSWF</a>(libraryName:String):Loader</div>
+<div class="summaryTableDescription">
+   Get a SWF asset from the library.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getXML()">getXML</a>(libraryName:String):XML</div>
+<div class="summaryTableDescription">
+   Get an XML asset.</div>
+</td><td class="summaryTableOwnerCol">AssetLibrary</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="AssetLibrary()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">AssetLibrary</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function AssetLibrary()</code><p>
+   Constructor for AssetLibrary instances.
+   </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="addAsset()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addAsset</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addAsset(libraryName:String, obj:*):void</code><p>
+   Register an asset in the library.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;  The item id.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:*</code> &mdash;    The loaded asset object.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; If libraryName is null.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; If obj is null.
+   </td>
+</tr>
+</table>
+</div>
+<a name="dispose()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dispose</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function dispose():void</code><p>
+   Purge all assets from the library.
+   </p></div>
+<a name="getAsset()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getAsset</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getAsset(libraryName:String):*</code><p>
+   A generic method to get any asset from the library.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;  The library name used when the asset was registered.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>*</code> &mdash;    The asset is returned un-typed.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; If the inZipLibrary specified was not a zip registered in the library.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; If the asset was not registered in the library.
+   </td>
+</tr>
+</table>
+</div>
+<a name="getBitmap()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getBitmap</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getBitmap(libraryName:String):Bitmap</code><p>
+   Get a loaded asset as a Bitmap.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;  The library name used when the asset was registered.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Bitmap</code> &mdash; Bitmap   returns a flash.display.Bitmap asset.
+   </td>
+</tr>
+</table>
+</div>
+<a name="getBitmapFromSWFLibrary()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getBitmapFromSWFLibrary</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getBitmapFromSWFLibrary(libraryName:String, bitmapLinkageId:String):Bitmap</code><p>
+   Get a Bitmap from a swf library.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;  The library name used when the asset was registered.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">bitmapLinkageId</span>:String</code> &mdash;  The bitmaps linkage Id.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Bitmap</code> &mdash;  Bitmap Returns a Font instance.
+   </td>
+</tr>
+</table>
+</div>
+<a name="getClassFromSWFLibrary()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getClassFromSWFLibrary</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getClassFromSWFLibrary(libraryName:String, classNameInLibrary:String):Class</code><p>
+   Get a Class reference from a swf library.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;   The library name used when the asset was registered.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">classNameInLibrary</span>:String</code> &mdash; The class name in the loaded swf's library.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Class</code> &mdash;  MovieClip   Returns the asset as a MovieClip
+   </td>
+</tr>
+</table>
+</div>
+<a name="getFontFromSWFLibrary()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getFontFromSWFLibrary</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getFontFromSWFLibrary(libraryName:String, fontLinkageId:String):Font</code><p>
+   Get an embedded Font from a SWF library. The Font is also registered
+   through Font.registerFont before it's returned.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash; The library name used when the asset was registered.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">fontLinkageId</span>:String</code> &mdash; The font linkage id.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Font</code> &mdash;  Font Returns a Font instance.
+   </td>
+</tr>
+</table>
+</div>
+<a name="getMovieClipFromSWFLibrary()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getMovieClipFromSWFLibrary</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getMovieClipFromSWFLibrary(libraryName:String, classNameInLibrary:String):MovieClip</code><p>
+   Get a movie clip from a swf library.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;   The library name used when the asset was registered.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">classNameInLibrary</span>:String</code> &mdash; The class name in the loaded swf's library.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>MovieClip</code> &mdash;  MovieClip   Returns the asset as a MovieClip
+   </td>
+</tr>
+</table>
+</div>
+<a name="getSound()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getSound</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getSound(libraryName:String):Sound</code><p>
+   Get a Sound asset.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;  The library name used when the asset was registered.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Sound</code> &mdash; Sound returns a flash.media.Sound instance.
+   </td>
+</tr>
+</table>
+</div>
+<a name="getSoundFromSWFLibrary()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getSoundFromSWFLibrary</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getSoundFromSWFLibrary(libraryName:String, soundLinkageId:String):Sound</code><p>
+   Get a Sound from a swf library
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;  The library name used when the asset was registered.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">soundLinkageId</span>:String</code> &mdash; The sounds linkage id from the library.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Sound</code> &mdash;  Sound Returns a Sound instance.
+   </td>
+</tr>
+</table>
+</div>
+<a name="getSpriteFromSWFLibrary()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getSpriteFromSWFLibrary</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getSpriteFromSWFLibrary(libraryName:String, classNameInLibrary:String):Sprite</code><p>
+   Get a sprite from a swf library.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;  The library name used when the asset was registered.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">classNameInLibrary</span>:String</code> &mdash;  The class name in the loaded swf's library.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Sprite</code> &mdash; Sprite  Returns the asset as a MovieClip
+   </td>
+</tr>
+</table>
+</div>
+<a name="getSWF()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getSWF</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getSWF(libraryName:String):Loader</code><p>
+   Get a SWF asset from the library.
+   
+   </p><p>The asset is cast as a Loader class</p>
+   
+   <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash;  The library name used when the asset was registered.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Loader</code> &mdash; Loader   Returns the asset as a Loader.
+   </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">Loader class</div>
+</div>
+<a name="getXML()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getXML</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getXML(libraryName:String):XML</code><p>
+   Get an XML asset.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">libraryName</span>:String</code> &mdash; The library name used when the asset was registered.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>XML</code> &mdash; XML returns the XML instance.
+   </td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

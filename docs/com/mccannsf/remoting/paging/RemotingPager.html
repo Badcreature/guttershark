@@ -1,0 +1,574 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../print.css" type="text/css" media="print">
+<meta content="RemotingPager,com.mccannsf.remoting.paging.RemotingPager,fillBufferWhenLocalPagesAvailableLessThan,pageBuffer,pageSize,totalLocalPages,totalLocalRecords,totalPagesOnServer,totalRecordsOnServer,data,getPage,hasNext,hasPage,next,releaseAll,seek,sendForPage,start" name="keywords">
+<title>com.mccannsf.remoting.paging.RemotingPager</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'RemotingPager - API Documentation';
+				var baseRef = '../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Mccann Worldgroup Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../index-list.html')" href="../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../index.html?com/mccannsf/remoting/paging/RemotingPager.html&amp;com/mccannsf/remoting/paging/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;RemotingPager</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class RemotingPager"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.mccannsf.remoting.paging</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class RemotingPager</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">RemotingPager <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../images/inherit-arrow.gif"> flash.events.EventDispatcher</td>
+</tr>
+</table>
+<p></p>
+  A generic remoting pager.
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#data">data</a> : *<div class="summaryTableDescription">[read-only]
+   Returns all the records that have been
+   retrieved and stored locally, this is the array
+   that all records live in.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#fillBufferWhenLocalPagesAvailableLessThan">fillBufferWhenLocalPagesAvailableLessThan</a> : Number = 2<div class="summaryTableDescription">
+   This can be used to have the pager fill the buffer
+   when less than x amount of local pages are available.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#pageBuffer">pageBuffer</a> : int = 2<div class="summaryTableDescription">
+   The minimum amount of pages locally before calling 
+   to get more pages.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#pageSize">pageSize</a> : int<div class="summaryTableDescription">
+   The page size.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#totalLocalPages">totalLocalPages</a> : Number<div class="summaryTableDescription">
+   The total local pages that have been retrieved from the server already.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#totalLocalRecords">totalLocalRecords</a> : Number<div class="summaryTableDescription">
+   The total local records available
+   </div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#totalPagesOnServer">totalPagesOnServer</a> : Number<div class="summaryTableDescription">
+   Total pages on the server.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#totalRecordsOnServer">totalRecordsOnServer</a> : Number<div class="summaryTableDescription">
+   Total records on the server.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#RemotingPager()">RemotingPager</a>(service:<a href="../RemotingService.html">RemotingService</a>, methodToCall:String, responderClass:Class, args:Array, initialData:Array, totalRecordsOnServer:Number, pageSize:Number, pageBuffer:int = 1, fillBufferWhenLocalPagesLeft:int = 1)</div>
+<div class="summaryTableDescription">
+   Creates a new Remoting Pager.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getPage()">getPage</a>(pageIndex:int):*</div>
+<div class="summaryTableDescription">
+   Get a LOCAL page at certain index.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hasNext()">hasNext</a>():Boolean</div>
+<div class="summaryTableDescription">
+   Test if there is an available page.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#hasPage()">hasPage</a>(pageIndex:int):Boolean</div>
+<div class="summaryTableDescription">
+   Test to see if the specified page is available.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#next()">next</a>():*</div>
+<div class="summaryTableDescription">
+   Get's the next page, and triggers page
+   buffering if in place.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#releaseAll()">releaseAll</a>():void</div>
+<div class="summaryTableDescription">
+   Retrieves all pages from the server.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#seek()">seek</a>(pageIndex:int):void</div>
+<div class="summaryTableDescription">
+   Seek's the cursor to whichever page you supply.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#sendForPage()">sendForPage</a>(pageIndex:int):void</div>
+<div class="summaryTableDescription">
+   Initiates remoting calls to get all data up to and
+   including the specified page.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#start()">start</a>():void</div>
+<div class="summaryTableDescription">
+   Resets the page cursor.</div>
+</td><td class="summaryTableOwnerCol">RemotingPager</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="data"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">data</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>data:*</code>&nbsp;&nbsp;[read-only]<p>
+   Returns all the records that have been
+   retrieved and stored locally, this is the array
+   that all records live in.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get data():*</code>
+<br>
+</div>
+<a name="fillBufferWhenLocalPagesAvailableLessThan"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">fillBufferWhenLocalPagesAvailableLessThan</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var fillBufferWhenLocalPagesAvailableLessThan:Number = 2</code><p>
+   This can be used to have the pager fill the buffer
+   when less than x amount of local pages are available.
+   </p></div>
+<a name="pageBuffer"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">pageBuffer</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var pageBuffer:int = 2</code><p>
+   The minimum amount of pages locally before calling 
+   to get more pages.
+   </p></div>
+<a name="pageSize"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">pageSize</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var pageSize:int</code><p>
+   The page size.
+   </p></div>
+<a name="totalLocalPages"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">totalLocalPages</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var totalLocalPages:Number</code><p>
+   The total local pages that have been retrieved from the server already.
+   </p></div>
+<a name="totalLocalRecords"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">totalLocalRecords</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var totalLocalRecords:Number</code><p>
+   The total local records available
+   </p></div>
+<a name="totalPagesOnServer"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">totalPagesOnServer</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var totalPagesOnServer:Number</code><p>
+   Total pages on the server.
+   </p></div>
+<a name="totalRecordsOnServer"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">totalRecordsOnServer</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var totalRecordsOnServer:Number</code><p>
+   Total records on the server.
+   </p></div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="RemotingPager()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">RemotingPager</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function RemotingPager(service:<a href="../RemotingService.html">RemotingService</a>, methodToCall:String, responderClass:Class, args:Array, initialData:Array, totalRecordsOnServer:Number, pageSize:Number, pageBuffer:int = 1, fillBufferWhenLocalPagesLeft:int = 1)</code><p>
+   Creates a new Remoting Pager. You should have already intialized a RemotingService, and called
+   the initial data request, meaning you have the first page already (0 - pageSize). It is 
+   required to make a new pager.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">service</span>:<a href="../RemotingService.html">RemotingService</a></code> &mdash; RemotingService  The service that was used to get the initial data.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">methodToCall</span>:String</code> &mdash; String    The method that was called initially.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">responderClass</span>:Class</code> &mdash; Class    A PageResponder (or subclass), there is a base PageResponder you can use, 
+   this is done so you can change what property of the resulting data structure get's stored in the paging mechanism..
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">args</span>:Array</code> &mdash; Array    The arguments sent to the original service call. Don't put any offsets or page size info on the end of the array. 
+   The offset, and pagesize get appended to the arguments ent to the remoting service.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">initialData</span>:Array</code> &mdash; Array    The initial data from the very first service call.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">totalRecordsOnServer</span>:Number</code> &mdash; Number    The total records on the server.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">pageSize</span>:Number</code> &mdash; int     The page size.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">pageBuffer</span>:int</code> (default = <code>1</code>)<code></code> &mdash; int     The number of pages to grab from the server when a buffer fill happens.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">fillBufferWhenLocalPagesLeft</span>:int</code> (default = <code>1</code>)<code></code> &mdash; int     The number of remaining locla pages available before a buffer is filled.
+   
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash;  ArgumentError
+   </td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="getPage()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getPage</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getPage(pageIndex:int):*</code><p>
+   Get a LOCAL page at certain index. An error is thrown if
+   it is not available. Index's start at 1.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">pageIndex</span>:int</code> &mdash; int   The page index (starts at 1).
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>*</code></td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; PageError Thrown when a page doesn't exist locally.
+   </td>
+</tr>
+</table>
+</div>
+<a name="hasNext()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hasNext</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hasNext():Boolean</code><p>
+   Test if there is an available page.
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code> &mdash;  Boolean
+   </td>
+</tr>
+</table>
+</div>
+<a name="hasPage()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hasPage</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function hasPage(pageIndex:int):Boolean</code><p>
+   Test to see if the specified page is available.
+   Index's start at 1.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">pageIndex</span>:int</code> &mdash; int   The page index.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code> &mdash;  Boolean
+   </td>
+</tr>
+</table>
+</div>
+<a name="next()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">next</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function next():*</code><p>
+   Get's the next page, and triggers page
+   buffering if in place.
+   
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>*</code></td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash;  PageError
+   </td>
+</tr>
+</table>
+</div>
+<a name="releaseAll()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">releaseAll</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function releaseAll():void</code><p>
+   Retrieves all pages from the server. A PageEvent.RECEIVED
+   event is dispatched after ALL are available.
+   
+   </p></div>
+<a name="seek()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">seek</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function seek(pageIndex:int):void</code><p>
+   Seek's the cursor to whichever page you supply. 
+   Use this if you need to go backwards in the paging.
+   
+   Index's start at 1, so if you want to seek to the
+   beginning, supply 1 as the index.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">pageIndex</span>:int</code> &mdash; int   The page index to seek to. (start at 1).
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; PageError
+   </td>
+</tr>
+</table>
+</div>
+<a name="sendForPage()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">sendForPage</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function sendForPage(pageIndex:int):void</code><p>
+   Initiates remoting calls to get all data up to and
+   including the specified page.
+   
+   Note that you can't get pages ahead of what is available
+   without it getting all the middle pages. So if you have
+   4 local pages, and you want page 7, pages 5,6, and 7 will
+   be retrieved.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">pageIndex</span>:int</code> &mdash; int   The page to get from the server. Index's start at 1.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; PageError Thrown when the server doesn't have that many pages.
+   </td>
+</tr>
+</table>
+</div>
+<a name="start()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">start</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function start():void</code><p>
+   Resets the page cursor.
+   </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

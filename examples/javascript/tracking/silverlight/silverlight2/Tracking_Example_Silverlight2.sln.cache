@@ -1,0 +1,284 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" InitialTargets="ValidateSolutionConfiguration;ValidateToolsVersions" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_SolutionProjectConfiguration>Debug|Mixed Platforms</_SolutionProjectConfiguration>
+    <_SolutionProjectToolsVersion>3.5</_SolutionProjectToolsVersion>
+    <_SolutionProjectCacheVersion>3.5</_SolutionProjectCacheVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <_SolutionProjectProjects Include="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == '.NET') ">
+    <SkipLevel0 Include="Tracking_Example_Silverlight2" />
+  </ItemGroup>
+  <ItemGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+    <BuildLevel0 Include="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel0>
+  </ItemGroup>
+  <ItemGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') ">
+    <BuildLevel0 Include="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel0>
+  </ItemGroup>
+  <ItemGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == '.NET') ">
+    <SkipLevel0 Include="Tracking_Example_Silverlight2" />
+  </ItemGroup>
+  <ItemGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
+    <BuildLevel0 Include="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel0>
+  </ItemGroup>
+  <ItemGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') ">
+    <BuildLevel0 Include="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel0>
+  </ItemGroup>
+  <UsingTask TaskName="Microsoft.Build.Tasks.CreateTemporaryVCProject" AssemblyName="Microsoft.Build.Tasks.v3.5, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <UsingTask TaskName="Microsoft.Build.Tasks.ResolveVCProjectOutput" AssemblyName="Microsoft.Build.Tasks.v3.5, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <PropertyGroup Condition=" '$(Configuration)' == '' ">
+    <Configuration>Debug</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == '' ">
+    <Platform>Mixed Platforms</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(AspNetConfiguration)' == '') ">
+    <AspNetConfiguration>$(Configuration)</AspNetConfiguration>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SolutionDir>C:\Projects\Tracking_Example_Silverlight2\</SolutionDir>
+    <SolutionExt>.sln</SolutionExt>
+    <SolutionFileName>Tracking_Example_Silverlight2.sln</SolutionFileName>
+    <SolutionName>Tracking_Example_Silverlight2</SolutionName>
+    <SolutionPath>C:\Projects\Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.sln</SolutionPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '2.0'">v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' != '2.0'">v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == '.NET') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+        <ProjectConfiguration Project="{F304C1DB-2683-4082-9C78-1009C4D5C93D}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{71779745-F65F-4B66-86C2-BEBC6A45698C}">Debug|.NET</ProjectConfiguration>
+      </SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+        <ProjectConfiguration Project="{F304C1DB-2683-4082-9C78-1009C4D5C93D}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{71779745-F65F-4B66-86C2-BEBC6A45698C}">Debug|.NET</ProjectConfiguration>
+      </SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+        <ProjectConfiguration Project="{F304C1DB-2683-4082-9C78-1009C4D5C93D}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{71779745-F65F-4B66-86C2-BEBC6A45698C}">Debug|.NET</ProjectConfiguration>
+      </SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == '.NET') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+        <ProjectConfiguration Project="{F304C1DB-2683-4082-9C78-1009C4D5C93D}">Release|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{71779745-F65F-4B66-86C2-BEBC6A45698C}">Debug|.NET</ProjectConfiguration>
+      </SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+        <ProjectConfiguration Project="{F304C1DB-2683-4082-9C78-1009C4D5C93D}">Release|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{71779745-F65F-4B66-86C2-BEBC6A45698C}">Debug|.NET</ProjectConfiguration>
+      </SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+        <ProjectConfiguration Project="{F304C1DB-2683-4082-9C78-1009C4D5C93D}">Release|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{71779745-F65F-4B66-86C2-BEBC6A45698C}">Debug|.NET</ProjectConfiguration>
+      </SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(AspNetConfiguration)' == 'Debug' ">
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetVirtualPath>/Tracking_Example_Silverlight2_Web</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetVirtualPath>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath>Tracking_Example_Silverlight2_Web\</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath>PrecompiledWeb\Tracking_Example_Silverlight2_Web\</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetForce>true</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetForce>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetUpdateable>true</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetUpdateable>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDebug>True</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDebug>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyFile>
+    </Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyFile>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyContainer>
+    </Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyContainer>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDelaySign>
+    </Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDelaySign>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetAPTCA>
+    </Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetAPTCA>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetFixedNames>false</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetFixedNames>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath Condition=" '$(OutDir)' != '' ">$(OutDir)_PublishedWebsites\Tracking_Example_Silverlight2_Web\</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(AspNetConfiguration)' == 'Release' ">
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetVirtualPath>/Tracking_Example_Silverlight2_Web</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetVirtualPath>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath>Tracking_Example_Silverlight2_Web\</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath>PrecompiledWeb\Tracking_Example_Silverlight2_Web\</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetForce>true</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetForce>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetUpdateable>true</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetUpdateable>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDebug>False</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDebug>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyFile>
+    </Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyFile>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyContainer>
+    </Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyContainer>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDelaySign>
+    </Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDelaySign>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetAPTCA>
+    </Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetAPTCA>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetFixedNames>false</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetFixedNames>
+    <Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath Condition=" '$(OutDir)' != '' ">$(OutDir)_PublishedWebsites\Tracking_Example_Silverlight2_Web\</Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath>
+  </PropertyGroup>
+  <Target Name="ValidateSolutionConfiguration">
+    <Error Text="The specified solution configuration &quot;$(Configuration)|$(Platform)&quot; is invalid. Please specify a valid solution configuration using the Configuration and Platform properties (e.g. MSBuild.exe Solution.sln /p:Configuration=Debug /p:Platform=&quot;Any CPU&quot;) or leave those properties blank to use the default solution configuration." Code="MSB4126" HelpKeyword="MSBuild.SolutionInvalidSolutionConfiguration" Condition="('$(CurrentSolutionConfigurationContents)' == '') and ('$(SkipInvalidConfigurations)' != 'true')" />
+    <Warning Text="The specified solution configuration &quot;$(Configuration)|$(Platform)&quot; is invalid. Please specify a valid solution configuration using the Configuration and Platform properties (e.g. MSBuild.exe Solution.sln /p:Configuration=Debug /p:Platform=&quot;Any CPU&quot;) or leave those properties blank to use the default solution configuration." Code="MSB4126" HelpKeyword="MSBuild.SolutionInvalidSolutionConfiguration" Condition="('$(CurrentSolutionConfigurationContents)' == '') and ('$(SkipInvalidConfigurations)' == 'true')" />
+    <Message Text="Building solution configuration &quot;$(Configuration)|$(Platform)&quot;." Condition="'$(CurrentSolutionConfigurationContents)' != ''" />
+  </Target>
+  <Target Name="ValidateToolsVersions">
+    <Error Text="The tools version &quot;$(MSBuildToolsVersion)&quot; of the solution does not support building projects with a different tools version." Code="MSB4149" HelpKeyword="MSBuild.SolutionToolsVersionDoesNotSupportProjectToolsVersion" Condition="'$(MSBuildToolsVersion)' == '2.0' and ('$(ProjectToolsVersion)' != '2.0' and '$(ProjectToolsVersion)' != '')" />
+  </Target>
+  <Target Name="Tracking_Example_Silverlight2" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Tracking_Example_Silverlight2BuildOutput)">
+    <Message Text="The project &quot;Tracking_Example_Silverlight2&quot; is not selected for building in solution configuration &quot;Debug|.NET&quot;." Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == '.NET') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tracking_Example_Silverlight2BuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tracking_Example_Silverlight2BuildOutput" />
+    </MSBuild>
+    <Message Text="The project &quot;Tracking_Example_Silverlight2&quot; is not selected for building in solution configuration &quot;Release|.NET&quot;." Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == '.NET') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tracking_Example_Silverlight2BuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tracking_Example_Silverlight2BuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Tracking_Example_Silverlight2:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <Message Text="The project &quot;Tracking_Example_Silverlight2&quot; is not selected for building in solution configuration &quot;Debug|.NET&quot;." Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == '.NET') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') " />
+    <Message Text="The project &quot;Tracking_Example_Silverlight2&quot; is not selected for building in solution configuration &quot;Release|.NET&quot;." Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == '.NET') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Clean" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Clean" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') " />
+  </Target>
+  <Target Name="Tracking_Example_Silverlight2:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Tracking_Example_Silverlight2BuildOutput)">
+    <Message Text="The project &quot;Tracking_Example_Silverlight2&quot; is not selected for building in solution configuration &quot;Debug|.NET&quot;." Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == '.NET') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tracking_Example_Silverlight2BuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tracking_Example_Silverlight2BuildOutput" />
+    </MSBuild>
+    <Message Text="The project &quot;Tracking_Example_Silverlight2&quot; is not selected for building in solution configuration &quot;Release|.NET&quot;." Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == '.NET') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Rebuild" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tracking_Example_Silverlight2BuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Rebuild" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tracking_Example_Silverlight2BuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Tracking_Example_Silverlight2:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <Message Text="The project &quot;Tracking_Example_Silverlight2&quot; is not selected for building in solution configuration &quot;Debug|.NET&quot;." Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == '.NET') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') " />
+    <Message Text="The project &quot;Tracking_Example_Silverlight2&quot; is not selected for building in solution configuration &quot;Release|.NET&quot;." Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == '.NET') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Publish" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tracking_Example_Silverlight2\Tracking_Example_Silverlight2.csproj" Targets="Publish" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') " />
+  </Target>
+  <Target Name="GetFrameworkPathAndRedistList">
+    <GetFrameworkPath>
+      <Output TaskParameter="Path" ItemName="_CombinedTargetFrameworkDirectoriesItem" Condition="'$(MSBuildToolsVersion)' == '2.0'" />
+      <Output TaskParameter="FrameworkVersion35Path" ItemName="_CombinedTargetFrameworkDirectoriesItem" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' and '$(MSBuildToolsVersion)' != '2.0'" />
+      <Output TaskParameter="FrameworkVersion30Path" ItemName="_CombinedTargetFrameworkDirectoriesItem" Condition=" ('$(TargetFrameworkVersion)' == 'v3.0' or '$(TargetFrameworkVersion)' == 'v3.5') and '$(MSBuildToolsVersion)' != '2.0'" />
+      <Output TaskParameter="FrameworkVersion20Path" ItemName="_CombinedTargetFrameworkDirectoriesItem" Condition=" ('$(TargetFrameworkVersion)' == 'v2.0' or '$(TargetFrameworkVersion)' == 'v3.0' or '$(TargetFrameworkVersion)' == 'v3.5') and '$(MSBuildToolsVersion)' != '2.0'" />
+    </GetFrameworkPath>
+    <CreateItem Include="@(_CombinedTargetFrameworkDirectoriesItem->'%(Identity)\RedistList\*.xml')">
+      <Output TaskParameter="Include" ItemName="InstalledAssemblyTables" />
+    </CreateItem>
+  </Target>
+  <Target Name="Tracking_Example_Silverlight2_Web" DependsOnTargets=";GetFrameworkPathAndRedistList" Condition=" ('$(CurrentSolutionConfigurationContents)' != '') and (false or ( ('$(Configuration)' == 'Debug') and ('$(Platform)' == '.NET') ) or ( ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') ) or ( ('$(Configuration)' == 'Release') and ('$(Platform)' == '.NET') ) or ( ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') )) ">
+    <CreateItem Include="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)\Bin\*.refresh">
+      <Output TaskParameter="Include" ItemName="Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_RefreshFile" />
+    </CreateItem>
+    <ReadLinesFromFile File="%(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_RefreshFile.Identity)" Condition=" '%(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_RefreshFile.Identity)' != '' ">
+      <Output TaskParameter="Lines" ItemName="Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_ReferenceRelPath" />
+    </ReadLinesFromFile>
+    <CombinePath BasePath="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)" Paths="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_ReferenceRelPath)">
+      <Output TaskParameter="CombinedPaths" ItemName="Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References" />
+    </CombinePath>
+    <Copy SourceFiles="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References->'%(FullPath)')" DestinationFolder="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)\Bin\" Condition="!Exists('%(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References.Identity)')" ContinueOnError="true" />
+    <ResolveAssemblyReference Assemblies="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References->'%(FullPath)')" TargetFrameworkDirectories="@(_CombinedTargetFrameworkDirectoriesItem)" InstalledAssemblyTables="@(InstalledAssemblyTables)" SearchPaths="{RawFileName};{TargetFrameworkDirectory};{GAC}" FindDependencies="true" FindSatellites="true" FindSerializationAssemblies="true" FindRelatedFiles="true" Condition="Exists('%(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References.Identity)')">
+      <Output TaskParameter="CopyLocalFiles" ItemName="Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_CopyLocalFiles" />
+    </ResolveAssemblyReference>
+    <Copy SourceFiles="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_CopyLocalFiles)" DestinationFiles="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_CopyLocalFiles->'$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)\Bin\%(DestinationSubDirectory)%(Filename)%(Extension)')" Condition="(false) or ('$(AspNetConfiguration)' == 'Debug') or ('$(AspNetConfiguration)' == 'Release')" />
+    <AspNetCompiler VirtualPath="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetVirtualPath)" PhysicalPath="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)" TargetPath="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath)" Force="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetForce)" Updateable="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetUpdateable)" Debug="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDebug)" KeyFile="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyFile)" KeyContainer="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyContainer)" DelaySign="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDelaySign)" AllowPartiallyTrustedCallers="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetAPTCA)" FixedNames="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetFixedNames)" Condition="(false) or ('$(AspNetConfiguration)' == 'Debug') or ('$(AspNetConfiguration)' == 'Release')" />
+    <Message Text="Skipping because the &quot;$(AspNetConfiguration)&quot; configuration is not supported for this web project.  You can use the AspNetConfiguration property to override the configuration used for building web projects, by adding /p:AspNetConfiguration=&lt;value&gt; to the command line. Currently web projects only support Debug and Release configurations." Condition="!((false) or ('$(AspNetConfiguration)' == 'Debug') or ('$(AspNetConfiguration)' == 'Release'))" />
+  </Target>
+  <Target Name="Tracking_Example_Silverlight2_Web:Clean" DependsOnTargets=";GetFrameworkPathAndRedistList">
+    <Message Text="Web projects do not support the &quot;Clean&quot; target.  Continuing with remaining projects ..." />
+  </Target>
+  <Target Name="Tracking_Example_Silverlight2_Web:Rebuild" DependsOnTargets=";GetFrameworkPathAndRedistList" Condition=" ('$(CurrentSolutionConfigurationContents)' != '') and (false or ( ('$(Configuration)' == 'Debug') and ('$(Platform)' == '.NET') ) or ( ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Mixed Platforms') ) or ( ('$(Configuration)' == 'Release') and ('$(Platform)' == '.NET') ) or ( ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Mixed Platforms') )) ">
+    <CreateItem Include="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)\Bin\*.refresh">
+      <Output TaskParameter="Include" ItemName="Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild_RefreshFile" />
+    </CreateItem>
+    <ReadLinesFromFile File="%(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild_RefreshFile.Identity)" Condition=" '%(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild_RefreshFile.Identity)' != '' ">
+      <Output TaskParameter="Lines" ItemName="Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild_ReferenceRelPath" />
+    </ReadLinesFromFile>
+    <CombinePath BasePath="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)" Paths="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild_ReferenceRelPath)">
+      <Output TaskParameter="CombinedPaths" ItemName="Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild" />
+    </CombinePath>
+    <Copy SourceFiles="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild->'%(FullPath)')" DestinationFolder="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)\Bin\" Condition="!Exists('%(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild.Identity)')" ContinueOnError="true" />
+    <ResolveAssemblyReference Assemblies="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild->'%(FullPath)')" TargetFrameworkDirectories="@(_CombinedTargetFrameworkDirectoriesItem)" InstalledAssemblyTables="@(InstalledAssemblyTables)" SearchPaths="{RawFileName};{TargetFrameworkDirectory};{GAC}" FindDependencies="true" FindSatellites="true" FindSerializationAssemblies="true" FindRelatedFiles="true" Condition="Exists('%(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild.Identity)')">
+      <Output TaskParameter="CopyLocalFiles" ItemName="Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild_CopyLocalFiles" />
+    </ResolveAssemblyReference>
+    <Copy SourceFiles="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild_CopyLocalFiles)" DestinationFiles="@(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_References_Rebuild_CopyLocalFiles->'$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)\Bin\%(DestinationSubDirectory)%(Filename)%(Extension)')" Condition="(false) or ('$(AspNetConfiguration)' == 'Debug') or ('$(AspNetConfiguration)' == 'Release')" />
+    <AspNetCompiler VirtualPath="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetVirtualPath)" PhysicalPath="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetPhysicalPath)" TargetPath="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetTargetPath)" Force="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetForce)" Updateable="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetUpdateable)" Debug="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDebug)" KeyFile="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyFile)" KeyContainer="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetKeyContainer)" DelaySign="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetDelaySign)" AllowPartiallyTrustedCallers="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetAPTCA)" FixedNames="$(Project_71779745-F65F-4B66-86C2-BEBC6A45698C_AspNetFixedNames)" Condition="(false) or ('$(AspNetConfiguration)' == 'Debug') or ('$(AspNetConfiguration)' == 'Release')" />
+    <Message Text="Skipping because the &quot;$(AspNetConfiguration)&quot; configuration is not supported for this web project.  You can use the AspNetConfiguration property to override the configuration used for building web projects, by adding /p:AspNetConfiguration=&lt;value&gt; to the command line. Currently web projects only support Debug and Release configurations." Condition="!((false) or ('$(AspNetConfiguration)' == 'Debug') or ('$(AspNetConfiguration)' == 'Release'))" />
+  </Target>
+  <Target Name="Tracking_Example_Silverlight2_Web:Publish" DependsOnTargets=";GetFrameworkPathAndRedistList">
+    <Message Text="Web projects do not support the &quot;Publish&quot; target.  Continuing with remaining projects ..." />
+  </Target>
+  <Target Name="Build" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(CollectedBuildOutput)">
+    <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="The project &quot;%(SkipLevel0.Identity)&quot; is not selected for building in solution configuration &quot;$(Configuration)|$(Platform)&quot;." Condition="@(SkipLevel0) != ''" />
+    <Warning Text="The project configuration for project &quot;%(MissingConfigLevel0.Identity)&quot; was not specified in the solution file for the solution configuration &quot;$(Configuration)|$(Platform)&quot;." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
+    <CallTarget Targets="Tracking_Example_Silverlight2_Web" RunEachTargetSeparately="true" />
+  </Target>
+  <Target Name="Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Clean" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="The project &quot;%(SkipLevel0.Identity)&quot; is not selected for building in solution configuration &quot;$(Configuration)|$(Platform)&quot;." Condition="@(SkipLevel0) != ''" />
+    <Warning Text="The project configuration for project &quot;%(MissingConfigLevel0.Identity)&quot; was not specified in the solution file for the solution configuration &quot;$(Configuration)|$(Platform)&quot;." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
+    <CallTarget Targets="Tracking_Example_Silverlight2_Web:Clean" RunEachTargetSeparately="true" />
+    <Delete Files="Tracking_Example_Silverlight2.sln.cache" />
+  </Target>
+  <Target Name="Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(CollectedBuildOutput)">
+    <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Rebuild" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="The project &quot;%(SkipLevel0.Identity)&quot; is not selected for building in solution configuration &quot;$(Configuration)|$(Platform)&quot;." Condition="@(SkipLevel0) != ''" />
+    <Warning Text="The project configuration for project &quot;%(MissingConfigLevel0.Identity)&quot; was not specified in the solution file for the solution configuration &quot;$(Configuration)|$(Platform)&quot;." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
+    <CallTarget Targets="Tracking_Example_Silverlight2_Web:Rebuild" RunEachTargetSeparately="true" />
+  </Target>
+  <Target Name="Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Publish" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="The project &quot;%(SkipLevel0.Identity)&quot; is not selected for building in solution configuration &quot;$(Configuration)|$(Platform)&quot;." Condition="@(SkipLevel0) != ''" />
+    <Warning Text="The project configuration for project &quot;%(MissingConfigLevel0.Identity)&quot; was not specified in the solution file for the solution configuration &quot;$(Configuration)|$(Platform)&quot;." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
+    <CallTarget Targets="Tracking_Example_Silverlight2_Web:Publish" RunEachTargetSeparately="true" />
+  </Target>
+</Project>

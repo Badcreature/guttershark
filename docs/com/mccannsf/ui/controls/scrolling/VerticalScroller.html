@@ -1,0 +1,459 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../print.css" type="text/css" media="print">
+<meta content="VerticalScroller,com.mccannsf.ui.controls.scrolling.VerticalScroller,_contentContainer,_contentMask,_down,_handle,_track,_up,hideIfNotScrollable,jumpAmount,jumpRatio,tweenTimeOnJump,contentContainer,contentMask,handle,scrollDownButton,scrollUpButton,track,scroll,updateScrollable" name="keywords">
+<title>com.mccannsf.ui.controls.scrolling.VerticalScroller</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'VerticalScroller - API Documentation';
+				var baseRef = '../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Mccann Worldgroup Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../index-list.html')" href="../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../index.html?com/mccannsf/ui/controls/scrolling/VerticalScroller.html&amp;com/mccannsf/ui/controls/scrolling/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;VerticalScroller</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class VerticalScroller"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.mccannsf.ui.controls.scrolling</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class VerticalScroller</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">VerticalScroller <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../images/inherit-arrow.gif"> flash.display.MovieClip</td>
+</tr>
+</table>
+<p></p>
+  A generic vertical scroll utility. No visual aspect is 
+  taken care of with this component,
+  EXCEPT setting the mask over the content container, other
+  than that it's up to you, and the component just handles
+  calculating scrolling based off the pieces you give it.
+  
+  EX Usage:
+  <code><pre>
+  var scroll:VerticalScroller = new VerticalScroller();
+  scroll.contentContainer = myContentClip;
+  scroll.contentMask = myMaskingClip;
+  scroll.handle = myHandleClip;
+  scroll.track = myTrackClip;
+  scroll.scrollUpButton = byButton;
+  scroll.scrollDownButton = byOtherButton;
+  </pre></code>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#contentContainer">contentContainer</a> : MovieClip<div class="summaryTableDescription">[write-only]
+   Set this scroll components content containing movie clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#contentMask">contentMask</a> : MovieClip<div class="summaryTableDescription">[write-only]
+   Set this scroll components content masking movie clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#handle">handle</a> : MovieClip<div class="summaryTableDescription">[write-only]
+   Set this scroll components handle movie clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#hideIfNotScrollable">hideIfNotScrollable</a> : Boolean = true<div class="summaryTableDescription">
+   If true, and the contentMask is taller than
+   the contentContainer, then all of the pieces 
+   in the scroller are hidden.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#jumpAmount">jumpAmount</a> : Number<div class="summaryTableDescription">
+   The number of pixels to move the handle for every up / down click.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#jumpRatio">jumpRatio</a> : Number = 40<div class="summaryTableDescription">
+   A jump ratio means that a ratio can be used to jump
+   the handle up / down pixels, depending on the height
+   of the content containing clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#scrollDownButton">scrollDownButton</a> : MovieClip<div class="summaryTableDescription">[write-only]
+   Set this scroll components down button movie clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#scrollUpButton">scrollUpButton</a> : MovieClip<div class="summaryTableDescription">[write-only]
+   Set this scroll components up button movie clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#track">track</a> : MovieClip<div class="summaryTableDescription">[write-only]
+   Set this scroll components track movie clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#tweenTimeOnJump">tweenTimeOnJump</a> : Number = .5<div class="summaryTableDescription">
+   The tween time for every up / down button click.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+</table>
+</div>
+<a name="protectedPropertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Properties</div>
+<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#_contentContainer">_contentContainer</a> : MovieClip<div class="summaryTableDescription">
+   The content containing clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#_contentMask">_contentMask</a> : MovieClip<div class="summaryTableDescription">
+   Mask used on content containing clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#_down">_down</a> : MovieClip<div class="summaryTableDescription">
+   The down button control
+   </div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#_handle">_handle</a> : MovieClip<div class="summaryTableDescription">
+   Handle control
+   </div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#_track">_track</a> : MovieClip<div class="summaryTableDescription">
+   The track control.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#_up">_up</a> : MovieClip<div class="summaryTableDescription">
+   The up button control
+   </div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#updateScrollable()">updateScrollable</a>():void</div>
+<div class="summaryTableDescription">
+   Public accessible way to have this component,
+   invalidate the state of the involved components.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#scroll()">scroll</a>(me:Event):void</div>
+<div class="summaryTableDescription">
+   Called enter frame while the handle is being
+   dragged to update position of content clip.</div>
+</td><td class="summaryTableOwnerCol">VerticalScroller</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="_contentContainer"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">_contentContainer</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var _contentContainer:MovieClip</code><p>
+   The content containing clip.
+   </p></div>
+<a name="contentContainer"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">contentContainer</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>contentContainer:MovieClip</code>&nbsp;&nbsp;[write-only]<p>
+   Set this scroll components content containing movie clip.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set contentContainer(value:MovieClip):void</code>
+<br>
+</div>
+<a name="_contentMask"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">_contentMask</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var _contentMask:MovieClip</code><p>
+   Mask used on content containing clip.
+   </p></div>
+<a name="contentMask"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">contentMask</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>contentMask:MovieClip</code>&nbsp;&nbsp;[write-only]<p>
+   Set this scroll components content masking movie clip.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set contentMask(value:MovieClip):void</code>
+<br>
+</div>
+<a name="_down"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">_down</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var _down:MovieClip</code><p>
+   The down button control
+   </p></div>
+<a name="_handle"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">_handle</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var _handle:MovieClip</code><p>
+   Handle control
+   </p></div>
+<a name="handle"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">handle</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>handle:MovieClip</code>&nbsp;&nbsp;[write-only]<p>
+   Set this scroll components handle movie clip.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set handle(value:MovieClip):void</code>
+<br>
+</div>
+<a name="hideIfNotScrollable"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">hideIfNotScrollable</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var hideIfNotScrollable:Boolean = true</code><p>
+   If true, and the contentMask is taller than
+   the contentContainer, then all of the pieces 
+   in the scroller are hidden.
+   </p></div>
+<a name="jumpAmount"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">jumpAmount</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var jumpAmount:Number</code><p>
+   The number of pixels to move the handle for every up / down click.
+   
+   See jumpRatio as well for anothe way to control the jump amount.
+   </p></div>
+<a name="jumpRatio"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">jumpRatio</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var jumpRatio:Number = 40</code><p>
+   A jump ratio means that a ratio can be used to jump
+   the handle up / down pixels, depending on the height
+   of the content containing clip.
+   
+   As an example, say the content containing clip is 
+   400 pixels tall, and the ratio is set to 10, that means
+   that for every click, 400/10 will be used as the jump value
+   instead of the "jumpAmount" variable. That would be 40 pixels
+   to jump up or down.
+   
+   If this is set, it cancel's out the jumpAmount value.
+   </p></div>
+<a name="scrollDownButton"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">scrollDownButton</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>scrollDownButton:MovieClip</code>&nbsp;&nbsp;[write-only]<p>
+   Set this scroll components down button movie clip.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set scrollDownButton(value:MovieClip):void</code>
+<br>
+</div>
+<a name="scrollUpButton"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">scrollUpButton</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>scrollUpButton:MovieClip</code>&nbsp;&nbsp;[write-only]<p>
+   Set this scroll components up button movie clip.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set scrollUpButton(value:MovieClip):void</code>
+<br>
+</div>
+<a name="_track"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">_track</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var _track:MovieClip</code><p>
+   The track control.
+   </p></div>
+<a name="track"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">track</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>track:MovieClip</code>&nbsp;&nbsp;[write-only]<p>
+   Set this scroll components track movie clip.
+   
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set track(value:MovieClip):void</code>
+<br>
+</div>
+<a name="tweenTimeOnJump"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">tweenTimeOnJump</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var tweenTimeOnJump:Number = .5</code><p>
+   The tween time for every up / down button click.
+   </p></div>
+<a name="_up"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">_up</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var _up:MovieClip</code><p>
+   The up button control
+   </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="scroll()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">scroll</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function scroll(me:Event):void</code><p>
+   Called enter frame while the handle is being
+   dragged to update position of content clip.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">me</span>:Event</code></td>
+</tr>
+</table>
+</div>
+<a name="updateScrollable()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">updateScrollable</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function updateScrollable():void</code><p>
+   Public accessible way to have this component,
+   invalidate the state of the involved components.
+   And show or hide them, based on the height of the 
+   content mask and content container.
+   </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
