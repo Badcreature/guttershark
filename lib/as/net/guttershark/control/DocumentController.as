@@ -1,6 +1,7 @@
 package net.guttershark.control
 {
-
+	import net.guttershark.util.cache.Cache;	
+	
 	import flash.events.HTTPStatusEvent;	
 	import flash.events.IOErrorEvent;	
 	import flash.events.TimerEvent;	
@@ -24,10 +25,9 @@ package net.guttershark.control
 	
 	/**
 	 * The DocumentController class is the base Document Class for all sites. The DocumentController provides 
-	 * default functionality for numerous things that are needed for 90% of flash sites. This should always
-	 * be extended and never used directly.
+	 * default functionality that 90% of flash sites need. This should always be extended and never used directly.
 	 * 
-	 * <p>By providing any of the following flash var properties, you trigger some of the default functionality.</p>
+	 * <p>By providing any of the following flash var properties, you initiate default functionality.</p>
 	 * 
 	 * <p>Available FlashVar Properties:</p>
 	 * <ul>
@@ -37,7 +37,10 @@ package net.guttershark.control
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000.</li>
+	 * <li><strong>cacheExpireTimeout</strong> (Number) - Initiates Cache expiring. Note that the Cache is only a memory cache. Be ware that if you set this, and get problems with objects not caching, it's because they're expiring.</li>
 	 * </ul>
+	 * 
+	 * <p>See the examples in "examples/shells" for more examples of using different snippets of the default functionality.</p>
 	 */
 	public class DocumentController extends MovieClip
 	{
@@ -45,12 +48,12 @@ package net.guttershark.control
 		/**
 		 * The site XML. This comes from loading an xml file provided by flashvars.siteXML property.
 		 */
-		protected var siteXML:XML;
+		public var siteXML:XML;
 		
 		/**
 		 * FlashVars on this movie.
 		 */
-		protected var flashvars:Object;
+		public var flashvars:Object;
 
 		/**
 		 * The loader used to load site xml
@@ -81,6 +84,13 @@ package net.guttershark.control
 		 * A query string object used for deeplink data reading.
 		 */
 		public var queryString:QueryString;
+		
+		/**
+		 * A Cache instance you can use for caching objects in memory.
+		 * 
+		 * @see	net.guttershark.util.cache.Cache Cache class
+		 */
+		public var cache:Cache;
 		
 		/**
 		 * The document keyboard event manager.
@@ -135,6 +145,7 @@ package net.guttershark.control
 			setupFlashvars();
 			setupQueryString();
 			restoreSharedObject();
+			(flashvars.cacheExpireTimeout) ? cache = new Cache(flashvars.cacheExpireTimeout) : cache = new Cache();
 			if(flashvars.sniffCPU) CPU.calculate();
 			if(flashvars.sniffBandwidth) sniffBandwidth();
 			if(flashvars.siteXML) loadSiteXML();
@@ -158,7 +169,7 @@ package net.guttershark.control
 		private function setupQueryString():void
 		{
 			queryString = new QueryString();
-			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) queryString.querystringData = deeplinkDataForQueryString();
+			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) queryString.querystringData = queryStringForStandalone();
 		}
 		
 		/**
@@ -333,7 +344,7 @@ package net.guttershark.control
 		 * 
 		 * @return A dictionary with deeplink keys and values.
 		 */
-		protected function deeplinkDataForQueryString():Dictionary
+		protected function queryStringForStandalone():Dictionary
 		{
 			return new Dictionary();
 		}
