@@ -11,7 +11,8 @@ package net.guttershark.util
 	import net.guttershark.core.IDisposable;
 	
 	/**
-	 * The Bandwidth class is used for sniffing the clients bandwidth.
+	 * The Bandwidth class is used for sniffing the clients bandwidth. It uses
+	 * bitmap.jpg as a benchmark.
 	 * 
 	 * <p>This class is integrated with the base DocumentController of the
 	 * net.guttershark package.</p>

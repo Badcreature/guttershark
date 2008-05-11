@@ -3,7 +3,10 @@ package net.guttershark.util
 	
 	import flash.utils.ByteArray;	
 	
-	public class ObjectUtils 
+	/**
+	 * The ObjectUtils class has utility methods for working with objects.
+	 */
+	public class ObjectUtils
 	{
 		
 		/**

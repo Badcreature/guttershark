@@ -22,7 +22,7 @@ package net.guttershark.ui.controls.buttons
 	 * <li>6 = checked locked frame.</li>
 	 * </ul>
 	 * 
-	 * <p>There is also 1 sound properties added.</p>
+	 * <p>There is also 1 sound property added.</p>
 	 * <ul>
 	 * <li>checkStateChangeSound</li>
 	 * </ul>
@@ -72,6 +72,7 @@ package net.guttershark.ui.controls.buttons
 		public function MovieClipCheckBox(){}
 
 		/**
+		 * @private
 		 * Overrides the super locked function and implements
 		 * new logic that decides which frame to go to based
 		 * off of the <code>checked</code> property.
@@ -101,6 +102,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * Overrides the onMouseOver for custom logic dealing with
 		 * checked state.
 		 */
@@ -118,6 +120,7 @@ package net.guttershark.ui.controls.buttons
 		}
 
 		/**
+		 * @private
 		 * Overrides the onMouseOver for custom logic dealing with
 		 * checked state.
 		 */
@@ -137,6 +140,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * When the mouse button is released outside of the clip. This is not supported in Flex.
 		 */
 		override protected function onMouseUpOutside(me:MouseEvent):void
@@ -159,6 +163,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * Overrides the onMouseOver for custom logic dealing with
 		 * checked state.
 		 */
@@ -176,6 +181,7 @@ package net.guttershark.ui.controls.buttons
 		}
 
 		/**
+		 * @private
 		 * Overrides the default super implementation to automatically
 		 * toggle between the checked / (down|over|normal) frames.
 		 */
