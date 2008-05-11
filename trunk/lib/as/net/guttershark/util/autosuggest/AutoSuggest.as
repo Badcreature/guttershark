@@ -22,7 +22,7 @@ package net.guttershark.util.autosuggest
 	 * <p>Now assume you started typing "Fl", the AutoSuggest instance would return an
 	 * array of AutoSuggestMatches. The two that matched were Flash and Flex.</p>
 	 * 
-	 * @see net.guttershark.util.AutoSuggestMatch
+	 * @see net.guttershark.util.autosuggest.AutoSuggestMatch
 	 */
 	public class AutoSuggest implements IDisposable
 	{
@@ -57,7 +57,7 @@ package net.guttershark.util.autosuggest
 		 * word or phrase.
 		 * 
 		 * <p>Example usage:</p>
-		 * <listing>
+		 * <listing>	
 		 * import net.guttershark.util.autosuggest.AutoSuggest;
 		 * 
 		 * var terms:Array = [

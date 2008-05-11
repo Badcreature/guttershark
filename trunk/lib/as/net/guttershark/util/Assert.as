@@ -3,7 +3,17 @@ package net.guttershark.util
 	import flash.utils.Dictionary;	
 	
 	/**
-	 * The Assert class assists with validating arguments.
+	 * The Assert class assists with validating arguments and is a relief mechanism
+	 * for having to write the same logic over and over when checking arguments.
+	 * 
+	 * @example	Using the Assert class:
+	 * <listing>	
+	 * public function setItems(array:Array, maxCount:int)
+	 * {
+	 *     Assert.NotNullOrEmpty(array, "Parameter array cannot be null");
+	 *     Assert.NotNull(maxCount, "Parameter maxCount cannot be null");
+	 * }
+	 * </listing>
 	 */
 	public class Assert 
 	{
@@ -17,10 +27,14 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Check to see if an array is empty.
-		 * @param	
+		 * Check to see if an array is null or empty.
+		 * 
+		 * @param	array	An array to validate that it's not null, and not empty.
+		 * @param	message	A message to use for an ArgumentError.
+		 * @throws	ArgumentError	If array is null.
+		 * @throws 	ArgumentError	If message is null.
 		 */
-		public static function NullOrEmpty(array:Array, message:String):void
+		public static function NotNullOrEmpty(array:Array, message:String):void
 		{
 			checkMessage(message);
 			if(array == null || array.length < 1) throw new ArgumentError(message);
@@ -30,7 +44,7 @@ package net.guttershark.util
 		 * Check that the object is not null.
 		 * @param	object	The object to check.
 		 * @param	message	A message to use for an ArgumentError.
-		 * @throws	ArgumentError	if object is null.
+		 * @throws	ArgumentError	If object is null.
 		 * @throws 	ArgumentError	If message is null.
 		 */
 		public static function NotNull(object:*, message:String):void
@@ -41,10 +55,11 @@ package net.guttershark.util
 		
 		/**
 		 * Check that an object is a compatible instance, or interface of a certain class.
+		 * 
 		 * @param	object	The object to check.
 		 * @param	type	The Class that object needs to be an instance of in order to pass the test.
 		 * @param	message	A message to use for an ArgumentError.
-		 * @throws	ArgumentError	if object is null.
+		 * @throws	ArgumentError	If object is null.
 		 * @throws 	ArgumentError	If message is null.
 		 */
 		public static function Compatible(object:*, type:Class, message:String):void
@@ -55,9 +70,10 @@ package net.guttershark.util
 		
 		/**
 		 * Assert a boolean expression. If the expression is false an error is raised.
+		 * 
 		 * @param	expression	An expression as a boolean.
 		 * @param	message	A message to use for an Error.
-		 * @throws	ArgumentError	if object is null.
+		 * @throws	ArgumentError	If object is null.
 		 * @throws 	ArgumentError	If message is null.
 		 */
 		public static function State(expression:Boolean, message:String):void
@@ -68,6 +84,7 @@ package net.guttershark.util
 		
 		/**
 		 * Assert that a dictionary has keys that are only of the specified type.
+		 * 
 		 * @param	dictionary	The dictionary to validate.
 		 * @param	type	The class type that each key should be.
 		 * @param	message	A message to use for an Error.

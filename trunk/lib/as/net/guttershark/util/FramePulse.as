@@ -9,6 +9,15 @@ package net.guttershark.util
 	 * The FramePulse class should be used as the one
 	 * source for enter frame events. This is equivalent
 	 * to an on enter frame beacon from flash 7/8.
+	 * 
+	 * @example Using the FramePulse class:
+	 * <listing>	
+	 * FramePulse.AddEnterFrameEvenListener(onEnterFrame);
+	 * private function onEnterFrame(e:Event):void
+	 * {
+	 *     trace("on enter frame");
+	 * }
+	 * </listing>
 	 */
 	public class FramePulse extends EventDispatcher
 	{
@@ -16,7 +25,7 @@ package net.guttershark.util
 		private static var sSprite:Sprite = null;
 
 		/**
-		 * Add a listener to the frame pulse.
+		 * Add an event listener to the frame pulse.
 		 * @param	eventHandler	The handler function to call.
 		 */
 		public static function AddEnterFrameListener(eventHandler:Function):void

@@ -14,11 +14,11 @@ package net.guttershark.video
 	import net.guttershark.util.BitField;
 	
 	import gs.TweenLite;
-		
+	
 	/**
-	 * The FLVPlaybackQueueManager utlizes an instance of an FLVPlayback
-	 * to play videos in a queue. It uses FLVPlayback's stack functionality
-	 * for queueing.
+	 * The FLVPlaybackQueueManager uses an instance of an FLVPlayback
+	 * to play videos in a queue. It uses an FLVPlayback for 
+	 * the VideoPlayer stack functionality.
 	 * 
 	 * @example Setup example:
 	 * <listing>	
@@ -121,8 +121,8 @@ package net.guttershark.video
 		}
 
 		/**
-		 * Set's the queue of file's to play through. You can
-		 * set relative locations, http locations, and rtmp locations.
+		 * Set the queue of file's to play through. You can
+		 * use relative, http, and rtmp locations.
 		 * 
 		 * @param	files	An array of files to play.
 		 */
@@ -158,10 +158,8 @@ package net.guttershark.video
 		
 		/**
 		 * Set the time (in seconds) allowed for a stream attempt, before it is considered
-		 * a failed attempt.
-		 * 
-		 * <p>If a stream does not play before the timeout, the stream is closed and
-		 * the next video is played.</p>
+		 * a failed attempt. If a stream does not play before the timeout, the stream is closed and
+		 * the next video is played.
 		 */
 		public function set streamAttemptTimeBeforeFail(seconds:Number):void
 		{
@@ -169,7 +167,7 @@ package net.guttershark.video
 		}
 		
 		/**
-		 * Start playing the current queue.
+		 * Start playing the queue.
 		 */
 		public function start():void
 		{
@@ -202,13 +200,13 @@ package net.guttershark.video
 		/**
 		 * Stop the queue.
 		 */
-		public function stopAll():void
+		public function stop():void
 		{
 			_player.stop();
 		}
 		
 		/**
-		 * The currently playing source.
+		 * The source URI for the currently playing video.
 		 */
 		public function get source():String
 		{
@@ -216,7 +214,7 @@ package net.guttershark.video
 		}
 		
 		/**
-		 * If the currently playing clip is RTMP.
+		 * Indicates whether or not the currently playing clip is RTMP.
 		 */
 		public function get isRTMP():Boolean
 		{
@@ -224,7 +222,7 @@ package net.guttershark.video
 		}
 		
 		/**
-		 * Interupt the queue an play the file specified.
+		 * Interupt the queue and play the file specified immediately.
 		 * 
 		 * @param source The video source path.
 		 */
@@ -270,7 +268,7 @@ package net.guttershark.video
 		}
 		
 		/**
-		 * Play next video.
+		 * Play the next video in the queue.
 		 */
 		public function playNext():void
 		{

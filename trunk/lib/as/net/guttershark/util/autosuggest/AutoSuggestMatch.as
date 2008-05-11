@@ -23,6 +23,8 @@ package net.guttershark.util.autosuggest
 	 * <p>The highlightedTerm is provided specifically for working with textfields
 	 * and styles. You can set the style of both the span class's to provide a highlight
 	 * effect.</p>
+	 * 
+	 * @see net.guttershark.util.autosuggest.AutoSuggest
 	 */
 	public class AutoSuggestMatch implements IDisposable
 	{
@@ -33,11 +35,13 @@ package net.guttershark.util.autosuggest
 		public var term:String;
 		
 		/**
-		 * An HTML representation of the term that provides a way to utilize
+		 * An HTML representation of the term that provides a way to use
 		 * styles on a textfield for highlights.
 		 * 
-		 * <p>Example:</p>
-		 * <pre><span class='suggestedTerm'><span class="matchedLetters">Georg</span>e Bush</span></pre></p>
+		 * @example A highlighted term string:
+		 * <listing>	
+		 * &lt;span class='suggestedTerm'&gt;&lt;span class="matchedLetters"&gt;Georg&lt;/span&gt;e Bush&lt;/span&gt;
+		 * </listing>
 		 */
 		public var highlightedTerm:String;
 		

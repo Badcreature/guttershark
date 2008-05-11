@@ -19,7 +19,7 @@ package net.guttershark.ui.controls.buttons
 	 * <li>1 = normal state</li>
 	 * <li>2 = over state</li>
 	 * <li>3 = down state</li>
-	 * <li>4 = locked frame. Toggle the lock state by setting the <li>locked</li> property.</li>
+	 * <li>4 = locked frame. Toggle the lock state by setting the <code>locked</code> property.</li>
 	 * </ul>
 	 * 
 	 * <p>Sound support is also available for each of the button states.</p>
@@ -124,9 +124,19 @@ package net.guttershark.ui.controls.buttons
 		 */
 		public var lockable:Boolean = false;
 		
-		//some flag vars for state
+		/**
+		 * @private
+		 */
 		protected var over:Boolean = false;
+		
+		/**
+		 * @private
+		 */
 		protected var down:Boolean = false;
+		
+		/**
+		 * @private
+		 */
 		protected var _locked:Boolean = false;
 		
 		/**
@@ -146,6 +156,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * on click handler.
 		 */
 		protected function onClick(me:MouseEvent):void
@@ -154,6 +165,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * When the mouse button is released outside of the clip. This is not supported in Flex.
 		 */
 		protected function onMouseUpOutside(me:MouseEvent):void
@@ -176,6 +188,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * When the mouse button is released.
 		 */
 		protected function onMouseUp(me:MouseEvent):void
@@ -190,6 +203,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * When the mouse rolls over this button.
 		 */
 		protected function onMouseOver(me:MouseEvent):void
@@ -205,6 +219,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * When the mouse is pressed down over this button.
 		 */
 		protected function __onMouseDown(me:MouseEvent):void
@@ -220,6 +235,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
+		 * @private
 		 * When the mouse moves outside the trackable content.
 		 */
 		protected function onMouseOut(me:MouseEvent):void

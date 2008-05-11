@@ -8,6 +8,15 @@ package net.guttershark.util
 	/**
 	 * The FrameDelay class allows for a callback to be called after
 	 * a certain amount of frames have passed.
+	 * 
+	 * @example Using a FrameDelay:
+	 * <listing>	
+	 * var fd:FrameDelay = new FrameDelay(after10, 10);
+	 * function after10():void
+	 * {
+	 *     trace("10 frames have passed");
+	 * }
+	 * </listing>
 	 */
 	public class FrameDelay implements IDisposable
 	{
