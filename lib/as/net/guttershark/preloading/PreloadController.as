@@ -60,75 +60,67 @@ package net.guttershark.preloading
 	 * The PreloadController is a controller you use for loading multiple assets. It provides you
 	 * with methods for starting, stopping, pausing, resuming and prioritizing of assets.
 	 * 
-	 * <p>The PreloadController utilizes an internal asset library to store all loaded assets.
-	 * You can access the library to get assets out after the preload is complete.</p>
-	 * 
-	 * <p>Events are dispatched for each item being loaded as well, so you do have hooks into
-	 * the asset as soon as they are loaded. See the events section listed here for more events.</p>
-	 * 
-	 * <p>Files are preloaded one at a time, in sequence. This is so that multiple loading files
-	 * don't slow everything else down more. The more files loading at once the slower it actually
-	 * turns out to load all of them - that is why this is in sequence.</p>
+	 * <p>The PreloadController uses an internal AssetLibrary to store all loaded assets.
+	 * You can access the library to retrieve assets after the preload is complete. Events are also
+	 * dispatched for each item that has completed downloading.</p>
 	 * 
 	 * @see #library library property
 	 * @see #start() start method
 	 * 
-	 * @example Heres an example of using the preload controller:
+	 * @example Using the preload controller:
 	 * <listing version="3.0">
 	 * 
-	 public class PreloaderTest extends MovieClip 
-	 {
-		
-		private var preloadController:PreloadController;
-		public var preloader:MovieClip;
-		
-		public function PreloaderTest()
-		{
-			super();
-			this.loaderInfo.addEventListener(Event.COMPLETE, onSWFComplete);
-		}
-		
-		private function onSWFComplete(e:Event):void
-		{
-			//you should have an assets folder local to the swf with these assets in it.
-			var assets:Array = [
-				new Asset("assets/jpg1.jpg","jpg1"),
-				new Asset("assets/jpg2.jpg","jpg2"),	
-				new Asset("assets/png1.png","png1"),
-				new Asset("assets/png2.png","png2"),
-				new Asset("swfload_test.swf","swf1"),
-				new Asset("assets/sound1.mp3","snd1"),
-				new Asset("assets/Pizza_Song.flv","pizza")
-			];
-			preloadController = new PreloadController(400);
-			preloadController.addItems(assets);
-			preloadController.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);
-			preloadController.addEventListener(Event.COMPLETE,onPreloaderComplete);
-			preloadController.addEventListener(AssetCompleteEvent.COMPLETE, onItemComplete);
-			preloadController.prioritize(assets[4]); //prioritize the swf.
-			preloadController.start(); //start it;
-			preloadController.stop(); //pause it
-			setTimeout(preloadController.start,4000); //resume it
-		}
-			
-		private function onProgress(pe:PreloadProgressEvent):void
-		{
-			trace("progress: pixels: " + pe.pixels + " percent: " + pe.percent);
-			preloader.width = pe.pixels
-		}
-		
-		private function onItemComplete(e:AssetCompleteEvent):void
-		{
-			trace(e.asset.libraryName + " " + e.asset.source);
-		}
-		
-		private function onPreloaderComplete(e:*):void
-		{
-			trace("PRELOAER COMPLETE");
-			addChild(preloadController.library.getMovieClipFromSWFLibrary("swf1", "Test"));
-			addChild(preloadController.library.getBitmap("jpg1"));
-		}
-	 }
+	 * public class PreloaderTest extends MovieClip 
+	 * {
+	 *    
+	 *    private var preloadController:PreloadController;
+	 *    public var preloader:MovieClip;
+	 *    
+	 *    public function PreloaderTest()
+	 *    {
+	 *        super();
+	 *        this.loaderInfo.addEventListener(Event.COMPLETE, onSWFComplete);
+	 *    }
+	 *    
+	 *    private function onSWFComplete(e:Event):void
+	 *    {
+	 *        var assets:Array = [
+	 *           new Asset("assets/jpg1.jpg","jpg1"),
+	 *           new Asset("assets/jpg2.jpg","jpg2"),	
+	 *           new Asset("assets/png1.png","png1"),
+	 *           new Asset("assets/png2.png","png2"),
+	 *           new Asset("swfload_test.swf","swf1"),
+	 *           new Asset("assets/sound1.mp3","snd1"),
+	 *           new Asset("assets/Pizza_Song.flv","pizza")
+	 *       ];
+	 *       preloadController = new PreloadController(400);
+	 *       preloadController.addItems(assets);
+	 *       preloadController.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);
+	 *       preloadController.addEventListener(Event.COMPLETE,onPreloaderComplete);
+	 *       preloadController.addEventListener(AssetCompleteEvent.COMPLETE, onItemComplete);
+	 *       preloadController.prioritize(assets[4]); //prioritize the swf.
+	 *       preloadController.start(); //start it;
+	 *       preloadController.stop(); //pause it
+	 *       setTimeout(preloadController.start,4000); //resume it
+	 *    }
+	 *    
+	 *    private function onProgress(pe:PreloadProgressEvent):void
+	 *    {
+	 *        trace("progress: pixels: " + pe.pixels + " percent: " + pe.percent);
+	 *        preloader.width = pe.pixels
+	 *    }
+	 *    
+	 *    private function onItemComplete(e:AssetCompleteEvent):void
+	 *    {
+	 *        trace(e.asset.libraryName + " " + e.asset.source);
+	 *    }
+	 *    
+	 *    private function onPreloaderComplete(e:Event):void
+	 *    {
+	 *        addChild(preloadController.library.getMovieClipFromSWFLibrary("swf1", "Test"));
+	 *        addChild(preloadController.library.getBitmap("jpg1"));
+	 *    }
+	 * }
 	 * </listing>
 	 */
 	public class PreloadController extends EventDispatcher
