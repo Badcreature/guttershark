@@ -15,7 +15,7 @@ package
 		/**
 		 * When fake query string data is needed (when in the Flash IDE) use this method.
 		 */
-		override protected function deeplinkDataForQueryString():Dictionary
+		override protected function queryStringForStandalone():Dictionary
 		{
 			var fakeQS:Dictionary = new Dictionary();
 			fakeQS['videoID'] = 100;

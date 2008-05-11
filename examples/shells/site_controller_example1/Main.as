@@ -80,7 +80,7 @@ package
 			return {siteXML:"site.xml",sniffCPU:true,sniffBandwidth:true,onlineStatus:true};
 		}
 		
-		override protected function deeplinkDataForQueryString():Dictionary
+		override protected function queryStringForStandalone():Dictionary
 		{
 			var deep:Dictionary = new Dictionary(true);
 			deep['deeplink1'] = "hello";
