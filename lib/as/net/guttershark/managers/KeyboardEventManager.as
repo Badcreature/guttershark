@@ -68,7 +68,7 @@ package net.guttershark.managers
 		{
 			mappings = new Dictionary();
 			this.stage = stage;
-			this.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp, false, 9999999999999, true);
+			this.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp, false, 11, true);
 		}
 		
 		/**
@@ -106,8 +106,7 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Get the currently scoped object in which keyboard events
-		 * are being registered too.
+		 * The scope in which the keyboard events respond to.
 		 */
 		public function get scope():*
 		{

@@ -26,7 +26,7 @@ package net.guttershark.managers
 	 * var manager:ToolTipManager = new ToolTipManager(tooltipDisplaySandbox,500); //the delay before calling show() for any tool tip.
 	 * 
 	 * //an instance of the tool tip we want to use
-	 * var myToolTip:ToolTip1 = Library.GetMovieClip("MyToolTipTest") as ToolTip1; //That movie clip would implement the IToolTip class.
+	 * var myToolTip:ToolTip1 = FlashLibrary.GetMovieClip("MyToolTipTest") as ToolTip1; //That movie clip would implement the IToolTip class.
 	 * 
 	 * //data providers for 2 different sets of data for any tool tip.
 	 * var myTTDataProvider = new ToolTipDataProvider("My Tooltip Message"); //A data provider to provide to the tool top just before it's shown.
