@@ -308,6 +308,8 @@ package net.guttershark.remoting
 		}
 
 		/**
+		 * @private
+		 * 
 		 * Checks whether an event listener is registered with this EventDispatcher object or any of its ancestors for the specified event type.
 		 */
 		public function willTrigger(type:String):Boolean 
