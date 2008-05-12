@@ -58,7 +58,8 @@ package net.guttershark.util
 		 */
 		public function load(request:URLRequest):void
 		{
-			if(!request) throw new ArgumentError("You must supply a valid xml file location.");
+			Assert.NotNull(request, "Parameter request cannot be null.");
+			Assert.NotNull(request.url, "The url property of the request cannot be null");
 			contentLoader.dataFormat = URLLoaderDataFormat.TEXT;
 			contentLoader.load(request);
 		}

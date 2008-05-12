@@ -88,6 +88,7 @@ package net.guttershark.util
 		 */
 		public function set querystringData(data:Dictionary):void
 		{
+			Assert.NotNull(data, "Parameter data cannot be null");
 			paramsCache = data;
 		}
 		

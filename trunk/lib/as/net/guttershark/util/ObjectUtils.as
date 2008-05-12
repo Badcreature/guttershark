@@ -26,6 +26,7 @@ package net.guttershark.util
 		 */
 		public static function Clone(object:*):*
 		{
+			Assert.NotNull(object, "Parameter object cannot be null");
 			var byteArray:ByteArray = new ByteArray();
 			byteArray.writeObject(object);
 			byteArray.position = 0;

@@ -20,8 +20,8 @@ package net.guttershark.util
 		 */
 		public static function IsMouseInRectangle(scope:DisplayObject, rectangle:Rectangle):Boolean
 		{
-			if(!scope) throw new ArgumentError("You must provide a scope to check the mouse position in.");
-			if(!rectangle) throw new ArgumentError("No rectange was supplied for the bounds.");
+			Assert.NotNull(scope, "Parameter scope cannot be null.");
+			Assert.NotNull(rectangle, "Parameter rectangle cannot be null");
 			var ym:Number = scope.mouseY;
 			var xm:Number = scope.mouseX;
 			if(xm > rectangle.x && xm < rectangle.right && ym > rectangle.y && ym < rectangle.bottom) return true;
