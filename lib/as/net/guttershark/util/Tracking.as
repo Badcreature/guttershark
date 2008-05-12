@@ -18,6 +18,7 @@ package net.guttershark.util
 		 */
 		public static function TrackThroughJS(xmlid:String, appendData:Array = null):void
 		{
+			Assert.NotNull(xmlid, "Parameter xmlid cannot be null.");
 			if(Capabilities.playerType == "Standalone" || Capabilities.playerType == "External") return;
 			ExternalInterface.call("flashTrack",xmlid,appendData);
 		}

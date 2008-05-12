@@ -29,6 +29,7 @@ package net.guttershark.util
 		 */
 		public static function CopyBitmap(bitmapToCopy:Bitmap):Bitmap
 		{
+			Assert.NotNull(bitmapToCopy, "Parameter bitmapToCopy cannot be null");
 			var b:Bitmap = new Bitmap(bitmapToCopy.bitmapData);
 			return b;
 		}

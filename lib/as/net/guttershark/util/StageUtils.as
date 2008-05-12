@@ -15,8 +15,12 @@ package net.guttershark.util
 		 * and <code>fakeStageHeight</code> are available for cases when you need to use a different
 		 * width / height for the stage.
 		 */
-		public function CenterInStage(dob:DisplayObject, offsetX:Number, offsetY:Number, wholePixels:Boolean = true, fakeStageWidth:int = -1, fakeStageHeight:int = -1):void
+		public static function CenterInStage(dob:DisplayObject, offsetX:Number = 0, offsetY:Number = 0, wholePixels:Boolean = true, fakeStageWidth:int = -1, fakeStageHeight:int = -1):void
 		{
+			Assert.NotNull(dob, "Parameter dob cannot be null");
+			Assert.NotNull(offsetX, "Parameter offsetX cannot be null");
+			Assert.NotNull(offsetY, "Parameter offsetX cannot be null");
+			Assert.NotNull(dob.stage, "The display object's stage property cannot be null. Add the display object to the display list before centering.");
 			var stageWidth:int;
 			var stageHeight:int;
 			if(fakeStageHeight > -1) stageWidth = fakeStageWidth;
