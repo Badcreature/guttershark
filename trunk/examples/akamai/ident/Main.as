@@ -1,7 +1,7 @@
 package 
 {
-
-	import flash.events.Event;
+	
+	import net.guttershark.akamai.AkamaiNCManager;
 	import net.guttershark.akamai.Ident;
 	import net.guttershark.control.DocumentController;
 
@@ -15,14 +15,17 @@ package
 			super();
 		}
 		
-		override protected function setupComplete():void
+		override protected function flashvarsForStandalone():Object
 		{
-			ident = new Ident();
-			ident.contentLoader.addEventListener(Event.COMPLETE, onc);
-			ident.findBestIPForAkamaiApplication("http://cp44952.edgefcs.net/");
+			return {akamaiHost:"http://cp44952.edgefcs.net/"};
 		}
 		
-		private function onc(e:Event):void
+		override protected function akamaiIdentComplete(ip:String):void
 		{
-			trace(ident.ip);
+			trace(ip);
+			AkamaiNCManager.FMS_IP = ip;
+		}
+
+		override protected function setupComplete():void
+		{
 		}	}}
