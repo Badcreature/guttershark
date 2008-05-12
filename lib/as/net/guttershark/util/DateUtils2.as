@@ -17,6 +17,7 @@ package net.guttershark.util
 		 */ 
 		public static function RemainingUntil(futureDate:Date):Object
 		{
+			Assert.NotNull(futureDate, "Parameter futureDate cannot be null");
 			var currentMillisecs:Number;
 			var currentDate:Date = new Date();
 			var eventDate:Date = futureDate;
