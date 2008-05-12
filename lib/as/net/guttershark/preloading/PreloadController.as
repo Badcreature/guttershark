@@ -1,6 +1,7 @@
 package net.guttershark.preloading
 {
-
+	import net.guttershark.util.ArrayUtils;	
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
@@ -229,9 +230,9 @@ package net.guttershark.preloading
 		 */
 		public function addItems(items:Array):void
 		{ 
-			if(!this.loadItems[0]) this.loadItems = items;
+			if(!this.loadItems[0]) this.loadItems = ArrayUtils.Clone(items);
 			else this.loadItems.concat(items);
-			loadItemsDuplicate = this.loadItems.concat();
+			loadItemsDuplicate = ArrayUtils.Clone(items);
 		}
 
 		/**
@@ -438,6 +439,7 @@ package net.guttershark.preloading
 			}
 			else if((loaded + loadErrors) >= (loadItems.length))
 			{
+				_working = false;
 				dispatchEvent(new PreloadProgressEvent(PreloadProgressEvent.PROGRESS,totalPixelsToFill,100));
 				dispatchEvent(new Event(Event.COMPLETE));
 				reset();
