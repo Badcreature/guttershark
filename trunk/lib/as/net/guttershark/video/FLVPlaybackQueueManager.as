@@ -1,6 +1,7 @@
 package net.guttershark.video
 {
-
+	import net.guttershark.util.Assert;	
+	
 	import fl.video.FLVPlayback;
 	import fl.video.VideoEvent;
 	import fl.video.VideoPlayer;
@@ -126,11 +127,11 @@ package net.guttershark.video
 		 * 
 		 * @param	files	An array of files to play.
 		 */
-		public function set queue(files:Array):void
+		public function set queue(queue:Array):void
 		{
-			if(!files.length > 0) throw new Error("No queue was given.");
+			Assert.NotNullOrEmpty(queue, "Parameter queue cannot be null or empty.");
 			queueIndex = -1;
-			_queue = files;
+			_queue = queue;
 		}
 		
 		/**
@@ -147,6 +148,7 @@ package net.guttershark.video
 		 */
 		public function set player(player:FLVPlayback):void
 		{
+			Assert.NotNull(player, "Parameter player cannot be null.");
 			_player = player;
 			_player.activeVideoPlayerIndex = 1;
 			_player.activeVideoPlayerIndex = 2;
@@ -163,6 +165,7 @@ package net.guttershark.video
 		 */
 		public function set streamAttemptTimeBeforeFail(seconds:Number):void
 		{
+			Assert.GreaterThan(seconds, .1, "Parameter seconds must be greater than .1");
 			streamFailTime = seconds;
 		}
 		
@@ -228,6 +231,7 @@ package net.guttershark.video
 		 */
 		public function playNow(source:String):void
 		{
+			Assert.NotNull(source, "Parameter source cannot be null");
 			var vp:VideoPlayer = getPlayer(source);
 			states.httpAttempt = 1;
 			states.goingOut = false;
@@ -245,6 +249,7 @@ package net.guttershark.video
 		 */
 		private function getPlayer(source:String):VideoPlayer
 		{
+			Assert.NotNull(source, "Parameter source cannot be null");
 			var isr:Boolean = false;
 			if(source.indexOf("rtmp://") > -1) isr = true;
 			currentPlayerIndex++;
