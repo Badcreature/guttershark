@@ -12,7 +12,7 @@ package net.guttershark
 		/**
 		 * The version of the entire net.guttershark package.
 		 */
-		guttershark_internal static var version:String = "0.3";
+		guttershark_internal static var version:String = "0.4B1";
 		
 		/**
 		 * Package dependencies.
@@ -22,6 +22,6 @@ package net.guttershark
 		 * <li>Adobe Corelib</li>
 		 * </ul>
 		 */
-		guttershark_internal static var dependencies:Array = ["gs.*","com.adobe.*"];
+		guttershark_internal static var dependencies:Array = ["gs.*"];
 	}
 }
