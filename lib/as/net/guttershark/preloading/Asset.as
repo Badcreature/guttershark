@@ -1,6 +1,7 @@
 package net.guttershark.preloading
 {
-
+	import net.guttershark.util.StringUtils;	
+	
 	import flash.events.SecurityErrorEvent;
 	
 	import net.guttershark.preloading.events.AssetCompleteEvent;
@@ -64,10 +65,8 @@ package net.guttershark.preloading
 		 */
 		public function Asset(source:String, libraryName:String = null)
 		{
-			var filenameRegEx:RegExp = new RegExp("\.([a-zA-Z0-9]*$)","i");
-			var filematch:Array = source.match(filenameRegEx);
-			if(filematch) var fileType:String = filematch[1].toLowerCase();
-			else throw new Error("The filetype could not be found for this item: " + source);
+			var fileType:String = StringUtils.FindFileType(source);
+			if(!fileType) throw new Error("The filetype could not be found for this item: " + source);
 			this.fileType = fileType;
 			this.source = source;
 			if(!libraryName) this.libraryName= source;
