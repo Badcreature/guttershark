@@ -17,7 +17,7 @@ package net.guttershark.util
 	 */
 	public class Assert 
 	{
-		
+			
 		/**
 		 * Check the message passed in any of these static methods.
 		 */
@@ -51,6 +51,20 @@ package net.guttershark.util
 		{
 			checkMessage(message);
 			if(object == null) throw new ArgumentError(message);
+		}
+		
+		/**
+		 * Check that a target number is greater than a minimum amount.
+		 * @param	target	The target number.
+		 * @param	minimum	The minimum the target can be.
+		 * @param	message	A message to use for an ArgumentError.
+		 * @throws	ArgumentError	If object is null.
+		 * @throws 	ArgumentError	If message is null. 
+		 */
+		public static function GreaterThan(target:Number, minimum:Number, message:String):void
+		{
+			checkMessage(message);
+			if(target < minimum) throw new ArgumentError(message);
 		}
 		
 		/**
