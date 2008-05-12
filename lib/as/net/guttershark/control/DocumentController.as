@@ -1,7 +1,6 @@
 package net.guttershark.control
 {
-	import net.guttershark.util.cache.Cache;	
-	
+
 	import flash.events.HTTPStatusEvent;	
 	import flash.events.IOErrorEvent;	
 	import flash.events.TimerEvent;	
@@ -14,6 +13,7 @@ package net.guttershark.control
 	import flash.events.Event;
 	import flash.net.URLRequest;
 	
+	import net.guttershark.util.cache.Cache;
 	import net.guttershark.akamai.Ident;
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.util.CPU;
