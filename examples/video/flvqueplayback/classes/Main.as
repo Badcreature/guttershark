@@ -24,7 +24,7 @@ package
 			super();
 		}
 		
-		override protected function deeplinkDataForQueryString():Dictionary
+		override protected function queryStringForStandalone():Dictionary
 		{
 			return new Dictionary();
 		}
