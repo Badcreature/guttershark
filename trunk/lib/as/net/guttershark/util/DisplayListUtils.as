@@ -24,9 +24,10 @@ package net.guttershark.util
 		 * </listing>
 		 * 
 		 * @param	sprite	The sprite to remove all children from.
-		 */	
+		 */
 		public static function RemoveAllChildren(doc:DisplayObjectContainer):void
 		{
+			Assert.NotNull(doc, "Parameter doc cannot be null.");
 			try
 			{
 				while(doc.removeChildAt(0)){}
@@ -41,6 +42,8 @@ package net.guttershark.util
 		 */
 		public static function AddChildren(doc:DisplayObjectContainer, children:Array):void
 		{
+			Assert.NotNull(doc, "Parameter doc cannot be null.");
+			Assert.NotNullOrEmpty(children, "Parameter children cannot be null or empty.");
 			var l:int = children.length;
 			for(var i:int = 0; i < l; i++) doc.addChild(children[i]);
 		}
