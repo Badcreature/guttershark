@@ -1,10 +1,11 @@
 package net.guttershark.akamai
 {
 
-    import fl.video.*;
+	import fl.video.*;
 
 	import flash.events.Event;
 	
+	import net.guttershark.util.Assert;
 	import net.guttershark.guttershark_internal;
 	import net.guttershark.akamai.Ident;
     
@@ -79,7 +80,6 @@ package net.guttershark.akamai
     	 * The Ident instance that sniffs the IP.
     	 */
     	private var idnt:Ident;
-    	//private var xml:XMLLoader;
     	
 		/**
 		 * Member variable to hold "parse results"
@@ -98,6 +98,10 @@ package net.guttershark.akamai
 		/**
 		 * Set the order of connection attempts by protocol and port.
 		 * 
+		 * <p><strong>In order to use this, you must first update the NCManager class's
+		 * source file and make the flvplayback_internal::RTMP_CONN a "var" not "const"
+		 * declaration, as well as making it public.</strong></p>
+		 * 
 		 * <p>Here's an example:</p>
 		 * 
 		 * <listing>	
@@ -115,9 +119,7 @@ package net.guttershark.akamai
 		 */
 		public static function set ConnectOrder(connectAttempts:Array):void
 		{
-			//use namespace flvplayback_internal;
-			//change the default order of connection attempts.
-			//if(!connectAttempts) return;
+			Assert.NotNullOrEmpty(connectAttempts, "Parameter connectAttempts cannot be null or empty.");
 			//NCManager.flvplayback_internal::RTMP_CONN = connectAttempts;
 		}
 		
