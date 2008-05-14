@@ -133,6 +133,15 @@ package net.guttershark.control
 		 * SiteXMLParser#createRemotingManagerForEndpoint method. This variable
 		 * is just a stub variable for convention.
 		 * 
+		 * @example Creating the RemotingManager:
+		 * <listing>	
+		 * override protected function setupComplete():void
+		 * {
+		 *     var siteXMLParser:SiteXMLParser = new SiteXMLParser(siteXML);
+		 *     remotingManager = siteXMLParser.createRemotingManagerForEndpoint("myEndpoint");
+		 * }
+		 * </listing>
+		 * 
 		 * @see net.guttershark.model.SiteXMLParser#createRemotingManagerForEndpoint() createRemotingManagerForEndpoint method
 		 * @see net.guttershark.managers.RemotingManager RemotingManager class
 		 */
