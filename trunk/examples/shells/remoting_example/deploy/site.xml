@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<services>
+		<remoting>
+			<endpoint id="endpoint1" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3">
+				<service id="service1">com.myphp.Service1</service>
+				<service id="service2">com.myphp.Service2</service>
+			</endpoint>
+		</remoting>
+	</services>
+</site>
