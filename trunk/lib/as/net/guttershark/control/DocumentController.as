@@ -1,6 +1,6 @@
 package net.guttershark.control
-{
-
+{	
+	
 	import flash.events.HTTPStatusEvent;	
 	import flash.events.IOErrorEvent;	
 	import flash.events.TimerEvent;	
@@ -22,6 +22,7 @@ package net.guttershark.control
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
+	import net.guttershark.remoting.RemotingManager;
 	
 	/**
 	 * The DocumentController class is the base Document Class for all sites. The DocumentController provides 
@@ -37,10 +38,30 @@ package net.guttershark.control
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000.</li>
-	 * <li><strong>cacheExpireTimeout</strong> (Number) - Initiates Cache expiring. Note that the Cache is only a memory cache. Be ware that if you set this, and get problems with objects not caching, it's because they're expiring.</li>
+	 * <li><strong>cacheExpireTimeout</strong> (Number) - Initiates Cache expiring on the document cache instance. Note that the Cache is only a memory cache. Be ware that if you set this, and get problems with objects not caching, it's because they're expiring.</li>
 	 * </ul>
 	 * 
-	 * <p>See the examples in "examples/shells" for more examples of using different snippets of the default functionality.</p>
+	 * <p>FlashVar properties can be delared when running in the Flash IDE by overriding the <code>flashvarsForStandalone</code> 
+	 * method. Otherwise you need to put the flashvars on the flash object in HTML.</p>
+	 * 
+	 * @example Declaring FlashVars on a Flash object with SWFObject:
+	 * <listing>	
+	 * &lt;script type="text/javascript"&gt;
+	 *     // &lt;![CDATA[
+	 *     var so = new SWFObject("main.swf", "flaswf", "100%", "100%", "9", "#000");
+	 *     so.addVariable("siteXML","site.xml");
+	 *     so.addVariable("sniffCPU",true);
+	 *     so.addVariable("sniffBandwidth",true);
+	 *     so.addVariable("akamaiHost","http://cp44952.edgefcs.net/");
+	 *     so.addVariable("onlineStatus",true);
+	 *     so.addVariable("onlineStatusPingFrequency",120000);
+	 *     so.addParam("scale", "noscale");
+	 *     so.write("flashcontent");
+	 *     // ]]&gt;
+	 * &lt;/script&gt;
+	 * </listing>
+	 * 
+	 * <p>See the examples in "examples/shells" for more examples of using different snippets of the default functionality.</p> 
 	 */
 	public class DocumentController extends MovieClip
 	{
@@ -106,6 +127,17 @@ package net.guttershark.control
 		 */
 		public var languageManager:LanguageManager;
 		
+		/**
+		 * The document RemotingManager. This is not setup initially for you.
+		 * You must set it up with the site XML file, and the 
+		 * SiteXMLParser#createRemotingManagerForEndpoint method. This variable
+		 * is just a stub variable for convention.
+		 * 
+		 * @see net.guttershark.model.SiteXMLParser#createRemotingManagerForEndpoint() createRemotingManagerForEndpoint method
+		 * @see net.guttershark.managers.RemotingManager RemotingManager class
+		 */
+		public var remotingManager:RemotingManager;
+
 		/**
 		 * The timer used to initiate the ping loader.
 		 */
