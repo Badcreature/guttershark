@@ -10,7 +10,7 @@ package net.guttershark.util
 	 * <listing>	
 	 * public function setItems(array:Array, maxCount:int)
 	 * {
-	 *     Assert.NotNullOrEmpty(array, "Parameter array cannot be null");
+	 *     Assert.NotNullOrEmpty(array, "Parameter array cannot be null or empty");
 	 *     Assert.NotNull(maxCount, "Parameter maxCount cannot be null");
 	 * }
 	 * </listing>
