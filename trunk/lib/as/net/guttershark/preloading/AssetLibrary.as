@@ -1,6 +1,5 @@
 package net.guttershark.preloading
 {
-	import net.guttershark.util.XMLLoader;	
 
 	import flash.display.Sprite;
 	import flash.text.Font;
@@ -10,6 +9,8 @@ package net.guttershark.preloading
 	import flash.media.Sound;
 	import flash.utils.Dictionary;
 	
+	import net.guttershark.util.Assert;	
+	import net.guttershark.util.XMLLoader;
 	import net.guttershark.core.IDisposable;
 	
 	/**
@@ -46,9 +47,22 @@ package net.guttershark.preloading
 		 */
 		public function addAsset(libraryName:String, obj:*):void
 		{
-			if(!libraryName) throw new ArgumentError("libraryName cannot be null");
-			if(!obj) throw new ArgumentError("The asset to register cannot be null");
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			Assert.NotNull(obj, "Parameter obj cannot be null");
 			assets[libraryName] = obj;
+		}
+		
+		/**
+		 * Check to see if an asset is available in the library.
+		 * 
+		 * @param	libraryName	The libraryName used to register the asset.
+		 * @return	Boolean
+		 */
+		public function isAvailable(libraryName:String):Boolean
+		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null.");
+			if(assets[libraryName]) return true;
+			return false;
 		}
 		
 		/**
@@ -61,6 +75,7 @@ package net.guttershark.preloading
 		 */
 		public function getAsset(libraryName:String):*
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(!assets[libraryName]) throw new Error("Item not registered in library under the id: " + libraryName);
 			return assets[libraryName];
 		}
@@ -76,6 +91,7 @@ package net.guttershark.preloading
 		 */
 		public function getSWF(libraryName:String):Loader
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return getAsset(libraryName) as Loader;
 			throw new Error("SWF {" + libraryName + "} was not found");
 		}
@@ -89,6 +105,8 @@ package net.guttershark.preloading
 		 */
 		public function getClassFromSWFLibrary(libraryName:String, classNameInLibrary:String):Class
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			Assert.NotNull(classNameInLibrary,"Parameter classNameInLibrary cannot be null");
 			if(assets[libraryName] != null)
 			{
 				var swf:Loader = getAsset(libraryName) as Loader;
@@ -107,6 +125,8 @@ package net.guttershark.preloading
 		 */
 		public function getMovieClipFromSWFLibrary(libraryName:String, classNameInLibrary:String):MovieClip
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			Assert.NotNull(classNameInLibrary,"Parameter classNameInLibrary cannot be null");
 			if(assets[libraryName] != null)
 			{
 				var swf:Loader = getAsset(libraryName) as Loader;
@@ -127,6 +147,8 @@ package net.guttershark.preloading
 		 */
 		public function getSpriteFromSWFLibrary(libraryName:String, classNameInLibrary:String):Sprite
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			Assert.NotNull(classNameInLibrary,"Parameter classNameInLibrary cannot be null");
 			if(assets[libraryName] != null)
 			{
 				var swf:Loader = getAsset(libraryName) as Loader;
@@ -147,6 +169,8 @@ package net.guttershark.preloading
 		 */
 		public function getFontFromSWFLibrary(libraryName:String, fontLinkageId:String):Font
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			Assert.NotNull(fontLinkageId,"Parameter fontLinkageId cannot be null");
 			if(assets[libraryName] != null)
 			{
 				var swf:Loader = getAsset(libraryName) as Loader;
@@ -167,6 +191,8 @@ package net.guttershark.preloading
 		 */
 		public function getBitmapFromSWFLibrary(libraryName:String, bitmapLinkageId:String):Bitmap
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			Assert.NotNull(bitmapLinkageId,"Parameter bitmapLinkageId cannot be null");
 			if(assets[libraryName] != null)
 			{
 				var swf:Loader = getAsset(libraryName) as Loader;
@@ -187,6 +213,8 @@ package net.guttershark.preloading
 		 */
 		public function getSoundFromSWFLibrary(libraryName:String, soundLinkageId:String):Sound
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			Assert.NotNull(soundLinkageId,"Parameter soundLinkageId cannot be null");
 			if(assets[libraryName] != null)
 			{
 				var swf:Loader = getAsset(libraryName) as Loader;
@@ -205,6 +233,7 @@ package net.guttershark.preloading
 		 */
 		public function getBitmap(libraryName:String):Bitmap
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return Bitmap(getAsset(libraryName).content);
 			throw new Error("Bitmap {" + libraryName + "} was not found.");
 		}
@@ -217,6 +246,7 @@ package net.guttershark.preloading
 		 */
 		public function getSound(libraryName:String):Sound
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return getAsset(libraryName) as Sound;
 			throw new Error("Sound {" + libraryName + "} was not found.");
 		}
@@ -229,6 +259,7 @@ package net.guttershark.preloading
 		 */
 		public function getXML(libraryName:String):XML
 		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return XMLLoader(getAsset(libraryName)).data as XML;
 			throw new Error("XML {" + libraryName + "} was not found.");
 		}
