@@ -1,6 +1,6 @@
 package  
 {
-	
+
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.utils.*;
@@ -9,42 +9,35 @@ package
 	import net.guttershark.preloading.events.AssetCompleteEvent;
 	import net.guttershark.preloading.events.PreloadProgressEvent;
 	import net.guttershark.preloading.PreloadController;
+	import net.guttershark.control.DocumentController;	
+	import net.guttershark.model.SiteXMLParser;
 	
 	import gs.TweenMax;
 	
-	public class PreloaderTest extends MovieClip 
+	public class Main extends DocumentController 
 	{
 
 		private var preloadController:PreloadController;
 		public var preloader:MovieClip;
 
-		public function PreloaderTest()
+		public function Main()
 		{
 			super();
-			this.loaderInfo.addEventListener(Event.COMPLETE, onSWFComplete);
 		}
 
-		private function onSWFComplete(e:Event):void
+		override protected function flashvarsForStandalone():Object
 		{
-			//you should have an assets folder local to the swf with these assets in it.
-			var a:Asset = new Asset("assets/swfload_test.swf","swf1");
-			var assets:Array = [
-				new Asset("assets/jpg1.jpg","jpg1"),
-				new Asset("assets/jpg2.jpg","jpg2"),
-				new Asset("assets/png1.png","png1"),
-				new Asset("assets/png2.png","png2"),
-				new Asset("assets/sound1.mp3","snd1"),
-				a,
-				new Asset("assets/Pizza_Song.flv","pizza")
-			];
-			//note that above, a insn't in the array because of the prioritize call to it.
-			
+			return {siteXML:"site.xml"}
+		}
+
+		override protected function setupComplete():void
+		{
+			var siteXMLParser:SiteXMLParser = new SiteXMLParser(siteXML);
 			preloadController = new PreloadController(400);
-			preloadController.addItems(assets);
+			preloadController.addItems(siteXMLParser.getAssetsForPreload());
 			preloadController.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);
 			preloadController.addEventListener(Event.COMPLETE,onPreloaderComplete);
 			preloadController.addEventListener(AssetCompleteEvent.COMPLETE, onItemComplete);
-			preloadController.prioritize(a); //prioritize the swf.
 			preloadController.start(); //start it;
 			preloadController.stop(); //pause it
 			setTimeout(preloadController.start,4000); //resume it
@@ -63,8 +56,7 @@ package
 
 		private function onPreloaderComplete(e:*):void
 		{
-			trace("PRELOAER COMPLETE");
-			addChild(preloadController.library.getMovieClipFromSWFLibrary("swf1", "Test"));
+			addChild(preloadController.library.getMovieClipFromSWFLibrary("swftest", "Test"));
 			addChild(preloadController.library.getBitmap("jpg1"));
 		}
 	}
