@@ -4,7 +4,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title></title>
 	<script type="text/javascript" src="js/swfobject.js"></script>
-	<script type="text/javascript" src="js/swfobject.js"></script>
 	<script type="text/javascript" src="js/tracking/tracking.js"></script>
 	<script type="text/javascript" src="js/tracking/delegates.js"></script>
 	<script type="text/javascript" src="js/tracking/tracking_init.js"></script>
@@ -23,17 +22,13 @@
 <div id="container">
 	<div id="flash">
 		<noscript>
-			<center>
-				<h2>Oops! You need to install or upgrade your <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank">Flash Player.</a></h2>
-			</center>
+			<strong>You need to upgrade your <a href="http://www.adobe.com/products/flashplayer/">Flash Player</a></strong>
 		</noscript>
 	</div>
 </div>
 <script type="text/javascript">
 	var so = new SWFObject("", "flaswf", "200", "240", "9.0.28", "#ffffff", false, "high");
 	so.addVariable("siteXML","site.xml");
-	so.addVariable("sniffCPU",false);
-	so.addVariable("sniffBandwidth",false);
 	so.write("flash");
 </script>
 </body>
