@@ -64,9 +64,9 @@ package net.guttershark.preloading.workers
 	 * an Asset. Most subclasses don't need to override all of the logic in this
 	 * class.
 	 * 
-	 * <p>It provides default behavior like listening to events from the internal
+	 * <p>The worker provides default behavior like listening to events from the internal
 	 * loader and taking care of the callbacks, and routing the events
-	 * to the associated preload controller.</p>
+	 * to the associated PreloadController.</p>
 	 * 
 	 * <p>This worker class cannot be used directly, it must be subclassed. You
 	 * must override the "load" method and implement your own logic to prepare
@@ -78,30 +78,31 @@ package net.guttershark.preloading.workers
 	 * <p>Here is a snippet taken from the BitmapWorker class that shows overriding the load method
 	 * and setting up the internal loader and request properties.</p>
 	 * 
-	 * <listing>
+	 * <listing>	
 	 * override public function load(asset:Asset):void
 	 * {
-	 *  this.asset = asset;
-	 * 	request = new URLRequest(asset.source);
-	 * 	loader = new Loader();
-	 * 	loader.contentLoaderInfo.addEventListener(Event.OPEN, super.onOpen);
-	 * 	loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, super.onProgress);
-	 * 	loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, super.onHTTPStatus);
-	 * 	loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, super.onIOLoadError);
-	 * 	loader.contentLoaderInfo.addEventListener(IOErrorEvent.DISK_ERROR, super.onIOLoadError);
-	 * 	loader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR, super.onIOLoadError);
-	 * 	loader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR, super.onIOLoadError);
-	 * 	loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, super.onSecurityError);
-	 * 	loader.contentLoaderInfo.addEventListener(Event.COMPLETE, super.onComplete);
-	 * 	start(); //kicks off the loading, default loading logic is in the Worker class.
+	 *    this.asset = asset;
+	 *    request = new URLRequest(asset.source);
+	 *    loader = new Loader();
+	 * 	  loader.contentLoaderInfo.addEventListener(Event.OPEN, super.onOpen);
+	 * 	  loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, super.onProgress);
+	 * 	  loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, super.onHTTPStatus);
+	 * 	  loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, super.onIOLoadError);
+	 * 	  loader.contentLoaderInfo.addEventListener(IOErrorEvent.DISK_ERROR, super.onIOLoadError);
+	 * 	  loader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR, super.onIOLoadError);
+	 * 	  loader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR, super.onIOLoadError);
+	 * 	  loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, super.onSecurityError);
+	 * 	  loader.contentLoaderInfo.addEventListener(Event.COMPLETE, super.onComplete);
+	 * 	  start(); //kicks off the loading, default loading logic is in the Worker class.
 	 * }
 	 * </listing>
+	 * 
+	 * <p>See the source code in any other worker in this package for subclassing examples.
 	 * 
 	 * @see #loader
 	 * @see #request
 	 * @see #load()
-	 * @see net.guttershark.preloading.Asset
-	 * @see source See the source code of any one of the workers in this package for a subclassing example.
+	 * @see net.guttershark.preloading.Asset 
 	 */
 	public class Worker extends EventDispatcher implements ILoadWorker
 	{
@@ -144,6 +145,7 @@ package net.guttershark.preloading.workers
 		 * <p>This will throw an exception if you do not override the method.</p>
 		 * 
 		 * @param	asset	the asset to load.
+		 * @throws	Error	If the method is not overridden.
 		 */
 		public function load(asset:Asset):void
 		{
