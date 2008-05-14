@@ -9,18 +9,6 @@
 	<script type="text/javascript" src="js/tracking/tracking_init.js"></script>
 	<script type="text/javascript" src="js/wt.js"></script>	
 	<script type="text/javascript">
-		function addSWF()
-		{
-			var so = new SWFObject('', 'flaswf', '100%', '100%', '9', '#000000');
-			so.addVariable("siteXML","site.xml");
-			so.addVariable("sniffBandwidth",false);
-			so.addVariable("sniffCPU",false);
-			so.write("flashcontent");
-		}
-		window.onload = function()
-		{
-			addSWF()
-		}
 		setupTracking('tracking.xml');
 	</script>
 	<style type="text/css">	
@@ -33,11 +21,13 @@
 </head>
 <body>
 	<div id="flashcontent">
-		<strong>You need to upgrade your <a href="http://www.adobe.com/products/flashplayer/">Flash Player</a></strong>
+		<noscript>
+			<strong>You need to upgrade your <a href="http://www.adobe.com/products/flashplayer/">Flash Player</a></strong>
+		</noscript>
 	</div>
 	<script type="text/javascript">
 		// <![CDATA[
-		var so = new SWFObject("main.swf", "flaswf", "100%", "100%", "9", "#000");
+		var so = new SWFObject("", "flaswf", "100%", "100%", "9", "#000");
 		so.addVariable("siteXML","site.xml");
 		so.addParam("scale", "noscale");
 		so.write("flashcontent");

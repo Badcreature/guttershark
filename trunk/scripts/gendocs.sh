@@ -11,6 +11,7 @@ ${ASDOC}asdoc \
 -main-title "Guttershark Flash API Docs" \
 -window-title "Guttershark Flash API Docs" \
 -output ./docs/ \
+-exclude-classes net.guttershark.StartHere \
 -exclude-classes gs.TweenMax \
 -exclude-classes gs.TweenLite \
 -exclude-classes gs.TweenFilterLite \
