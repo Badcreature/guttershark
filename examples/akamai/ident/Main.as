@@ -1,14 +1,13 @@
 package 
 {
 	
+	import fl.video.VideoPlayer;	
+
 	import net.guttershark.akamai.AkamaiNCManager;
-	import net.guttershark.akamai.Ident;
 	import net.guttershark.control.DocumentController;
 
 	public class Main extends DocumentController
 	{
-
-		private var ident:Ident;
 
 		public function Main():void
 		{
@@ -24,6 +23,7 @@ package
 		{
 			trace(ip);
 			AkamaiNCManager.FMS_IP = ip;
+			VideoPlayer.iNCManagerClass = "net.guttershark.akamai.AkamaiNCManager";
 		}
 
 		override protected function setupComplete():void
