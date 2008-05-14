@@ -1,14 +1,64 @@
 package net.guttershark.model 
 {
-	
+		
+	import net.guttershark.remoting.RemotingManager;	
 	import net.guttershark.util.StringUtils;	
 	import net.guttershark.preloading.Asset;	
 	import net.guttershark.util.Assert;	
 
 	/**
-	 * The SiteXMLParser class provides shortcuts for parsing a
-	 * site xml file. This provides methods that work with a
-	 * default implementation of a site xml file.
+	 * The SiteXMLParser class provides shortcuts for parsing a default site xml file.
+	 * 
+	 * <p>A default implementation of a site xml file contains information for preloading and
+	 * some optional elements.</p>
+	 * 
+	 * <p>It includes at least these nodes:</p>
+	 * <ul>
+	 * <li>An <code><em>assetPath</em></code> node, with sub nodes defining paths for specific media types.</li>
+	 * <li>An <code><em>assets</em></code> node, with <code><em>asset</em></code> sub nodes. These define all assets that
+	 * potentially need to be preloaded.</li>
+	 * <li>A <code><em>preload</em></code> node, with <code><em>asset</em></code> sub nodes. These asset sub nodes correlate
+	 * directly to a node in the <code><em>assets</em></code> node, essentially this preload node defines references
+	 * to other assets from the assets pool node.</li>
+	 * </ul>
+	 * 
+	 * <p>With optional nodes:</p>
+	 * <ul>
+	 * <li>A <code><em>services</em></code> node.</li>
+	 * </ul>
+	 * 
+	 * @example A default site XML file:
+	 * <listing>	
+	 * &lt;?xml version="1.0" encoding="utf-8"?&gt;
+	 * &lt;site&gt;
+	 *    &lt;assetPaths basePath="assets/"&gt;
+	 *        &lt;bitmapPath&gt;bmp/&lt;/bitmapPath&gt;
+	 *        &lt;soundPath&gt;sounds/&lt;/soundPath&gt;
+	 *        &lt;swfPath&gt;swf/&lt;/swfPath&gt;
+	 *        &lt;flvPath&gt;flv/&lt;/flvPath&gt;
+	 *        &lt;xmlPath&gt;xml/&lt;/xmlPath&gt;
+	 *    &lt;/assetPaths&gt;
+	 *    &lt;assets&gt;
+	 *        &lt;asset libraryName="clayBanner1" source="clay_banners_1.jpg" /&gt;
+	 *        &lt;asset libraryName="clayBanner2" source="clay_banners_2.jpg" /&gt;
+	 *        &lt;asset libraryName="clayWebpage" source="clay_webpage.jpg" /&gt;
+	 *    &lt;/assets&gt;
+	 *    &lt;preload&gt;
+	 *       &lt;asset libraryName="clayBanner1" /&gt;
+	 *       &lt;asset libraryName="clayBanner2" /&gt;
+	 *       &lt;asset libraryName="clayWebpage" /&gt;
+	 *    &lt;/preload&gt;
+	 *    &lt;!-- OPTIONAL ELEMENTS --&gt;
+	 *    &lt;services&gt;
+	 *       &lt;remoting&gt;
+	 *          &lt;endpoint id="amfphp" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
+	 *             &lt;service id="service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
+	 *             &lt;service id="service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
+	 *          &lt;/endpoint&gt;
+	 *       &lt;/remoting&gt;
+	 *    &lt;/services&gt;
+	 * &lt;/site&gt;
+	 * </listing>
 	 */
 	public class SiteXMLParser
 	{
@@ -19,45 +69,73 @@ package net.guttershark.model
 		protected var siteXML:XML;
 		
 		/**
-		 * Stores a reference to the <assetPaths></assetPaths> node.
+		 * Stores a reference to the &lt;assetPaths&gt;&lt;/assetPaths&gt; node.
+		 * 
+		 * @example An assetPath node:
+		 * <listing>	
+		 * &lt;assetPaths basePath="assets/"&gt;
+		 *    &lt;bitmapPath&gt;bmp/&lt;/bitmapPath&gt;
+		 *    &lt;soundPath&gt;sounds/&lt;/soundPath&gt;
+		 *    &lt;swfPath&gt;swf/&lt;/swfPath&gt;
+		 *    &lt;flvPath&gt;flv/&lt;/flvPath&gt;
+		 * &lt;/assetPaths&gt;
+		 * </listing>
 		 */
 		protected var assetPaths:XMLList;
 		
 		/**
-		 * Stores a reference to the <preload></preload> node.
+		 * Stores a reference to the &lt;preload&gt;&lt;/preload&gt; node.
 		 * 
 		 * @example A preload node.
-		 * <listing>
+		 * <listing>	
 		 * &lt;preload&gt;
-		 * &lt;asset libraryName="test1" /&gt;
+		 *     &lt;asset libraryName="test1" /&gt;
 		 * &lt;/preload&gt;
-		 * &lt;/listing&gt;
 		 * </listing>
 		 * 
-		 * <p>In that above example, the <code>asset</code> node will correlate directly
+		 * <p>In the above example, the <code>asset</code> node will correlate directly
 		 * to another node in the <code>assets</code> nodes with the same libraryName. 
 		 * The libraryName is used as a lookup id into the <code>assets</code> nodes.</p>
 		 */
 		protected var preload:XMLList;
 		
 		/**
-		 * Stores a reference to the <assets></assets> node.
+		 * Stores a reference to the &lt;assets&gt;&lt;/assets&gt; node.
 		 * 
 		 * <p>The assets node is an asset pool that is used in many other places
 		 * as a lookup for info about an asset.</p>
 		 * 
 		 * @example An assets nodes:
-		 * <listing>
+		 * <listing>	
 		 * &lt;assets&gt;
 		 *    &lt;asset libraryName="test1" source="test1.jpg" /&gt;
 		 *    &lt;asset libraryName="test2" source="test2.jpg" /&gt;
 		 *    &lt;asset libraryName="test3" source="test3.jpg" /&gt;
 		 * &lt;/assets&gt;
 		 * </listing>
-		 * 
-		 * <p>The above example defines 3 assets.</p>
 		 */
 		protected var assets:XMLList;
+		
+		/**
+		 * Stores a reference to the <code>&lt;remoting&gt;&lt;/remoting&gt;</code> node.
+		 * 
+		 * @example A remoting nodes set.
+		 * <listing>	
+		 * &lt;services&gt;
+		 *     &lt;remoting&gt;
+		 *         &lt;endpoint gateway="http://localhost/amfphp/gateway.php" useLimiter="true" useCache="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
+		 *             &lt;service id="service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
+		 *             &lt;service id="service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
+		 *         &lt;/endpoint&gt;
+		 *     &lt;/remoting&gt;
+		 * &lt;/services&gt;
+		 * </listing>
+		 * 
+		 * <p>The above attributes in the endpoint node are all the available attributes. Generally you don't need
+		 * to specify them on the service level, so they're only available as canvas options for
+		 * each service.</p>
+		 */
+		protected var remoting:XMLList;
 		
 		/**
 		 * Constructor for SiteXMLParser instances.
@@ -66,9 +144,16 @@ package net.guttershark.model
 		{
 			Assert.NotNull(siteXML, "Parameter siteXML cannot be null");
 			this.siteXML = siteXML;
-			assetPaths = siteXML.assetPaths;
-			assets = siteXML.assets;
-			preload = siteXML.preload;
+			if(siteXML.assetPaths) assetPaths = siteXML.assetPaths;
+			if(siteXML.assets) assets = siteXML.assets;
+			if(siteXML.preload) preload = siteXML.preload;
+			if(siteXML.services)
+			{
+				if(siteXML.services.remoting)
+				{
+					remoting = siteXML.services.remoting;
+				}
+			}
 		}
 		
 		/**
@@ -109,14 +194,20 @@ package net.guttershark.model
 				case "flv":
 					path = assetPaths.flvPath.toString();
 					break;
+				case "xml":
+					path = assetPaths.xmlPath.toString();
+					break;
 			}
 			source = path + source;
 			return source;
 		}
 		
 		/**
-		 * Get assets to preload.
+		 * Creates an Array of Asset instances for preloading with a PreloadController.
+		 * 
 		 * @return	An array containing Asset instances you can pass directly to a preloadController.addItems() method.
+		 * 
+		 * @see net.guttershark.preloading.PreloadController#addItems() PreloadController#addItems method.
 		 */
 		public function getAssetsForPreload():Array
 		{
@@ -131,6 +222,52 @@ package net.guttershark.model
 				assetsToLoad.push(new Asset(path, asset.@libraryName));
 			}
 			return assetsToLoad;
+		}
+		
+		/**
+		 * Get an Asset instance by the library name.
+		 * 
+		 * @param	libraryName	The libraryName of the asset to create.
+		 * @return	An instance of an Asset.
+		 */
+		public function getAssetByLibraryName(libraryName:String):Asset
+		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			var node:XML = assets.asset.(@libraryName == libraryName);
+			return new Asset(node.@source,libraryName);
+		}
+		
+		/**
+		 * Create and initialize a RemotingManager instance for the specified endpoint
+		 * id. The RemotingManager is populated with the services specified
+		 * in the endpoint defined in XML.
+		 * 
+		 * <p>This only does the creation and intialization. After you've gotten
+		 * the RemotingManager instance out of this method, you should manage it from 
+		 * there, it is not cached internally or hung on to.</p>
+		 */
+		public function createRemotingManagerForEndpoint(id:String):RemotingManager
+		{
+			Assert.NotNull(remoting, "No remoting nodes were found. Please define them in the services node.");
+			var endpoint:XMLList = remoting.endpoint.(@id == id);
+			if(!endpoint) throw new Error("Endpoint " + id + "could not be found.");
+			RemotingManager.DefaultObjectEncoding = int(endpoint.@objectEncoding);
+			var rm:RemotingManager = new RemotingManager();
+			var timeout:int = (endpoint.@callTimeout) ? endpoint.@callTimeout : 5000;
+			var retries:int = (endpoint.@maxRetries) ? endpoint.@maxRetries : 5;
+			var limiter:Boolean;
+			if(endpoint.@useLimiter)
+			{
+				if(endpoint.@useLimiter == "true") limiter = true;
+				else limiter = false;
+			}
+			for each(var service:XML in endpoint.service)
+			{
+				var cache:Boolean = (service.@useCache == "true") ? true : false;
+				var cacheExpire:int = (service.@cacheExpireTimeout) ? int(service.@cacheExpireTimeout) : -1;
+				rm.createService(service.@id, endpoint.@gateway.toString(), service.toString(),timeout,retries,limiter,cache,cacheExpire);
+			}
+			return rm;
 		}
 	}
 }
