@@ -19,7 +19,6 @@ package net.guttershark
 		 * 
 		 * <ul>
 		 * <li>TweenLite,TweenFilterLite,TweenMax</li>
-		 * <li>Adobe Corelib</li>
 		 * </ul>
 		 */
 		guttershark_internal static var dependencies:Array = ["gs.*"];
