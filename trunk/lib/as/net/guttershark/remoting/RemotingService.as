@@ -87,7 +87,7 @@ package net.guttershark.remoting
 		/**
 		 * The maxiumum timeouts that can happen before every service is haulted.
 		 */
-		public static var MaxTimeoutsBeforeHault:Number = 0;
+		public static var MaxTimeoutsBeforeHault:Number = 10;
 		
 		/**
 		 * The number of timeouts that have occured between any remoting service.
@@ -255,6 +255,14 @@ package net.guttershark.remoting
 			return null;
 		}
 		
+		/**
+		 * To string.
+		 */
+		public function toString():String
+		{
+			return "[RemotingService " + service + "]";
+		}
+
 		/**
 		 * @private
 		 * 
