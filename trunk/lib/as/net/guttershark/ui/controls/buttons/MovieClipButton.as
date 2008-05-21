@@ -36,9 +36,7 @@ package net.guttershark.ui.controls.buttons
 	 * 
 	 * <p>This class also uses high priority event listeners for mouse events.
 	 * When you set the <code>locked</code> property, all MouseEvents will <strong>not</strong>
-	 * be dispatched.</p>
-	 * 
-	 * <p>If you absolutely need mouse events even though the button is locked,
+	 * be dispatched. If you absolutely need mouse events even though the button is locked,
 	 * you can add an event listener with a higher priority than 10.</p>
 	 */
 	public class MovieClipButton extends MovieClip
@@ -277,7 +275,7 @@ package net.guttershark.ui.controls.buttons
 		}
 		
 		/**
-		 * Read the locked state of the button.
+		 * Lock or unlock the button.
 		 */
 		public function get locked():Boolean
 		{
