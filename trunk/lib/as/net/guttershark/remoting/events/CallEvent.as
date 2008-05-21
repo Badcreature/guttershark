@@ -16,11 +16,13 @@ package net.guttershark.remoting.events
 		public static const REQUEST_SENT:String = "requestSent";
 		
 		/**
+		 * @private
 		 * When a result has been received, this is dispatched from RemotingService.
 		 */
 		public static const RESULT:String = "result";
 		
 		/**
+		 * @private
 		 * When a remoting call fails, this is dispatched from RemotingService
 		 */
 		public static const FAULT:String = "fault";
