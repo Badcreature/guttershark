@@ -3,4 +3,3 @@ To run examples, you need to add the "lib/as" folder to your document class path
 
 ALL OTHER EDITORS.
 1. You can use either the "lib/as" folder as a classpath an any editor. 
-2. Or you can use the bin/guttershark.swc file.
