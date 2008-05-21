@@ -5,13 +5,14 @@
 	<title>Guttershark Library</title>
 	<style type="text/css">
 		body{margin:0;padding:0;background-color:#a5cfda;font:12px arial,verdana,sans-serif;}
-		#wrapper{margin:0 auto;width:500px;}
-		#content{width:460px;background-color:white;padding:20px;margin-top:90px;border:solid 10px #94c0cc;margin-bottom:90px;}
+		#wrapper{margin:0 auto;width:43em;}
+		#content{width:38em;background-color:white;padding:20px;margin-top:90px;border:solid 10px #94c0cc;margin-bottom:90px;}
 		#content #navs{padding:0;margin:0;margin-bottom:20px;font-size:10px;width:100%;}
 		#content #navs a{color:#d1d3d3;}
 		#content #navs a:hover{color:#09a7ce;}
 		#blog{width:100%;text-align:right;}
 		#blog a{display:block;padding:10px;background-color:#d1d3d3;margin-top:40px;}
+		#other{margin-top:40px;}
 		h1{margin:0;padding:0;margin-bottom:20px;}
 		h2{padding:0;margin:0;padding-top:20px;}
 		h3{padding:0;margin:0;padding-top:20px;}
@@ -26,47 +27,51 @@
 <div id="wrapper">
 	<div id="content">
 		<h1>GUTTERSHARK<br><sup>Actionscript 3 Library</sup></h1>
-		<h3 class='first'>WHAT'S UP?</h3>
-		<p>I know what you're thinking - another library? Hear me out. Guttershark is an Actionscript 3 library that promotes
-			convention to make you faster as a developer. It's a simple pattern for Flash development that cuts out a huge 
-			amount of time.</p>
-		<p>Numerous other AS3 Flash libraries exist, but they all try to push insane amounts of abstraction on you. Just because 
-			something can be abstracted, doesn't mean it should be. All these libraries
-			implement about every design pattern you can find - just because they can. Does that make it more
+		<p>Guttershark is an Actionscript 3 library that pushes some simple conventions on you, only to make you faster as a 
+			developer. It's a pattern for Flash development that cuts out a huge amount of time, especially when you're
+			in the first stages of development.</p>
+		<p>There are quite a few AS3 Flash libraries out there, but a lot of them push abstraction on you that isn't necessary - just 	
+			because something can be abstracted, it doesn't mean it should be. Does that make it more
 			useful? Does it make your job easier or less complicated? Probably not.</p>
-		<p>So what's the deal with Guttershark? Everything in the Guttershark library is abstract enough
-			that you can piece something together with the libraries included. But the real benefit comes
-			from using the conventions defined by it. The biggest benefit is the amount of time it takes
-			to get up and running with a complete site.</p>
+		<p>So what's the deal with Guttershark? Essentially it defines the "scaffolding" of what seems to be 95% of
+			Flash websites. </p>
 		<p>By following the conventions, you can override literally
 			one method, write a few lines of code, and have the following implemented:</p>
 		<ul>
-			<li>Loads a "site XML" file.</li>
-			<li>Site XML parsers for simplification and convention of data extraction.</li>
-			<li>Preloading Framework.</li>
+			<li>Load a "Site XML" file.</li>
+			<li>Site XML Parsers.</li>
+			<ul>
+				<li>Methods that parse and give you back objects you can pass directly to the preloading framework.</li>
+				<li>Methods that initialize remoting services and initialize everything for you.</li>
+			</ul>
+			<li>Advanced Preloading Framework.</li>
+			<ul>
+				<li>Load XML,SWF,FLV,Bitmaps and Sounds. Access everything from one AssetLibrary, which simplifies working with
+					assets including Fonts.</li>
+			</ul>
 			<li>Bandwidth Detection (High/Med/Low).</li>
 			<li>CPU Speed Estimation (Fast/Med/Slow).</li>
-			<li>Online Status Pinging.</li>
-			<li>Shared object initialization hooks.</li>
+			<li>Online/Offline Status Hooks.</li>
+			<li>SharedObject initialization Hooks.</li>
 			<li>Akamai Ident Service Integration.</li>
 			<li>Akamai Net Connection Manager for FLVPlayback components.</li>
 			<li>Simplified Keyboard Event Management.</li>
 			<li>Simplified Language Management.</li>
+			<li>Remoting Framework.</li>
 		</ul>
-		<p>All of the above options are determined by an opt-in system through FlashVars.</p>
+		<p>Guttershark uses a common DocumentController that a lot of the default functionality resides in. And can be opted
+			into with FlashVars.</p>
 		<p>Besides all of that, there are a lot of utilities, and I'm bundling in a tracking
 			framework for Atlas and Webtrends</p>
-		<p>So, by conforming to some pretty loose conventions, you get a lot of things for free, and still
+		<p>By conforming to some pretty loose conventions, you get a lot of things for free, and still
 			have plenty of room to implement anything else you wish.</p>
 		<h3>DOCUMENTATION</h3>
-		<p>My philosophy behind documentation is that it should make sense, and allow me to tell someone to
-			look at the API docs, and not have to answer any questions.</p>
-		<p>How can that happen? By having an extremely well documented API. 95% of classes have examples, and explain
-			things in a readable fashion. The guide for writing documentation for Guttershark has been the Flash API.
-			What can makes more sense than following how Adobe does it?</p>
+		<p>The philosophy about documentation is that it should make sense, and use the API docs as the place
+			for all information, so that any questions can be directed to the API docs.</p>
+		<p>By having an extremely well documented API. 95% of classes have examples, and explain
+			things in a readable fashion. The guide for writing documentation for Guttershark has been the Flash and Flex API's.
+			What makes more sense than following how Adobe does it?</p>
 		</p>Documentation is always updated and maintained.</p>
-		<p>This is something you don't see in any other library, much less having 20% of the classes even close
-			to documented.</p>
 		<p>You should start by reading the <strong>net.guttershark.control.DocumentController</strong> documentation.</p>
 		<p><a href="http://www.guttershark.net/docs/" name="documentation">API Docs</a></a>
 		<h3>EXAMPLES</h3>
@@ -76,8 +81,6 @@
 		<h3>CODE</h3>
 		<p>Hosted on <a href="http://code.google.com/p/guttershark">googlecode</a></p>
 		<h3>CODE DEPENDENCIES</h3>
-		<p>Currently there is 1 dependency with the library. Dependencies are not distributed with the library, here are
-			links to all the dependencies.</p>
 		<ul>
 			<li><a href="http://www.tweenmax.com">TweenMax</a></li>
 		</ul>
@@ -87,7 +90,7 @@
 			welcomed.</p>
 		<h3>IN THE INDUSTRY</h3>
 		<p>Have you used it? <a href="mailto:aaron@rubyamf.org">shout it</a></p>
-		<!--<div id="blog"><a href="http://blog.guttershark.net">blog</a></div>-->
+		<div id="other"><a href="http://blog.guttershark.net">Blog</a> | <a href="http://groups.google.com/group/guttershark">Google Group</a></div>
 	</div>
 </div>
 </body>
