@@ -13,9 +13,9 @@ package net.guttershark.remoting.errors
 		public static const PAGE_ERROR:String = "pageError";
 		
 		/**
-		 * New PageError
-		 * @param		String		Message associated with this page error.
-		 * @param		int			The id for this error object.
+		 * Constructor for PageError instances.
+		 * @param	message	Message associated with this page error.
+		 * @param	id	The id for this error object.
 		 */
 		public function PageError(message:String, id:int = 0)
 		{
