@@ -29,7 +29,7 @@ package net.guttershark.util
 	 * trace(CPU.Speed);
 	 * trace(CPU.Speed == CPU.FAST);
 	 * trace(CPU.Speed == CPU.MEDIUM);
-	 * trace(CPU.Speed == CPU.LOW);
+	 * trace(CPU.Speed == CPU.SLOW);
 	 * trace(CPU.Benchmark);
 	 * </listing>
 	 * 

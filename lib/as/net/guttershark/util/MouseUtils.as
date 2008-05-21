@@ -5,7 +5,7 @@ package net.guttershark.util
 	import flash.geom.Rectangle;
 	
 	/**
-	 * The MousePositionUtils class has utility methods for working with mouse positions.
+	 * The MouseUtils class has utility methods for working with mouse positions.
 	 */
 	public class MouseUtils
 	{
