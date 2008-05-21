@@ -39,8 +39,8 @@ package
 			preloadController.addEventListener(Event.COMPLETE,onPreloaderComplete);
 			preloadController.addEventListener(AssetCompleteEvent.COMPLETE, onItemComplete);
 			preloadController.start(); //start it;
-			preloadController.stop(); //pause it
-			setTimeout(preloadController.start,4000); //resume it
+			//preloadController.stop(); //pause it
+			//setTimeout(preloadController.start,4000); //resume it
 		}
 		
 		private function onProgress(pe:PreloadProgressEvent):void
