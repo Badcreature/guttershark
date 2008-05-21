@@ -5,6 +5,8 @@ package net.guttershark.util.cache
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
 	
+	import net.guttershark.core.IDisposable;
+	
 	/**
 	 * The Cache class is an implementation of an ICacheStore for caching
 	 * objects in memory.
@@ -19,7 +21,7 @@ package net.guttershark.util.cache
 	 */
 	public class Cache implements ICacheStore
 	{
-		
+
 		/**
 		 * The memory cache
 		 */	
@@ -50,6 +52,18 @@ package net.guttershark.util.cache
 			//destroy all items in the cache
 			for each(var key:* in cache) cache[key].destroy();
 			cache = new Dictionary(true);
+		}
+		
+		/**
+		 * Dispose of this Cache instance. The difference between this
+		 * and purgeAll is that dispose will render this cache instance
+		 * not usable again. But purgeAll simply resets this cache, and is
+		 * still usable afterwords.
+		 */
+		public function dispose():void
+		{
+			purgeAll();
+			cache = null;
 		}
 		
 		/**
