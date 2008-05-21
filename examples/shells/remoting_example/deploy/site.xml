@@ -2,9 +2,15 @@
 <site>
 	<services>
 		<remoting>
-			<endpoint id="endpoint1" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3">
-				<service id="service1">com.myphp.Service1</service>
-				<service id="service2">com.myphp.Service2</service>
+			<endpoint id="amfphp" gateway="http://www.leftvsright.com/console/weborb.aspx" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3">
+				<service id="amfphpService1">com.myphp.Service1</service>
+				<service id="amfphpService2">com.myphp.Service2</service>
+				<service id="amfphpMRMCache">MRM_CacheManager.CacheFront</service>
+			</endpoint>
+			<endpoint id="rubyamf" gateway="http://localhost:8024/rubyamf/gateway.rb" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3">
+				<service id="rubyamfService1">com.myphp.Service1</service>
+				<service id="rubyamfService2">com.myphp.Service2</service>
+				<service id="rubyamfMRMCache">MRM_CacheManager.CacheFront</service>
 			</endpoint>
 		</remoting>
 	</services>
