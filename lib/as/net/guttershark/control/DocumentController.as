@@ -1,6 +1,6 @@
 package net.guttershark.control
-{	
-	
+{
+
 	import flash.events.HTTPStatusEvent;	
 	import flash.events.IOErrorEvent;	
 	import flash.events.TimerEvent;	
@@ -13,6 +13,7 @@ package net.guttershark.control
 	import flash.events.Event;
 	import flash.net.URLRequest;
 	
+	import net.guttershark.model.SiteXMLParser;
 	import net.guttershark.util.cache.Cache;
 	import net.guttershark.akamai.Ident;
 	import net.guttershark.managers.PlayerManager;
@@ -39,13 +40,14 @@ package net.guttershark.control
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000.</li>
 	 * <li><strong>cacheExpireTimeout</strong> (Number) - Initiates Cache expiring on the document cache instance. Note that the Cache is only a memory cache. Be ware that if you set this, and get problems with objects not caching, it's because they're expiring.</li>
+	 * <li><strong>initRemotingEndpoints</strong> (CSV EX:"amfphp,rubyamf") - Initialize the <code><em>remotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a siteXML file.</li>
 	 * </ul>
 	 * 
 	 * <p>FlashVar properties can be delared when running in the Flash IDE by overriding the <code>flashvarsForStandalone</code> 
 	 * method. Otherwise you need to put the flashvars on the flash object in HTML.</p>
 	 * 
 	 * @example Declaring FlashVars on a Flash object with SWFObject:
-	 * <listing>	
+	 * <listing>
 	 * &lt;script type="text/javascript"&gt;
 	 *     // &lt;![CDATA[
 	 *     var so = new SWFObject("main.swf", "flaswf", "100%", "100%", "9", "#000");
@@ -55,8 +57,7 @@ package net.guttershark.control
 	 *     so.addVariable("akamaiHost","http://cp44952.edgefcs.net/");
 	 *     so.addVariable("onlineStatus",true);
 	 *     so.addVariable("onlineStatusPingFrequency",120000);
-	 *     so.addParam("scale", "noscale");
-	 *     so.write("flashcontent");
+	 *     so.addVariable("remotingEndpoints","amfphp,rubyamf");
 	 *     // ]]&gt;
 	 * &lt;/script&gt;
 	 * </listing>
@@ -126,7 +127,7 @@ package net.guttershark.control
 		 * @see net.guttershark.managers.LanguageManager LanguageManager class
 		 */
 		public var languageManager:LanguageManager;
-		
+
 		/**
 		 * The document RemotingManager. This is not setup initially for you.
 		 * You must set it up with the site XML file, and the 
@@ -146,6 +147,11 @@ package net.guttershark.control
 		 * @see net.guttershark.managers.RemotingManager RemotingManager class
 		 */
 		public var remotingManager:RemotingManager;
+		
+		/**
+		 * This is a stub variable you can use to store a siteXMLParser.
+		 */
+		public var siteXMLParser:*;
 
 		/**
 		 * The timer used to initiate the ping loader.
@@ -192,6 +198,7 @@ package net.guttershark.control
 			if(flashvars.siteXML) loadSiteXML();
 			if(flashvars.akamaiHost) loadAkamai();
 			if(flashvars.onlineStatus) initOnlineStatus();
+			if(!flashvars.siteXML && flashvars.initRemotingEndpoints) throw new Error("You cannot initialize remoting endpoints without a site XML file in place.");
 			if(!flashvars.siteXML) setupComplete();
 		}
 		
@@ -202,6 +209,20 @@ package net.guttershark.control
 		{
 			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) flashvars = flashvarsForStandalone();
 			else flashvars = loaderInfo.parameters;
+		}
+		
+		/**
+		 * Initialize the remoting manager.
+		 */
+		private function intiailizeRemotingManager():void
+		{
+			var endpoints:Array;
+			if(flashvars.initRemotingEndpoints is Array) endpoints = flashvars.initRemotingEndpoints;
+			else endpoints = flashvars.initRemotingEndpoints.split(",");
+			var sxp:SiteXMLParser = new SiteXMLParser(siteXML);
+			remotingManager = new RemotingManager();
+			var l:int = endpoints.length;
+			for(var i:int = 0; i < l; i++) sxp.initializeRemotingEndpoint(endpoints[i], remotingManager);
 		}
 		
 		/**
@@ -243,6 +264,7 @@ package net.guttershark.control
 			siteXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
 			siteXMLLoader.dispose();
 			siteXMLLoader = null;
+			if(flashvars.initRemotingEndpoints) intiailizeRemotingManager();
 			setupComplete();
 		}
 		
@@ -338,6 +360,10 @@ package net.guttershark.control
 		/**
 		 * A method you should override that provides the final hook in the
 		 * chain of setup method calls.
+		 * 
+		 * <p>If a siteXML file is being loaded, setupComplete will wait to be
+		 * called until after the xml is loaded. But will not wait for bandwidth sniff
+		 * or akamai ident hits.</p>
 		 */
 		protected function setupComplete():void{}
 		
