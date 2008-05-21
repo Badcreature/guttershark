@@ -1,10 +1,11 @@
 package net.guttershark.remoting
 {
-	
+
 	import flash.events.*;
 	import flash.net.NetConnection;
 	
 	import net.guttershark.remoting.events.ConnectionEvent;
+	import net.guttershark.core.IDisposable;
 	
 	/**
 	 * Dispatched when a connection is successful.
@@ -50,9 +51,9 @@ package net.guttershark.remoting
 	 * 
 	 * @see net.guttershark.remoting.RemotingService
 	 */
-	public class RemotingConnection extends EventDispatcher
+	public class RemotingConnection extends EventDispatcher implements IDisposable
 	{	
-		
+
 		/**
 		 * The gateway URL.
 		 */
@@ -130,6 +131,16 @@ package net.guttershark.remoting
 			}
 		}
 		
+		/**
+		 * Dispose of this RemotingConnection.
+		 */
+		public function dispose():void
+		{
+			connection.close();
+			connection = null;
+			gateway = null;
+		}
+
 		/**
 		 * Check whether or not the connection is currently established.
 		 * 

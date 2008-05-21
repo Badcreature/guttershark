@@ -31,11 +31,11 @@ package net.guttershark.remoting
 	[Event("requestSent",type="net.guttershark.remoting.events.CallEvent")];
 	
 	/**
-	 * The RemotingCall class encapsulates a remoting request, and manages timing tasks with the call.
+	 * The RemotingCall class encapsulates a remoting request, and manages timing tasks with the call and should not be used directly.
 	 * 
 	 * <p>The RemotingCall class is used internally to a RemotingService and should not be used directly.</p>
 	 * 
-	 * @see net.guttershark.remoting.RemotingService
+	 * @see net.guttershark.remoting.RemotingManager
 	 */
 	public class RemotingCall extends EventDispatcher
 	{

@@ -1,10 +1,11 @@
 package net.guttershark.remoting
 {
-	
+
 	import flash.events.*;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy; 
 	
+	import net.guttershark.core.IDisposable;
 	import net.guttershark.remoting.events.*;
 	import net.guttershark.remoting.limiting.RemotingCallLimiter;
 	import net.guttershark.util.cache.ICacheStore;
@@ -79,11 +80,11 @@ package net.guttershark.remoting
 	 * <p>In the example above, the MY_HANDLER represents an event function
 	 * callback.
 	 * 
-	 * @see net.guttershark.remoting.RemotingConnection
+	 * @see net.guttershark.remoting.RemotingManager
 	 */
-	public dynamic class RemotingService extends Proxy implements IEventDispatcher
+	public dynamic class RemotingService extends Proxy implements IEventDispatcher,IDisposable
 	{	
-		
+
 		/**
 		 * The maxiumum timeouts that can happen before every service is haulted.
 		 */
@@ -200,7 +201,14 @@ package net.guttershark.remoting
 		 */
 		private function onCallSent(ce:CallEvent):void
 		{
-			dispatchEvent(new CallEvent(CallEvent.REQUEST_SENT));
+			var ce1:CallEvent = new CallEvent(CallEvent.REQUEST_SENT);
+			ce1.service = this;
+			ce1.args = ce.args;
+			ce1.connection = ce.connection;
+			ce1.faultCallback = ce.faultCallback;
+			ce1.method = ce.method;
+			ce1.rawData = ce.rawData;
+			dispatchEvent(ce1);
 		}
 			
 		/**
@@ -256,13 +264,30 @@ package net.guttershark.remoting
 		}
 		
 		/**
+		 * Dispose of this RemotingService.
+		 */
+		public function dispose():void
+		{
+			callTimeout = 0;
+			eventDispatcher = null;
+			maxRetriesPerCall = 0;
+			remotingCache.dispose();
+			remotingCache = null;
+			remotingConnection.dispose();
+			remotingLimiter.dispose();
+			remotingLimiter = null;
+			service = null;
+			useLimiter = false;
+		} 
+
+		/**
 		 * To string.
 		 */
 		public function toString():String
 		{
 			return "[RemotingService " + service + "]";
 		}
-
+		
 		/**
 		 * @private
 		 * 
