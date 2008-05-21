@@ -1,7 +1,6 @@
 package net.guttershark.preloading
 {
-	import net.guttershark.util.ArrayUtils;	
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
@@ -14,6 +13,7 @@ package net.guttershark.preloading
 	import net.guttershark.preloading.events.PreloadProgressEvent;
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.workers.WorkerInstances;
+	import net.guttershark.util.ArrayUtils;
 	
 	/**
 	 * Dispatched for each item that has completed downloading.
