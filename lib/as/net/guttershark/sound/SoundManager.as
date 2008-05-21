@@ -87,7 +87,7 @@ package net.guttershark.sound
 			if(instance == null) instance = new SoundManager();
 			return instance;
 		}
-	
+		
 		/**
 		 * Add a sound into the sound manager.
 		 * 
@@ -125,28 +125,19 @@ package net.guttershark.sound
 		 * @param	name	The unique name used when registering it into the manager.
 		 * @param	startOffset	The start offset for the sound.
 		 * @param	int	The number of times to loop the sound.
+		 * @param	customVolume	A custom volume to play at, other than the current internal volume.
 		 */
-		public function playSound(name:String, startOffset:Number = 0, loopCount:int = 0):void
+		public function playSound(name:String, startOffset:Number = 0, loopCount:int = 0, customVolume:Number = 0):void
 		{
 			var snd:Sound = Sound(_soundDic[name]);
-			_playingSounds[name] = snd.play(startOffset, loopCount, _mainTransform);
-		}
-		
-		/**
-		 * Play a sound with a custom volume.
-		 * 
-		 * @param		String		The unique identier used with addSound
-		 * @param		Number		The start offset
-		 * @param		int			The number of times to loop the sound.
-		 * @param		Number		The custom volume to play the sound at.
-		 */
-		public function playSoundWithCustomVolume(name:String, startOffset:Number = 0, loopCount:int = 0, volume:Number = 0):void
-		{
-			var st:SoundTransform = new SoundTransform(volume,0);
-			var snd:Sound = Sound(_soundDic[name]);
-			_soundTransforms[name] = st;
-			st.volume = 0;
-			_playingSounds[name] = snd.play(startOffset,loopCount,st);
+			if(customVolume > 0)
+			{
+				var st:SoundTransform = new SoundTransform(volume,0);
+				_soundTransforms[name] = st;
+				st.volume = 0;
+				_playingSounds[name] = snd.play(startOffset, loopCount, st);
+			}
+			else _playingSounds[name] = snd.play(startOffset, loopCount, _mainTransform);
 		}
 		
 		/**
