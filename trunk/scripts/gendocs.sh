@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#-exclude-classes net.guttershark.StartHere \
 ME=`whoami`
 rm -rf ./docs/*
 ${ASDOC}asdoc \
@@ -11,7 +12,6 @@ ${ASDOC}asdoc \
 -main-title "Guttershark Flash API Docs" \
 -window-title "Guttershark Flash API Docs" \
 -output ./docs/ \
--exclude-classes net.guttershark.StartHere \
 -exclude-classes gs.TweenMax \
 -exclude-classes gs.TweenLite \
 -exclude-classes gs.TweenFilterLite \
