@@ -4,7 +4,7 @@ package net.guttershark.model
 	import net.guttershark.remoting.RemotingManager;	
 	import net.guttershark.util.StringUtils;	
 	import net.guttershark.preloading.Asset;	
-	import net.guttershark.util.Assert;	
+	import net.guttershark.util.Assert;
 
 	/**
 	 * The SiteXMLParser class provides shortcuts for parsing a default site xml file.
@@ -52,15 +52,19 @@ package net.guttershark.model
 	 *    &lt;services&gt;
 	 *       &lt;remoting&gt;
 	 *          &lt;endpoint id="amfphp" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
-	 *             &lt;service id="service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
-	 *             &lt;service id="service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
+	 *             &lt;service id="amfphp_service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
+	 *             &lt;service id="amfphp_service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
+	 *          &lt;/endpoint&gt;
+	 *          &lt;endpoint id="rubyamf" gateway="http://localhost/rubyamf/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
+	 *             &lt;service id="rubyamf_service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
+	 *             &lt;service id="rubyamf_service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
 	 *          &lt;/endpoint&gt;
 	 *       &lt;/remoting&gt;
 	 *    &lt;/services&gt;
 	 * &lt;/site&gt;
 	 * </listing>
 	 */
-	public class SiteXMLParser
+	dynamic public class SiteXMLParser
 	{
 		
 		/**
@@ -123,9 +127,13 @@ package net.guttershark.model
 		 * <listing>	
 		 * &lt;services&gt;
 		 *     &lt;remoting&gt;
-		 *         &lt;endpoint gateway="http://localhost/amfphp/gateway.php" useLimiter="true" useCache="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
-		 *             &lt;service id="service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
-		 *             &lt;service id="service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
+		 *         &lt;endpoint id="amfphp" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" useCache="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
+		 *             &lt;service id="amfphp_service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
+		 *             &lt;service id="amfphp_service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
+		 *         &lt;/endpoint&gt;
+		 *         &lt;endpoint id="rubyamf" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" useCache="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
+		 *             &lt;service id="rubyamf_service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
+		 *             &lt;service id="rubyamf_service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
 		 *         &lt;/endpoint&gt;
 		 *     &lt;/remoting&gt;
 		 * &lt;/services&gt;
@@ -233,26 +241,24 @@ package net.guttershark.model
 		public function getAssetByLibraryName(libraryName:String):Asset
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
-			var node:XML = assets.asset.(@libraryName == libraryName);
+			var node:XML = assets..asset.(@libraryName == libraryName);
 			return new Asset(node.@source,libraryName);
 		}
 		
 		/**
-		 * Create and initialize a RemotingManager instance for the specified endpoint
-		 * id. The RemotingManager is populated with the services specified
-		 * in the endpoint defined in XML.
+		 * Initialize remoting services for a specified endpoint, using
+		 * the supplied remoting manager.
 		 * 
-		 * <p>This only does the creation and intialization. After you've gotten
-		 * the RemotingManager instance out of this method, you should manage it from 
-		 * there, it is not cached internally or hung on to.</p>
+		 * @param	endpointID	The endpoint id.
+		 * @param	remotingManager	A remoting manager to intialize services in.
 		 */
-		public function createRemotingManagerForEndpoint(id:String):RemotingManager
+		public function initializeRemotingEndpoint(endpointID:String, remotingManager:RemotingManager):void
 		{
 			Assert.NotNull(remoting, "No remoting nodes were found. Please define them in the services node.");
-			var endpoint:XMLList = remoting.endpoint.(@id == id);
-			if(!endpoint) throw new Error("Endpoint " + id + "could not be found.");
+			Assert.NotNull(endpointID, "Parameter id cannot be null");
+			var endpoint:XMLList = remoting.endpoint.(@id == endpointID);
+			if(!endpoint) throw new Error("Endpoint " + endpointID + "could not be found.");
 			RemotingManager.DefaultObjectEncoding = int(endpoint.@objectEncoding);
-			var rm:RemotingManager = new RemotingManager();
 			var timeout:int = (endpoint.@callTimeout) ? endpoint.@callTimeout : 5000;
 			var retries:int = (endpoint.@maxRetries) ? endpoint.@maxRetries : 5;
 			var limiter:Boolean;
@@ -265,9 +271,22 @@ package net.guttershark.model
 			{
 				var cache:Boolean = (service.@useCache == "true") ? true : false;
 				var cacheExpire:int = (service.@cacheExpireTimeout) ? int(service.@cacheExpireTimeout) : -1;
-				rm.createService(service.@id, endpoint.@gateway.toString(), service.toString(),timeout,retries,limiter,cache,cacheExpire);
+				if(service.@id == undefined) throw new Error("<service> nodes must have an \"id\" attribute.");
+				remotingManager.createService(service.@id, endpoint.@gateway.toString(),service.toString(),timeout,retries,limiter,cache,cacheExpire);
 			}
-			return rm;
+		}
+		
+		/**
+		 * Get a Remoting gateway URL for the specified endpoint id.
+		 * @param	id	The endpoint id.
+		 * @return 	The gateway URL.	
+		 */
+		public function getRemotingGatewayForEndpoint(id:String):String
+		{
+			Assert.NotNull(id, "Parameter id cannot be null");
+			var endpoint:XMLList = remoting.endpoint.(@id == id);
+			if(!endpoint) throw new Error("Endpoint " + id + " not found in the XML.");
+			return endpoint.@gateway;
 		}
 	}
 }
