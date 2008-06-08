@@ -232,7 +232,23 @@ package net.guttershark.preloading
 		{ 
 			if(!this.loadItems[0]) this.loadItems = ArrayUtils.Clone(items);
 			else this.loadItems.concat(items);
-			loadItemsDuplicate = ArrayUtils.Clone(items);
+			loadItemsDuplicate = ArrayUtils.Clone(loadItems);
+		}
+		
+		/**
+		 * Add items to the controller to load, with top priority.
+		 * 
+		 * @param	items	An array of Asset instances.
+		 * @see net.guttershark.preloading.Asset Asset class
+		 */
+		public function addPrioritizedItems(items:Array):void
+		{
+			if(!this.loadItems[0]) this.loadItems = ArrayUtils.Clone(items);
+			else
+			{
+				for(var i:int = 0; i < items.length; i++) this.loadItems.unshift(items[i]); 
+			}
+			loadItemsDuplicate = ArrayUtils.Clone(loadItems);
 		}
 
 		/**
@@ -438,7 +454,7 @@ package net.guttershark.preloading
 				load();
 			}
 			else if((loaded + loadErrors) >= (loadItems.length))
-			{
+			{	
 				_working = false;
 				dispatchEvent(new PreloadProgressEvent(PreloadProgressEvent.PROGRESS,totalPixelsToFill,100));
 				dispatchEvent(new Event(Event.COMPLETE));
@@ -457,6 +473,8 @@ package net.guttershark.preloading
 			loaded = 0;
 			loadItems = [];
 			loadItemsDuplicate = [];
+			bytesTotalPool = [];
+			bytesLoadedPool = [];
 			currentItem = null;
 		}
 	}
