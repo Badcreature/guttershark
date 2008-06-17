@@ -174,7 +174,7 @@ package net.guttershark.ui.controls.buttons
 				down = false;
 				return;
 			}
-			if(upSound) SoundManager.GetInstance().playSound(upSound);
+			if(upSound) SoundManager.gi().playSound(upSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -191,7 +191,7 @@ package net.guttershark.ui.controls.buttons
 		 */
 		protected function onMouseUp(me:MouseEvent):void
 		{
-			if(upSound) SoundManager.GetInstance().playSound(upSound);
+			if(upSound) SoundManager.gi().playSound(upSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -206,7 +206,7 @@ package net.guttershark.ui.controls.buttons
 		 */
 		protected function onMouseOver(me:MouseEvent):void
 		{
-			if(overSound) SoundManager.GetInstance().playSound(overSound);
+			if(overSound) SoundManager.gi().playSound(overSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -222,7 +222,7 @@ package net.guttershark.ui.controls.buttons
 		 */
 		protected function __onMouseDown(me:MouseEvent):void
 		{
-			if(downSound) SoundManager.GetInstance().playSound(downSound);
+			if(downSound) SoundManager.gi().playSound(downSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -238,7 +238,7 @@ package net.guttershark.ui.controls.buttons
 		 */
 		protected function onMouseOut(me:MouseEvent):void
 		{
-			if(outSound) SoundManager.GetInstance().playSound(outSound);
+			if(outSound) SoundManager.gi().playSound(outSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -258,14 +258,14 @@ package net.guttershark.ui.controls.buttons
 			super.enabled = value;
 			if(value)
 			{
-				if(lockSound) SoundManager.GetInstance().playSound(lockSound);
+				if(lockSound) SoundManager.gi().playSound(lockSound);
 				buttonMode = false;
 				gotoAndStop(lockedFrame);
 				dispatchEvent(new Event(MovieClipButton.LOCKED));
 			}
 			else
 			{
-				if(unlockSound) SoundManager.GetInstance().playSound(unlockSound);
+				if(unlockSound) SoundManager.gi().playSound(unlockSound);
 				buttonMode = true;
 				if(down) gotoAndStop(downFrame);
 				else if(over) gotoAndStop(overFrame);

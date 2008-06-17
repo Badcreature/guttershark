@@ -84,7 +84,7 @@ package net.guttershark.ui.controls.buttons
 			super.enabled = value;
 			if(value)
 			{
-				if(lockSound) SoundManager.GetInstance().playSound(lockSound);
+				if(lockSound) SoundManager.gi().playSound(lockSound);
 				buttonMode = false;
 				if(_checked) gotoAndStop(checkedLockedFrame);
 				else gotoAndStop(notCheckedLockedFrame);
@@ -92,7 +92,7 @@ package net.guttershark.ui.controls.buttons
 			}
 			else
 			{
-				if(unlockSound) SoundManager.GetInstance().playSound(unlockSound);
+				if(unlockSound) SoundManager.gi().playSound(unlockSound);
 				buttonMode = true;
 				if(_checked) gotoAndStop(normalCheckedFrame);
 				else if(over) gotoAndStop(overFrame);
@@ -108,7 +108,7 @@ package net.guttershark.ui.controls.buttons
 		 */
 		override protected function onMouseOver(me:MouseEvent):void
 		{
-			if(overSound) SoundManager.GetInstance().playSound(overSound);
+			if(overSound) SoundManager.gi().playSound(overSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -126,7 +126,7 @@ package net.guttershark.ui.controls.buttons
 		 */
 		override protected function onMouseUp(me:MouseEvent):void
 		{
-			if(upSound) SoundManager.GetInstance().playSound(upSound);
+			if(upSound) SoundManager.gi().playSound(upSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -151,7 +151,7 @@ package net.guttershark.ui.controls.buttons
 				down = false;
 				return;
 			}
-			if(upSound) SoundManager.GetInstance().playSound(upSound);
+			if(upSound) SoundManager.gi().playSound(upSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -169,7 +169,7 @@ package net.guttershark.ui.controls.buttons
 		 */
 		override protected function onMouseOut(me:MouseEvent):void
 		{
-			if(outSound) SoundManager.GetInstance().playSound(outSound);
+			if(outSound) SoundManager.gi().playSound(outSound);
 			if(_locked)
 			{
 				if(_locked) me.stopImmediatePropagation();
@@ -201,7 +201,7 @@ package net.guttershark.ui.controls.buttons
 		public function set checked(state:Boolean):void
 		{
 			_checked = state;
-			if(checkStateChangeSound) SoundManager.GetInstance().playSound(checkStateChangeSound);
+			if(checkStateChangeSound) SoundManager.gi().playSound(checkStateChangeSound);
 			gotoAndStop(normalCheckedFrame);
 		}
 
