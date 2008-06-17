@@ -1,7 +1,6 @@
 package net.guttershark.video
 {
-	import net.guttershark.util.Assert;	
-	
+
 	import fl.video.FLVPlayback;
 	import fl.video.VideoEvent;
 	import fl.video.VideoPlayer;
@@ -12,6 +11,7 @@ package net.guttershark.video
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
 	
+	import net.guttershark.util.Assert;
 	import net.guttershark.util.BitField;
 	
 	import gs.TweenLite;
