@@ -91,6 +91,8 @@ package net.guttershark.util
 			this.targetLowBandwidth = targetLowBandwidth;
 			this.targetMedBandwidth = targetMedBandwidth;
 			this.detectImage = image;
+			contentLoader = new URLLoader();
+			contentLoader.addEventListener(Event.COMPLETE,onComplete);
 		}
 			
 		/**
@@ -103,10 +105,8 @@ package net.guttershark.util
 			startTime = 0;
 			totalBytes = 0;
 			bandwidth = 0;
-			contentLoader = new URLLoader();
 			contentLoader.addEventListener(Event.OPEN,onStart);
 			contentLoader.addEventListener(ProgressEvent.PROGRESS,onProgress);
-			contentLoader.addEventListener(Event.COMPLETE,onComplete);
 			contentLoader.load(detectImage);
 		}
 				
