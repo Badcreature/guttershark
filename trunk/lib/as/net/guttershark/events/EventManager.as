@@ -157,8 +157,6 @@ package net.guttershark.events
 	 * <li>TextEvent.LINK</li>
 	 * <li>VideoEvent.PLAYHEAD_UPDATE</li>
 	 * </ul>
-	 * 
-	 * em.handleEvents(obj,this,"onMyMC",{track:true,trackPrefix:"whatever",types:(EventTypes.MOUSE|EventTypes.STAGE),eventObjects:true});
 	 */
 	public class EventManager implements IDisposable
 	{
