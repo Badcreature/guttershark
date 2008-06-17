@@ -1,6 +1,6 @@
 package net.guttershark.util 
 {
-
+	import flash.display.DisplayObject;	
 	import flash.display.DisplayObjectContainer;
 	
 	/**
@@ -46,6 +46,17 @@ package net.guttershark.util
 			Assert.NotNullOrEmpty(children, "Parameter children cannot be null or empty.");
 			var l:int = children.length;
 			for(var i:int = 0; i < l; i++) doc.addChild(children[i]);
+		}
+		
+		/**
+		 * Bring a clip to the top layer in the holder.
+		 * @param	holder	The display object container that contains the child to bring to front.
+		 * @param	child	The child to bring to front.
+		 */
+		public static function BringToFront(holder:DisplayObjectContainer, child:DisplayObject):void
+		{
+			holder.removeChild(child);
+			holder.addChild(child);
 		}
 	}
 }
