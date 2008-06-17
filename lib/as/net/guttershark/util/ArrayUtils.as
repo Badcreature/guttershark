@@ -33,7 +33,7 @@ package net.guttershark.util
 	   			rand = Math.floor(Math.random()*len); 
 	   			temp = array[i]; 
 	   			array[i] = array[rand]; 
-	   			array[rand] = temp; 
+	   			array[rand] = temp;
 	   		}
 		}
 	}
