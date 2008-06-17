@@ -12,7 +12,9 @@ package net.guttershark.control
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.net.URLRequest;
-	
+
+	import com.pixelbreaker.ui.osx.MacMouseWheel;
+
 	import net.guttershark.model.SiteXMLParser;
 	import net.guttershark.util.cache.Cache;
 	import net.guttershark.akamai.Ident;
@@ -39,15 +41,29 @@ package net.guttershark.control
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000.</li>
+	 * <li><strong>onlineStatusPingURL</strong> (String) - Specify the URL to an image to ping for online status. The default is "./ping.png".</li>
 	 * <li><strong>cacheExpireTimeout</strong> (Number) - Initiates Cache expiring on the document cache instance. Note that the Cache is only a memory cache. Be ware that if you set this, and get problems with objects not caching, it's because they're expiring.</li>
-	 * <li><strong>initRemotingEndpoints</strong> (CSV EX:"amfphp,rubyamf") - Initialize the <code><em>remotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a siteXML file.</li>
+	 * <li><strong>initRemotingEndpoints</strong> (CSV EX:"amfphp,rubyamf") - Initialize the <code><em>remotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a siteXML file (see model.SiteXMLParser for examples).</li>
 	 * </ul>
 	 * 
-	 * <p>FlashVar properties can be delared when running in the Flash IDE by overriding the <code>flashvarsForStandalone</code> 
+	 * <p>FlashVar properties can be declared when running in the Flash IDE by overriding the <code>flashvarsForStandalone</code> 
 	 * method. Otherwise you need to put the flashvars on the flash object in HTML.</p>
 	 * 
+	 * @example Overriding the flashvarsForStandalone method to provide flashvars for IDE development:
+	 * <listing>	
+	 * override protected function flashvarsForStandalone():Object
+	 * {
+	 *     return {siteXML:"site.xml",
+	 *        initRemotingEndpoints:"amfphp",
+	 *        sniffCPU:true,
+	 *        sniffBandwidth:true,
+	 *        onlineStatus:true
+	 *     };
+	 * }	
+	 * </listing>
+	 * 
 	 * @example Declaring FlashVars on a Flash object with SWFObject:
-	 * <listing>
+	 * <listing>	
 	 * &lt;script type="text/javascript"&gt;
 	 *     // &lt;![CDATA[
 	 *     var so = new SWFObject("main.swf", "flaswf", "100%", "100%", "9", "#000");
@@ -57,12 +73,12 @@ package net.guttershark.control
 	 *     so.addVariable("akamaiHost","http://cp44952.edgefcs.net/");
 	 *     so.addVariable("onlineStatus",true);
 	 *     so.addVariable("onlineStatusPingFrequency",120000);
-	 *     so.addVariable("remotingEndpoints","amfphp,rubyamf");
+	 *     so.addVariable("initRemotingEndpoints","amfphp,rubyamf");
 	 *     // ]]&gt;
 	 * &lt;/script&gt;
 	 * </listing>
 	 * 
-	 * <p>See the examples in "examples/shells" for more examples of using different snippets of the default functionality.</p> 
+	 * <p>See the examples in from SVN in "examples/shells" for more examples of using different snippets of the default functionality.</p> 
 	 */
 	public class DocumentController extends MovieClip
 	{
@@ -115,13 +131,6 @@ package net.guttershark.control
 		public var cache:Cache;
 		
 		/**
-		 * The document keyboard event manager.
-		 * 
-		 * @see net.guttershark.managers.KeyboardEventManager KeyboardEventManager class
-		 */
-		public var keyboardEventManager:KeyboardEventManager;
-
-		/**
 		 * The document language manager.
 		 * 
 		 * @see net.guttershark.managers.LanguageManager LanguageManager class
@@ -129,18 +138,22 @@ package net.guttershark.control
 		public var languageManager:LanguageManager;
 
 		/**
-		 * The document RemotingManager. This is not setup initially for you.
-		 * You must set it up with the site XML file, and the 
-		 * SiteXMLParser#createRemotingManagerForEndpoint method. This variable
-		 * is just a stub variable for convention.
+		 * The document RemotingManager. By providing the initRemotingEndpoints flashvar
+		 * property, this will be initialized from a siteXML file. See the SiteXMLParser
+		 * class for example xml.
 		 * 
-		 * @example Creating the RemotingManager:
+		 * @example Providing the initRemotingEndpoints flashvar property in the overriden method.
 		 * <listing>	
-		 * override protected function setupComplete():void
+		 * override protected function flashvarsForStandalone():Object
 		 * {
-		 *     var siteXMLParser:SiteXMLParser = new SiteXMLParser(siteXML);
-		 *     remotingManager = siteXMLParser.createRemotingManagerForEndpoint("myEndpoint");
+		 *     return {siteXML:"site.xml",initRemotingEndpoints:[Endpoints.AMFPHP,Endpoints.RUBYAMF]};
 		 * }
+		 * </listing>
+		 * 
+		 * @example Providing the initRemotingEndpoints flashvar property from HTML/Javascript:
+		 * <listing>	
+		 * 	var so = new SWFObject(...);
+		 * 	so.addVariable("initRemotingEndpoints","amfphp,rubyamf");
 		 * </listing>
 		 * 
 		 * @see net.guttershark.model.SiteXMLParser#createRemotingManagerForEndpoint() createRemotingManagerForEndpoint method
@@ -176,7 +189,12 @@ package net.guttershark.control
 		/**
 		 * Online indicator.
 		 */
-		private var online:Boolean;
+		public var online:Boolean;
+		
+		/**
+		 * The singleton instance of a KeyboardEventManager.
+		 */
+		public var keyboardEventManager:KeyboardEventManager;
 		
 		/**
 		 * Constructor for DocumentController instances. This should not
@@ -186,9 +204,9 @@ package net.guttershark.control
 		{
 			DocumentController._siteInstance = this;
 			online = true;
+			MacMouseWheel.setup(stage);
 			languageManager = new LanguageManager();
-			keyboardEventManager = new KeyboardEventManager(stage);
-			keyboardEventManager.scope = this;
+			keyboardEventManager = KeyboardEventManager.gi();
 			setupFlashvars();
 			setupQueryString();
 			restoreSharedObject();
@@ -250,15 +268,30 @@ package net.guttershark.control
 		private function sniffBandwidth():void
 		{
 			_bandwidthSniffer = new Bandwidth();
+			_bandwidthSniffer.contentLoader.addEventListener(Event.COMPLETE, onBandwidthComplete);
 			_bandwidthSniffer.detect();
 		}
+		
+		/**
+		 * Handle the bandwidth sniff complete.
+		 */
+		private function onBandwidthComplete(e:Event):void
+		{
+			onBandwidthSniffComplete();
+		}
+		
+		/**
+		 * A method you can override to hook into the bandwidth sniff
+		 * complete event.
+		 */
+		protected function onBandwidthSniffComplete():void{}
 		
 		/**
 		 * @private
 		 * 
 		 * When the site xml completes loading.
 		 */
-		protected function onSiteXMLComplete(e:Event):void
+		private function onSiteXMLComplete(e:Event):void
 		{
 			siteXML = siteXMLLoader.data;
 			siteXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
@@ -280,7 +313,8 @@ package net.guttershark.control
 			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR,onPingError);
 			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR,onPingError);
 			statusLoader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, onPingStatus);
-			pingimg = new URLRequest("http://www.rubyamf.org/ping.png");
+			if(flashvars.onlineStatusPintURL) pingimg = new URLRequest(flashvars.onlineStatusPintURL); 
+			else pingimg = new URLRequest("./ping.png");
 			nocache = new URLRequestHeader("Cache-Control","no-cache");
 			pingimg.requestHeaders = [nocache];
 			if(flashvars.onlineStatusPingFrequency) statusPingTimer = new Timer(flashvars.onlineStatusPingFrequency);
