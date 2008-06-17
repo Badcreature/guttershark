@@ -63,11 +63,15 @@ package net.guttershark.preloading
 		 * @param	libraryName 	The name to be used in an AssetLibrary
 		 * @throws	Error 			If the filetype couldn't be figured out from the source property.
 		 */
-		public function Asset(source:String, libraryName:String = null)
+		public function Asset(source:String, libraryName:String = null, forceAssetType:String = null)
 		{
-			var fileType:String = StringUtils.FindFileType(source);
-			if(!fileType) throw new Error("The filetype could not be found for this item: " + source);
-			this.fileType = fileType;
+			if(!forceAssetType)
+			{
+				var fileType:String = StringUtils.FindFileType(source);
+				if(!fileType) throw new Error("The filetype could not be found for this item: " + source);
+				this.fileType = fileType;
+			}
+			else this.fileType = forceAssetType;
 			this.source = source;
 			if(!libraryName) this.libraryName= source;
 			else this.libraryName = libraryName;
