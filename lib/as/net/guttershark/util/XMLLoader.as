@@ -53,7 +53,7 @@ package net.guttershark.util
 		 *   trace(e.target.data);
 		 *   trace(xloader.data);
 		 * }
-		 * xoader.load(new URLRequest(myxmlfile));
+		 * xloader.load(new URLRequest(myxmlfile));
 		 * </listing>
 		 */
 		public function load(request:URLRequest):void
