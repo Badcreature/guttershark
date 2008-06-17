@@ -1,6 +1,6 @@
 package net.guttershark.preloading
 {
-
+	
 	import flash.display.Sprite;
 	import flash.text.Font;
 	import flash.display.Bitmap;
@@ -12,6 +12,7 @@ package net.guttershark.preloading
 	import net.guttershark.util.Assert;	
 	import net.guttershark.util.XMLLoader;
 	import net.guttershark.core.IDisposable;
+	import net.guttershark.util.BitmapUtils;
 	
 	/**
 	 * The AssetLibrary is primarily used with a PreloadController, as
@@ -50,6 +51,18 @@ package net.guttershark.preloading
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			Assert.NotNull(obj, "Parameter obj cannot be null");
 			assets[libraryName] = obj;
+		}
+		
+		/**
+		 * Remove an asset from the library.
+		 * 
+		 * @param	libraryName	The asset's libraryName to remove.
+		 * @throws	ArgumentError	If libraryName is null.
+		 */
+		public function removeAsset(libraryName:String):void
+		{
+			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			assets[libraryName] = null;
 		}
 		
 		/**
@@ -197,8 +210,8 @@ package net.guttershark.preloading
 			{
 				var swf:Loader = getAsset(libraryName) as Loader;
 				var BitmapClass:Class = swf.contentLoaderInfo.applicationDomain.getDefinition(bitmapLinkageId) as Class;
-				var fontInstance:Bitmap = new BitmapClass();
-				return fontInstance;
+				var bitmapInstance:Bitmap = new BitmapClass();
+				return bitmapInstance;
 			}
 			throw(new Error("No bitmap: {" + bitmapLinkageId + "} in swf {" + libraryName + "} was found"));
 		}
@@ -234,7 +247,7 @@ package net.guttershark.preloading
 		public function getBitmap(libraryName:String):Bitmap
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
-			if(assets[libraryName] != null) return Bitmap(getAsset(libraryName).content);
+			if(assets[libraryName] != null) return BitmapUtils.CopyBitmap(Bitmap(getAsset(libraryName).content));
 			throw new Error("Bitmap {" + libraryName + "} was not found.");
 		}
 		
