@@ -1,11 +1,12 @@
 package net.guttershark.ui.views 
 {
-	import net.guttershark.util.Assert;	
-	import net.guttershark.util.FramePulse;	
-	
-	import flash.events.Event;	
+
+	import flash.events.Event;
 
 	import net.guttershark.ui.views.BasicView;
+	import net.guttershark.util.FrameDelay;
+	import net.guttershark.util.Assert;
+	import net.guttershark.util.FramePulse;
 	
 	/**
 	 * The AnimatedView class provides structure to a class
@@ -21,6 +22,12 @@ package net.guttershark.ui.views
 		
 		private var _watchEndAndComplete:Boolean;
 		private var listenerAdded:Boolean;
+		private var _autoStop:Boolean;
+		
+		public function AnimatedView()
+		{
+			super();
+		}
 		
 		/**
 		 * Stub method used for naming convention. Use this method
@@ -35,7 +42,7 @@ package net.guttershark.ui.views
 		protected function updateChildrenReferences():void{}
 		
 		/**
-		 * Sub method used for naming convention. Override this method
+		 * Stub method used for naming convention. Override this method
 		 * when something from the timeline needs to execute something
 		 * on it's animation completion / last frame.
 		 * 
@@ -50,7 +57,7 @@ package net.guttershark.ui.views
 		protected function animationComplete():void{}
 		
 		/**
-		 * Stub method used for naming conection. Override this method
+		 * Stub method used for naming convention. Override this method
 		 * when something from the timeline needs to happen right when
 		 * the timeline starts playing.
 		 * 
@@ -88,18 +95,61 @@ package net.guttershark.ui.views
 		}
 		
 		/**
+		 * Auto stop on the last frame of this movie clip.
+		 */
+		public function set autoStopOnLastFrame(value:Boolean):void
+		{
+			_autoStop = value;
+		}
+		
+		/**
+		 * Overrides the play method to add some logic for reverse playing
+		 * and the animationStart method.
+		 */
+		override public function play():void
+		{
+			if(!listenerAdded)
+			{
+				FramePulse.AddEnterFrameListener(__onEnterFrame);
+				listenerAdded = true;
+			}
+			var f:FrameDelay = new FrameDelay(animationStart,2);
+			super.play();
+			f.dispose();
+		}
+		
+		/**
 		 * on enter frame handler
 		 */
 		private function __onEnterFrame(e:Event):void
 		{
 			if(currentFrame == totalFrames)
 			{
+				if(_autoStop) stop();
 				listenerAdded = false;
 				FramePulse.RemoveEnterFrameListener(__onEnterFrame);
-				animationComplete();
+				var f:FrameDelay = new FrameDelay(animationComplete,1);
+				f.dispose();
 			}
 		}
 		
+		/**
+		 * Play this clip in reverse.
+		 */
+		public function playReverse():void
+		{
+			FramePulse.AddEnterFrameListener(eventForReverse);
+		}
+		
+		/**
+		 * plays reverse.
+		 */
+		private function eventForReverse(e:Event):void
+		{
+			this.gotoAndStop(Math.max(1,currentFrame-1));
+			if(currentFrame == 1) FramePulse.RemoveEnterFrameListener(eventForReverse);
+		}
+
 		/**
 		 * Dispose of internal variables and event listeners.
 		 */
