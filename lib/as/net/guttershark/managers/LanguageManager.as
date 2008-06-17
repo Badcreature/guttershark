@@ -20,6 +20,11 @@ package net.guttershark.managers
 	{
 		
 		/**
+		 * Singleton instance.
+		 */
+		private static var inst:LanguageManager;
+		
+		/**
 		 * Contains clips that have been added.
 		 */
 		private var clips:Dictionary;
@@ -47,6 +52,12 @@ package net.guttershark.managers
 			clips = new Dictionary();
 			languages = new Dictionary();
 			codes = new Dictionary();
+		}
+
+		public static function gi():LanguageManager
+		{
+			if(!inst) inst = new LanguageManager();
+			return inst;
 		}
 
 		/**
