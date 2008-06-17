@@ -82,7 +82,7 @@ package net.guttershark.sound
 		/**
 		 * Singleton access.
 		 */
-		public static function GetInstance():SoundManager
+		public static function gi():SoundManager
 		{
 			if(instance == null) instance = new SoundManager();
 			return instance;
