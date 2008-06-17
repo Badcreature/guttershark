@@ -275,18 +275,5 @@ package net.guttershark.model
 				remotingManager.createService(service.@id, endpoint.@gateway.toString(),service.toString(),timeout,retries,limiter,cache,cacheExpire);
 			}
 		}
-		
-		/**
-		 * Get a Remoting gateway URL for the specified endpoint id.
-		 * @param	id	The endpoint id.
-		 * @return 	The gateway URL.	
-		 */
-		public function getRemotingGatewayForEndpoint(id:String):String
-		{
-			Assert.NotNull(id, "Parameter id cannot be null");
-			var endpoint:XMLList = remoting.endpoint.(@id == id);
-			if(!endpoint) throw new Error("Endpoint " + id + " not found in the XML.");
-			return endpoint.@gateway;
-		}
 	}
 }
