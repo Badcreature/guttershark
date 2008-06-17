@@ -5,8 +5,6 @@ package net.guttershark.util.cache
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
 	
-	import net.guttershark.core.IDisposable;
-	
 	/**
 	 * The Cache class is an implementation of an ICacheStore for caching
 	 * objects in memory.
