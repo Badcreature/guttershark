@@ -149,13 +149,13 @@ package net.guttershark.managers
 		 * Remove a keyboard event mapping.
 		 * 
 		 * @example Removing a keyboard event mapping.
-		 * <listing>
+		 * <listing>	
 		 * var km:KeyboardEventManager = KeyboardEventManager.gi();
 		 * km.addMapping(stage,"f",onF);
 		 * km.removeMapping(stage,"f");
 		 * </listing>
 		 * 
-		 * @param	scope	The scope.
+		 * @param	scope	The scope - usually a DisplayObject or Stage.
 		 * @param	mapping	The key event mapping being listened for.
 		 */
 		public function removeMapping(scope:*, mapping:String):void
