@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<script type="text/javascript" src="js/tracking/tracking.js"></script>
-	<script type="text/javascript" src="js/tracking/delegates.js"></script>
-	<script type="text/javascript" src="js/tracking/tracking_init.js"></script>
+	<script type="text/javascript" src="js/tracking.js"></script>
 	<script type="text/javascript" src="js/wt.js"></script>
 	<script type="text/javascript">
 		setupTracking('tracking.xml');
@@ -19,5 +17,6 @@
 <a href="http://www.google.com" onclick="tracking.track('webtrendsOnlyAndPopup'); return false;">track - webtrends only and popup</a><br/><br/>
 <a href="http://www.google.com" onclick="tracking.track('atlasOnlyAndPopup'); return false;">track - atlas only and popup</a><br/><br/>
 <noscript><img border="0" name="DCSIMG" width="1" height="1" src="http://" + gDomain + "/" + gDcsId + "/njs.gif?dcsuri=/nojavascript&WT.js=No" style="display:none"/></noscript>
+<img style="display:none" id="atlas_tag" src="" />
 </body>
 </html>

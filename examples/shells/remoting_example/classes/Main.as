@@ -23,8 +23,8 @@ package
 		
 		override protected function setupComplete():void
 		{
-			remotingManager.remotingEventsDelegate = new RemotingEventsDelegate();
-			remotingManager.addServiceEventListener(CallEvent.REQUEST_SENT,ServiceID.AMFPHP_MRM_CACHE,onRequestSent);
+			///remotingManager.remotingEventsDelegate = new RemotingEventsDelegate();
+			//remotingManager.addServiceEventListener(CallEvent.REQUEST_SENT,ServiceID.AMFPHP_MRM_CACHE,onRequestSent);
 			remotingManager.call(ServiceID.AMFPHP_MRM_CACHE,"getGroup",["FEEDS"],onResult,onFault,false);
 		}
 		
