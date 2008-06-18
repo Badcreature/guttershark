@@ -41,8 +41,8 @@ package net.guttershark.ui.views
 		public function BasicView()
 		{
 			super();
-			addEventListener(Event.ADDED, onAdd);
-			addEventListener(Event.REMOVED, onRemoved);
+			addEventListener(Event.ADDED_TO_STAGE,onAdd);
+			addEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
 			addEventListener(Event.ACTIVATE, onActivated);
 			addEventListener(Event.DEACTIVATE, onDeactive);
 		}
@@ -52,7 +52,7 @@ package net.guttershark.ui.views
 		 */
 		private function onAdd(e:Event):void
 		{
-			removeEventListener(Event.ADDED, onAdd);
+			removeEventListener(Event.ADDED_TO_STAGE,onAdd);
 			addedToStage();
 			addListeners();
 		}
@@ -62,7 +62,7 @@ package net.guttershark.ui.views
 		 */
 		private function onRemoved(e:Event):void
 		{
-			removeEventListener(Event.REMOVED, onRemoved);
+			removeEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
 			removedFromStage();
 			removeListeners();
 		}
