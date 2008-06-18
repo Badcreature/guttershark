@@ -26,5 +26,6 @@
         </div>
     </form>
 <noscript><img border="0" name="DCSIMG" width="1" height="1" src="http://" + gDomain + "/" + gDcsId + "/njs.gif?dcsuri=/nojavascript&WT.js=No" style="display:none"/></noscript>
+<img style="display:none" id="atlas_tag" src="" />
 </body>
 </html>

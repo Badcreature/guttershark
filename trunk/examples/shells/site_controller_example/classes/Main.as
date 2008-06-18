@@ -40,9 +40,15 @@ package
 		{
 			startPreload();
 			trace("CPU SPEED:", CPU.Speed);
-			trace("BANDWIDTH:",Bandwidth.Speed);
+			
 			keyboardEventManager.addKeyMapping(this,Keyboard.SPACE, onSpace);
 			keyboardEventManager.scope = this;
+		}
+		
+		override protected function onBandwidthSniffComplete():void
+		{
+			trace("bandwidth complete");
+			trace("BANDWIDTH:",Bandwidth.Speed);
 		}
 		
 		private function startPreload():void
