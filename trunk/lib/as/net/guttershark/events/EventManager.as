@@ -237,9 +237,9 @@ package net.guttershark.events
 		 * Set the defualt EventTypes so you don't have to keep repeating them. You
 		 * can set the defaultEventTypes at any time. As an example, if you are using
 		 * EventManager to delegate events for 10 movie clips that all need mouse events
-		 * and stage events. You would set the defaultEventTypes to (MouseEvents.MOUSE | MouseEvents.STAGE).
+		 * and stage events. You would set the defaultEventTypes to (EventTypes.MOUSE | EventTypes.STAGE).
 		 * Then say you need to use the EventManager to delegate events for 10 more MovieClips
-		 * but you don't need stage events. You can set the defaultEventTypes to MouseEvents.MOUSE.
+		 * but you don't need stage events. You can set the defaultEventTypes to EventTypes.MOUSE.
 		 * 
 		 * <p>You can clear the defaultEventTypes by setting it to 0, or by calling
 		 * <code><em>clearDefaultEventTypes()</em></strong>
