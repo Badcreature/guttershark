@@ -1,6 +1,7 @@
 package net.guttershark.preloading
 {
-
+	import net.guttershark.util.Assert;	
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
@@ -285,7 +286,7 @@ package net.guttershark.preloading
 		}
 		
 		/**
-		 * Returns a reference to the internal AssetLibrary used to save all loaded assets.
+		 * The internal AssetLibrary used to store preloaded assets.
 		 * 
 		 * @see net.guttershark.preloading.AssetLibrary AssetLibrary class
 		 * @return 	AssetLibrary 
@@ -295,6 +296,15 @@ package net.guttershark.preloading
 			return _library;
 		}
 		
+		/**
+		 * Set the internal library in this preload controller.
+		 */
+		public function set library(assetLibrary:AssetLibrary):void
+		{
+			Assert.NotNull(assetLibrary,"Parameter assetLibrary cannot be null");
+			_library = assetLibrary;
+		}
+
 		/**
 		 * A boolean indicating whether or not this controller is doing any preloading.
 		 */
