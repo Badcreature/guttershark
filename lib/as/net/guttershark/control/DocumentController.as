@@ -1,4 +1,4 @@
-package net.guttershark.control
+﻿package net.guttershark.control
 {
 
 	import flash.events.HTTPStatusEvent;	
@@ -205,7 +205,7 @@ package net.guttershark.control
 			DocumentController._siteInstance = this;
 			online = true;
 			MacMouseWheel.setup(stage);
-			languageManager = new LanguageManager();
+			languageManager = LanguageManager.gi();
 			keyboardEventManager = KeyboardEventManager.gi();
 			setupFlashvars();
 			setupQueryString();
