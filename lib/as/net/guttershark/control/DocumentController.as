@@ -1,4 +1,4 @@
-﻿package net.guttershark.control
+package net.guttershark.control
 {
 
 	import flash.events.HTTPStatusEvent;	
@@ -16,15 +16,12 @@
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 
 	import net.guttershark.model.SiteXMLParser;
-	import net.guttershark.util.cache.Cache;
 	import net.guttershark.akamai.Ident;
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.QueryString;
 	import net.guttershark.util.XMLLoader;
 	import net.guttershark.util.Bandwidth;
-	import net.guttershark.managers.KeyboardEventManager;
-	import net.guttershark.managers.LanguageManager;
 	import net.guttershark.remoting.RemotingManager;
 	
 	/**
@@ -40,13 +37,12 @@
 	 * <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
-	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000.</li>
+	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000 (1 minute).</li>
 	 * <li><strong>onlineStatusPingURL</strong> (String) - Specify the URL to an image to ping for online status. The default is "./ping.png".</li>
-	 * <li><strong>cacheExpireTimeout</strong> (Number) - Initiates Cache expiring on the document cache instance. Note that the Cache is only a memory cache. Be ware that if you set this, and get problems with objects not caching, it's because they're expiring.</li>
 	 * <li><strong>initRemotingEndpoints</strong> (CSV EX:"amfphp,rubyamf") - Initialize the <code><em>remotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a siteXML file (see model.SiteXMLParser for examples).</li>
 	 * </ul>
 	 * 
-	 * <p>FlashVar properties can be declared when running in the Flash IDE by overriding the <code>flashvarsForStandalone</code> 
+	 * <p>FlashVar properties can be declared when running in the Flash IDE by overriding the <code><a href="#flashvarsForStandalone()">flashvarsForStandalone()</a></code> 
 	 * method. Otherwise you need to put the flashvars on the flash object in HTML.</p>
 	 * 
 	 * @example Overriding the flashvarsForStandalone method to provide flashvars for IDE development:
@@ -122,20 +118,6 @@
 		 * A query string object used for deeplink data reading.
 		 */
 		public var queryString:QueryString;
-		
-		/**
-		 * A Cache instance you can use for caching objects in memory.
-		 * 
-		 * @see	net.guttershark.util.cache.Cache Cache class
-		 */
-		public var cache:Cache;
-		
-		/**
-		 * The document language manager.
-		 * 
-		 * @see net.guttershark.managers.LanguageManager LanguageManager class
-		 */
-		public var languageManager:LanguageManager;
 
 		/**
 		 * The document RemotingManager. By providing the initRemotingEndpoints flashvar
@@ -192,11 +174,6 @@
 		public var online:Boolean;
 		
 		/**
-		 * The singleton instance of a KeyboardEventManager.
-		 */
-		public var keyboardEventManager:KeyboardEventManager;
-		
-		/**
 		 * Constructor for DocumentController instances. This should not
 		 * be used directly, only subclassed.
 		 */
@@ -205,12 +182,9 @@
 			DocumentController._siteInstance = this;
 			online = true;
 			MacMouseWheel.setup(stage);
-			languageManager = LanguageManager.gi();
-			keyboardEventManager = KeyboardEventManager.gi();
 			setupFlashvars();
 			setupQueryString();
 			restoreSharedObject();
-			(flashvars.cacheExpireTimeout) ? cache = new Cache(flashvars.cacheExpireTimeout) : cache = new Cache();
 			if(flashvars.sniffCPU) CPU.calculate();
 			if(flashvars.sniffBandwidth) sniffBandwidth();
 			if(flashvars.siteXML) loadSiteXML();
@@ -397,7 +371,7 @@
 		 * 
 		 * <p>If a siteXML file is being loaded, setupComplete will wait to be
 		 * called until after the xml is loaded. But will not wait for bandwidth sniff
-		 * or akamai ident hits.</p>
+		 * or akamai ident hits. Use <code><em>onBandwidthSniffComplete() and akamaiIdentComplete()</em></code></p>
 		 */
 		protected function setupComplete():void{}
 		
@@ -452,14 +426,14 @@
 		
 		/**
 		 * A method you can override to hook into the complete event from the akamai
-		 * ident hit. This will only be called if you did provide an <code>akamaiHost</code>
+		 * ident hit. This will only be called if you provided the <code><strong><em>akamaiHost</em></strong></code>
 		 * property in flashvars.
 		 * 
 		 * <p>You should hook into this for two things.</p>
 		 * <ul>
 		 * <li>Set the <code>AkamaiNCManager.FMS_IP = ip;</code></li>
 		 * <li>Set the <code>VideoPlayer.iNCManager = "net.guttershark.akamai.AkamaiNCManager";</code></li>
-		 * <li>
+		 * </ul>
 		 * </p>
 		 * 
 		 * @param	ip	The IP that was found from the Ident service.
