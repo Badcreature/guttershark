@@ -12,15 +12,16 @@ package net.guttershark
 		/**
 		 * The version of the entire net.guttershark package.
 		 */
-		guttershark_internal static var version:String = "0.4B1";
+		guttershark_internal static const version:String = "0.4B1";
 		
 		/**
 		 * Package dependencies.
 		 * 
 		 * <ul>
-		 * <li>TweenLite,TweenFilterLite,TweenMax</li>
+		 * <li>gs.*</li>
+		 * <li>MacMouseWheel</li>
 		 * </ul>
 		 */
-		guttershark_internal static var dependencies:Array = ["gs.*"];
+		guttershark_internal static const dependencies:Array = ["gs.*","com.pixelbreaker.ui.osx.MacMouseWheel"];
 	}
 }
