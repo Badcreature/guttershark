@@ -1,6 +1,3 @@
-/**
- * Copyright Mccann Worldgroup 2008
- */
 package
 {
 
@@ -14,6 +11,7 @@ package
 	import net.guttershark.control.DocumentController;
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.preloading.events.PreloadProgressEvent;
+	import net.guttershark.preloading.AssetLibrary;
 	
 	import gs.TweenMax;	
 	
@@ -50,13 +48,13 @@ package
 		
 		private function onPreloadComplete(e:*):void
 		{
-			var mc:MovieClip = sitePreloader.library.getMovieClipFromSWFLibrary("swftest", "Test");
+			var mc:MovieClip = AssetLibrary.gi().getMovieClipFromSWFLibrary("swftest", "Test");
 			addChild(mc);
 		}
 		
 		override protected function flashvarsForStandalone():Object
 		{
-			return {siteXML:"site.xml",akamaiHost:"http://cp44952.edgefcs.net/"};
+			return {siteXML:"site.xml", akamaiHost:"http://cp44952.edgefcs.net/"};
 		}
 		
 		override protected function akamaiIdentComplete(ip:String):void
