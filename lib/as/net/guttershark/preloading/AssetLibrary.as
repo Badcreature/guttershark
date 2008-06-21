@@ -1,6 +1,6 @@
 package net.guttershark.preloading
 {
-	
+
 	import flash.display.Sprite;
 	import flash.text.Font;
 	import flash.display.Bitmap;
@@ -13,31 +13,45 @@ package net.guttershark.preloading
 	import net.guttershark.util.XMLLoader;
 	import net.guttershark.core.IDisposable;
 	import net.guttershark.util.BitmapUtils;
+	import net.guttershark.errors.AssetError;
 	
 	/**
-	 * The AssetLibrary is primarily used with a PreloadController, as
-	 * the library in the preload controller that stores loaded Assets.
-	 * 
-	 * <p>This class can also be used by itself to manage assets.</p>
+	 * The AssetLibrary is a singleton that stores all assets
+	 * loaded by any PreloadController.
 	 * 
 	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 */
 	public class AssetLibrary implements IDisposable
 	{	
-
+		
+		/**
+		 * Singleton instance.
+		 */
+		private static var inst:AssetLibrary;
+		
 		/**
 		 * Store for assets.
 		 */
 		private var assets:Dictionary;
 
 		/**
+		 * @private
 		 * Constructor for AssetLibrary instances.
 		 */
 		public function AssetLibrary()
 		{
 			assets = new Dictionary(false);
 		}
-
+		
+		/**
+		 * Singleton Instance.
+		 */
+		public static function gi():AssetLibrary
+		{
+			if(!inst) inst = new AssetLibrary();
+			return inst;
+		}
+		
 		/**
 		 * Register an asset in the library.
 		 * 
@@ -89,7 +103,7 @@ package net.guttershark.preloading
 		public function getAsset(libraryName:String):*
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
-			if(!assets[libraryName]) throw new Error("Item not registered in library under the id: " + libraryName);
+			if(!assets[libraryName]) throw new AssetError("Item not registered in library with the id: " + libraryName);
 			return assets[libraryName];
 		}
 		
@@ -106,7 +120,7 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return getAsset(libraryName) as Loader;
-			throw new Error("SWF {" + libraryName + "} was not found");
+			throw new AssetError("SWF {" + libraryName + "} was not found");
 		}
 		
 		/**
@@ -126,7 +140,7 @@ package net.guttershark.preloading
 				var SymbolClass:Class = swf.contentLoaderInfo.applicationDomain.getDefinition(classNameInLibrary) as Class;
 				return SymbolClass;
 			}
-			throw(new Error("No class reference: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
+			throw new AssetError("No class reference: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found");
 		}
 		
 		/**
@@ -147,7 +161,7 @@ package net.guttershark.preloading
 				var symbolInstance:MovieClip = new SymbolClassMC() as MovieClip;
 				return symbolInstance;
 			}
-			throw(new Error("No movie clip: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
+			throw(new AssetError("No movie clip: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -169,7 +183,7 @@ package net.guttershark.preloading
 				var symbolInstance:Sprite = new SymbolClassMC() as Sprite;
 				return symbolInstance;
 			}
-			throw(new Error("No sprite: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
+			throw(new AssetError("No sprite: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -192,7 +206,7 @@ package net.guttershark.preloading
 				var fontInstance:Font = new FontClass();
 				return fontInstance;
 			}
-			throw(new Error("No font: {" + fontLinkageId + "} in swf {" + libraryName + "} was found"));
+			throw(new AssetError("No font: {" + fontLinkageId + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -213,7 +227,7 @@ package net.guttershark.preloading
 				var bitmapInstance:Bitmap = new BitmapClass();
 				return bitmapInstance;
 			}
-			throw(new Error("No bitmap: {" + bitmapLinkageId + "} in swf {" + libraryName + "} was found"));
+			throw(new AssetError("No bitmap: {" + bitmapLinkageId + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -235,7 +249,7 @@ package net.guttershark.preloading
 				var soundInstance:Sound = new SoundClass();
 				return soundInstance;
 			}
-			throw(new Error("No sound: {" + soundLinkageId + "} in swf {" + libraryName + "} was found"));
+			throw(new AssetError("No sound: {" + soundLinkageId + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -248,7 +262,7 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return BitmapUtils.CopyBitmap(Bitmap(getAsset(libraryName).content));
-			throw new Error("Bitmap {" + libraryName + "} was not found.");
+			throw new AssetError("Bitmap {" + libraryName + "} was not found.");
 		}
 		
 		/**
@@ -261,7 +275,7 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return getAsset(libraryName) as Sound;
-			throw new Error("Sound {" + libraryName + "} was not found.");
+			throw new AssetError("Sound {" + libraryName + "} was not found.");
 		}
 		
 		/**
@@ -274,11 +288,12 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return XMLLoader(getAsset(libraryName)).data as XML;
-			throw new Error("XML {" + libraryName + "} was not found.");
+			throw new AssetError("XML {" + libraryName + "} was not found.");
 		}
 
 		/**
-		 * Purge all assets from the library.
+		 * Purge all assets from the library. The AssetLibrary is still
+		 * usable after a dispose, just the assets are disposed of.
 		 */
 		public function dispose():void
 		{
