@@ -1,6 +1,6 @@
 package net.guttershark.events 
 {
-	
+	import flash.display.MovieClip;	
 	import flash.net.NetStream;
 	import flash.net.NetConnection;
 	import flash.net.URLLoader;
@@ -210,7 +210,7 @@ package net.guttershark.events
 			if(instance == null) instance = new EventManager();
 			return instance;
 		}
-
+		
 		/**
 		 * @private
 		 * Constructor for EventListenersDelegate instances.
@@ -290,15 +290,11 @@ package net.guttershark.events
 		 */
 		public function handleEvents(obj:IEventDispatcher, callbackDelegate:*, callbackPrefix:String, eventTypes:int = 0, passEventObjects:Boolean = false, passThroughTracking:Boolean = false):void
 		{
-			if(!edinfo[obj])
-			{
-				edinfo[obj] = {};
-				edinfo[obj].callbackDelegate = callbackDelegate;
-				edinfo[obj].callbackPrefix = callbackPrefix;
-				edinfo[obj].obj = obj;
-				edinfo[obj].passEventObjects = passEventObjects;
-				edinfo[obj].passThroughTracking = passThroughTracking;
-			}
+			edinfo[obj] = {};
+			edinfo[obj].callbackDelegate = callbackDelegate;
+			edinfo[obj].callbackPrefix = callbackPrefix;
+			edinfo[obj].passEventObjects = passEventObjects;
+			edinfo[obj].passThroughTracking = passThroughTracking;
 			
 			if(obj is Timer)
 			{
@@ -648,7 +644,7 @@ package net.guttershark.events
 		 */
 		private function handleEvent(e:*, func:String, forceEventObjectPass:Boolean = false):void
 		{
-			var obj:IEventDispatcher = IEventDispatcher(e.target);
+			var obj:IEventDispatcher = IEventDispatcher(e.currentTarget);
 			if(!edinfo[obj]) return;
 			var info:Object = Object(edinfo[obj]);
 			var f:String = info.callbackPrefix + func;
