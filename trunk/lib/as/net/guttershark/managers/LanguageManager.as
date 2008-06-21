@@ -1,4 +1,4 @@
-package net.guttershark.managers 
+﻿package net.guttershark.managers 
 {
 	
 	import flash.net.URLRequest;	
@@ -113,12 +113,14 @@ package net.guttershark.managers
 		 * when the selected language code changes.
 		 * 
 		 * @param	clip	An ILocalizableClip.
+		 * @param	textID	Sting ID in language xml file.
 		 * 
 		 * @see net.guttershark.lang.ILocalizableClip ILocalizableClip Class
 		 */
-		public function addLocalizableClip(clip:ILocalizableClip):void
+		public function addLocalizableClip(clip:ILocalizableClip,textID:String):void
 		{
-			clips[clip] = clip;
+			clip.localizedID = textID;
+			clips[textID] = clip;
 		}
 		
 		/**

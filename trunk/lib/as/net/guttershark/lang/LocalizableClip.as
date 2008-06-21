@@ -1,4 +1,4 @@
-package net.guttershark.lang 
+﻿package net.guttershark.lang
 {
 	
 	import flash.text.TextField;	
@@ -18,7 +18,9 @@ package net.guttershark.lang
 		 * This is set as a public var because flash requires it to be public.
 		 */
 		public var tfield:TextField;
-
+		
+		private var textID:String;
+		
 		/**
 		 * Constructor for LocalizableClip instances.
 		 */
@@ -50,7 +52,16 @@ package net.guttershark.lang
 		 */
 		public function get localizedID():String
 		{
-			return this.name;
+			return textID;
+		}
+		
+		/**
+		 * Sets the instance name of this localized clip, which correlates
+		 * to a text node in a language xml file.
+		 */
+		public function set localizedID(value:String):void
+		{
+			textID = value;
 		}
 	}
 }
