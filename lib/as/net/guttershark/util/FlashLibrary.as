@@ -72,10 +72,10 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Get an item in the library as a Sound.
+		 * Get an item in the library as a Bitmap.
 		 * 
 		 * @param	classIdentifier	The name of the item in the library.
-		 * @return	Bitmap	The item as a Sound.
+		 * @return	Bitmap	The item as a Bitmap.
 		 */
 		public static function GetBitmap(classIdentifier:String):Bitmap
 		{
