@@ -20,9 +20,9 @@ package net.guttershark.remoting
 	 * <listing>	
 	 * package
 	 * {
-	 *     //the RemotingGateways class is an enumeration of your gateways.
+	 *     //the Endpoints class is an enumeration of your gateways.
 	 *     
-	 *     public class RemotingGateways
+	 *     public class Endpoints
 	 *     {
 	 *         public static const AMFPHP:String = "http://localhost/amfphp/gateway.php"
 	 *     }
@@ -80,8 +80,8 @@ package net.guttershark.remoting
 	 * @example Creating services:
 	 * <listing>	
 	 * var myRemotingManager = new RemotingManager();
-	 * myRemotingManager.createService(ServiceIDS.AMFPHP_USERS,Gateways.AMFPHP,Services.USERS);
-	 * myRemotingManager.createService(ServiceIDS.AMFPHP_EMPLOYEES,Gateways.AMFPHP,Services.EMPLOYEES);
+	 * myRemotingManager.createService(ServiceIDS.AMFPHP_USERS,Endpoints.AMFPHP,Services.USERS);
+	 * myRemotingManager.createService(ServiceIDS.AMFPHP_EMPLOYEES,Endpoints.AMFPHP,Services.EMPLOYEES);
 	 * </listing>
 	 * 
 	 * <p>Next you need to work with events in the manager.
@@ -133,7 +133,7 @@ package net.guttershark.remoting
 	 * <listing>	
 	 * 
 	 * //implement a disconnect event listener for the AMFPHP gateway.
-	 * myRemotingManager.addConnectionEventListener(ConnectionEvent.DISCONNECT, Gateways.AMFPHP, onDisconnect);
+	 * myRemotingManager.addConnectionEventListener(ConnectionEvent.DISCONNECT, Endpoints.AMFPHP, onDisconnect);
 	 * private function onDisconnect(ce:ConnectEvent):void
 	 * {
 	 *     //implement on disconnect logic.
