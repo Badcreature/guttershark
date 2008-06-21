@@ -1,4 +1,4 @@
-package net.guttershark.lang 
+﻿package net.guttershark.lang 
 {
 
 	/**
@@ -23,5 +23,12 @@ package net.guttershark.lang
 		 * file.
 		 */
 		function get localizedID():String;
+
+		/**
+		 * Set the localizedID of this clip. This id needs
+		 * to correlate directly to a node in a language XML
+		 * file.
+		 */
+		function set localizedID(value:String):void;
 	}
 }
