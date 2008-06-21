@@ -11,6 +11,7 @@ package
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.control.DocumentController;	
 	import net.guttershark.model.SiteXMLParser;
+	import net.guttershark.preloading.AssetLibrary;
 	
 	import gs.TweenMax;
 	
@@ -27,7 +28,7 @@ package
 
 		override protected function flashvarsForStandalone():Object
 		{
-			return {siteXML:"site.xml"}
+			return {siteXML:"site.xml"};
 		}
 
 		override protected function setupComplete():void
@@ -56,8 +57,8 @@ package
 
 		private function onPreloaderComplete(e:*):void
 		{
-			addChild(preloadController.library.getMovieClipFromSWFLibrary("swftest", "Test"));
-			addChild(preloadController.library.getBitmap("jpg1"));
+			addChild(AssetLibrary.gi().getMovieClipFromSWFLibrary("swftest", "Test"));
+			addChild(AssetLibrary.gi().getBitmap("jpg1"));
 		}
 	}
 }

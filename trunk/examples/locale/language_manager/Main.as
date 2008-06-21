@@ -1,10 +1,13 @@
 package 
 {
-	import flash.display.MovieClip;	
-	import flash.text.TextField;
+	
+	import flash.net.URLRequest;
+	import flash.display.MovieClip;
 	import flash.utils.setTimeout;
+	
 	import net.guttershark.control.DocumentController;
-	import net.guttershark.lang.LocalizableClip;	
+	import net.guttershark.lang.LocalizableClip;
+	import net.guttershark.managers.LanguageManager;
 	
 	public class Main extends DocumentController
 	{
@@ -20,17 +23,17 @@ package
 		
 		override protected function setupComplete():void
 		{
-			languageManager.loadLanguage("./english.xml","en");
-			languageManager.loadLanguage("./french.xml","fr");
-			languageManager.languageCode = "fr";
-			languageManager.addLocalizableClip(helloWorldExample);
-			languageManager.addLocalizableClip(test.bye);
-			setTimeout(languageManager.updateAll, 1000);
+			LanguageManager.gi().loadLanguage(new URLRequest("./english.xml"),"en");
+			LanguageManager.gi().loadLanguage(new URLRequest("./french.xml"),"fr");
+			LanguageManager.gi().languageCode = "fr";
+			LanguageManager.gi().addLocalizableClip(helloWorldExample);
+			LanguageManager.gi().addLocalizableClip(test.bye);
+			setTimeout(LanguageManager.gi().updateAll, 1000);
 			setTimeout(backToEn,3000);
 		}
 		
 		private function backToEn():void
 		{
-			languageManager.languageCode = "en";
-			languageManager.updateAll();
+			LanguageManager.gi().languageCode = "en";
+			LanguageManager.gi().updateAll();
 		}	}}

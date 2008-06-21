@@ -1,11 +1,13 @@
 package
 {
+
 	import flash.events.Event;
 	
 	import net.guttershark.model.SiteXMLParser;	
 	import net.guttershark.preloading.PreloadController;	
 	import net.guttershark.control.DocumentController;
 	import net.guttershark.lang.LocalizableClip;
+	import net.guttershark.managers.LanguageManager;
 	
 	public class Main extends DocumentController 
 	{
@@ -36,9 +38,9 @@ package
 		{
 			var english:XML = preloadController.library.getXML("english");
 			var french:XML = preloadController.library.getXML("french");
-			languageManager.addLanguageXML(english,"en");
-			languageManager.addLanguageXML(french,"fr");
-			languageManager.addLocalizableClip(helloWorldExample);
-			languageManager.languageCode = "fr";
+			LanguageManager.gi().addLanguageXML(english,"en");
+			LanguageManager.gi().addLanguageXML(french,"fr");
+			LanguageManager.gi().addLocalizableClip(helloWorldExample);
+			LanguageManager.gi().languageCode = "fr";
 		}
 	}}

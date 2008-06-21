@@ -1,22 +1,18 @@
-/**
- * Copyright Mccann Worldgroup 2008
- */
 package
 {
-	import net.guttershark.model.SiteXMLParser;	
 
 	import fl.motion.easing.Quadratic;
-	import flash.ui.Keyboard;
 	import flash.display.MovieClip;
-	import flash.utils.*;
 	import flash.events.Event;
-	
+
 	import net.guttershark.util.Bandwidth;	
 	import net.guttershark.util.CPU;
 	import net.guttershark.control.DocumentController;
 	import net.guttershark.preloading.PreloadController;
-	import net.guttershark.preloading.Asset;
 	import net.guttershark.preloading.events.PreloadProgressEvent;
+	import net.guttershark.model.SiteXMLParser;
+	import net.guttershark.preloading.AssetLibrary;
+	import net.guttershark.managers.KeyboardEventManager;
 	
 	import gs.TweenMax;	
 	
@@ -40,9 +36,7 @@ package
 		{
 			startPreload();
 			trace("CPU SPEED:", CPU.Speed);
-			
-			keyboardEventManager.addKeyMapping(this,Keyboard.SPACE, onSpace);
-			keyboardEventManager.scope = this;
+			KeyboardEventManager.gi().addMapping(stage," ",onSpace);
 		}
 		
 		override protected function onBandwidthSniffComplete():void
@@ -69,8 +63,7 @@ package
 
 		private function onPreloadComplete(e:*):void
 		{
-			//trace("TOTALLY COMPLETE");
-			var mc:MovieClip = sitePreloader.library.getMovieClipFromSWFLibrary("swftest", "Test");
+			var mc:MovieClip = AssetLibrary.gi().getMovieClipFromSWFLibrary("swftest", "Test");
 			addChild(mc);
 		}
 		
