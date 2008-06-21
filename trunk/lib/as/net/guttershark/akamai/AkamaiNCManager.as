@@ -2,23 +2,24 @@ package net.guttershark.akamai
 {
 
 	import fl.video.*;
-
 	import flash.events.Event;
 	
 	import net.guttershark.util.Assert;
-	import net.guttershark.guttershark_internal;
 	import net.guttershark.akamai.Ident;
     
 	use namespace flvplayback_internal;
     
     /**
-     * The AkamaiNCManager class is used as a replacement for the
-     * default NCManager class from Adobe. This is used in conjunction with
-     * an FLVPlayback component. This manages NetConnections specifically to Akamai.
+     * The AkamaiNCManager class is a replacement for the
+     * default NCManager class from Adobe. This is used with
+     * an FLVPlayback component and manages NetConnections
+     * specifically to Akamai.
      * 
      * <p>Here's how you set it up:</p>
      * 
      * <listing>	
+	 * import fl.video.VideoPlayer;
+	 * import net.guttershark.akamai.AkamaiNCManager;
 	 * VideoPlayer.iNCManagerClass = "net.guttershark.akamai.AkamaiNCManager";
 	 * </listing>
      * 
@@ -35,13 +36,8 @@ package net.guttershark.akamai
     {
 	    
 	    /**
-	     * The version number of this AkamaiNCManager class
-	     */
-	    guttershark_internal static var version:String = "1.1";
-	    
-	    /**
-	     * The FMS_IP is meant to be an alternative host connection string other
-	     * than an Akamai host name.
+	     * A Flash Media Server IP address on the Akamai Network - set this for connections
+	     * instead of a host name address.
 	     * 
 	     * <p>The FMS_IP can be found from an Akamai Ident service. Which returns the best
 	     * IP to use to connect to a Flash Media Server on Akamai's network based off of
@@ -64,9 +60,9 @@ package net.guttershark.akamai
     	 * It will only re-use when connected to the same domain and
     	 * app name.
     	 * 
-    	 * This is recommended you leave false, as even
+    	 * <p>This is recommended you leave false, as even
     	 * if you are connected with a connection, numerous
-    	 * drops occur and it's very spotty.
+    	 * drops occur and it's very spotty.</p>
     	 */
     	public static var AllowNCReuse:Boolean = false;
     	
@@ -88,6 +84,8 @@ package net.guttershark.akamai
 		private var parseResults:ParseResults;
 		
 		/**
+		 * @private
+		 * 
 		 * Constructor for AkamaiNCManager instances.
 		 */
 		public function AkamaiNCManager()
@@ -96,19 +94,28 @@ package net.guttershark.akamai
 		}
 		
 		/**
+		 * @private
+		 * 
 		 * Set the order of connection attempts by protocol and port.
 		 * 
-		 * <p><strong>In order to use this, you must first update the NCManager class's
-		 * source file and make the flvplayback_internal::RTMP_CONN a "var" not "const"
-		 * declaration, as well as making it public.</strong></p>
+		 * <p><strong><em>In order to use this, you must first update the NCManager class's
+		 * source file and update the declaration for flvplayback_internal::RTMP_CONN.
+		 * It needs to be declared as "public static var."</em></strong></p>
+		 * 
+		 * <p><strong><em>You must also un-comment a line of code in this source file.</em></strong></p>
+		 * 
+		 * <p>uncomment this line:</p>
+		 * <listing>	
+		 * //NCManager.flvplayback_internal::RTMP_CONN = connectAttempts;
+		 * </listing>
 		 * 
 		 * <p>Here's an example:</p>
 		 * 
 		 * <listing>	
 		 * AkamaiNCManager.ConnectOrder = [
-		 * {protocol: "rtmp:/", port:"1935"},
-		 * {protocol: "rtmpt:/", port:"80" },
-		 * {protocol: "rtmp:/", port:"443"}
+		 * 	 {protocol: "rtmp:/", port:"1935"},
+		 * 	 {protocol: "rtmpt:/", port:"80" },
+		 * 	 {protocol: "rtmp:/", port:"443"}
 		 * ];
 		 * </listing>
 		 * 

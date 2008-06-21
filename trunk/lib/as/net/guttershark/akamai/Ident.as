@@ -10,10 +10,10 @@ package net.guttershark.akamai
 	import net.guttershark.core.IDisposable;
 
 	/**
-	 * The Ident class is used for hitting an Akamai Ident service to determine
-	 * the best IP to use for an Akamai Flash Media Server. The Ident
-	 * service returns back an XML file with an IP address in it.
-	 * Ident service takes geographical positions into account and returns 
+	 * The Ident class is used for pinging an Akamai Ident service to determine
+	 * the best IP to use for a Flash Media Server on the Akamai network. The Ident
+	 * service returns an XML file with an IP address in it.
+	 * Ident services take geographical positions into account and returns 
 	 * the best IP address to use for a Flash Media Server on Akamai's network.
 	 * 
 	 * @see	#findBestIPForAkamaiApplication()
@@ -47,6 +47,7 @@ package net.guttershark.akamai
 		 * 
 		 * @example Using Ident:
 		 * <listing>	
+		 * import net.guttershark.akamai.AkamaiNCManager;
 		 * import net.guttershark.akamai.Ident;
 		 * import flash.events.Event;
 		 * var i:Ident = new Ident();
@@ -55,6 +56,7 @@ package net.guttershark.akamai
 		 * {
 		 *    trace(e.target.data.ip);
 		 *    trace(i.ip);
+		 *    AkamaiNCManager.FMS_IP = i.ip;
 		 * }
 		 * i.findBestIPForAkamaiApplication("http://cp44952.edgefcs.net/");
 		 * </listing>
@@ -84,16 +86,17 @@ package net.guttershark.akamai
 		}
 		
 		/**
-		 * Dispose of internal objects from memory.
+		 * Dispose of this Ident instance.
 		 */
 		public function dispose():void
 		{
+			if(!ip) _contentLoader.contentLoader.removeEventListener(Event.COMPLETE, onxml);
 			_contentLoader = null;
 			ip = null;
 		}
 		
 		/**
-		 * The content loader object.
+		 * The loader used to load XML from the Akamai ident service.
 		 */
 		public function get contentLoader():URLLoader
 		{
