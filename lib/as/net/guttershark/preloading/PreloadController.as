@@ -1,7 +1,6 @@
 package net.guttershark.preloading
 {
-	import net.guttershark.util.Assert;	
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
@@ -15,6 +14,7 @@ package net.guttershark.preloading
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.workers.WorkerInstances;
 	import net.guttershark.util.ArrayUtils;
+	import net.guttershark.util.Assert;
 	
 	/**
 	 * Dispatched for each item that has completed downloading.
@@ -119,8 +119,8 @@ package net.guttershark.preloading
 	 *    
 	 *    private function onPreloaderComplete(e:Event):void
 	 *    {
-	 *        addChild(preloadController.library.getMovieClipFromSWFLibrary("swf1", "Test"));
-	 *        addChild(preloadController.library.getBitmap("jpg1"));
+	 *        addChild(AssetLibrary.gi().getMovieClipFromSWFLibrary("swf1", "Test"));
+	 *        addChild(AssetLibrary.gi().getBitmap("jpg1"));
 	 *    }
 	 * }
 	 * </listing>
@@ -137,12 +137,6 @@ package net.guttershark.preloading
 		 * Number of errors in this instance.
 		 */
 		private var loadErrors:int;
-		
-		/**
-		 * An asset library instance that all loaded items
-		 * go to in this preloader.
-		 */
-		private var _library:AssetLibrary;
 
 		/**
 		 * An array of items to be loaded.
@@ -217,7 +211,6 @@ package net.guttershark.preloading
 			loaded = 0;
 			loadErrors = 0;
 			_working = false;
-			_library = new AssetLibrary();
 			//addItems(items);
 		}
 		
@@ -286,23 +279,20 @@ package net.guttershark.preloading
 		}
 		
 		/**
-		 * The internal AssetLibrary used to store preloaded assets.
+		 * This is provided for backwards compatibility and is the
+		 * equivalent of using AssetLibrary.gi(). AssetLibrary is
+		 * now a singleton, so all preload controllers register
+		 * assets into the same AssetLibrary.
+		 * 
+		 * <p><strong><em>This will be deprecated in the future,
+		 * so please start using AssetLibrary.gi()</em></strong></p>
 		 * 
 		 * @see net.guttershark.preloading.AssetLibrary AssetLibrary class
 		 * @return 	AssetLibrary 
 		 */
 		public function get library():AssetLibrary
 		{
-			return _library;
-		}
-		
-		/**
-		 * Set the internal library in this preload controller.
-		 */
-		public function set library(assetLibrary:AssetLibrary):void
-		{
-			Assert.NotNull(assetLibrary,"Parameter assetLibrary cannot be null");
-			_library = assetLibrary;
+			return AssetLibrary.gi();
 		}
 
 		/**
@@ -403,7 +393,7 @@ package net.guttershark.preloading
 		public function complete(e:AssetCompleteEvent):void
 		{
 			loaded++;
-			_library.addAsset(e.asset.libraryName,e.asset.data);
+			AssetLibrary.gi().addAsset(e.asset.libraryName,e.asset.data);
 			dispatchEvent(new AssetCompleteEvent(AssetCompleteEvent.COMPLETE,e.asset));
 			updateStatus();
 			updateLoading();
