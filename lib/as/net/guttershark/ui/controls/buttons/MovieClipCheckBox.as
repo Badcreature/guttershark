@@ -4,8 +4,9 @@ package net.guttershark.ui.controls.buttons
 	import flash.events.MouseEvent;	
 	import flash.events.Event;	
 
-	import net.guttershark.sound.SoundManager;	
+	import net.guttershark.sound.SoundManager;
 	import net.guttershark.ui.controls.buttons.MovieClipButton;
+	import net.guttershark.ui.controls.buttons.IToggleable;
 	
 	/**
 	 * The MovieClipCheckBox class is a basic checkbox that extends
@@ -29,7 +30,7 @@ package net.guttershark.ui.controls.buttons
 	 * 
 	 * <p>There is an example of this class in the examples/ui/controls/buttons folder.</p>
 	 */
-	public class MovieClipCheckBox extends MovieClipButton
+	public class MovieClipCheckBox extends MovieClipButton implements IToggleable
 	{
 		
 		/**
@@ -202,7 +203,8 @@ package net.guttershark.ui.controls.buttons
 		{
 			_checked = state;
 			if(checkStateChangeSound) SoundManager.gi().playSound(checkStateChangeSound);
-			gotoAndStop(normalCheckedFrame);
+			if(_checked) gotoAndStop(normalCheckedFrame);
+			else gotoAndStop(normalFrame);
 		}
 
 		/**
@@ -211,6 +213,24 @@ package net.guttershark.ui.controls.buttons
 		public function get checked():Boolean
 		{
 			return _checked;
+		}
+		
+		/**
+		 * @private
+		 * Interface compliance
+		 */
+		public function get toggled():Boolean
+		{
+			return this.checked;
+		}
+		
+		/**
+		 * @private
+		 * interface compliance
+		 */
+		public function set toggled(val:Boolean):void
+		{
+			this.checked = val;
 		}
 	}
 }
