@@ -1,5 +1,7 @@
 package net.guttershark.events 
 {
+	import flash.events.DataEvent;	
+	import flash.net.FileReference;	
 	import flash.display.MovieClip;	
 	import flash.net.NetStream;
 	import flash.net.NetConnection;
@@ -114,6 +116,7 @@ package net.guttershark.events
 	 * <tr><td>Microphone</td><td>Activity,Status</td></tr>
 	 * <tr><td>NetConnection</td><td>Status</td></tr>
 	 * <tr><td>NetStream</td><td>Status</td></tr>
+	 * <tr><td>FileReference</td><td>Cancel,Complete,Open,Select,UploadCompleteData</td></tr>
 	 * </table>
 	 * 
 	 * <p>InteractiveObject Event Groups:</p>
@@ -149,8 +152,10 @@ package net.guttershark.events
 	 * <li>ActivityEvent.ACTIVITY</li>
 	 * <li>ColorPickerEvent.CHANGE</li>
 	 * <li>ComponentEvent.LABEL_CHANGE</li>
+	 * <li>DataEvent.UPLOAD_COMPLETE_DATA</li>
 	 * <li>KeyboardEvent.KEY_UP</li>
 	 * <li>KeyboardEvent.KEY_DOWN</li>
+	 * <li>MouseEvent.MOUSE_WHEEL</li>
 	 * <li>PreloadProgressEvent.PROGRESS</li>
 	 * <li>ScrollEvent.SCROLL</li>
 	 * <li>StatusEvent.STATUS</li>
@@ -340,6 +345,15 @@ package net.guttershark.events
 				return;
 			}
 			
+			if(obj is FileReference)
+			{
+				obj.addEventListener(Event.CANCEL, onFRCancel,false,0,true);
+				obj.addEventListener(Event.COMPLETE, onFRComplete,false,0,true);
+				obj.addEventListener(Event.OPEN,onFROpen,false,0,true);
+				obj.addEventListener(Event.SELECT, onFRSelect,false,0,true);
+				obj.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, onFRUploadCompleteData,false,0,true);
+			}
+			
 			if(obj is TextField)
 			{
 				obj.addEventListener(Event.CHANGE, onTextFieldChange,false,0,true);
@@ -426,6 +440,31 @@ package net.guttershark.events
 					obj.addEventListener(KeyboardEvent.KEY_UP, onKeyUp,false,0,true);
 				}
 			}
+		}
+		
+		private function onFRCancel(e:Event):void
+		{
+			handleEvent(e, "Cancel");
+		}
+		
+		private function onFRComplete(e:Event):void
+		{
+			handleEvent(e,"Complete");
+		}
+		
+		private function onFROpen(e:Event):void
+		{
+			handleEvent(e,"Open");
+		}
+		
+		private function onFRSelect(e:Event):void
+		{
+			handleEvent(e,"Select");
+		}
+		
+		private function onFRUploadCompleteData(de:DataEvent):void
+		{
+			handleEvent(de,"UploadCompleteData",true);
 		}
 		
 		private function onSocketClose(e:Event):void
@@ -635,7 +674,7 @@ package net.guttershark.events
 	
 		private function onIOMouseWheel(e:MouseEvent):void
 		{
-			handleEvent(e,"MouseWheel");
+			handleEvent(e,"MouseWheel",true);
 		}
 		
 		/**
