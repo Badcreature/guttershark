@@ -64,6 +64,7 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			Assert.NotNull(obj, "Parameter obj cannot be null");
+			//if(assets[libraryName]) throw new AssetError("Asset by the name {" + libraryName + "} was already registered");
 			assets[libraryName] = obj;
 		}
 		
@@ -261,7 +262,13 @@ package net.guttershark.preloading
 		public function getBitmap(libraryName:String):Bitmap
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
-			if(assets[libraryName] != null) return BitmapUtils.CopyBitmap(Bitmap(getAsset(libraryName).content));
+			if(assets[libraryName] != null)
+			{
+				return getAsset(libraryName).contentLoaderInfo.content;
+				//return Bitmap(getAsset(libraryName).content);
+				//return Bitmap(getAsset(libraryName).content);
+				//return BitmapUtils.CopyBitmap(getAsset(libraryName).content);
+			}
 			throw new AssetError("Bitmap {" + libraryName + "} was not found.");
 		}
 		
