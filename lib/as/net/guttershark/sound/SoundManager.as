@@ -71,8 +71,8 @@ package net.guttershark.sound
 		public function SoundManager()
 		{
 			if(SoundManager.instance) throw new Error("SoundManager is a singleton, call SoundManager.GetInstance() for the instance.");
-			_soundDic = new Dictionary(true);
-			_sndObjectsWithTransforms = new Dictionary(true);
+			_soundDic = new Dictionary();
+			_sndObjectsWithTransforms = new Dictionary();
 			_volume = 0;
 			_mainTransform = new SoundTransform(1,0);
 			_playingSounds = [];
@@ -168,7 +168,8 @@ package net.guttershark.sound
 		public function set volume(level:Number):void
 		{
 			_mainTransform.volume = level;
-			for each(var obj:* in _sndObjectsWithTransforms) obj.soundTransform.volume = _mainTransform.volume;
+			var obj:*;
+			for each(obj in _sndObjectsWithTransforms) obj.soundTransform.volume = _mainTransform.volume;
 			dispatchEvent(new VolumeEvent(_mainTransform.volume));
 		}
 		
