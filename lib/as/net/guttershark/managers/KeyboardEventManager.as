@@ -497,12 +497,15 @@ package net.guttershark.managers
 		private function onKeyDownForSequence(ke:KeyboardEvent):void
 		{
 			var scope:* = ke.target;
+			if(!sequenceCallbacks[scope]) return;
 			var char:String = getShortcutForKey(ke.keyCode);
 			if(char == null) char = String.fromCharCode(ke.charCode);
 			var c:String = char + "+";
+			if(!keysDown) keysDown = "";
 			if(keysDown.indexOf(c) > -1) return;
 			keysDown += c;
-			var m:String = keysDown.substring(0,keysDown.length-1);
+			var m:String = keysDown.substring(0,keysDown.length - 1);
+			if(!sequenceCallbacks[scope][m]) return;
 			if(sequenceCallbacks[scope][m]) sequenceCallbacks[scope][m]();
 		}
 		
