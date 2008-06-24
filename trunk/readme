@@ -1,5 +1,7 @@
-RUNNING THE EXAMPLES.
-To run examples, you need to add the "lib/as" folder to your document class paths in Flash. (Flash > Preferences > Actionscript > Actionscript 3.0 Settings>).
-
-ALL OTHER EDITORS.
-1. You can use either the "lib/as" folder as a classpath an any editor. 
+INSTALLATION:
+---
+# Add the "guttershark/lib/as" folder to your global document class paths in Flash. (Flash > Preferences > Actionscript > 
+# Actionscript 3.0 Settings>). It's important that it's added to Flash's global class paths, otherwise you'll have to
+# add it as a classpath to every FLA.
+---
+# Use the "guttershark/lib/as" folder as a classpath an any editor. 

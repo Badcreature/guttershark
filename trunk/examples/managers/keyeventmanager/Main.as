@@ -7,7 +7,8 @@ package
 	
 	public class Main extends DocumentController
 	{
-		
+		private var keyboardEventManager:KeyboardEventManager;
+
 		public function Main()
 		{
 			super();

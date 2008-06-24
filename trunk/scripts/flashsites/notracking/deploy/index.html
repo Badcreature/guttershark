@@ -4,25 +4,36 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title></title>
 	<script type="text/javascript" src="js/swfobject.js"></script>
-	<style>
-		body{background-color:white;padding:0;margin:0;text-align:center}
-		#container{width:200px;height:240px;margin:0 auto;padding:0;text-align:center;vertical-align:middle}
-		#flash{width:200px;height:240px;background-color:#000}
-		img.webtrendsLoadPage, img.atlas_tag{display:none}
+	<script type="text/javascript" src="js/swfmacmousewheel2.js"></script>
+	<script type="text/javascript">
+		var vars = {siteXML:"site.xml"};
+		var params = {scale:'noScale',salign:'lt',menu:'false'};
+		var attributes = {id:'testObject',name:'testObject'}; //give an id to the flash object
+		swfobject.embedSWF("main.swf","flashcontent","600","400","9.0.0","js/expressInstall.swf",vars,params,attributes);
+		swfmacmousewheel.registerObject(attributes.id);
+	</script>
+	<style type="text/css">
+		body, html{height: 100%; margin:0; overflow:hidden;}
+		#outer{height: 100%; width:100%; overflow:hidden;} /* or without overflow */
+		#outer[id]{display:table; position:static;}
+		#middle{position:absolute; top:50%; width:100%; text-align:center;} /* for explorer only*/
+		#middle[id]{display:table-cell; vertical-align:middle; position:static;}
+		#inner{position:relative; top:-50%; text-align:left;} /* for explorer only */
+		#inner{width:600px; margin-left:auto; margin-right:auto;} /* for all browsers*/
 	</style>
 </head>
 <body>
-<div id="container">
-	<div id="flash">
-		<noscript>
-			<strong>You need to upgrade your <a href="http://www.adobe.com/products/flashplayer/">Flash Player</a></strong>
-		</noscript>
+<div id="outer">
+	<div id="middle">
+		<div id="inner">
+			<div id="flashcontent">
+				<noscript>
+					<h1>Alternative content</h1>
+					<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+				</noscript>
+			</div>
+		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	var so = new SWFObject("", "flaswf", "200", "240", "9.0.28", "#ffffff", false, "high");
-	so.addVariable("siteXML","site.xml");
-	so.write("flash");
-</script>
 </body>
 </html>
