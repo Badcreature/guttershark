@@ -145,12 +145,12 @@ package net.guttershark.ui.controls.buttons
 		{
 			super();
 			stop();
-			if(this.stage) this.stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUpOutside,false,10,false);
+			if(this.stage) this.stage.addEventListener(MouseEvent.MOUSE_UP, __onMouseUpOutside,false,10,false);
 			addEventListener(MouseEvent.CLICK,onClick,false,10,false);
 			addEventListener(MouseEvent.MOUSE_DOWN,__onMouseDown,false,10,false);
-			addEventListener(MouseEvent.MOUSE_OVER, onMouseOver,false,10,false);
-			addEventListener(MouseEvent.MOUSE_UP, onMouseUp,false,10,false);
-			addEventListener(MouseEvent.MOUSE_OUT, onMouseOut,false,10,false);
+			addEventListener(MouseEvent.MOUSE_OVER,__onMouseOver,false,10,false);
+			addEventListener(MouseEvent.MOUSE_UP,__onMouseUp,false,10,false);
+			addEventListener(MouseEvent.MOUSE_OUT,__onMouseOut,false,10,false);
 		}
 		
 		/**
@@ -166,7 +166,7 @@ package net.guttershark.ui.controls.buttons
 		 * @private
 		 * When the mouse button is released outside of the clip. This is not supported in Flex.
 		 */
-		protected function onMouseUpOutside(me:MouseEvent):void
+		protected function __onMouseUpOutside(me:MouseEvent):void
 		{
 			if(!over)
 			{
@@ -189,7 +189,7 @@ package net.guttershark.ui.controls.buttons
 		 * @private
 		 * When the mouse button is released.
 		 */
-		protected function onMouseUp(me:MouseEvent):void
+		protected function __onMouseUp(me:MouseEvent):void
 		{
 			if(upSound) SoundManager.gi().playSound(upSound);
 			if(_locked)
@@ -204,7 +204,7 @@ package net.guttershark.ui.controls.buttons
 		 * @private
 		 * When the mouse rolls over this button.
 		 */
-		protected function onMouseOver(me:MouseEvent):void
+		protected function __onMouseOver(me:MouseEvent):void
 		{
 			if(overSound) SoundManager.gi().playSound(overSound);
 			if(_locked)
@@ -236,7 +236,7 @@ package net.guttershark.ui.controls.buttons
 		 * @private
 		 * When the mouse moves outside the trackable content.
 		 */
-		protected function onMouseOut(me:MouseEvent):void
+		protected function __onMouseOut(me:MouseEvent):void
 		{
 			if(outSound) SoundManager.gi().playSound(outSound);
 			if(_locked)
