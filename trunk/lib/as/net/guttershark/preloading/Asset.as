@@ -1,7 +1,6 @@
 package net.guttershark.preloading
 {
-	import net.guttershark.util.StringUtils;	
-	
+
 	import flash.events.SecurityErrorEvent;
 	
 	import net.guttershark.preloading.events.AssetCompleteEvent;
@@ -11,6 +10,7 @@ package net.guttershark.preloading
 	import net.guttershark.preloading.events.AssetStatusEvent;
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.preloading.workers.WorkerInstances;
+	import net.guttershark.util.StringUtils;
 
 	/**
 	 * The Asset class defines an asset to preload with a PreloadController.

@@ -12,7 +12,6 @@ package net.guttershark.preloading
 	import net.guttershark.util.Assert;	
 	import net.guttershark.util.XMLLoader;
 	import net.guttershark.core.IDisposable;
-	import net.guttershark.util.BitmapUtils;
 	import net.guttershark.errors.AssetError;
 	
 	/**
@@ -64,7 +63,7 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			Assert.NotNull(obj, "Parameter obj cannot be null");
-			//if(assets[libraryName]) throw new AssetError("Asset by the name {" + libraryName + "} was already registered");
+			if(assets[libraryName]) trace("WARNING: The asset defined by libraryName: {" + libraryName + "} already had an asset registered in the library. The previous asset is no longer available.");
 			assets[libraryName] = obj;
 		}
 		
