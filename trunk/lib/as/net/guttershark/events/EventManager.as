@@ -1,8 +1,7 @@
 package net.guttershark.events 
 {
 	import flash.events.DataEvent;	
-	import flash.net.FileReference;	
-	import flash.display.MovieClip;	
+	import flash.net.FileReference;
 	import flash.net.NetStream;
 	import flash.net.NetConnection;
 	import flash.net.URLLoader;
