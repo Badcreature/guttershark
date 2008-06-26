@@ -9,7 +9,6 @@ package net.guttershark.preloading.workers
 	import flash.net.URLRequest;
 	
 	import net.guttershark.preloading.Asset;
-	import net.guttershark.preloading.events.AssetCompleteEvent;
 	import net.guttershark.util.XMLLoader;
 	
 	/**

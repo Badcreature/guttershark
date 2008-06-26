@@ -449,10 +449,7 @@ package net.guttershark.preloading
 		 */
 		private function updateLoading():void
 		{
-			if(loadItems.length > 0)
-			{
-				load();
-			}
+			if(loadItems.length > 0) load();
 			else if((loaded + loadErrors) >= (loadItems.length))
 			{	
 				_working = false;
