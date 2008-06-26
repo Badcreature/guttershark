@@ -115,15 +115,18 @@
 		 * Add a localizable clip to the language manager. The clip will be updated
 		 * when the selected language code changes.
 		 * 
-		 * @param	clip	An ILocalizableClip.
-		 * @param	textID	String ID in language xml file.
+		 * @param	clip			An ILocalizableClip.
+		 * @param	textID			String ID in language xml file.
+		 * @param	updateOnAdd		Boolean to update localizedText on add.
 		 * 
 		 * @see net.guttershark.lang.ILocalizableClip ILocalizableClip Class
 		 */
-		public function addLocalizableClip(clip:ILocalizableClip,textID:String):void
+		public function addLocalizableClip(clip:ILocalizableClip,textID:String,updateOnAdd:Boolean=false):void
 		{
 			clip.localizedID = textID;
 			clips[textID] = clip;
+			
+			if(updateOnAdd) clip.localizedText = getTextForID(clip.localizedID);
 		}
 		
 		/**
