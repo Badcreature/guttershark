@@ -53,7 +53,10 @@
 			languages = new Dictionary();
 			codes = new Dictionary();
 		}
-
+		
+		/**
+		 * Singleton Access.
+		 */
 		public static function gi():LanguageManager
 		{
 			if(!inst) inst = new LanguageManager();
@@ -113,7 +116,7 @@
 		 * when the selected language code changes.
 		 * 
 		 * @param	clip	An ILocalizableClip.
-		 * @param	textID	Sting ID in language xml file.
+		 * @param	textID	String ID in language xml file.
 		 * 
 		 * @see net.guttershark.lang.ILocalizableClip ILocalizableClip Class
 		 */
@@ -159,15 +162,14 @@
 		
 		/**
 		 * Get the text associated with an id in the current selected language
-		 * xml file. Note that it's best practice to use instance names of
-		 * the ILocalizableClips.
+		 * xml file.
 		 */
-		public function getTextForID(instanceName:String):String
+		public function getTextForID(textID:String):String
 		{
 			if(!_languageCode) return null;
 			if(!languages[_languageCode]) return null;
-			if(!XML(languages[_languageCode]).text.(@id == instanceName)) throw new Error("No text for instance name: {" + instanceName + "} was found");
-			return XML(languages[_languageCode]).text.(@id == instanceName).toString();
+			if(!XML(languages[_languageCode]).text.(@id == textID)) throw new Error("No text for text id: {" + textID + "} was found");
+			return XML(languages[_languageCode]).text.(@id == textID).toString();
 		}
 	}
 }
