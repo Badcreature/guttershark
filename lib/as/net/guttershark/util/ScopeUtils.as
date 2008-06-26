@@ -5,17 +5,18 @@ package net.guttershark.util
 	
 	/**
 	 * The ScopeUtils Class provides utilities for working with scope problems,
-	 * or simplifying something that is done over and over to alter scope.
+	 * or simplifying something that is usually done over and over to alter scope.
 	 */
 	public class ScopeUtils
 	{
 		
 		/**
-		 * Retarget class instance variables to either a nested or parent
+		 * Re-target class instance variables to either a nested or parent
 		 * movie clip or class. This is generally used when you have
-		 * nested clips.
+		 * instance variables on a class, but need to change what clip they
+		 * point to inside of another movie clip.
 		 * 
-		 * @example Re-targetting a class' instance variables to inside of a movie clip. 
+		 * @example Re-targetting a class' instance variables to inside of a movie clip.
 		 * <listing>
 		 * package
 		 * {
@@ -26,19 +27,19 @@ package net.guttershark.util
 		 *       public var formfieldwrapper:MovieClip;
 		 *       public function MyView()
 		 *       {
-		 *          ScopeUtils.ReTargetInstanceVars([
-		 *              firstname,lastname,wemet,how,position,position2,
-		 *              resume,reel,email,mobile,website,story],
-		 *              ["firstname","lastname","wemet","how","position",
-		 *              "position2","resume","reel","email","website","mobile",
-		 *              "website","story"],forms);
+		 *           //in this call, "this" represents the source, and "forms" represents the new target host.
+		 *           ScopeUtils.ReTargetInstanceVars(["firstname","lastname"],this,formfieldwrapper);
 		 *       }
 		 *   }
 		 * }
 		 * </listing>
 		 * 
+		 * <p>In that example. <code><em>firstname</em></code> and <code><em>lastname</em></code> are defined in
+		 * "MyView" but the actual movie clips are inside of formfieldwrapper. So this "re-targetting" of scope re-assigns
+		 * firstname to point to <code><em>formfieldwrapper.firstname</em></code>.</p>
+		 * 
 		 * @param	vars	The instance variables in which the pointer is changing.
-		 * @param	newTargetInstanceNames	The instance names inside of the new target.
+		 * @param	source	The source instance where the variables are declared.
 		 * @param	target	The new target.
 		 */
 		public static function ReTargetInstanceVars(vars:Array, source:InteractiveObject, target:InteractiveObject):void

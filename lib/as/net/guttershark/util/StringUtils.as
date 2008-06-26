@@ -18,4 +18,4 @@ package net.guttershark.util
 			if(filematch) fileType = filematch[1].toLowerCase();
 			if(!fileType) return null;
 			else return fileType;
-		}	}}
+		}	}}

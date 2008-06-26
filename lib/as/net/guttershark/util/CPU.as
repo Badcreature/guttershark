@@ -11,14 +11,7 @@ package net.guttershark.util
 	 * is fast / med / slow, etc.
 	 * 
 	 * <p>The CPU class does not provide details about how many
-	 * CPU's they have, or RAM information.</p>
-	 * 
-	 * <p>The recommended number ranges for fast / med / slow:</p>
-	 * <ul>
-	 * <li>fast = (CPU.Speed < 45)</li>
-	 * <li>med = (CPU.Speed < 80)</li>
-	 * <li>slow = anything greater than the medium benchmark.
-	 * </ul>
+	 * CPU's they have, or he actual clock speed.</p>
 	 * 
 	 * <p>This class is integrated with the base DocumentClass of
 	 * the net.guttershark package.</p>
