@@ -35,7 +35,7 @@
 		 */
 		public function set localizedText(value:String):void
 		{
-			tfield.text = value;
+			tfield.htmlText = value;
 		}
 		
 		/**
@@ -43,7 +43,7 @@
 		 */
 		public function get localizedText():String
 		{
-			return tfield.text;
+			return tfield.htmlText;
 		}
 		
 		/**
