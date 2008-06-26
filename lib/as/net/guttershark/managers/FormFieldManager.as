@@ -4,20 +4,32 @@ package net.guttershark.managers
 	import flash.text.TextField;
 	import flash.net.URLVariables;
 	import net.guttershark.ui.controls.buttons.IToggleable;
+	import net.guttershark.core.IDisposable;
 
-	public class FormFieldManager
+	/**
+	 * The FormFieldManager Class simplifies managing InteractiveObjects
+	 * that compose a form.
+	 */
+	public class FormFieldManager implements IDisposable
 	{
-		
+
 		private var tfs:Array;
-		private var cbs:Array;
-		public var displayBoolsAsYesNo:Boolean;
+		private var tbs:Array;
+		private var trusub:String;
+		private var falssub:String;
 		
+		/**
+		 * Constructor for FormFieldManager instances.
+		 */
 		public function FormFieldManager()
 		{
 			tfs = new Array();
-			cbs = new Array();
+			tbs = new Array();
 		}
 		
+		/**
+		 * Shortcut for a method that would otherwise have duplicate logic.
+		 */
 		private function getOutputAsType(type:Class):*
 		{
 			var out:*;
@@ -25,20 +37,40 @@ package net.guttershark.managers
 			if(type == URLVariables) out = new URLVariables();
 			else if(type == Object) out = new Object();
 			for(i = 0; i < tfs.length; i++) out[tfs[i].name] = tfs[i].text;
-			for(i = 0; i < cbs.length; i++)
+			for(i = 0; i < tbs.length; i++)
 			{
-				out[cbs[i].name] = cbs[i].toggled;
-				if(displayBoolsAsYesNo && cbs[i].toggled) out[cbs[i].name] = "YES";
-				else if(displayBoolsAsYesNo) out[cbs[i].name] = "NO";
+				out[tbs[i].name] = tbs[i].toggled;
+				if(tbs[i].toggled && trusub) out[tbs[i].name] = trusub;
+				else if((tbs[i].toggled === false) && falssub) out[tbs[i].name] = falssub;
 			}
 			return out;
 		}
 		
+		/**
+		 * Change what the output value is displayed as for a boolean. You could
+		 * substitue true with "yes" or false with "no" etc. Values for booleans
+		 * are only substituded with the <code><em>getOutputAsObject</em></code> and 
+		 * <code><em>getOutputAsURLVariables</em></code> methods.
+		 */
+		public function displayBooleansAs(truSubstitute:String, falsSubstitute:String):void
+		{
+			trusub = truSubstitute;
+			falssub = falsSubstitute;
+		}
+		
+		/**
+		 * Add a TextField to the manager.
+		 * @param	tf	A TextField.
+		 */
 		public function addTextField(tf:TextField):void
 		{
 			tfs.push(tf);
 		}
 		
+		/**
+		 * Add multiple TextFields to the manager.
+		 * @param	tfs	An array of TextFields.
+		 */
 		public function addTextFields(tfs:Array):void
 		{
 			for(var i:int = 0; i < tfs.length; i++)
@@ -47,32 +79,72 @@ package net.guttershark.managers
 			}
 		}
 		
-		public function addCheckbox(cb:IToggleable):void
+		/**
+		 * Add an IToggleable instance to the manager.
+		 * @param	toggleable An IToggleable instance.
+		 */
+		public function addToggleable(toggleable:IToggleable):void
 		{
-			cbs.push(cb);
+			tbs.push(toggleable);
 		}
 		
-		public function addCheckboxes(cbs:Array):void
+		/**
+		 * Add multiple IToggleable clips to the manager.
+		 * @param	toggleables	An array of IToggleable clips.
+		 */
+		public function addToggleables(toggleables:Array):void
 		{
-			for(var i:int = 0; i < cbs.length; i++)
+			for(var i:int = 0; i < toggleables.length; i++)
 			{
-				this.cbs.push(cbs[i]);
+				this.tbs.push(toggleables[i]);
 			}
 		}
 		
+		/**
+		 * Get all data from the form as a URLVariables instance.
+		 * @return 	URLVariables
+		 */
 		public function getOutputAsURLVariables():URLVariables
 		{
 			return getOutputAsType(URLVariables);
 		}
 		
+		/**
+		 * Get all data from the form as a generic Object.
+		 * @return	Object
+		 */
 		public function getOutputAsObject():Object
 		{
 			return getOutputAsType(Object);
 		}
 		
+		/**
+		 * Get all data from the form as a URL encoded string.
+		 * @return	String
+		 */
+		public function getOutputAsQueryString():String
+		{
+			var uv:URLVariables = getOutputAsType(URLVariables);
+			return uv.toString();
+		}
+
+		/**
+		 * Set the tabs for all fields in the form.
+		 * 
+		 * <p>It will set tabs in this order:</p>
+		 * <ol>
+		 * <li>TextFields</li>
+		 * <li>IToggleables</li>
+		 * </ol>
+		 * 
+		 * <p><strong>Or</strong> if you provide an array of clips
+		 * in the call to set tabs, it will use whatever order
+		 * the array is in.</p>
+		 */
 		public function setTabs(clips:Array = null):void
 		{
 			var i:int;
+			var c:int = 0;
 			if(clips)
 			{
 				for(i = 0; i < clips.length; i++)
@@ -84,12 +156,49 @@ package net.guttershark.managers
 			{
 				for(i = 0; i < tfs.length; i++)
 				{
-					tfs[i].tabIndex = i;
+					tfs[i].tabIndex = c;
+					c++;
 				}
 				
-				for(i = 0; i < cbs.length; i++)
+				for(i = 0; i < tbs.length; i++)
 				{
-					cbs[i].tabIndex = i;
+					tbs[i].tabIndex = c;
+					c++;
 				}
 			}
+		}
+		
+		/**
+		 * Sets the tabEnabled property to false on all toggleable clips
+		 * in the manager.
+		 */
+		public function disableTabsOnToggleables():void
+		{
+			for(var i:int = 0; i < tbs.length; i++)
+			{
+				tbs[i].tabEnabled = false;
+			}
+		}
+		
+		/**
+		 * Sets the tabEnabled property to true on all toggleable clips
+		 * in the manager.
+		 */
+		public function enableTabsOnToggleables():void
+		{
+			for(var i:int = 0; i < tbs.length; i++)
+			{
+				tbs[i].tabEnabled = true;
+			}
+		}
+		
+		/**
+		 * Dispose of this FormFieldManager.
+		 */
+		public function dispose():void
+		{
+			tfs = null;
+			tbs = null;
+			trusub = null;
+			falssub = null;
 		}	}}
