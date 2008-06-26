@@ -37,4 +37,13 @@ package net.guttershark.ui.views
 		override public function hide():void
 		{
 			playReverse();
+		}
+		
+		/**
+		 * Dispose of this InOutView.
+		 */
+		override public function dispose():void
+		{
+			watchForLastFrameAndCallComplete = false;
+			autoStopOnLastFrame  = false;
 		}	}}
