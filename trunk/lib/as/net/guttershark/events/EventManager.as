@@ -1,5 +1,6 @@
 package net.guttershark.events 
 {
+	
 	import flash.events.DataEvent;	
 	import flash.net.FileReference;
 	import flash.net.NetStream;
@@ -270,7 +271,7 @@ package net.guttershark.events
 			
 			if(obj is NetConnection)
 			{
-				if((callbackPrefix + "CameraStatus") in callbackDelegate) obj.addEventListener(StatusEvent.STATUS, onCameraStatus,false,0,true);
+				if((callbackPrefix + "Status") in callbackDelegate) obj.addEventListener(StatusEvent.STATUS, onCameraStatus,false,0,true);
 				return;
 			}
 			
@@ -634,7 +635,7 @@ package net.guttershark.events
 			
 			if(obj is NetConnection)
 			{
-				if((callbackPrefix + "CameraStatus") in callbackDelegate) obj.removeEventListener(StatusEvent.STATUS, onCameraStatus,false,0,true);
+				if((callbackPrefix + "Status") in callbackDelegate) obj.removeEventListener(StatusEvent.STATUS, onCameraStatus,false,0,true);
 				return;
 			}
 			
