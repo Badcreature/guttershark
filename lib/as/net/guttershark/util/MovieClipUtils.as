@@ -1,7 +1,7 @@
 package net.guttershark.util 
 {
-	import flash.display.MovieClip;		
-	
+	import flash.display.MovieClip;			
+
 	/**
 	 * The MovieClipUtils Class has utility methods that decrease
 	 * amount of code you have to write for numerous situations.
