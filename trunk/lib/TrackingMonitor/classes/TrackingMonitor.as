@@ -1,12 +1,11 @@
 package  
 {
-	import fl.controls.dataGridClasses.DataGridColumn;	
-	
 	import flash.display.Sprite;
 	import flash.events.StatusEvent;
 	import flash.net.LocalConnection;
 	
-	import fl.controls.DataGrid;		
+	import fl.controls.DataGrid;
+	import fl.controls.dataGridClasses.DataGridColumn;		
 
 	public class TrackingMonitor extends Sprite
 	{
