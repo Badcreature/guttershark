@@ -1,21 +1,19 @@
 package net.guttershark.preloading
 {
-
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
 	import net.guttershark.preloading.Asset;
+	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.events.AssetCompleteEvent;
 	import net.guttershark.preloading.events.AssetErrorEvent;
 	import net.guttershark.preloading.events.AssetOpenEvent;
 	import net.guttershark.preloading.events.AssetProgressEvent;
 	import net.guttershark.preloading.events.AssetStatusEvent;
 	import net.guttershark.preloading.events.PreloadProgressEvent;
-	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.workers.WorkerInstances;
-	import net.guttershark.util.ArrayUtils;
-	import net.guttershark.util.Assert;
-	
+	import net.guttershark.util.ArrayUtils;	
+
 	/**
 	 * Dispatched for each item that has completed downloading.
 	 * 
