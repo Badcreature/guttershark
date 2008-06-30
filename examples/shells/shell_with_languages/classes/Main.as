@@ -3,7 +3,7 @@ package
 
 	import flash.events.Event;
 	
-	import net.guttershark.model.SiteXMLParser;	
+	import net.guttershark.model.Model;	
 	import net.guttershark.preloading.PreloadController;	
 	import net.guttershark.control.DocumentController;
 	import net.guttershark.lang.LocalizableClip;
@@ -28,7 +28,7 @@ package
 		override protected function setupComplete():void
 		{
 			preloadController = new PreloadController();
-			var siteXMLParser:SiteXMLParser = new SiteXMLParser(siteXML);
+			var siteXMLParser:Model = new Model(siteXML);
 			preloadController.addItems(siteXMLParser.getAssetsForPreload());
 			preloadController.addEventListener(Event.COMPLETE, onComplete);
 			preloadController.start();
