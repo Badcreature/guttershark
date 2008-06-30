@@ -6,7 +6,7 @@ package
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	import net.guttershark.model.SiteXMLParser;
+	import net.guttershark.model.Model;
 	import net.guttershark.akamai.AkamaiNCManager;
 	import net.guttershark.control.DocumentController;
 	import net.guttershark.preloading.PreloadController;
@@ -34,7 +34,7 @@ package
 		private function startPreload():void
 		{
 			sitePreloader = new PreloadController(550);
-			var siteXMLParser:SiteXMLParser = new SiteXMLParser(siteXML);
+			var siteXMLParser:Model = new Model(siteXML);
 			sitePreloader.addItems(siteXMLParser.getAssetsForPreload());
 			sitePreloader.addEventListener(Event.COMPLETE, onPreloadComplete);
 			sitePreloader.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);

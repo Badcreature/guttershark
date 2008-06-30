@@ -10,7 +10,7 @@ package
 	import net.guttershark.control.DocumentController;
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.preloading.events.PreloadProgressEvent;
-	import net.guttershark.model.SiteXMLParser;
+	import net.guttershark.model.Model;
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.managers.KeyboardEventManager;
 	
@@ -48,7 +48,7 @@ package
 		private function startPreload():void
 		{
 			sitePreloader = new PreloadController(550);
-			var siteXMLParser:SiteXMLParser = new SiteXMLParser(siteXML);
+			var siteXMLParser:Model = new Model(siteXML);
 			sitePreloader.addItems(siteXMLParser.getAssetsForPreload());
 			sitePreloader.addEventListener(Event.COMPLETE, onPreloadComplete);
 			sitePreloader.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);
