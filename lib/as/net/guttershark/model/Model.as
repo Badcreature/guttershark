@@ -1,36 +1,21 @@
 package net.guttershark.model 
 {
-		
-	import net.guttershark.remoting.RemotingManager;	
-	import net.guttershark.util.StringUtils;	
-	import net.guttershark.preloading.Asset;	
+	import flash.net.URLRequest;
+	
+	import net.guttershark.errors.AssertError;
+	import net.guttershark.preloading.Asset;
+	import net.guttershark.remoting.RemotingManager;
 	import net.guttershark.util.Assert;
+	import net.guttershark.util.StringUtils;	
 
 	/**
-	 * The SiteXMLParser class provides shortcuts for parsing a default site xml file.
+	 * The Model class provides shortcuts for parsing a default model xml file,
+	 * and provides shortcut methods for common operations.
 	 * 
-	 * <p>A default implementation of a site xml file contains information for preloading and
-	 * some optional elements.</p>
-	 * 
-	 * <p>It includes at least these nodes:</p>
-	 * <ul>
-	 * <li>An <code><em>assetPath</em></code> node, with sub nodes defining paths for specific media types.</li>
-	 * <li>An <code><em>assets</em></code> node, with <code><em>asset</em></code> sub nodes. These define all assets that
-	 * potentially need to be preloaded.</li>
-	 * <li>A <code><em>preload</em></code> node, with <code><em>asset</em></code> sub nodes. These asset sub nodes correlate
-	 * directly to a node in the <code><em>assets</em></code> node, essentially this preload node defines references
-	 * to other assets from the assets pool node.</li>
-	 * </ul>
-	 * 
-	 * <p>With optional nodes:</p>
-	 * <ul>
-	 * <li>A <code><em>services</em></code> node.</li>
-	 * </ul>
-	 * 
-	 * @example A default site XML file:
+	 * @example Exampel model XML file:
 	 * <listing>	
 	 * &lt;?xml version="1.0" encoding="utf-8"?&gt;
-	 * &lt;site&gt;
+	 * &lt;model&gt;
 	 *    &lt;assetPaths basePath="assets/"&gt;
 	 *        &lt;bitmapPath&gt;bmp/&lt;/bitmapPath&gt;
 	 *        &lt;soundPath&gt;sounds/&lt;/soundPath&gt;
@@ -48,7 +33,6 @@ package net.guttershark.model
 	 *       &lt;asset libraryName="clayBanner2" /&gt;
 	 *       &lt;asset libraryName="clayWebpage" /&gt;
 	 *    &lt;/preload&gt;
-	 *    &lt;!-- OPTIONAL ELEMENTS --&gt;
 	 *    &lt;services&gt;
 	 *       &lt;remoting&gt;
 	 *          &lt;endpoint id="amfphp" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
@@ -61,16 +45,29 @@ package net.guttershark.model
 	 *          &lt;/endpoint&gt;
 	 *       &lt;/remoting&gt;
 	 *    &lt;/services&gt;
-	 * &lt;/site&gt;
+	 *    &lt;links&gt;
+	 *        &lt;link id="google" url="http://www.google.com" /&gt;
+	 *        &lt;link id="rubyamf" url="http://www.rubyamf.org" /&gt;
+	 *        &lt;link id="guttershark" url="http://www.guttershark.net" /&gt;
+	 *    &lt/links&gt;
+	 *    &lt;attributes&gt;
+	 *        &lt;attribute id="host" value="http://www.guttershark.net" /&gt;
+	 *    &lt;/attributes&gt;
+	 * &lt;/model&gt;
 	 * </listing>
 	 */
-	dynamic public class SiteXMLParser
+	dynamic public class Model
 	{
+		
+		/**
+		 * singleton instance
+		 */
+		private static var instance:Model;
 		
 		/**
 		 * Reference to the entire site XML file.
 		 */
-		protected var siteXML:XML;
+		protected var _model:XML;
 		
 		/**
 		 * Stores a reference to the &lt;assetPaths&gt;&lt;/assetPaths&gt; node.
@@ -146,22 +143,60 @@ package net.guttershark.model
 		protected var remoting:XMLList;
 		
 		/**
-		 * Constructor for SiteXMLParser instances.
+		 * Stores a reference to the <code>&lt;links&gt;&lt;/links&gt;</code> node.
+		 * 
+		 * @example A links node set.
+		 * <listing>
+		 * &lt;links&gt;
+	 	 *     &lt;link id="google" url="http://www.google.com" /&gt;
+	 	 *     &lt;link id="rubyamf" url="http://www.rubyamf.org" /&gt;
+	 	 *     &lt;link id="guttershark" url="http://www.guttershark.net" /&gt;
+	 	 * &lt/links&gt;
+		 * </listing>
 		 */
-		public function SiteXMLParser(siteXML:XML):void
+		protected var links:XMLList;
+		
+		/**
+		 * Stores a reference to the <code>&lt;attributes&gt;&lt;/attributes&gt;</code> node.
+		 * 
+		 * @example An attributes node set.
+		 * &lt;attributes&gt;
+	 	 *     &lt;attribute id="host" value="http://www.guttershark.net" /&gt;
+	 	 * &lt;/attributes&gt;
+		 */
+		protected var attributes:XMLList;
+		
+		/**
+		 * @private
+		 * Constructor for Model instances.
+		 */
+		public function Model()
 		{
-			Assert.NotNull(siteXML, "Parameter siteXML cannot be null");
-			this.siteXML = siteXML;
-			if(siteXML.assetPaths) assetPaths = siteXML.assetPaths;
-			if(siteXML.assets) assets = siteXML.assets;
-			if(siteXML.preload) preload = siteXML.preload;
-			if(siteXML.services)
-			{
-				if(siteXML.services.remoting)
-				{
-					remoting = siteXML.services.remoting;
-				}
-			}
+			if(Model.instance) throw new Error("Model is a singleton, please see Model.gi()");
+		}
+		
+		/**
+		 * Singleton access.
+		 */
+		public static function gi():Model
+		{
+			if(instance == null) instance = new Model();
+			return instance;
+		}
+		
+		/**
+		 * Set the model XML file on the singleton instance.
+		 */
+		public function set xml(xml:XML):void
+		{
+			Assert.NotNull(xml, "Parameter xml cannot be null");
+			_model = xml;
+			if(_model.assetPaths) assetPaths = _model.assetPaths;
+			if(_model.assets) assets = _model.assets;
+			if(_model.preload) preload = _model.preload;
+			if(_model.links) links = _model.links;
+			if(_model.services) if(_model.services.remoting) remoting = _model.services.remoting;
+			if(_model.attributes) attributes = _model.attributes;
 		}
 		
 		/**
@@ -175,13 +210,17 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Add the filetype path before the filename.
+		 * Prepend the correct path for an asset.
 		 * 
-		 * <p>You should pass in a filename, like: "myfile.jpg", and it wil
-		 * return a new string like: "bmp/myfile.jpg".</p>
+		 * <p>You can pass in a filename, like: "myfile.jpg", and it will
+		 * return a new string like: "assets/bmp/myfile.jpg".</p>
+		 * 
+		 * <p>It concatenates the "basePath"+"typePath"+file</p>
 		 */
 		protected function prependAssetPath(source:String):String
 		{
+			Assert.NotNull(source, "Parameter source cannot be null");
+			if(!assetPaths) throw new Error("The assetPath node is not defined");
 			var fileType:String = findFileType(source);
 			var path:String;
 			switch(fileType)
@@ -191,22 +230,27 @@ package net.guttershark.model
 				case "bmp":
 				case "png":
 				case "gif":
+					if(assetPaths.bitmapPath == undefined) throw new Error("The bitmapPath node is node defined within the assetPaths node");
 					path = assetPaths.bitmapPath.toString();
 					break;
 				case "swf":
+					if(assetPaths.swfPath == undefined) throw new Error("The swfPath node is node defined within the assetPaths node");
 					path = assetPaths.swfPath.toString();
 					break;
 				case "mp3":
+					if(assetPaths.soundPath == undefined) throw new Error("The soundPath node is node defined within the assetPaths node");
 					path = assetPaths.soundPath.toString();
 					break;
 				case "flv":
+					if(assetPaths.flvPath == undefined) throw new Error("The flvPath node is node defined within the assetPaths node");
 					path = assetPaths.flvPath.toString();
 					break;
 				case "xml":
+					if(assetPaths.flvPath == undefined) throw new Error("The flvPath node is node defined within the assetPaths node");
 					path = assetPaths.xmlPath.toString();
 					break;
 			}
-			source = path + source;
+			source = assetPaths.@basePath + path + source;
 			return source;
 		}
 		
@@ -219,15 +263,13 @@ package net.guttershark.model
 		 */
 		public function getAssetsForPreload():Array
 		{
-			var basePath:String = assetPaths.@basePath;
+			checkForXML();
 			var assetsToLoad:Array = [];
-			for each(var ast:XML in siteXML.preload.asset)
+			for each(var ast:XML in _model.preload.asset)
 			{
 				var asset:XMLList = assets.asset.(@libraryName == ast.@libraryName);
-				var path:String = basePath;
 				var source:String = prependAssetPath(asset.@source);
-				path += source;
-				assetsToLoad.push(new Asset(path, asset.@libraryName));
+				assetsToLoad.push(new Asset(source, asset.@libraryName));
 			}
 			return assetsToLoad;
 		}
@@ -240,9 +282,10 @@ package net.guttershark.model
 		 */
 		public function getAssetByLibraryName(libraryName:String):Asset
 		{
+			checkForXML();
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
-			var node:XML = assets..asset.(@libraryName == libraryName);
-			return new Asset(node.@source,libraryName);
+			var node:XMLList = assets..asset.(@libraryName == libraryName);
+			return new Asset(prependAssetPath(node.@source),libraryName);
 		}
 		
 		/**
@@ -254,10 +297,11 @@ package net.guttershark.model
 		 */
 		public function initializeRemotingEndpoint(endpointID:String, remotingManager:RemotingManager):void
 		{
+			checkForXML();
 			Assert.NotNull(remoting, "No remoting nodes were found. Please define them in the services node.");
 			Assert.NotNull(endpointID, "Parameter id cannot be null");
 			var endpoint:XMLList = remoting.endpoint.(@id == endpointID);
-			if(!endpoint) throw new Error("Endpoint " + endpointID + "could not be found.");
+			if(!endpoint) throw new Error("Endpoint " + endpointID + " could not be found.");
 			RemotingManager.DefaultObjectEncoding = int(endpoint.@objectEncoding);
 			var timeout:int = (endpoint.@callTimeout) ? endpoint.@callTimeout : 5000;
 			var retries:int = (endpoint.@maxRetries) ? endpoint.@maxRetries : 5;
@@ -274,6 +318,53 @@ package net.guttershark.model
 				if(service.@id == undefined) throw new Error("<service> nodes must have an \"id\" attribute.");
 				remotingManager.createService(service.@id, endpoint.@gateway.toString(),service.toString(),timeout,retries,limiter,cache,cacheExpire);
 			}
+		}
+		
+		/**
+		 * Creates and returns a URLRequest from a link node.
+		 * @param	id	The id of the link node.
+		 * @return	URLRequest
+		 */
+		public function getLink(id:String):URLRequest
+		{
+			checkForXML();
+			var link:XMLList = links..link.(@id == id);
+			if(!link) return null;
+			var u:URLRequest = new URLRequest(link.@url);
+			return u;
+		}
+		
+		/**
+		 * Get the window attribute value on a link node.
+		 * @param	id	The id of the link node.
+		 * @return	String
+		 */
+		public function getLinkWindow(id:String):String
+		{
+			checkForXML();
+			var link:XMLList = links..link.(@id == id);
+			if(!link) return null;
+			return link.@window;
+		}
+		
+		/**
+		 * Get the value from an attribute node.
+		 * @param	attributeID	The id of an attribute node.
+		 */
+		public function getAttribute(attributeID:String):String
+		{
+			var attr:XMLList = attributes..attribute.(@id == attributeID);
+			if(!attr) return null;
+			return attr.@value;
+		}
+		
+		/**
+		 * Check that the siteXML was set on the singleton instance before any attempts
+		 * to read the siteXML variable happen.
+		 */
+		protected function checkForXML():void
+		{
+			Assert.NotNull(_model, "The model xml must be set on the model before attempting to read a property from it.",AssertError);
 		}
 	}
 }
