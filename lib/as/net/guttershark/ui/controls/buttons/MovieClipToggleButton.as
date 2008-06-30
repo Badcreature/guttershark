@@ -62,26 +62,23 @@ package net.guttershark.ui.controls.buttons
 		 */
 		public function MovieClipToggleButton()
 		{
-			EventManager.gi().handleEvents(this, this, "onThis",EventTypes.FOCUS);
+			//EventManager.gi().handleEvents(this,this,"onThis");
 		}
 		
 		public function onThisFocusIn():void
 		{
-			trace("FOCUS IN");
-			KeyboardEventManager.gi().addMapping(this, " ", onSpace);
+			//KeyboardEventManager.gi().addMapping(this, " ", onSpace);
 		}
 
 		public function onThisFocusOut():void
 		{
-			trace("FOCUS OUT");
-			KeyboardEventManager.gi().removeMapping(this, " ");
+			//KeyboardEventManager.gi().removeMapping(this, " ");
 		}
 		
-		private function onSpace():void
+		/*private function onSpace():void
 		{
-			trace("SPACE PRESSED");
 			this.toggled = !this.toggled;
-		}
+		}*/
 
 		/**
 		 * @private
