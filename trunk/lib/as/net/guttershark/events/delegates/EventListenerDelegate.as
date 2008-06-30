@@ -6,7 +6,7 @@ package net.guttershark.events.delegates
 
 	/**
 	 * The EventListenerDelegate class is the base class for all IEventListenerDelegate
-	 * classes. This implements the base functionality needed. Minus actually
+	 * classes. This implements the base functionality needed. Besides actually
 	 * adding any events to the objects.
 	 */
 	public class EventListenerDelegate implements IEventListenerDelegate,IDisposable
@@ -24,8 +24,19 @@ package net.guttershark.events.delegates
 		protected var handleEvent:Function;
 		
 		/**
+		 * The callback prefix on the target callbackDelegate;
+		 */
+		public var callbackPrefix:String;
+		
+		/**
+		 * The calbackDelegate.
+		 */
+		public var callbackDelegate:*;
+		
+		/**
 		 * Add listeners to the passed obj. Make sure to only add listeners
-		 * to the obj if the (obj is MyClass).
+		 * to the obj if the (obj is MyClass) && if the target listener callback
+		 * is defined in the object.
 		 */
 		public function addListeners(obj:*):void
 		{
@@ -38,6 +49,7 @@ package net.guttershark.events.delegates
 		protected function removeEventListeners():void{}
 		
 		/**
+		 * @private
 		 * Set's the event handler function which events get passed back
 		 * to in the EventManager.
 		 */
@@ -54,4 +66,6 @@ package net.guttershark.events.delegates
 			removeEventListeners();
 			handleEvent = null;
 			obj = null;
+			callbackDelegate = null;
+			callbackPrefix = null;
 		}	}}
