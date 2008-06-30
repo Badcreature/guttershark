@@ -214,6 +214,7 @@ package net.guttershark.remoting
 		 */
 		public function RemotingManager():void
 		{	
+			if(RemotingManager.inst) throw new Error("RemotingManager is a singleton, see RemotingManager.gi()");
 			edp = new EventDispatcherProxy();
 			services = new Dictionary();
 			connections = new Dictionary();
