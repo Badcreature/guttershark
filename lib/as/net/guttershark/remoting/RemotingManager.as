@@ -1,16 +1,15 @@
 package net.guttershark.remoting 
 {
-	
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.events.EventDispatcherProxy;
-	import net.guttershark.util.cache.Cache;
-	import net.guttershark.util.Assert;
 	import net.guttershark.core.IDisposable;
-	import net.guttershark.remoting.events.IRemotingEventsDelegate;
-	import net.guttershark.remoting.events.CallEvent;	
+	import net.guttershark.events.EventDispatcherProxy;
+	import net.guttershark.remoting.events.CallEvent;
 	import net.guttershark.remoting.events.ConnectionEvent;
+	import net.guttershark.remoting.events.IRemotingEventsDelegate;
+	import net.guttershark.util.Assert;
+	import net.guttershark.util.cache.Cache;	
 
 	/**
 	 * The RemotingManager class simplifies creating and working with RemotingConnection
@@ -167,6 +166,11 @@ package net.guttershark.remoting
 	{
 
 		/**
+		 * Singleton instance.
+		 */
+		private static var inst:RemotingManager;
+
+		/**
 		 * Internal event dispatcher.
 		 */
 		private var edp:EventDispatcherProxy;
@@ -196,6 +200,16 @@ package net.guttershark.remoting
 		private var connections:Dictionary;
 
 		/**
+		 * Singleton access.
+		 */
+		public static function gi():RemotingManager
+		{
+			if(inst == null) inst = new RemotingManager();
+			return inst;
+		}
+
+		/**
+		 * @private
 		 * Constructor for RemotingManager instances.
 		 */
 		public function RemotingManager():void
