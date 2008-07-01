@@ -30,15 +30,13 @@ package net.guttershark.events
 	
 	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
-	 * for numerous AS3 top level classes, and component events on an opt-in basis. 
+	 * for numerous AS3 top level classes, and component events on an opt-in basis.
 	 * 
-	 * <p>All events can circulate through the Tracking class to implement tracking
-	 * for you base off of any event that is being managed.</p>
+	 * <p>You can opt in to having the EventManager send events through the tracking framework.</p>
 	 * 
 	 * @example Using EventManager with a MovieClip.
 	 * <listing>	
 	 * import net.guttershark.events.EventManager;
-	 * import net.guttershark.events.EventTypes;
 	 * 
 	 * public class Main extends Sprite
 	 * {
@@ -77,10 +75,10 @@ package net.guttershark.events
 	 * events that are not optional, because they contain information you probably need.
 	 * The non-negotiable events are listed below.</p>
 	 * 
-	 * <p>EventManager also supports adding your own EventHandlerDelegate, this is how
-	 * component support is available. There are custom EventHandlerDelegates for 
+	 * <p>EventManager also supports adding your own EventListenerDelegate, this is how
+	 * component support is available. There are custom EventListenerDelegates for 
 	 * components so you don't have to compile every one into your swf. This also
-	 * allows for you to create your own if neccessary.</p>
+	 * allows you to extend the EventManager to support your own classes that dispatch events.</p>
 	 * 
 	 * @example Adding support for event handler delegate of an FLVPlayback component:
 	 * <listing>	
@@ -94,8 +92,35 @@ package net.guttershark.events
 	 * @example Adding support for tracking:
 	 * <listing>	
 	 * import net.guttershark.events.EventManager;
-	 * var em:EventManager = EventManager.gi():
+	 * var em:EventManager = EventManager.gi();
 	 * em.handleEvents(mc,this,"onMyMC",false,true);
+	 * </listing>
+	 *
+	 * @example Using the EventManager in a loop situation for unique tracking:
+	 * <listing>	
+	 * import net.guttershark.events.EventManager;
+	 * var em:EventManager = EventManager.gi();
+	 * for(var i:int = 0; i < myClips.length; i++)
+	 * {
+	 *     em.handleEvents(myClips[i],this,"onClip",false,true,"onClip"+i.toString());
+	 * }
+	 * function onClipClick()
+	 * {
+	 * }
+	 * </listing>
+	 * 
+	 * @example Tracking xml file example for the above example.
+	 * <listing>	
+	 * &lt;tracking&gt;
+	 *     &lt;track id="onClipClick0"&gt;
+	 *         &lt;atlas&gt;...&lt;/atlas&gt;
+	 *         &lt;webtrends&gt;...&lt;/webtrends&gt;
+	 *     &lt;/track&gt;
+	 *     &lt;track id="onClipClick1"&gt;
+	 *         &lt;atlas&gt;...&lt;/atlas&gt;
+	 *         &lt;webtrends&gt;...&lt;/webtrends&gt;
+	 *     &lt;/track&gt;
+	 * &lt;/tracking&gt;
 	 * </listing>
 	 * 
 	 * <p>Supported TopLevel Flashplayer Objects and Events:</p>
@@ -130,8 +155,8 @@ package net.guttershark.events
 	 * <tr><td>Button (Inherits Events)</td><td>Change,LabelChange,ButtonDown</td><td></td></tr>
 	 * </table>
 	 * 
-	 * <p>To support any of those components, you must first add the event handler delegate
-	 * to the event manager. See the example above for using the FLVPlaybackEventDelegate</p>
+	 * <p>To support any of those components, you need to add the EventListenerDelegate for the
+	 * target component to the event manager. See the example above for using the FLVPlaybackEventDelegate</p>
 	 * 
 	 * <p>Non-negotiable event types that always pass event objects to your callbacks:</p>
 	 * <ul>
@@ -149,7 +174,7 @@ package net.guttershark.events
 	 * <li>VideoEvent.PLAYHEAD_UPDATE</li>
 	 * </ul>
 	 */
-	public class EventManager implements IDisposable
+	public class EventManager
 	{
 		
 		/**
@@ -210,9 +235,6 @@ package net.guttershark.events
 		/**
 		 * Add a custom IEventHandlerDelegate. The class must be 
 		 * an implementation of IEventHandlerDelegate.
-		 * 
-		 * <p>You must specify EventTypes.CUSTOM when you call "handleEvents()"
-		 * on an object that needs to use one of the custom handlers</p>
 		 */
 		public function addEventListenerDelegate(klassOfObject:Class, klassHandler:Class):void
 		{
@@ -223,21 +245,25 @@ package net.guttershark.events
 		/**
 		 * Add auto event handling for a target object.
 		 * 
-		 * @param	obj	The object to add event listeners too.
+		 * @param	obj	The object to add event listeners to.
 		 * @param   callbackDelegate	The object in which your callback methods are defined.
 		 * @param	callbackPrefix	A prefix for all callback function definitions.
 		 * @param	returnEventObjects	Whether or not to pass the origin event objects back to your callbacks (with exception of non-negotiable event types).
-		 * @param	cycleThroughTracking	Whether or not to pass all function calls (onMyClipClick) for the obj - through the tracking framework.
+		 * @param	cycleThroughTracking	For every event that is handled, pass the same event through the tracking framework. Only events that have callbacks will be passed through tracking.
 		 * @param	cycleAllThroughTracking	Automatically adds listeners for every event that the target object dispatches, in order to grab every 
 		 * event and pass to tracking, without requiring you to have a callback method defined on your callbackDelegate.
+		 * @param	trackingID	Define a custom trackingID to pass through the tracking framework. For events dispatched from the provided object. The id
+		 * is made up your tracking id + the acual event.
 		 */
-		public function handleEvents(obj:IEventDispatcher, callbackDelegate:*, callbackPrefix:String, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:Boolean = false):void
+		public function handleEvents(obj:IEventDispatcher, callbackDelegate:*, callbackPrefix:String, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:Boolean = false, trackingID:String = null):void
 		{
+			if(edinfo[obj]) disposeEventsForObject(obj);
 			edinfo[obj] = {};
 			edinfo[obj].callbackDelegate = callbackDelegate;
 			edinfo[obj].callbackPrefix = callbackPrefix;
 			edinfo[obj].passEventObjects = returnEventObjects;
 			edinfo[obj].passThroughTracking = cycleThroughTracking;
+			edinfo[obj].trackingID = trackingID;
 			
 			if(obj is Timer)
 			{
@@ -290,6 +316,7 @@ package net.guttershark.events
 				if((callbackPrefix + "Open") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.OPEN,onFROpen,false,0,true);
 				if((callbackPrefix + "Select") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.SELECT, onFRSelect,false,0,true);
 				if((callbackPrefix + "UploadCompleteData") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, onFRUploadCompleteData,false,0,true);
+				return;
 			}
 			
 			if(obj is TextField)
@@ -322,7 +349,7 @@ package net.guttershark.events
 				if((callbackPrefix + "Removed") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.REMOVED,onDORemoved,false,0,true);
 				if((callbackPrefix + "RemovedFromStage") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.REMOVED_FROM_STAGE,onDORemovedFromStage,false,0,true);
 				if((callbackPrefix + "MouseLeave") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.MOUSE_LEAVE, onStageMouseLeave,false,0,true);
-				if((callbackPrefix + "Click") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(MouseEvent.CLICK,onIOClick);
+				if((callbackPrefix + "Click") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(MouseEvent.CLICK,onIOClick,false,0,true);
 				if((callbackPrefix + "DoubleClick") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(MouseEvent.DOUBLE_CLICK,onIODoubleClick,false,0,true);
 				if((callbackPrefix + "MouseDown") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(MouseEvent.MOUSE_DOWN,onIOMouseDown,false,0,true);
 				if((callbackPrefix + "MouseMove") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(MouseEvent.MOUSE_MOVE,onIOMouseMove,false,0,true);
@@ -600,7 +627,12 @@ package net.guttershark.events
 			if(!edinfo[obj]) return;
 			var info:Object = Object(edinfo[obj]);
 			var f:String = info.callbackPrefix + func;
-			if(info.passThroughTracking) Tracking.Track(f);
+			if(info.passThroughTracking && !info.trackingID) Tracking.Track(f);
+			else if(info.passThroughTracking && info.trackingID)
+			{
+				f = info.trackingID + func;
+				Tracking.Track(f);
+			}
 			if(!(f in info.callbackDelegate)) return;
 			if(info.passEventObjects || forceEventObjectPass) info.callbackDelegate[f](e);
 			else info.callbackDelegate[f]();
@@ -727,15 +759,6 @@ package net.guttershark.events
 			{
 				disposeEventsForObject(obj);
 			}
-		}
-		
-		public function dispose():void
-		{
-			for each(var instance:* in instances)
-			{
-				instance.dispose();
-			}
-			instances = null;
-			handlers = null;
 		}	
-	}}
+	}
+}
