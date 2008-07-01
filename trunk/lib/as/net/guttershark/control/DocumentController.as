@@ -1,7 +1,7 @@
 package net.guttershark.control
 {
 	import flash.display.Loader;
-	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
@@ -81,7 +81,7 @@ package net.guttershark.control
 	 * 
 	 * <p>See the examples in from SVN in "examples/shells" for more examples of using different snippets of the default functionality.</p> 
 	 */
-	public class DocumentController extends MovieClip
+	public class DocumentController extends Sprite
 	{
 
 		/**
