@@ -47,4 +47,29 @@ package net.guttershark.util
 				clip.alpha = value;
 			}
 		}
-			}}
+		
+		/**
+		 * Set the cacheAsBitmap property on all movie clips provided.
+		 * @param	value	The value to set the cacheAsBitmap property to.
+		 * @param	...clips	An array of movie clips.
+		 */
+		public function SetCacheAsBitmap(value:Boolean, ...clips:Array):void
+		{
+			for each(var clip:MovieClip in clips)
+			{
+				clip.cacheAsBitmap = value;
+			}
+		}
+		
+		/**
+		 * Set the useHandCursor property on all movie clips provided.
+		 * @param	value	The value to set the useHandCursor property to.
+		 * @param	...clips	An array of movie clips.
+		 */
+		public function SetUseHandCursor(value:Boolean, ...clips:Array):void
+		{
+			for each(var clip:MovieClip in clips)
+			{
+				clip.useHandCursor = value;
+			}
+		}		}}
