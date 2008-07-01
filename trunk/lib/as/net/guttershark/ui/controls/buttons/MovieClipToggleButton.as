@@ -1,7 +1,6 @@
 package net.guttershark.ui.controls.buttons
 {
 	import net.guttershark.managers.KeyboardEventManager;	
-	import net.guttershark.events.EventTypes;	
 	import net.guttershark.events.EventManager;	
 
 	import flash.events.MouseEvent;	

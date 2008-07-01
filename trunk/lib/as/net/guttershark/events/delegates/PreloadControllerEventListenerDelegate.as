@@ -14,7 +14,7 @@ package net.guttershark.events.delegates
 	 * <listing>	
 	 * var em:EventManager = EventManager.gi();
 	 * e.addEventListenerDelegate(PreloadController,PreloadControllerEventListenerDelegate);
-	 * em.handleEvents(myPreloadController,this,"onPC",EventTypes.CUSTOM);
+	 * em.handleEvents(myPreloadController,this,"onPC");
 	 * </listing>
 	 */
 	public class PreloadControllerEventListenerDelegate extends EventListenerDelegate
