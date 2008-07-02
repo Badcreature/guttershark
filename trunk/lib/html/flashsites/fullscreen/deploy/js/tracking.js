@@ -1,1 +1,1 @@
-alert("Please grab the tracking.js from lib/js/tracking/js/tracking.js.");
+alert("Please grab the tracking.js from guttershark/lib/js/tracking/js/tracking.js.");

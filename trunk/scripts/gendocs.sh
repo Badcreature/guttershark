@@ -12,6 +12,9 @@ ${ASDOC}asdoc \
 -main-title "Guttershark Flash API Docs" \
 -window-title "Guttershark Flash API Docs" \
 -output ./docs/ \
+-exclude-classes net.guttershark.util.LoopRange \
+-exclude-classes net.guttershark.util.MathUtils \
+-exclude-classes net.guttershark.util.LoopRange \
 -exclude-classes net.guttershark.command.CommandExecutor \
 -exclude-classes net.guttershark.command.ICommand \
 -exclude-classes net.guttershark.command.CommandQueueExecutor \

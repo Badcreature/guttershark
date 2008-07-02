@@ -89,7 +89,7 @@ function track(xmlid,appendData)
 {
 	try
 	{
-		if(!tracking.attemptedMonitor && (tracking.trackingMonitorDelegateID || tracking.embedSWFComProxy)) attemptToSetTrackingMonitor();
+		if(!tracking.attemptedMonitor && (tracking.trackingMonitorDelegateID)) attemptToSetTrackingMonitor();
 	}
 	catch(e){}
 	
