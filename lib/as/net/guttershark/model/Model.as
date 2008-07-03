@@ -12,7 +12,7 @@ package net.guttershark.model
 	 * The Model class provides shortcuts for parsing a default model xml file,
 	 * and provides shortcut methods for common operations.
 	 * 
-	 * @example Exampel model XML file:
+	 * @example Example model XML file:
 	 * <listing>	
 	 * &lt;?xml version="1.0" encoding="utf-8"?&gt;
 	 * &lt;model&gt;
