@@ -69,7 +69,9 @@ package net.guttershark.core
 		}
 		
 		/**
-		 * Creates a new PreloadController in the "pc" property.
+		 * Creates a new PreloadController in the "pc" property. And set's up auto
+		 * event management through the EventManager. The callback method prefix is
+		 * "onPreloader." So you can define onPreloaderPreloadProgress, etc.
 		 * @param	pixels	The amount of pixels the preloader should fill.
 		 */
 		protected function setupPreloadController(pixels:int = 100):void
