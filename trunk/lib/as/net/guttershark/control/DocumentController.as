@@ -278,16 +278,6 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * @private
-		 * Called from the Tracking class when all tracking is local
-		 * to flash, and no javascript is being used.
-		 */
-		public function trackFromAS3Tracking(msg:String):void
-		{
-			lc.send("TrackingMonitor","tracked",msg);
-		}
-		
-		/**
 		 * Load the site xml.
 		 */
 		private function loadModel():void
