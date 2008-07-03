@@ -251,7 +251,11 @@ package net.guttershark.preloading
 		 */
 		public function start():void
 		{
-			if(!loadItems[0]) throw new Error("No items to load");
+			if(!loadItems[0])
+			{
+				trace("WARNING: No assets are in the preloader, no preloading will start.");
+				return;
+			}
 			_working = true;
 			load();
 		}
