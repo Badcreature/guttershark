@@ -1,14 +1,13 @@
 package net.guttershark.sound
 {
-	
 	import flash.display.Sprite;
 	import flash.events.EventDispatcher;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.utils.Dictionary;
-
-	import net.guttershark.sound.events.VolumeEvent;
+	
+	import net.guttershark.sound.events.VolumeEvent;	
 
 	/**
 	 * Dispatched when the internal volume has changed.
