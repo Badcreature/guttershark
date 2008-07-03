@@ -25,7 +25,6 @@ package net.guttershark.events
 	import flash.events.MouseEvent;
 	import flash.events.IEventDispatcher;
 	
-	import net.guttershark.core.IDisposable;
 	import net.guttershark.util.Tracking;
 	
 	/**
@@ -186,11 +185,6 @@ package net.guttershark.events
 		 * Stores info about objects.
 		 */
 		private var edinfo:Dictionary;
-		
-		/**
-		 * Holds callback descriptions.
-		 */
-		private var verifiedMethods:Dictionary;
 
 		/**
 		 * Custom handlers.
@@ -229,7 +223,6 @@ package net.guttershark.events
 			edinfo = new Dictionary();
 			eventsByObject = new Dictionary();
 			h = new Dictionary();
-			verifiedMethods = new Dictionary();
 		}
 		
 		/**

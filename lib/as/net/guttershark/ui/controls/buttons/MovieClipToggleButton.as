@@ -1,15 +1,12 @@
 package net.guttershark.ui.controls.buttons
 {
-	import net.guttershark.managers.KeyboardEventManager;	
-	import net.guttershark.events.EventManager;	
-
-	import flash.events.MouseEvent;	
-	import flash.events.Event;	
-
-	import net.guttershark.sound.SoundManager;
-	import net.guttershark.ui.controls.buttons.MovieClipButton;
-	import net.guttershark.ui.controls.buttons.IToggleable;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
+	import net.guttershark.sound.SoundManager;
+	import net.guttershark.ui.controls.buttons.IToggleable;
+	import net.guttershark.ui.controls.buttons.MovieClipButton;		
+
 	/**
 	 * The MovieClipToggleButton class is a basic button that
 	 * toggles between two states, using frames as the states.
