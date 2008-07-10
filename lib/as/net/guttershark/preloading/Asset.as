@@ -107,6 +107,7 @@ package net.guttershark.preloading
 		
 		private function onError(e:AssetErrorEvent):void
 		{
+			if(!controller) return;
 			controller.error(e);
 			controller = null;
 			worker = null;
@@ -114,6 +115,7 @@ package net.guttershark.preloading
 		
 		private function onHTTPStatus(h:AssetStatusEvent):void
 		{
+			if(!controller) return;
 			controller.httpStatus(h);
 			controller = null;
 			worker = null;
