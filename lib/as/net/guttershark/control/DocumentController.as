@@ -339,7 +339,7 @@ package net.guttershark.control
 			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR,onPingError);
 			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR,onPingError);
 			statusLoader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, onPingStatus);
-			if(flashvars.onlineStatusPintURL) pingimg = new URLRequest(flashvars.onlineStatusPintURL); 
+			if(flashvars.onlineStatusPingURL) pingimg = new URLRequest(flashvars.onlineStatusPingURL); 
 			else pingimg = new URLRequest("./ping.png");
 			nocache = new URLRequestHeader("Cache-Control","no-cache");
 			pingimg.requestHeaders = [nocache];
