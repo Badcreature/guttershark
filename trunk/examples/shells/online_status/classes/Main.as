@@ -2,10 +2,10 @@ package
 {
 	import flash.display.MovieClip;
 	
-	import gs.TweenMax;	
-
-	import net.guttershark.control.DocumentController;
+	import gs.TweenMax;
 	
+	import net.guttershark.control.DocumentController;	
+
 	public class Main extends DocumentController 
 	{
 	
@@ -18,7 +18,7 @@ package
 		
 		override protected function flashvarsForStandalone():Object
 		{
-			return {onlineStatus:true, onlineStatusPingFrequency:1000};
+			return {onlineStatus:true, onlineStatusPingFrequency:1000,onlineStatusPingURL:"http://www.guttershark.net/ping.png"};
 		}
 		
 		override protected function applicationOnline():void
