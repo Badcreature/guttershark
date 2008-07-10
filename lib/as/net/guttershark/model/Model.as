@@ -48,7 +48,7 @@ package net.guttershark.model
 	 *    &lt;links&gt;
 	 *        &lt;link id="google" url="http://www.google.com" /&gt;
 	 *        &lt;link id="rubyamf" url="http://www.rubyamf.org" /&gt;
-	 *        &lt;link id="guttershark" url="http://www.guttershark.net" /&gt;
+	 *        &lt;link id="guttershark" url="http://www.guttershark.net" window="_blank" /&gt;
 	 *    &lt/links&gt;
 	 *    &lt;attributes&gt;
 	 *        &lt;attribute id="host" value="http://www.guttershark.net" /&gt;
@@ -62,7 +62,7 @@ package net.guttershark.model
 		/**
 		 * singleton instance
 		 */
-		private static var instance:Model;
+		protected static var instance:Model;
 		
 		/**
 		 * Reference to the entire site XML file.
@@ -200,9 +200,17 @@ package net.guttershark.model
 		}
 		
 		/**
+		 * Get the internal model XML file.
+		 */
+		public function get xml():XML
+		{
+			return _model;
+		}
+		
+		/**
 		 * Utility method for finding file types from source paths.
 		 */
-		protected function findFileType(source:String):String
+		public function findFileType(source:String):String
 		{
 			var fileType:String = StringUtils.FindFileType(source);
 			if(!fileType) throw new Error("Filetype could not be found.");
@@ -217,7 +225,7 @@ package net.guttershark.model
 		 * 
 		 * <p>It concatenates the "basePath"+"typePath"+file</p>
 		 */
-		protected function prependAssetPath(source:String):String
+		public function prependAssetPath(source:String):String
 		{
 			Assert.NotNull(source, "Parameter source cannot be null");
 			if(!assetPaths) throw new Error("The assetPath node is not defined");
@@ -230,23 +238,23 @@ package net.guttershark.model
 				case "bmp":
 				case "png":
 				case "gif":
-					if(assetPaths.bitmapPath == undefined) throw new Error("The bitmapPath node is node defined within the assetPaths node");
+					if(assetPaths.bitmapPath == undefined) throw new Error("The bitmapPath node is not defined within the assetPaths node.");
 					path = assetPaths.bitmapPath.toString();
 					break;
 				case "swf":
-					if(assetPaths.swfPath == undefined) throw new Error("The swfPath node is node defined within the assetPaths node");
+					if(assetPaths.swfPath == undefined) throw new Error("The swfPath node is not defined within the assetPaths node.");
 					path = assetPaths.swfPath.toString();
 					break;
 				case "mp3":
-					if(assetPaths.soundPath == undefined) throw new Error("The soundPath node is node defined within the assetPaths node");
+					if(assetPaths.soundPath == undefined) throw new Error("The soundPath node is not defined within the assetPaths node.");
 					path = assetPaths.soundPath.toString();
 					break;
 				case "flv":
-					if(assetPaths.flvPath == undefined) throw new Error("The flvPath node is node defined within the assetPaths node");
+					if(assetPaths.flvPath == undefined) throw new Error("The flvPath node is not defined within the assetPaths node.");
 					path = assetPaths.flvPath.toString();
 					break;
 				case "xml":
-					if(assetPaths.flvPath == undefined) throw new Error("The flvPath node is node defined within the assetPaths node");
+					if(assetPaths.xmlPath == undefined) throw new Error("The xmlPath node is not defined within the assetPaths node.");
 					path = assetPaths.xmlPath.toString();
 					break;
 			}
@@ -278,14 +286,17 @@ package net.guttershark.model
 		 * Get an Asset instance by the library name.
 		 * 
 		 * @param	libraryName	The libraryName of the asset to create.
+		 * @param	prependAssetPaths	Whether or not to automatically prepend asset paths, based on nodes from XML.
 		 * @return	An instance of an Asset.
 		 */
-		public function getAssetByLibraryName(libraryName:String):Asset
+		public function getAssetByLibraryName(libraryName:String, prependAssetPaths:Boolean = true):Asset
 		{
 			checkForXML();
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			var node:XMLList = assets..asset.(@libraryName == libraryName);
-			return new Asset(prependAssetPath(node.@source),libraryName);
+			var ft:String = (node.@forceType != undefined && node.@forceType != "") ? node.@forceType : null;
+			var s:String = (prependAssetPaths) ? prependAssetPath(node.@source) : node.@source;
+			return new Asset(s,libraryName,ft);
 		}
 		
 		/**
