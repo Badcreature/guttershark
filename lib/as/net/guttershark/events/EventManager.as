@@ -1,32 +1,32 @@
 package net.guttershark.events 
 {
-	
-	import flash.events.DataEvent;
-	import flash.net.FileReference;
-	import flash.net.NetStream;
-	import flash.net.NetConnection;
-	import flash.net.URLLoader;
-	import flash.net.Socket;
-	import flash.media.Microphone;
-	import flash.events.StatusEvent;
-	import flash.events.ActivityEvent;
-	import flash.media.Camera;
-	import flash.events.ProgressEvent;
-	import flash.display.LoaderInfo;
-	import flash.text.TextField;
-	import flash.events.KeyboardEvent;
-	import flash.events.TextEvent;
-	import flash.utils.Timer;
-	import flash.events.TimerEvent;
 	import flash.display.InteractiveObject;
-	import flash.events.FocusEvent;
+	import flash.display.LoaderInfo;
+	import flash.events.ActivityEvent;
+	import flash.events.DataEvent;
 	import flash.events.Event;
-	import flash.utils.Dictionary;
-	import flash.events.MouseEvent;
+	import flash.events.FocusEvent;
 	import flash.events.IEventDispatcher;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import flash.events.ProgressEvent;
+	import flash.events.StatusEvent;
+	import flash.events.TextEvent;
+	import flash.events.TimerEvent;
+	import flash.media.Camera;
+	import flash.media.Microphone;
+	import flash.net.FileReference;
+	import flash.net.NetConnection;
+	import flash.net.NetStream;
+	import flash.net.Socket;
+	import flash.net.URLLoader;
+	import flash.text.TextField;
+	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 	
 	import net.guttershark.util.Tracking;
-	
+	import net.guttershark.util.XMLLoader;		
+
 	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
 	 * for numerous AS3 top level classes, and component events on an opt-in basis.
@@ -144,6 +144,7 @@ package net.guttershark.events
 	 * <table border='1'>
 	 * <tr bgcolor="#999999"><td width="200"><strong>Object</strong></td><td width="200"><strong>EventListenerDelegate</strong></td><td><strong>Events</strong></td></tr>
 	 * <tr><td>PreloadController</td><td>PreloadControllerEventListenerDelegate</td><td>Complete,PreloadProgress</td></tr>
+	 * <tr><td>XMLLoader</td><td>NA</td><td>Complete</td></tr>
 	 * </table>
 	 * 
 	 * <p>Supported Components:</p>
@@ -257,6 +258,15 @@ package net.guttershark.events
 			edinfo[obj].passEventObjects = returnEventObjects;
 			edinfo[obj].passThroughTracking = cycleThroughTracking;
 			edinfo[obj].trackingID = trackingID;
+			edinfo[obj].cycleAllThroughTracking = cycleAllThroughTracking;
+						
+			if(obj is XMLLoader)
+			{
+				var x:XMLLoader = XMLLoader(obj);
+				edinfo[x.contentLoader] = edinfo[obj];
+				if((callbackPrefix + "Complete") in callbackDelegate || cycleAllThroughTracking) x.contentLoader.addEventListener(Event.COMPLETE,onXMLLoaderComplete,false,0,true);
+				return;
+			}
 			
 			if(obj is Timer)
 			{
@@ -326,6 +336,7 @@ package net.guttershark.events
 					i.eventHandlerFunction = this.handleEvent;
 					i.callbackPrefix = callbackPrefix;
 					i.callbackDelegate = callbackDelegate;
+					i.cycleAllThroughTracking = cycleAllThroughTracking;
 					instances[obj] = i;
 					i.addListeners(obj);
 				}
@@ -373,6 +384,11 @@ package net.guttershark.events
 			{
 				handleEvents(objects[i],callbackDelegate,prefixes[i],returnEventObjects,cycleThroughTracking);
 			}
+		}
+		
+		private function onXMLLoaderComplete(e:Event):void
+		{
+			handleEvent(e,"Complete");
 		}
 		
 		private function onFRCancel(e:Event):void
@@ -616,7 +632,7 @@ package net.guttershark.events
 		 */
 		private function handleEvent(e:*, func:String, forceEventObjectPass:Boolean = false):void
 		{
-			var obj:IEventDispatcher = IEventDispatcher(e.currentTarget);
+			var obj:IEventDispatcher = IEventDispatcher(e.currentTarget || e.target);
 			if(!edinfo[obj]) return;
 			var info:Object = Object(edinfo[obj]);
 			var f:String = info.callbackPrefix + func;
@@ -642,96 +658,107 @@ package net.guttershark.events
 			
 			var callbackPrefix:String = edinfo[obj].callbackPrefix;
 			var callbackDelegate:* = edinfo[obj].callbackDelegate;
+			var cycleAllThroughTracking:Boolean = edinfo[obj].cycleAllThroughTracking;
+			
+			if(obj is XMLLoader)
+			{
+				var x:XMLLoader = XMLLoader(obj);
+				edinfo[x.contentLoader] = null;
+				if((callbackPrefix + "Complete") in callbackDelegate || cycleAllThroughTracking) x.contentLoader.removeEventListener(Event.COMPLETE,onXMLLoaderComplete);
+				return;
+			}
 			
 			if(obj is Timer)
 			{
-				if((callbackPrefix + "Timer") in callbackDelegate) obj.removeEventListener(TimerEvent.TIMER, onTimer);
-				if((callbackPrefix + "TimerComplete") in callbackDelegate) obj.removeEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete); 
+				if((callbackPrefix + "Timer") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(TimerEvent.TIMER, onTimer);
+				if((callbackPrefix + "TimerComplete") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete); 
 				return;
 			}
 			
 			if(obj is LoaderInfo || obj is URLLoader)
 			{
-				if((callbackPrefix + "Complete") in callbackDelegate) obj.removeEventListener(Event.COMPLETE, onLIComplete);
-				if((callbackPrefix + "Open") in callbackDelegate) obj.removeEventListener(Event.OPEN, onLIOpen);
-				if((callbackPrefix + "Unload") in callbackDelegate) obj.removeEventListener(Event.UNLOAD, onLIUnload);
-				if((callbackPrefix + "Init") in callbackDelegate) obj.removeEventListener(Event.INIT, onLIInit);
-				if((callbackPrefix + "Progress") in callbackDelegate) obj.removeEventListener(ProgressEvent.PROGRESS, onLIProgress);
+				if((callbackPrefix + "Complete") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.COMPLETE, onLIComplete);
+				if((callbackPrefix + "Open") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.OPEN, onLIOpen);
+				if((callbackPrefix + "Unload") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.UNLOAD, onLIUnload);
+				if((callbackPrefix + "Init") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.INIT, onLIInit);
+				if((callbackPrefix + "Progress") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(ProgressEvent.PROGRESS, onLIProgress);
 				return;
 			}
 			
 			if(obj is Camera || obj is Microphone)
 			{
-				if((callbackPrefix + "Activity") in callbackDelegate) obj.removeEventListener(ActivityEvent.ACTIVITY, onCameraActivity);
-				if((callbackPrefix + "Status") in callbackDelegate) obj.removeEventListener(StatusEvent.STATUS, onCameraStatus);
+				if((callbackPrefix + "Activity") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(ActivityEvent.ACTIVITY, onCameraActivity);
+				if((callbackPrefix + "Status") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(StatusEvent.STATUS, onCameraStatus);
 				return;
 			}
 			
 			if(obj is Socket)
 			{
-				if((callbackPrefix + "Close") in callbackDelegate) obj.removeEventListener(Event.CLOSE, onSocketClose);
-				if((callbackPrefix + "Connect") in callbackDelegate) obj.removeEventListener(Event.CONNECT, onSocketConnect);
-				if((callbackPrefix + "SocketData") in callbackDelegate) obj.removeEventListener(ProgressEvent.SOCKET_DATA, onSocketData);
+				if((callbackPrefix + "Close") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.CLOSE, onSocketClose);
+				if((callbackPrefix + "Connect") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.CONNECT, onSocketConnect);
+				if((callbackPrefix + "SocketData") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(ProgressEvent.SOCKET_DATA, onSocketData);
 				return;
 			}
 			
 			if(obj is NetConnection)
 			{
-				if((callbackPrefix + "Status") in callbackDelegate) obj.removeEventListener(StatusEvent.STATUS, onCameraStatus);
+				if((callbackPrefix + "Status") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(StatusEvent.STATUS, onCameraStatus);
 				return;
 			}
 			
 			if(obj is NetStream)
 			{
-				if((callbackPrefix + "Status") in callbackDelegate) obj.removeEventListener(StatusEvent.STATUS, onCameraStatus);
+				if((callbackPrefix + "Status") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(StatusEvent.STATUS, onCameraStatus);
 				return;
 			}
 			
 			if(obj is FileReference)
 			{
-				if((callbackPrefix + "Cancel") in callbackDelegate) obj.removeEventListener(Event.CANCEL, onFRCancel);
-				if((callbackPrefix + "Complete") in callbackDelegate) obj.removeEventListener(Event.COMPLETE, onFRComplete);
-				if((callbackPrefix + "Open") in callbackDelegate) obj.removeEventListener(Event.OPEN,onFROpen);
-				if((callbackPrefix + "Select") in callbackDelegate) obj.removeEventListener(Event.SELECT, onFRSelect);
-				if((callbackPrefix + "UploadCompleteData") in callbackDelegate) obj.removeEventListener(DataEvent.UPLOAD_COMPLETE_DATA, onFRUploadCompleteData);
+				if((callbackPrefix + "Cancel") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.CANCEL, onFRCancel);
+				if((callbackPrefix + "Complete") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.COMPLETE, onFRComplete);
+				if((callbackPrefix + "Open") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.OPEN,onFROpen);
+				if((callbackPrefix + "Select") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.SELECT, onFRSelect);
+				if((callbackPrefix + "UploadCompleteData") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(DataEvent.UPLOAD_COMPLETE_DATA, onFRUploadCompleteData);
+				return;
 			}
 			
 			if(obj is TextField)
 			{
-				if((callbackPrefix + "Change") in callbackDelegate) obj.removeEventListener(Event.CHANGE, onTextFieldChange);
-				if((callbackPrefix + "Link") in callbackDelegate) obj.removeEventListener(TextEvent.LINK, onTextFieldLink);
+				if((callbackPrefix + "Change") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.CHANGE, onTextFieldChange);
+				if((callbackPrefix + "Link") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(TextEvent.LINK, onTextFieldLink);
+				return;
 			}
 			
 			if(obj is InteractiveObject)
 			{
-				if((callbackPrefix + "Resize") in callbackDelegate) obj.removeEventListener(Event.RESIZE, onStageResize);
-				if((callbackPrefix + "Fullscreen") in callbackDelegate) obj.removeEventListener(Event.FULLSCREEN, onStageFullscreen);
-				if((callbackPrefix + "Added") in callbackDelegate) obj.removeEventListener(Event.ADDED,onDOAdded);
-				if((callbackPrefix + "AddedToStage") in callbackDelegate) obj.removeEventListener(Event.ADDED_TO_STAGE,onDOAddedToStage);
-				if((callbackPrefix + "Activate") in callbackDelegate) obj.removeEventListener(Event.ACTIVATE,onDOActivate);
-				if((callbackPrefix + "Deactivate") in callbackDelegate) obj.removeEventListener(Event.DEACTIVATE,onDODeactivate);
-				if((callbackPrefix + "Removed") in callbackDelegate) obj.removeEventListener(Event.REMOVED,onDORemoved);
-				if((callbackPrefix + "RemovedFromStage") in callbackDelegate) obj.removeEventListener(Event.REMOVED_FROM_STAGE,onDORemovedFromStage);
-				if((callbackPrefix + "MouseLeave") in callbackDelegate) obj.removeEventListener(Event.MOUSE_LEAVE, onStageMouseLeave);
-				if((callbackPrefix + "Click") in callbackDelegate) obj.removeEventListener(MouseEvent.CLICK,onIOClick);
-				if((callbackPrefix + "DoubleClick") in callbackDelegate) obj.removeEventListener(MouseEvent.DOUBLE_CLICK,onIODoubleClick);
-				if((callbackPrefix + "MouseDown") in callbackDelegate) obj.removeEventListener(MouseEvent.MOUSE_DOWN,onIOMouseDown);
-				if((callbackPrefix + "MouseMove") in callbackDelegate) obj.removeEventListener(MouseEvent.MOUSE_MOVE,onIOMouseMove);
-				if((callbackPrefix + "MouseUp") in callbackDelegate) obj.removeEventListener(MouseEvent.MOUSE_UP,onIOMouseUp);
-				if((callbackPrefix + "MouseOut") in callbackDelegate) obj.removeEventListener(MouseEvent.MOUSE_OUT,onIOMouseOut);
-				if((callbackPrefix + "MouseOver") in callbackDelegate) obj.removeEventListener(MouseEvent.MOUSE_OVER,onIOMouseOver);
-				if((callbackPrefix + "MouseWheel") in callbackDelegate) obj.removeEventListener(MouseEvent.MOUSE_WHEEL,onIOMouseWheel);
-				if((callbackPrefix + "RollOut") in callbackDelegate) obj.removeEventListener(MouseEvent.ROLL_OUT, onIORollOut);
-				if((callbackPrefix + "RollOver") in callbackDelegate) obj.removeEventListener(MouseEvent.ROLL_OVER,onIORollOver);
-				if((callbackPrefix + "FocusIn") in callbackDelegate) obj.removeEventListener(FocusEvent.FOCUS_IN,onIOFocusIn);
-				if((callbackPrefix + "FocusOut") in callbackDelegate) obj.removeEventListener(FocusEvent.FOCUS_OUT,onIOFocusOut);
-				if((callbackPrefix + "KeyFocusChange") in callbackDelegate) obj.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE,onIOKeyFocusChange);
-				if((callbackPrefix + "MouseFocusChange") in callbackDelegate) obj.removeEventListener(FocusEvent.MOUSE_FOCUS_CHANGE,onIOMouseFocusChange);
-				if((callbackPrefix + "TabChildrenChange") in callbackDelegate) obj.removeEventListener(Event.TAB_CHILDREN_CHANGE, onTabChildrenChange);
-				if((callbackPrefix + "TabEnabledChange") in callbackDelegate) obj.removeEventListener(Event.TAB_ENABLED_CHANGE, onTabEnabledChange);
-				if((callbackPrefix + "TabIndexChange") in callbackDelegate) obj.removeEventListener(Event.TAB_INDEX_CHANGE,onTabIndexChange);
-				if((callbackPrefix + "KeyDown") in callbackDelegate) obj.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-				if((callbackPrefix + "KeyUp") in callbackDelegate) obj.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+				if((callbackPrefix + "Resize") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.RESIZE, onStageResize);
+				if((callbackPrefix + "Fullscreen") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.FULLSCREEN, onStageFullscreen);
+				if((callbackPrefix + "Added") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.ADDED,onDOAdded);
+				if((callbackPrefix + "AddedToStage") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.ADDED_TO_STAGE,onDOAddedToStage);
+				if((callbackPrefix + "Activate") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.ACTIVATE,onDOActivate);
+				if((callbackPrefix + "Deactivate") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.DEACTIVATE,onDODeactivate);
+				if((callbackPrefix + "Removed") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.REMOVED,onDORemoved);
+				if((callbackPrefix + "RemovedFromStage") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.REMOVED_FROM_STAGE,onDORemovedFromStage);
+				if((callbackPrefix + "MouseLeave") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.MOUSE_LEAVE, onStageMouseLeave);
+				if((callbackPrefix + "Click") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.CLICK,onIOClick);
+				if((callbackPrefix + "DoubleClick") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.DOUBLE_CLICK,onIODoubleClick);
+				if((callbackPrefix + "MouseDown") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.MOUSE_DOWN,onIOMouseDown);
+				if((callbackPrefix + "MouseMove") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.MOUSE_MOVE,onIOMouseMove);
+				if((callbackPrefix + "MouseUp") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.MOUSE_UP,onIOMouseUp);
+				if((callbackPrefix + "MouseOut") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.MOUSE_OUT,onIOMouseOut);
+				if((callbackPrefix + "MouseOver") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.MOUSE_OVER,onIOMouseOver);
+				if((callbackPrefix + "MouseWheel") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.MOUSE_WHEEL,onIOMouseWheel);
+				if((callbackPrefix + "RollOut") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.ROLL_OUT, onIORollOut);
+				if((callbackPrefix + "RollOver") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(MouseEvent.ROLL_OVER,onIORollOver);
+				if((callbackPrefix + "FocusIn") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(FocusEvent.FOCUS_IN,onIOFocusIn);
+				if((callbackPrefix + "FocusOut") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(FocusEvent.FOCUS_OUT,onIOFocusOut);
+				if((callbackPrefix + "KeyFocusChange") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE,onIOKeyFocusChange);
+				if((callbackPrefix + "MouseFocusChange") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(FocusEvent.MOUSE_FOCUS_CHANGE,onIOMouseFocusChange);
+				if((callbackPrefix + "TabChildrenChange") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.TAB_CHILDREN_CHANGE, onTabChildrenChange);
+				if((callbackPrefix + "TabEnabledChange") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.TAB_ENABLED_CHANGE, onTabEnabledChange);
+				if((callbackPrefix + "TabIndexChange") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(Event.TAB_INDEX_CHANGE,onTabIndexChange);
+				if((callbackPrefix + "KeyDown") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+				if((callbackPrefix + "KeyUp") in callbackDelegate || cycleAllThroughTracking) obj.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 			}
 			
 			if(instances[obj])
