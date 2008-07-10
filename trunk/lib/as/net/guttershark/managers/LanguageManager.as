@@ -125,8 +125,8 @@
 		{
 			clip.localizedID = textID;
 			clips[textID] = clip;
-			
-			if(updateOnAdd) clip.localizedText = getTextForID(clip.localizedID);
+			if(!languages[_languageCode] && updateOnAdd) trace("WARNING: updateOnAdd will not be applied. The language code {" + _languageCode + "} has no XML associated with it.");
+			if(updateOnAdd && languages[_languageCode]) clip.localizedText = getTextForID(clip.localizedID);
 		}
 		
 		/**
