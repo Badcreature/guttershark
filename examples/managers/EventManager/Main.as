@@ -1,11 +1,10 @@
 package 
 {
-	
-	import flash.events.KeyboardEvent;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import net.guttershark.events.EventManager;
 	
+	import net.guttershark.events.EventManager;	
+
 	public class Main extends Sprite
 	{
 		
@@ -20,33 +19,26 @@ package
 			mc.graphics.drawCircle(200, 200, 100);
 			mc.graphics.endFill();
 			em = EventManager.gi();
-			em.handleEvents(mc, this, "c");
+			em.handleEvents(mc, this, "onClip");
 			addChild(mc);
-			stage.focus = mc;
 		}
 		
-		public function onStageKeyDown(ke:KeyboardEvent):void
-		{
-			trace(ke.keyCode);
-			trace("s key down");
-		}
-		
-		public function cMouseOut():void
+		public function onClipMouseOut():void
 		{
 			trace("mouse over");
 		}
 		
-		public function cAddedToStage():void
+		public function onClipAddedToStage():void
 		{
 			trace("added to stage");
 		}
 		
-		public function cMouseOver():void
+		public function onClipMouseOver():void
 		{
 			trace("over");
 		}
 		
-		public function cClick():void
+		public function onClipClick():void
 		{
 			trace("circle click");
 		}	}}

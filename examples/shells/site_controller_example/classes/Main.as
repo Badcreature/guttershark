@@ -1,25 +1,29 @@
 package
 {
-
-	import fl.motion.easing.Quadratic;
 	import flash.display.MovieClip;
-	import flash.events.Event;
-
-	import net.guttershark.util.Bandwidth;	
-	import net.guttershark.util.CPU;
+	
+	import fl.motion.easing.Quadratic;
+	
+	import gs.TweenMax;
+	
 	import net.guttershark.control.DocumentController;
-	import net.guttershark.preloading.PreloadController;
-	import net.guttershark.preloading.events.PreloadProgressEvent;
+	import net.guttershark.events.EventManager;
+	import net.guttershark.events.delegates.PreloadControllerEventListenerDelegate;
+	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.preloading.AssetLibrary;
-	import net.guttershark.managers.KeyboardEventManager;
-	
-	import gs.TweenMax;	
-	
+	import net.guttershark.preloading.PreloadController;
+	import net.guttershark.preloading.events.PreloadProgressEvent;
+	import net.guttershark.util.Bandwidth;
+	import net.guttershark.util.CPU;		
+
 	public class Main extends DocumentController
 	{
 
-		private var sitePreloader:PreloadController;
+		private var pc:PreloadController;
+		private var km:KeyboardEventManager;
+		private var ml:Model;
+		private var em:EventManager;
 		public var bar:MovieClip;
 
 		public function Main()
@@ -29,14 +33,19 @@ package
 		
 		override protected function flashvarsForStandalone():Object
 		{
-			return {siteXML:"site.xml",sniffCPU:true,sniffBandwidth:true,onlineStatus:true};
+			return {model:"site.xml",sniffCPU:true,sniffBandwidth:true,onlineStatus:true};
 		}
 		
 		override protected function setupComplete():void
 		{
-			startPreload();
 			trace("CPU SPEED:", CPU.Speed);
-			KeyboardEventManager.gi().addMapping(stage," ",onSpace);
+			pc = new PreloadController(550);
+			em = EventManager.gi();
+			em.addEventListenerDelegate(PreloadController,PreloadControllerEventListenerDelegate);
+			ml = Model.gi();
+			km = KeyboardEventManager.gi();
+			km.addMapping(stage," ",onSpace);
+			startPreload();
 		}
 		
 		override protected function onBandwidthSniffComplete():void
@@ -47,21 +56,18 @@ package
 		
 		private function startPreload():void
 		{
-			sitePreloader = new PreloadController(550);
-			var siteXMLParser:Model = new Model(siteXML);
-			sitePreloader.addItems(siteXMLParser.getAssetsForPreload());
-			sitePreloader.addEventListener(Event.COMPLETE, onPreloadComplete);
-			sitePreloader.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);
-			sitePreloader.start();
+			pc.addItems(ml.getAssetsForPreload());
+			em.handleEvents(pc, this, "onPC");
+			pc.start();
 		}
 		
-		private function onProgress(e:PreloadProgressEvent):void
+		public function onPCProgress(e:PreloadProgressEvent):void
 		{
 			//trace("PIXELS: " + e.pixels + " PERCENT: " + e.percent);
 			TweenMax.to(bar,1,{width:e.pixels,ease:Quadratic.easeInOut});
 		}
 
-		private function onPreloadComplete(e:*):void
+		public function onPCComplete():void
 		{
 			var mc:MovieClip = AssetLibrary.gi().getMovieClipFromSWFLibrary("swftest", "Test");
 			addChild(mc);

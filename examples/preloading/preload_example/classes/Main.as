@@ -1,24 +1,26 @@
 package  
 {
-
 	import flash.display.MovieClip;
-	import flash.events.Event;
-	import flash.utils.*;
-	
-	import net.guttershark.preloading.Asset;
-	import net.guttershark.preloading.events.AssetCompleteEvent;
-	import net.guttershark.preloading.events.PreloadProgressEvent;
-	import net.guttershark.preloading.PreloadController;
-	import net.guttershark.control.DocumentController;	
-	import net.guttershark.model.Model;
-	import net.guttershark.preloading.AssetLibrary;
 	
 	import gs.TweenMax;
 	
+	import net.guttershark.control.DocumentController;
+	import net.guttershark.events.EventManager;
+	import net.guttershark.events.delegates.PreloadControllerEventListenerDelegate;
+	import net.guttershark.model.Model;
+	import net.guttershark.preloading.Asset;
+	import net.guttershark.preloading.AssetLibrary;
+	import net.guttershark.preloading.PreloadController;
+	import net.guttershark.preloading.events.AssetCompleteEvent;
+	import net.guttershark.preloading.events.PreloadProgressEvent;		
+
 	public class Main extends DocumentController 
 	{
 
 		private var preloadController:PreloadController;
+		private var ml:Model;
+		private var em:EventManager;
+
 		public var preloader:MovieClip;
 
 		public function Main()
@@ -28,37 +30,38 @@ package
 
 		override protected function flashvarsForStandalone():Object
 		{
-			return {siteXML:"site.xml"};
+			return {model:"site.xml"};
 		}
 
 		override protected function setupComplete():void
 		{
-			var siteXMLParser:Model = new Model(siteXML);
+			ml = Model.gi();
+			em = EventManager.gi();
+			em.addEventListenerDelegate(PreloadController,PreloadControllerEventListenerDelegate);
 			preloadController = new PreloadController(400);
-			preloadController.addItems(siteXMLParser.getAssetsForPreload());
-			preloadController.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);
-			preloadController.addEventListener(Event.COMPLETE,onPreloaderComplete);
-			preloadController.addEventListener(AssetCompleteEvent.COMPLETE, onItemComplete);
-			preloadController.start(); //start it;
-			//preloadController.stop(); //pause it
-			//setTimeout(preloadController.start,4000); //resume it
+			preloadController.addItems(ml.getAssetsForPreload());
+			em.handleEvents(preloadController, this, "onPC");
+			preloadController.start(); //start it; for demo
+			//preloadController.stop(); //pause it; for demo
+			//setTimeout(preloadController.start,4000); //resume it; for demo
 		}
 		
-		private function onProgress(pe:PreloadProgressEvent):void
+		public function onPCComplete():void
+		{
+			em.disposeEventsForObject(preloadController);
+			addChild(AssetLibrary.gi().getMovieClipFromSWFLibrary("swftest", "Test"));
+			addChild(AssetLibrary.gi().getBitmap("jpg1"));
+		}
+		
+		public function onPCProgress(pe:PreloadProgressEvent):void
 		{
 			trace("progress: pixels: " + pe.pixels + " percent: " + pe.percent);
 			TweenMax.to(preloader,.5,{width:pe.pixels,overwrite:false});
 		}
-		
-		private function onItemComplete(e:AssetCompleteEvent):void
-		{
-			trace(e.asset.libraryName + " " + e.asset.source);
-		}
 
-		private function onPreloaderComplete(e:*):void
+		public function onPCAssetComplete(ace:AssetCompleteEvent):void
 		{
-			addChild(AssetLibrary.gi().getMovieClipFromSWFLibrary("swftest", "Test"));
-			addChild(AssetLibrary.gi().getBitmap("jpg1"));
+			trace("ASSET COMPLETE: " + ace.asset.libraryName + " " + ace.asset.source);
 		}
 	}
 }

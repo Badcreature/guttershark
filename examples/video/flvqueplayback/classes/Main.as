@@ -1,18 +1,18 @@
 package
 {
-	import net.guttershark.akamai.AkamaiNCManager;	
-	import net.guttershark.control.DocumentController;	
-	import net.guttershark.util.Bandwidth;	
-	import net.guttershark.util.CPU;	
-	
-	import fl.video.VideoScaleMode;	
-	import fl.video.VideoAlign;
-	import fl.video.FLVPlayback;
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
 	
-	import net.guttershark.video.FLVPlaybackQueueManager;
+	import fl.video.FLVPlayback;
+	import fl.video.VideoAlign;
+	import fl.video.VideoScaleMode;
 	
+	import net.guttershark.akamai.AkamaiNCManager;
+	import net.guttershark.control.DocumentController;
+	import net.guttershark.util.Bandwidth;
+	import net.guttershark.util.CPU;
+	import net.guttershark.video.FLVPlaybackQueueManager;		
+
 	public class Main extends DocumentController
 	{
 
