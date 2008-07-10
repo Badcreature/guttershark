@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<script type="text/javascript" src="js/swfobject.js"></script>
+	<script type="text/javascript" src="js/swfmacmousewheel2.js"></script>
+	<script type="text/javascript" src="js/swffit.js"></script>
+	<style type="text/css" media="all">@import "css/reset.css";</style>
+	<style type="text/css">
+		body{background-color:#070504;background-attachment:fixed;background-image:url('bg.jpg');background-repeat:repeat;}
+	</style>
+</head>
+<body>
+<div id="flashcontent">
+	<h3>You need to upgrade your flash player.</h3>
+	<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+	<noscript>
+		You need Javascript enabled to view this flash content.
+	</noscript>
+</div>
+<script type="text/javascript">
+	var vars = {model:"site.xml"};
+	var params = {scale:'noScale',salign:'lt',menu:'false'};
+	var attributes = {id:'flaswf',name:'flaswf'};
+	swfobject.embedSWF("shell.swf","flashcontent","1200","650","9.0.0","js/expressInstall.swf",vars,params,attributes);
+	swffit(attributes.id,1200,650,1200,650,true);
+	try{swfmacmousewheel.registerObject(attributes.id);}catch(e){}
+</script>
+</body>
+</html>
