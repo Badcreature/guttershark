@@ -1,7 +1,5 @@
 package net.guttershark.core 
 {
-	import flash.display.MovieClip;
-	
 	import net.guttershark.events.EventManager;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
@@ -13,12 +11,12 @@ package net.guttershark.core
 	/**
 	 * The CoreObject Class is a base class that provides
 	 * common properties and methods that are used over
-	 * and over in classes. This class is a relief class
+	 * and over in classes. This class is relief
 	 * from having to type the same code over and over.
 	 */
-	public class CoreObject extends MovieClip
+	public class CoreObject implements IDisposable
 	{
-		
+
 		/**
 		 * The EventManager singleton instance.
 		 */
@@ -69,21 +67,6 @@ package net.guttershark.core
 		}
 		
 		/**
-		 * Creates a new PreloadController in the "pc" property. And set's up auto
-		 * event management through the EventManager. The callback method prefix is
-		 * "onPreloader." So you can define onPreloaderPreloadProgress, etc.
-		 * @param	pixels	The amount of pixels the preloader should fill.
+		 * Dispose of this object.
 		 */
-		protected function setupPreloadController(pixels:int = 100):void
-		{
-			pc = new PreloadController(pixels);
-			em.handleEvents(pc, this, "onPreloader");
-		}
-		
-		/**
-		 * Dispose of the preload controller instance in the EventManager.
-		 */
-		protected function disposePreloadControllerEvents():void
-		{
-			em.disposeEventsForObject(pc);
-		}	}}
+		public function dispose():void{}	}}
