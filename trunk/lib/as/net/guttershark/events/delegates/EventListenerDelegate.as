@@ -1,8 +1,7 @@
 package net.guttershark.events.delegates
 {
-	
-	import net.guttershark.events.delegates.IEventListenerDelegate;
-	import net.guttershark.core.IDisposable;	
+	import net.guttershark.core.IDisposable;
+	import net.guttershark.events.delegates.IEventListenerDelegate;	
 
 	/**
 	 * The EventListenerDelegate class is the base class for all IEventListenerDelegate
@@ -32,6 +31,11 @@ package net.guttershark.events.delegates
 		 * The calbackDelegate.
 		 */
 		public var callbackDelegate:*;
+		
+		/**
+		 * Cycle all events through tracking framework.
+		 */
+		public var cycleAllThroughTracking:Boolean;
 		
 		/**
 		 * Add listeners to the passed obj. Make sure to only add listeners
