@@ -1,14 +1,13 @@
 package net.guttershark.events.delegates.components
 {
-	import net.guttershark.events.delegates.EventListenerDelegate;	
-	
 	import fl.controls.BaseButton;
 	import fl.controls.LabelButton;
 	import fl.core.UIComponent;
-
-	import net.guttershark.events.delegates.components.composites.BaseButtonEventListenerDelegate;	
-	import net.guttershark.events.delegates.components.composites.LabelButtonEventListenerDelegate;	
-	import net.guttershark.events.delegates.components.composites.UIComponentEventListenerDelegate;
+	
+	import net.guttershark.events.delegates.EventListenerDelegate;
+	import net.guttershark.events.delegates.components.composites.BaseButtonEventListenerDelegate;
+	import net.guttershark.events.delegates.components.composites.LabelButtonEventListenerDelegate;
+	import net.guttershark.events.delegates.components.composites.UIComponentEventListenerDelegate;		
 
 	/**
 	 * The ButtonEventListenerDelegate class is an IEventListenerDelegate that
