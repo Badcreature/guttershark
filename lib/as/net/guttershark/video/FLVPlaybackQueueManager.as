@@ -1,21 +1,20 @@
 package net.guttershark.video
 {
-
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.NetStatusEvent;
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
+	
 	import fl.video.FLVPlayback;
 	import fl.video.VideoEvent;
 	import fl.video.VideoPlayer;
 	
-	import flash.events.EventDispatcher;
-	import flash.events.Event;
-	import flash.events.NetStatusEvent;
-	import flash.utils.setTimeout;
-	import flash.utils.clearTimeout;
+	import gs.TweenLite;
 	
 	import net.guttershark.util.Assert;
 	import net.guttershark.util.BitField;
-	
-	import gs.TweenLite;
-	
+
 	/**
 	 * The FLVPlaybackQueueManager uses an instance of an FLVPlayback
 	 * to play videos in a queue. It uses an FLVPlayback for 
