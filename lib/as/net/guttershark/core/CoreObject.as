@@ -14,7 +14,7 @@ package net.guttershark.core
 	 * and over in classes. This class is relief
 	 * from having to type the same code over and over.
 	 */
-	public class CoreObject implements IDisposable
+	public class CoreObject extends Object implements IDisposable
 	{
 
 		/**

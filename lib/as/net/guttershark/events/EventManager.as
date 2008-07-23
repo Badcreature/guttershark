@@ -143,7 +143,7 @@ package net.guttershark.events
 	 * <p>Supported Guttershark Classes:</p>
 	 * <table border='1'>
 	 * <tr bgcolor="#999999"><td width="200"><strong>Object</strong></td><td width="200"><strong>EventListenerDelegate</strong></td><td><strong>Events</strong></td></tr>
-	 * <tr><td>PreloadController</td><td>PreloadControllerEventListenerDelegate</td><td>Complete,PreloadProgress</td></tr>
+	 * <tr><td>PreloadController</td><td>PreloadControllerEventListenerDelegate</td><td>Complete,Progress,AssetComplete</td></tr>
 	 * <tr><td>XMLLoader</td><td>NA</td><td>Complete</td></tr>
 	 * </table>
 	 * 
