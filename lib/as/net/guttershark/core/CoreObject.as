@@ -43,7 +43,7 @@ package net.guttershark.core
 		protected var rm:RemotingManager;
 		
 		/**
-		 * A PreloadController instance.
+		 * A placeholder variable for a PreloadController instance. You should initialize this yourself.
 		 */
 		protected var pc:PreloadController;
 		
