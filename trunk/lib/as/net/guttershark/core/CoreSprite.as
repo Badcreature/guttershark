@@ -11,9 +11,9 @@ package net.guttershark.core
 	import net.guttershark.remoting.RemotingManager;	
 
 	/**
-	 * The CoreObject Class is a base class that provides
+	 * The CoreSprite Class is a base class that providesasdf
 	 * common properties and methods that are used over
-	 * and over in classes. This class is relief
+	 * and over in sprites. This class is relief
 	 * from having to type the same code over and over.
 	 */
 	public class CoreSprite extends Sprite implements IDisposable
@@ -45,7 +45,7 @@ package net.guttershark.core
 		protected var rm:RemotingManager;
 		
 		/**
-		 * A PreloadController instance.
+		 * A placeholder variable for a PreloadController instance. You should initialize this yourself.
 		 */
 		protected var pc:PreloadController;
 		
@@ -55,7 +55,7 @@ package net.guttershark.core
 		protected var al:AssetLibrary;
 
 		/**
-		 * Constructor for CoreObject instances.
+		 * Constructor for CoreSprite instances.
 		 */
 		public function CoreSprite()
 		{
