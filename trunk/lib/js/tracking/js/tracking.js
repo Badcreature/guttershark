@@ -3,7 +3,7 @@ var gDomain="m.webtrends.com";
 var gDcsId="";
 var gFpc="WT_FPC";
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-var ganalyticsUA = "UA-5155326-1";
+var ganalyticsUA = "UA-xxxxxx-x";
 var pageTracker;
 
 /* webtrends */
