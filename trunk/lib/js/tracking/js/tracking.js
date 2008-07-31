@@ -2,7 +2,8 @@ var tracking;
 var gDomain="m.webtrends.com";
 var gDcsId="";
 var gFpc="WT_FPC";
-var ganalyticsUA = "UA-xxxxxx-x";
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+var ganalyticsUA = "UA-5155326-1";
 var pageTracker;
 
 /* webtrends */
@@ -12,12 +13,17 @@ if(document.cookie.indexOf(gFpc + "=") == -1)
 }
 
 /* google analytics */
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 if(ganalyticsUA != "UA-xxxxxx-x")
 {
-	pageTracker = _gat._getTracker(ganalyticsUA);
+	var pageTracker = _gat._getTracker(ganalyticsUA);
 	pageTracker._initData();
+	pageTracker._trackPageview();
 }
 
+/**
+ * tracking constructor.
+ */
 function Tracking()
 {
 	this.xmlDoc = null;
