@@ -16,7 +16,9 @@ package net.guttershark.control
 	import flash.utils.Timer;
 	
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
-	
+	import com.asual.swfaddress.SWFAddress;
+	import com.asual.swfaddress.SWFAddressEvent;
+
 	import net.guttershark.akamai.Ident;
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.model.Model;
@@ -35,6 +37,7 @@ package net.guttershark.control
 	 * 
 	 * <p>Available FlashVar Properties:</p>
 	 * <ul>
+	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress</li>
 	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
 	 * <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded.</li>
 	 * <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
@@ -171,6 +174,7 @@ package net.guttershark.control
 			setupFlashvars();
 			setupQueryString();
 			restoreSharedObject();
+			if(flashvars.swfAddress) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
 			if(flashvars.sniffCPU) CPU.calculate();
@@ -181,6 +185,11 @@ package net.guttershark.control
 			if(!flashvars.model && flashvars.initRemotingEndpoints) throw new Error("You cannot initialize remoting endpoints without a site XML file in place.");
 			if(!flashvars.model) setupComplete();
 		}
+		
+		/**
+		 * Stub method you should override to hook into swf address change events.
+		 */
+		protected function swfAddressChange(sae:SWFAddressEvent):void{}
 
 		/**
 		 * Setup the flash vars on this movie.
