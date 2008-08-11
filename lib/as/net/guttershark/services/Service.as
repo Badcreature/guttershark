@@ -1,9 +1,7 @@
 package net.guttershark.services 
 {
-	import flash.net.URLRequest;
-	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
-	import flash.utils.flash_proxy;		
+	import flash.utils.flash_proxy;
 
 	/**
 	 * The Service Class represents a unique URL that acts as an HTTP service and is managed
@@ -12,7 +10,7 @@ package net.guttershark.services
 	public class Service extends Proxy
 	{
 		
-		public var id:String;
+		private var id:String;
 		private var href:String;
 		private var method:String;
 		private var defaultResultFormat:String;

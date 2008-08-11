@@ -38,16 +38,14 @@ package net.guttershark.services
      * &lt;model&gt;
 	 *    &lt;services&gt;
 	 *        &lt;http&gt;
-	 *            &lt;service id="user" href="http://tagsf/services/codeigniter/user/" method="get" defaultDataFormat="variables" /&gt;
-	 *            &lt;service id="userqs" href="http://tagsf/services/codeigniter/index.php" method="get" defaultDataFormat="variables" /&gt;
+	 *            &lt;service id="user" url="http://tagsf/services/codeigniter/index.php" defaultResponseFormat="variables" /&gt;
 	 *        &lt;/http&gt;
 	 *    &lt;/services&gt;
 	 * &lt;/model&gt;
 	 * </listing>
 	 * 
 	 * <p>Any service defined, becomes a dynamic property on the ServiceManager. In the above example,
-	 * because the service id is called "user", it becomes ServiceManager.gi().user. <strong>The userQS service
-	 * is used in a later example. keep reading.</strong></p>
+	 * because the service id is called "user", it becomes ServiceManager.gi().user.</p>
 	 * 
 	 * <p>The ServiceManager can also be initialize manually, by using <code><em>createService</em></code>.
 	 * @example Manually initializing ServiceManager:
@@ -58,7 +56,7 @@ package net.guttershark.services
 	 *     public function Main()
 	 *     {
 	 *         sm = ServiceManager.gi();
-	 *         sm.createService("user","http://tagsf/services/codeigniter/user/","get","variables");
+	 *         sm.createService("user","http://tagsf/services/codeigniter/user/","variables");
 	 *         trace(sm.user);
 	 *     }
 	 * }
@@ -68,8 +66,10 @@ package net.guttershark.services
 	 * is returning ServiceResultFormat.VARS. The format should be like this:</p>
 	 * 
 	 * <listing>	
-	 * for successful calls: result=my message.
-	 * for a fault call: fault=my message.
+	 * for successful calls: 
+	 * result=my message
+	 * for a fault call: 
+	 * fault=my message
 	 * </listing>
 	 * 
 	 * <p>For ServiceResultFormat.XML:</p>
@@ -80,6 +80,8 @@ package net.guttershark.services
 	 * &lt;root&gt;
 	 *     &lt;fault&gt;My Message&lt;/fault&gt;
 	 * &lt;/root&gt;
+	 * 
+	 * Any successful call just needs to be correctly formatted XML.
 	 * </listing>
 	 * 
 	 * <p>For ServiceResultFormat.BIN, no translations happen with the results, it always comes back to your onResult callback,
@@ -90,41 +92,24 @@ package net.guttershark.services
 	 * <p>ServiceManager supports multiple types of service calls.</p>
 	 * <ul>
 	 * <li>URL Encoded Query String calls. EX: http://tagsf/services/codeigniter/index.php?c=user&m=name - POST or GET</li>
-	 * <li>URL Routed calls. EX: http://tagsf/services/codeigniter/user/name - GET only</li>
+	 * <li>URL Routed calls. EX: http://tagsf/services/codeigniter/index.php/user/name - GET only</li>
 	 * </ul>
 	 * 
-	 * <p>When making URL Encoded Query String calls. The parameters to the call need to be an object, that object
-	 * in turn get's translated to URLVariables, which is associated with the request.</p>
-	 * 
-	 * @example Making a URL Encoded Query String call:
+	 * @example Service call examples:
 	 * 
 	 * <listing>	
-	 * sm = ServiceManager.gi();
-	 * sm.userqs({c:"user",m:"name"},onResult,onFault); //users userQS service for query string only calls. See the first XML snippet.
+	 * //calls: http://tagsf/services/codeigniter/index.php?c=user&m=name
+	 * sm.user([],{onResult:res,onFault:fal,resultFormat:"text",data:{c:"user",m:"name"}});
+	 * 
+	 * //calls: http://tagsf/services/codeigniter/index.php/user/name
+	 * sm.user.name([],{onResult:res,onFault:fal,resultFormat:"text",data:{}});
+	 * 
+	 * //calls: http://tagsf/services/codeigniter/index.php/user/save/test/whatever
+	 * sm.user.save(['test','whatever'],{onResult:res,onFault:fal,resultFormat:"text",data:{}});
+	 * 
+	 * //calls: http://tagsf/services/codeigniter/index.php/user/save/test/whatever?w=something
+	 * sm.user.save(['test','whatever'],{onResult:res,onFault:fal,resultFormat:"text",data:{w:"something"}});
 	 * </listing>
-	 * 
-	 * <p>When making URL Routed service calls, the method names translates to paths in the URL.
-	 * @example Makign a URL Routed service call:</p>
-	 * 
-	 * <listing>	
-	 * sm = ServiceManager.gi();
-	 * sm.user.name(['list','test'],onResult,onFault); //translates to http://tagsf/services/codeigniter/user/name/list/test
-	 * </listing>
-	 * 
-	 * <p><strong>Note that the dynamic properties on the ServiceManager are only supported 2 levels deep. For instance
-	 * sm.user.name. But sm.user.name.something will not work.</strong></p>
-	 * 
-	 * //sm.user([],{onResult:res,onFault:fal,resultFormat:"text",data:{c:"user",m:"name"}});
-	 * http://tagsf/services/codeigniter/index.php?c=user&m=name
-	 * 
-	 * //sm.user.name([],{onResult:res,onFault:fal,resultFormat:"text",data:{}});
-	 * http://tagsf/services/codeigniter/index.php/user/name
-	 * 
-	 * //sm.user.save(['test','whatever'],{onResult:res,onFault:fal,resultFormat:"text",data:{}});
-	 * http://tagsf/services/codeigniter/index.php/user/save/test/whatever
-	 * 
-	 * //sm.user.save(['test','whatever'],{onResult:res,onFault:fal,resultFormat:"text",data:{w:"something"}});
-	 * http://tagsf/services/codeigniter/index.php/user/save/test/whatever?w=something
 	 */
 	public dynamic class ServiceManager extends Proxy
 	{
@@ -207,5 +192,4 @@ package net.guttershark.services
 			if(services[name]) return services[name];
 			else throw new Error("Service {"+name+"} not available");
 		}
-		
 	}}
