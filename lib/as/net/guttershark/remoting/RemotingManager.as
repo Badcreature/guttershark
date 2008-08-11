@@ -12,6 +12,11 @@ package net.guttershark.remoting
 	import net.guttershark.util.cache.Cache;	
 
 	/**
+	 * 
+	 * new wave..
+	 * rm = RemotingManager.gi();
+	 * rm.amfphp.user.getUserName([],{result:onResult,fault:onFault,retry:onRetry,maxAttempts:4,});
+	 * 
 	 * The RemotingManager class simplifies creating and working with RemotingConnection
 	 * and RemotingService classes. As well as making remoting calls on services.
 	 * 
