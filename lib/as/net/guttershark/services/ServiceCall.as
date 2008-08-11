@@ -83,6 +83,8 @@ package net.guttershark.services
 				{
 					res.result = loader.data.result;
 					res.data = loader.data;
+					if(loader.data.result.toLowerCase() == "true") res.result = true;
+					else if(loader.data.result.toLowerCase() == "false") res.result = false;
 					fal = null;
 					rc(res);
 				}
@@ -103,7 +105,7 @@ package net.guttershark.services
 			}
 			else if(loader.dataFormat == ServiceResultFormat.XML)
 			{
-				var x:XML = loader.data as XML;
+				var x:XML = new XML(loader.data);
 				if(x.fault != undefined)
 				{
 					res = null;
