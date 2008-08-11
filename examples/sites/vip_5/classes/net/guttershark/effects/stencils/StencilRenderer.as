@@ -7,7 +7,6 @@ package net.guttershark.effects.stencils
 	import flash.utils.Dictionary;
 	import flash.utils.*;
 
-	import net.guttershark.guttershark_internal;
 	import net.guttershark.effects.stencils.Pixel;
 	import net.guttershark.effects.stencils.IRendererEffect;
 	import net.guttershark.util.FlashLibrary;
@@ -18,12 +17,7 @@ package net.guttershark.effects.stencils
 	 */
 	public class StencilRenderer
 	{
-		
-		/**
-		 * Class version
-		 */
-		guttershark_internal static var version:String = "0.5";
-		
+				
 		/**
 		 * Pool of all particles, particles are split up into arrays by the key. 
 		 * The key is the name of the stencil.
