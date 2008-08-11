@@ -1,5 +1,7 @@
 package net.guttershark.control
 {
+	import net.guttershark.services.ServiceManager;	
+	
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -45,7 +47,8 @@ package net.guttershark.control
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000 (1 minute).</li>
 	 * <li><strong>onlineStatusPingURL</strong> (String) - Specify the URL to an image to ping for online status. The default is "./ping.png".</li>
-	 * <li><strong>initRemotingEndpoints</strong> (CSV EX:"amfphp,rubyamf") - Initialize the <code><em>remotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a model file (see net.guttershark.model.Model for examples).</li> 
+	 * <li><strong>initRemotingEndpoints</strong> (CSV EX:"amfphp,rubyamf") - Initialize the <code><em>RemotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a model file (see net.guttershark.model.Model for examples).</li> 
+	 * <li><strong>initHTTP</strong> (CSV EX:"user,session") - Initialize the <code><em>ServiceManager</em></code>, and initialize the specified services. The specified services must be defined in a model file. (see net.guttershark.model.Model for examples).</li>
 	 * <li><strong>(in development)trackingMonitor</strong> (Boolean) - Connect to the tracking monitor, and send notifications from the javascript tracking library to the trackingMonitor.</li>
 	 * <li><strong>(in development)trackingSimulateXMLFile</strong> (String) - The path to a tracking xml file to use for making simulated tracking calls. This is specifically for when you're in the Flash IDE and need to at least simulate tracking calls for QA. The tags get sent to the tracking monitor.</li>
 	 * </ul>
@@ -209,11 +212,23 @@ package net.guttershark.control
 			if(flashvars.initRemotingEndpoints is Array) endpoints = flashvars.initRemotingEndpoints;
 			else endpoints = flashvars.initRemotingEndpoints.split(",");
 			var m:Model = Model.gi();
-			m.xml = model;
 			var l:int = endpoints.length;
 			for(var i:int = 0; i < l; i++) m.initializeRemotingEndpoint(endpoints[i], RemotingManager.gi());
 		}
 		
+		/**
+		 * Initialize the service manager.
+		 */
+		private function initializeServiceManager():void
+		{
+			var services:Array;
+			if(flashvars.initHTTP is Array) services = flashvars.initHTTP;
+			else services = flashvars.initHTTP.split(",");
+			var m:Model = Model.gi();
+			var l:int = services.length;
+			for(var i:int = 0; i < l; i++) m.initializeHTTPService(services[i],ServiceManager.gi());
+		}
+
 		/**
 		 * Setup the querystring data.
 		 */
@@ -333,6 +348,7 @@ package net.guttershark.control
 			modelXMLLoader.dispose();
 			modelXMLLoader = null;
 			if(flashvars.initRemotingEndpoints) intiailizeRemotingManager();
+			if(flashvars.initHTTP) initializeServiceManager();
 			setupComplete();
 		}
 		

@@ -1,1 +1,0 @@
-$COMPC/compc 

@@ -15,6 +15,12 @@ ${ASDOC}asdoc \
 -main-title "Guttershark Flash API Docs" \
 -window-title "Guttershark Flash API Docs" \
 -output ./docs/ \
+-exclude-classes com.asual.swfaddress.SWFAddress \
+-exclude-classes com.asual.swfaddress.SWFAddressEvent \
+-exclude-classes net.guttershark.services.codeigniter.IgniterError \
+-exclude-classes net.guttershark.services.codeigniter.IgniterResponse \
+-exclude-classes net.guttershark.services.codeigniter.IgniterRespose \
+-exclude-classes net.guttershark.services.codeigniter.IgniterService \
 -exclude-classes net.guttershark.util.LoopRange \
 -exclude-classes net.guttershark.util.MathUtils \
 -exclude-classes net.guttershark.util.LoopRange \

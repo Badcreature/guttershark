@@ -1,5 +1,7 @@
 package net.guttershark.model 
 {
+	import net.guttershark.services.ServiceManager;	
+	
 	import flash.net.URLRequest;
 	
 	import net.guttershark.errors.AssertError;
@@ -143,6 +145,11 @@ package net.guttershark.model
 		protected var remoting:XMLList;
 		
 		/**
+		 * Stores a reference to the <code>&lt;http&gt;&lt;/http&gt;</code> node.
+		 */
+		protected var http:XMLList;
+		
+		/**
 		 * Stores a reference to the <code>&lt;links&gt;&lt;/links&gt;</code> node.
 		 * 
 		 * @example A links node set.
@@ -195,7 +202,11 @@ package net.guttershark.model
 			if(_model.assets) assets = _model.assets;
 			if(_model.preload) preload = _model.preload;
 			if(_model.links) links = _model.links;
-			if(_model.services) if(_model.services.remoting) remoting = _model.services.remoting;
+			if(_model.services)
+			{
+				if(_model.services.remoting) remoting = _model.services.remoting;
+				if(_model.services.http) http = _model.services.http;
+			}
 			if(_model.attributes) attributes = _model.attributes;
 		}
 		
@@ -331,6 +342,21 @@ package net.guttershark.model
 			}
 		}
 		
+		/**
+		 * Initialize http service for a specific service id. Uses the supplied service manager.
+		 * 
+		 * @param	serviceID	The service id.
+		 * @param	serviceManager	The service manager that will house the services.
+		 */
+		public function initializeHTTPService(serviceID:String,serviceManager:ServiceManager):void
+		{
+			checkForXML();
+			Assert.NotNull(serviceID, "Parameter serviceID cannot be null");
+			Assert.NotNull(serviceManager, "Parameter serviceManager cannot be null");
+			var service:XMLList = http.service.(@id == serviceID);
+			serviceManager.createService(serviceID,service.@url,service.@defaultResponseFormat);
+		}
+
 		/**
 		 * Creates and returns a URLRequest from a link node.
 		 * @param	id	The id of the link node.
