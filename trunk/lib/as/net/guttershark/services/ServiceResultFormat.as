@@ -6,6 +6,17 @@ package net.guttershark.services
 	 */
 	public class ServiceResultFormat 
 	{
+		/**
+		 * URL Encoded variables response.
+		 */
 		public static const VARS:String = "variables";
+		
+		/**
+		 * XML Response
+		 */
 		public static const XML:String = "text"; //property is actually text because this is all the URLLoader supports.
+		
+		/**
+		 * Binary Response.
+		 */
 		public static const BIN:String = "binary";	}}
