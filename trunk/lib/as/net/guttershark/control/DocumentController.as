@@ -1,7 +1,5 @@
 package net.guttershark.control
 {
-	import net.guttershark.services.ServiceManager;	
-	
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -17,20 +15,21 @@ package net.guttershark.control
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	
-	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	import com.asual.swfaddress.SWFAddress;
 	import com.asual.swfaddress.SWFAddressEvent;
-
+	import com.pixelbreaker.ui.osx.MacMouseWheel;
+	
 	import net.guttershark.akamai.Ident;
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.remoting.RemotingManager;
+	import net.guttershark.services.ServiceManager;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.QueryString;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;
-	
+	import net.guttershark.util.XMLLoader;		
+
 	/**
 	 * The DocumentController class is the base Document Class for all sites. The DocumentController provides 
 	 * default functionality that 90% of flash sites need. This should always be extended and never used directly.
@@ -41,6 +40,7 @@ package net.guttershark.control
 	 * <ul>
 	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress</li>
 	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
+	 * <li><strong>autoInitModel</strong> (Boolean) - Whether or not to automatically set the xml on the default Model class, or call initModel() so you can initialize a subclassed model</li>
 	 * <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded.</li>
 	 * <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
@@ -343,7 +343,8 @@ package net.guttershark.control
 		private function onSiteXMLComplete(e:Event):void
 		{
 			model = modelXMLLoader.data;
-			Model.gi().xml = model;
+			if(flashvars.autoInitModel) Model.gi().xml = model;
+			else initModel();
 			modelXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
 			modelXMLLoader.dispose();
 			modelXMLLoader = null;
@@ -351,6 +352,26 @@ package net.guttershark.control
 			if(flashvars.initHTTP) initializeServiceManager();
 			setupComplete();
 		}
+		
+		/**
+		 * A method you should override to initialize your own model. This
+		 * is in place for situations where you extend from the base Model class,
+		 * and can only initialize the model once.
+		 * 
+		 * <p>The raw XML you need is the <em><code>model</code></em> property.</p>
+		 * 
+		 * <p>If are only using the default Model class, you can specify the
+		 * <em><code>autoInitModel</code><em> flash var property, which will
+		 * automatically set the xml property on the default Model</p>
+		 * 
+		 * @example A custom initModel method:
+		 * <listing>
+		 * override protected function initModel():void
+		 * {
+		 *     MyModel.xml = model;
+		 * }
+		 */
+		protected function initModel():void{}
 		
 		/**
 		 * Start the online status watching.

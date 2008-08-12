@@ -4,4 +4,4 @@ INSTALLATION:
 # Actionscript 3.0 Settings>). It's important that it's added to Flash's global class paths, otherwise you'll have to
 # add it as a classpath to every FLA.
 ---
-# Use the "guttershark/lib/as" folder as a classpath an any editor. 
+# Use the "guttershark/lib/as" folder as a classpath an any editor.

@@ -1,14 +1,13 @@
 package net.guttershark.model 
 {
-	import net.guttershark.services.ServiceManager;	
-	
 	import flash.net.URLRequest;
 	
 	import net.guttershark.errors.AssertError;
 	import net.guttershark.preloading.Asset;
 	import net.guttershark.remoting.RemotingManager;
+	import net.guttershark.services.ServiceManager;
 	import net.guttershark.util.Assert;
-	import net.guttershark.util.StringUtils;	
+	import net.guttershark.util.StringUtils;		
 
 	/**
 	 * The Model class provides shortcuts for parsing a default model xml file,
