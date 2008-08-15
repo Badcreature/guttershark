@@ -173,6 +173,11 @@ package net.guttershark.model
 		protected var attributes:XMLList;
 		
 		/**
+		 * The flash movies' flashvars.
+		 */
+		public var flashvars:Object;
+		
+		/**
 		 * @private
 		 * Constructor for Model instances.
 		 */
