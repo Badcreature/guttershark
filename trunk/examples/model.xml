@@ -19,6 +19,14 @@
 		<asset libraryName="sound1" source="sound1.mp3" />
 	</assets>
 	
+	<textformats>
+		<tf id="Helv" size="1" embedFonts="true" />
+	</textformats>
+	
+	<stylesheets>
+		<css id="css1" src="" />
+	</stylesheets>
+	
 	<preload>
 		<asset libraryName="jpg1" />
 		<asset libraryName="jpg2" />
