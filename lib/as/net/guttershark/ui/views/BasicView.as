@@ -1,12 +1,11 @@
 package net.guttershark.ui.views
 {
-
-	import flash.events.Event;	
-	import flash.display.MovieClip;
+	import flash.events.Event;
 	
+	import net.guttershark.core.CoreClip;
 	import net.guttershark.core.IDisposable;
-	import net.guttershark.util.DisplayListUtils;
-	
+	import net.guttershark.util.DisplayListUtils;		
+
 	/**
 	 * The BasicView class provides common case functionality needed
 	 * 90% of the time a "view" must be implemented.
@@ -32,7 +31,7 @@ package net.guttershark.ui.views
 	 * method should be implemented to have temporary "not in display list"
 	 * cleanup code.</p>
 	 */
-	public class BasicView extends MovieClip implements IDisposable
+	public class BasicView extends CoreClip implements IDisposable
 	{
 
 		/**
@@ -164,7 +163,7 @@ package net.guttershark.ui.views
 		/**
 		 * Override this method and write your own dispose logic.
 		 */
-		public function dispose():void{}
+		override public function dispose():void{}
 		
 		/**
 		 * Stub method for showing this view. It sets the visible property to true.
