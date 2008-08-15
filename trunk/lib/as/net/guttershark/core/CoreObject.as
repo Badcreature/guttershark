@@ -6,7 +6,8 @@ package net.guttershark.core
 	import net.guttershark.model.Model;
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.PreloadController;
-	import net.guttershark.remoting.RemotingManager;	
+	import net.guttershark.remoting.RemotingManager;
+	import net.guttershark.services.ServiceManager;		
 
 	/**
 	 * The CoreObject Class is a base class that provides
@@ -53,6 +54,11 @@ package net.guttershark.core
 		protected var al:AssetLibrary;
 
 		/**
+		 * The ServiceManager singleton instance.
+		 */
+		protected var sm:ServiceManager;
+
+		/**
 		 * Constructor for CoreObject instances.
 		 */
 		public function CoreObject()
@@ -64,8 +70,9 @@ package net.guttershark.core
 			lm = LanguageManager.gi();
 			rm = RemotingManager.gi();
 			al = AssetLibrary.gi();
+			sm = ServiceManager.gi();
 		}
-		
+
 		/**
 		 * Dispose of this object.
 		 */
