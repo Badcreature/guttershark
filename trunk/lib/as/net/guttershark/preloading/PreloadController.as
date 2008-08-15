@@ -340,7 +340,7 @@ package net.guttershark.preloading
 		}
 		
 		/**
-		 * Get the number os items left in the preload queue.
+		 * Get the number of items left in the preload queue.
 		 */
 		public function get numLeft():int
 		{
