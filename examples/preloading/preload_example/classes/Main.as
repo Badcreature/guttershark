@@ -30,7 +30,7 @@ package
 
 		override protected function flashvarsForStandalone():Object
 		{
-			return {model:"site.xml"};
+			return {model:"site.xml",autoInitModel:true};
 		}
 
 		override protected function setupComplete():void
