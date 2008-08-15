@@ -340,6 +340,23 @@ package net.guttershark.preloading
 		}
 		
 		/**
+		 * Get the number os items left in the preload queue.
+		 */
+		public function get numLeft():int
+		{
+			return loadItems.length;
+		}
+		
+		/**
+		 * Set the number of pixels to fill, useful if
+		 * the pixel calculations need to.
+		 */
+		public function set pixelsToFill(px:int):void
+		{
+			totalPixelsToFill = px;
+		}
+		
+		/**
 		 * @private
 		 * 
 		 * Every LoadItem in the queue calls this method on it's progress event.
