@@ -177,6 +177,8 @@ package net.guttershark.control
 			setupFlashvars();
 			setupQueryString();
 			restoreSharedObject();
+			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initStandaloneURLS();
+			else initURLS();
 			if(flashvars.swfAddress) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
@@ -188,6 +190,29 @@ package net.guttershark.control
 			if(!flashvars.model && flashvars.initRemotingEndpoints) throw new Error("You cannot initialize remoting endpoints without a site XML file in place.");
 			if(!flashvars.model) setupComplete();
 		}
+		
+		/**
+		 * A stub method you should override to setup URLS when the
+		 * embedded player is is running.
+		 * 
+		 * @see net.guttershark.util.URLS URLS Class
+		 */
+		protected function initURLS():void{}
+		
+		/**
+		 * A stub method you should override to setup url logic when the swf
+		 * is running from the Flash IDE, or standalone player.
+		 * 
+		 * @example Setting up urls:
+		 * <listing>
+		 * override protected function initStandaloneURLS():void
+		 * {
+		 *     URLS.setRootURL("http://tagsf/");
+		 * }
+		 * <listing>
+		 * @see net.guttershark.util.URLS URLS Class
+		 */
+		protected function initStandaloneURLS():void{}
 		
 		/**
 		 * Stub method you should override to hook into swf address change events.

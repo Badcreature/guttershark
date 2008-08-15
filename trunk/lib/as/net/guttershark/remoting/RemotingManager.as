@@ -13,10 +13,6 @@ package net.guttershark.remoting
 
 	/**
 	 * 
-	 * new wave..
-	 * rm = RemotingManager.gi();
-	 * rm.amfphp.user.getUserName([],{result:onResult,fault:onFault,retry:onRetry,maxAttempts:4,});
-	 * 
 	 * The RemotingManager class simplifies creating and working with RemotingConnection
 	 * and RemotingService classes. As well as making remoting calls on services.
 	 * 
@@ -219,7 +215,7 @@ package net.guttershark.remoting
 		 */
 		public function RemotingManager():void
 		{	
-			if(RemotingManager.inst) throw new Error("RemotingManager is a singleton, see RemotingManager.gi()");
+			if(!RemotingManager.inst) throw new Error("RemotingManager is a singleton, see RemotingManager.gi()");
 			edp = new EventDispatcherProxy();
 			services = new Dictionary();
 			connections = new Dictionary();
