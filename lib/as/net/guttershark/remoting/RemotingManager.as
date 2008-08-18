@@ -4,12 +4,13 @@ package net.guttershark.remoting
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.core.IDisposable;
+	import net.guttershark.core.Singleton;
 	import net.guttershark.events.EventDispatcherProxy;
 	import net.guttershark.remoting.events.CallEvent;
 	import net.guttershark.remoting.events.ConnectionEvent;
 	import net.guttershark.remoting.events.IRemotingEventsDelegate;
 	import net.guttershark.util.Assert;
-	import net.guttershark.util.cache.Cache;	
+	import net.guttershark.util.cache.Cache;		
 
 	/**
 	 * 
@@ -205,7 +206,7 @@ package net.guttershark.remoting
 		 */
 		public static function gi():RemotingManager
 		{
-			if(inst == null) inst = new RemotingManager();
+			if(!inst) inst = Singleton.gi(RemotingManager);
 			return inst;
 		}
 
@@ -215,7 +216,7 @@ package net.guttershark.remoting
 		 */
 		public function RemotingManager():void
 		{	
-			if(!RemotingManager.inst) throw new Error("RemotingManager is a singleton, see RemotingManager.gi()");
+			Singleton.assertSingle(RemotingManager);
 			edp = new EventDispatcherProxy();
 			services = new Dictionary();
 			connections = new Dictionary();

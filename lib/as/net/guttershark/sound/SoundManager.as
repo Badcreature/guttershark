@@ -7,7 +7,8 @@ package net.guttershark.sound
 	import flash.media.SoundTransform;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.sound.events.VolumeEvent;	
+	import net.guttershark.core.Singleton;
+	import net.guttershark.sound.events.VolumeEvent;		
 
 	/**
 	 * Dispatched when the internal volume has changed.
@@ -69,7 +70,7 @@ package net.guttershark.sound
 		 */
 		public function SoundManager()
 		{
-			if(SoundManager.instance) throw new Error("SoundManager is a singleton, call SoundManager.GetInstance() for the instance.");
+			Singleton.assertSingle(SoundManager);
 			_soundDic = new Dictionary();
 			_sndObjectsWithTransforms = new Dictionary();
 			_volume = 0;
@@ -83,7 +84,7 @@ package net.guttershark.sound
 		 */
 		public static function gi():SoundManager
 		{
-			if(instance == null) instance = new SoundManager();
+			if(instance == null) instance = Singleton.gi(SoundManager);
 			return instance;
 		}
 		
