@@ -1,19 +1,19 @@
 package net.guttershark.preloading
 {
-
-	import flash.display.Sprite;
-	import flash.text.Font;
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.media.Sound;
+	import flash.text.Font;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.util.Assert;	
-	import net.guttershark.util.XMLLoader;
 	import net.guttershark.core.IDisposable;
+	import net.guttershark.core.Singleton;
 	import net.guttershark.errors.AssetError;
-	
+	import net.guttershark.util.Assert;
+	import net.guttershark.util.XMLLoader;	
+
 	/**
 	 * The AssetLibrary is a singleton that stores all assets
 	 * loaded by any PreloadController.
@@ -39,6 +39,7 @@ package net.guttershark.preloading
 		 */
 		public function AssetLibrary()
 		{
+			Singleton.assertSingle(AssetLibrary);
 			assets = new Dictionary(false);
 		}
 		
@@ -47,7 +48,7 @@ package net.guttershark.preloading
 		 */
 		public static function gi():AssetLibrary
 		{
-			if(!inst) inst = new AssetLibrary();
+			if(!inst) inst = Singleton.gi(AssetLibrary);
 			return inst;
 		}
 		
