@@ -9,7 +9,8 @@ package net.guttershark.core
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.remoting.RemotingManager;
-	import net.guttershark.services.ServiceManager;	
+	import net.guttershark.services.ServiceManager;
+	import net.guttershark.util.FlashLibrary;		
 
 	/**
 	 * The CoreClass Class is a base class that provides
@@ -59,6 +60,11 @@ package net.guttershark.core
 		 * The ServiceManager singleton instance.
 		 */
 		protected var sm:ServiceManager;
+		
+		/**
+		 * The singleton instance of the FlashLibrary.
+		 */
+		protected var fb:FlashLibrary;
 
 		/**
 		 * Constructor for CoreClips instances.
@@ -73,6 +79,7 @@ package net.guttershark.core
 			rm = RemotingManager.gi();
 			al = AssetLibrary.gi();
 			sm = ServiceManager.gi();
+			fb = FlashLibrary.gi();
 		}
 
 		/**
