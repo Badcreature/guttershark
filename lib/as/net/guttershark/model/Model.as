@@ -1,13 +1,16 @@
 package net.guttershark.model 
 {
+	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
+	import flash.utils.Dictionary;
 	
+	import net.guttershark.core.Singleton;
 	import net.guttershark.errors.AssertError;
+	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.preloading.Asset;
 	import net.guttershark.remoting.RemotingManager;
 	import net.guttershark.services.ServiceManager;
-	import net.guttershark.util.Assert;
-	import net.guttershark.util.StringUtils;		
+	import net.guttershark.util.Assert;		
 
 	/**
 	 * The Model class provides shortcuts for parsing a default model xml file,
@@ -63,7 +66,7 @@ package net.guttershark.model
 		/**
 		 * singleton instance
 		 */
-		protected static var instance:Model;
+		protected static var inst:Model;
 		
 		/**
 		 * Reference to the entire site XML file.
@@ -178,12 +181,19 @@ package net.guttershark.model
 		public var flashvars:Object;
 		
 		/**
+		 * url infomration object, only used when the external or
+		 * standalone player is being used.
+		 */
+		private var urlParams:Object;
+		
+		/**
 		 * @private
 		 * Constructor for Model instances.
 		 */
 		public function Model()
 		{
-			if(Model.instance) throw new Error("Model is a singleton, please see Model.gi()");
+			Singleton.assertSingle(Model);
+			urlParams = {};
 		}
 		
 		/**
@@ -191,8 +201,8 @@ package net.guttershark.model
 		 */
 		public static function gi():Model
 		{
-			if(instance == null) instance = new Model();
-			return instance;
+			if(!inst) inst = Singleton.gi(Model);
+			return inst;
 		}
 		
 		/**
@@ -223,61 +233,6 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Utility method for finding file types from source paths.
-		 */
-		public function findFileType(source:String):String
-		{
-			var fileType:String = StringUtils.FindFileType(source);
-			if(!fileType) throw new Error("Filetype could not be found.");
-			return fileType;
-		}
-		
-		/**
-		 * Prepend the correct path for an asset.
-		 * 
-		 * <p>You can pass in a filename, like: "myfile.jpg", and it will
-		 * return a new string like: "assets/bmp/myfile.jpg".</p>
-		 * 
-		 * <p>It concatenates the "basePath"+"typePath"+file</p>
-		 */
-		public function prependAssetPath(source:String):String
-		{
-			Assert.NotNull(source, "Parameter source cannot be null");
-			if(!assetPaths) throw new Error("The assetPath node is not defined");
-			var fileType:String = findFileType(source);
-			var path:String;
-			switch(fileType)
-			{
-				case "jpg":
-				case "jpeg":
-				case "bmp":
-				case "png":
-				case "gif":
-					if(assetPaths.bitmapPath == undefined) throw new Error("The bitmapPath node is not defined within the assetPaths node.");
-					path = assetPaths.bitmapPath.toString();
-					break;
-				case "swf":
-					if(assetPaths.swfPath == undefined) throw new Error("The swfPath node is not defined within the assetPaths node.");
-					path = assetPaths.swfPath.toString();
-					break;
-				case "mp3":
-					if(assetPaths.soundPath == undefined) throw new Error("The soundPath node is not defined within the assetPaths node.");
-					path = assetPaths.soundPath.toString();
-					break;
-				case "flv":
-					if(assetPaths.flvPath == undefined) throw new Error("The flvPath node is not defined within the assetPaths node.");
-					path = assetPaths.flvPath.toString();
-					break;
-				case "xml":
-					if(assetPaths.xmlPath == undefined) throw new Error("The xmlPath node is not defined within the assetPaths node.");
-					path = assetPaths.xmlPath.toString();
-					break;
-			}
-			source = assetPaths.@basePath + path + source;
-			return source;
-		}
-		
-		/**
 		 * Creates an Array of Asset instances for preloading with a PreloadController.
 		 * 
 		 * @return	An array containing Asset instances you can pass directly to a preloadController.addItems() method.
@@ -291,7 +246,7 @@ package net.guttershark.model
 			for each(var ast:XML in _model.preload.asset)
 			{
 				var asset:XMLList = assets.asset.(@libraryName == ast.@libraryName);
-				var source:String = prependAssetPath(asset.@source);
+				var source:String = asset.@source;
 				assetsToLoad.push(new Asset(source, asset.@libraryName));
 			}
 			return assetsToLoad;
@@ -310,7 +265,7 @@ package net.guttershark.model
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			var node:XMLList = assets..asset.(@libraryName == libraryName);
 			var ft:String = (node.@forceType != undefined && node.@forceType != "") ? node.@forceType : null;
-			var s:String = (prependAssetPaths) ? prependAssetPath(node.@source) : node.@source;
+			var s:String = node.@source;
 			return new Asset(s,libraryName,ft);
 		}
 		
@@ -397,6 +352,95 @@ package net.guttershark.model
 			var attr:XMLList = attributes..attribute.(@id == attributeID);
 			if(!attr) return null;
 			return attr.@value;
+		}
+		
+		/**
+		 * checks if external interface is available.
+		 */	
+		private function checkEI():Boolean
+		{
+			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer())
+			{
+				trace("WARNING: ExternalInterface is not available, using interal urlParams variable to read and write. Not guttershark.js javascript.");
+				return false;
+			}
+			return true;
+		}
+		
+		/**
+		 * Set's the root URL in the guttershark.js javascript file. Or if ExternalInterface
+		 * isn't available, it's kept track of internally.
+		 */
+		public function setRootURL(path:String):void
+		{
+			if(!checkEI())
+			{
+				urlParams.rootURL = path;
+				return;
+			}
+			ExternalInterface.call("guttershark.setRootURL",path);
+		}
+		
+		/**
+		 * Get the root URL from the guttershark.js javascript file. Or if ExternalInterface
+		 * isn't available, it's kept track of internally.
+		 */
+		public function getRootURL():String
+		{
+			if(!checkEI()) return urlParams.rootURL;
+			return ExternalInterface.call("guttershark.getRootURL");
+		}
+		
+		/**
+		 * Add's a path for by identifier, adds the path to the guttershark.js file. Or if ExternalInterface
+		 * isn't available, it's kept track of internally.
+		 * 
+		 * @param	id	The id for the path, IE: assets.
+		 * @param	pathFromRoot	The absolute URL from root, IE: "/assets"
+		 */
+		public function addPath(id:String,pathFromRoot:String):void
+		{
+			if(!checkEI())
+			{
+				if(!urlParams.paths) urlParams.paths = new Dictionary();
+				urlParams.paths[id] = pathFromRoot;
+			}
+			ExternalInterface.call("guttershark.addPath",id,pathFromRoot);
+		}
+		
+		/**
+		 * Get a path by identifer. It does not return the full URL. It get's the path from the
+		 * guttershark.js javascript file. Or if ExternalInterface isn't available, 
+		 * it's kept track of internally.
+		 * 
+		 * @param	id	The id for the path.
+		 * @return	The path that was saved, IE: "/assets";
+		 */
+		public function getPath(id:String):String
+		{
+			if(!checkEI())
+			{
+				return urlParams.paths[id];
+			}
+			return ExternalInterface.call("guttershark.getPath",id);
+		}
+		
+		/**
+		 * Get's a full URL for a path. Path is grabbed from the guttershark.js javascript file
+		 * Or if ExternalInterface isn't available, it's kept track of internally.
+		 * 
+		 * @param	id	The id for the path.
+		 * @return	The full URL (root+path).
+		 */
+		public function getFullPath(id:String):String
+		{
+			if(!checkEI())
+			{
+				if(!urlParams.rootURL) throw new Error("rootURL was never set.");
+				if(!urlParams.paths[id]) throw new Error("Path by id {"+id+"} not available");
+				return urlParams.rootURL + urlParams.paths[id];
+			}
+			return ExternalInterface.call("guttershark.getFullPath",id);
 		}
 		
 		/**
