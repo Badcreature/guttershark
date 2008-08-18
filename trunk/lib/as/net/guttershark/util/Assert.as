@@ -136,5 +136,31 @@ package net.guttershark.util
 				if(!(key is type)) throwError(message,exceptionType);
 			}			
 		}
+		
+		/**
+		 * Assert that the passed value is true.
+		 * @param	val	The boolean value to assert.
+		 * @param	message	The message to throw if the assertion is false.
+		 * @param	exceptionType	The exception type to throw if there is an error.
+		 */
+		public static function True(val:Boolean, message:String, exceptionType:Class = null):Boolean
+		{
+			checkMessage(message);
+			if(!val) throwError(message,exceptionType);
+			return true;
+		}
+		
+		/**
+		 * Assert that the passed value is false.
+		 * @param	val	The boolean value to assert.
+		 * @param	message	The message to throw if the assertion is false.
+		 * @param	exceptionType	The exception type to throw if there is an error.
+		 */
+		public static function False(val:Boolean, message:String, exceptionType:Class = null):Boolean
+		{
+			checkMessage(message);
+			if(val) throwError(message,exceptionType);
+			return true;
+		}
 	}
 }
