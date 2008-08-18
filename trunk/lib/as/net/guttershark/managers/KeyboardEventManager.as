@@ -1,13 +1,13 @@
 package net.guttershark.managers 
 {
-	
-	import flash.ui.Keyboard;		
-	import flash.events.KeyboardEvent;	
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
-	
+	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
-	import flash.utils.clearTimeout;	
 	
+	import net.guttershark.core.Singleton;		
+
 	/**
 	 * The KeyboardEventManager class simplifies working with keyboard events.
 	 * 
@@ -32,7 +32,7 @@ package net.guttershark.managers
 		 */
 		public static function gi():KeyboardEventManager
 		{
-			if(!inst) inst = new KeyboardEventManager();
+			if(!inst) inst = Singleton.gi(KeyboardEventManager);
 			return inst;
 		}
 		
@@ -42,7 +42,7 @@ package net.guttershark.managers
 		 */
 		public function KeyboardEventManager():void
 		{
-			if(KeyboardEventManager.inst) throw new Error("KeyboardEventManager is a singleton can cannot be instantiated more than once. See KeyboardEventManager.gi()");
+			Singleton.assertSingle(KeyboardEventManager);
 			keyMappings = new Dictionary();
 			wordMappings = new Dictionary();
 			sequenceCallbacks = new Dictionary();

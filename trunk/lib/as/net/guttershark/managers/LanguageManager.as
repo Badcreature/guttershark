@@ -1,12 +1,12 @@
 ﻿package net.guttershark.managers 
 {
-	
-	import flash.net.URLRequest;	
-	import flash.events.Event;	
+	import flash.events.Event;
+	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
-
-	import net.guttershark.util.XMLLoader;
+	
+	import net.guttershark.core.Singleton;
 	import net.guttershark.lang.ILocalizableClip;
+	import net.guttershark.util.XMLLoader;		
 
 	/**
 	 * The LanguageManager manages loading different language
@@ -49,6 +49,7 @@
 		 */
 		public function LanguageManager()
 		{
+			Singleton.assertSingle(LanguageManager);
 			clips = new Dictionary();
 			languages = new Dictionary();
 			codes = new Dictionary();
@@ -59,7 +60,7 @@
 		 */
 		public static function gi():LanguageManager
 		{
-			if(!inst) inst = new LanguageManager();
+			if(!inst) inst = Singleton.gi(LanguageManager);
 			return inst;
 		}
 
