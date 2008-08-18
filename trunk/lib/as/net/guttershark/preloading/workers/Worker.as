@@ -1,6 +1,7 @@
 package net.guttershark.preloading.workers
 {
-	
+	import net.guttershark.core.IDisposable;	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.HTTPStatusEvent;
@@ -104,9 +105,9 @@ package net.guttershark.preloading.workers
 	 * @see #load()
 	 * @see net.guttershark.preloading.Asset 
 	 */
-	public class Worker extends EventDispatcher implements ILoadWorker
+	public class Worker extends EventDispatcher implements ILoadWorker,IDisposable
 	{
-		
+
 		/**
 		 * The asset this worker is loading.
 		 */
@@ -274,6 +275,20 @@ package net.guttershark.preloading.workers
 				loader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
 			}
 			catch(e:*){}
+		}
+		
+		/**
+		 * Dispose of this worker instance.
+		 */
+		public function dispose():void
+		{
+			removeEventListeners();
+			close();
+			bytesLoaded = NaN;
+			bytesTotal = NaN;
+			asset = null;
+			loader = null;
+			request = null;
 		}
 	}
 }
