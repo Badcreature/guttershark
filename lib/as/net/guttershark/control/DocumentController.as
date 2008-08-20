@@ -41,7 +41,8 @@ package net.guttershark.control
 	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress</li>
 	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
 	 * <li><strong>autoInitModel</strong> (Boolean) - Whether or not to automatically set the xml on the default Model class, or call initModel() so you can initialize a subclassed model</li>
-	 * <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded.</li>
+	 * <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded. Or you can specify sniffBandwidthURL for a custom file.</li>
+	 * <li><strong>sniffBandwidthURL</strong> (String) - The file to load for the bandwidth sniff.</li>
 	 * <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
@@ -322,7 +323,8 @@ package net.guttershark.control
 		 */
 		private function sniffBandwidth():void
 		{
-			_bandwidthSniffer = new Bandwidth();
+			if(flashvars.sniffBandwidthURL) _bandwidthSniffer = new Bandwidth(new URLRequest(flashvars.sniffBandwidthURL));
+			else _bandwidthSniffer = new Bandwidth();
 			_bandwidthSniffer.contentLoader.addEventListener(Event.COMPLETE, onBandwidthComplete);
 			_bandwidthSniffer.detect();
 		}
