@@ -177,6 +177,7 @@ package net.guttershark.control
 			setupFlashvars();
 			setupQueryString();
 			restoreSharedObject();
+			initURLS();
 			if(flashvars.swfAddress) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
@@ -188,6 +189,11 @@ package net.guttershark.control
 			if(!flashvars.model && flashvars.initRemotingEndpoints) throw new Error("You cannot initialize remoting endpoints without a site XML file in place.");
 			if(!flashvars.model) setupComplete();
 		}
+		
+		/**
+		 * A stub method you should use to initialize URL paths for the movie.
+		 */
+		protected function initURLS():void{}
 		
 		/**
 		 * Stub method you should override to hook into swf address change events.
