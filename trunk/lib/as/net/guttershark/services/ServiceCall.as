@@ -64,6 +64,7 @@ package net.guttershark.services
 					//durl += "&"+key+"="+props.data[key];
 				}
 				request.data = t;
+				request.url += "?";
 			}
 			//trace("final URL: ", request.url + durl);
 			loader.load(request);
