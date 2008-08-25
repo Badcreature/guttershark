@@ -90,6 +90,11 @@ package net.guttershark.control
 	 */
 	public class DocumentController extends Sprite
 	{
+		
+		/**
+		 * A reference to the DocumentControllers instance.
+		 */
+		protected var dcs:DocumentControllers;
 
 		/**
 		 * The model XML. This comes from loading an xml file provided by flashvars.model property.
@@ -110,11 +115,6 @@ package net.guttershark.control
 		 * An akamai Ident instance.
 		 */
 		private var ident:Ident;
-
-		/**
-		 * Reference to this top level controller.
-		 */
-		private static var _siteInstance:*;
 		
 		/**
 		 * An instance of a bandwidth object for bandwidth sniffing.
@@ -172,7 +172,8 @@ package net.guttershark.control
 		 */
 		public function DocumentController()
 		{
-			DocumentController._siteInstance = this;
+			dcs = DocumentControllers.gi();
+			registerController();
 			online = true;
 			MacMouseWheel.setup(stage);
 			setupFlashvars();
@@ -190,6 +191,18 @@ package net.guttershark.control
 			if(!flashvars.model && flashvars.initRemotingEndpoints) throw new Error("You cannot initialize remoting endpoints without a site XML file in place.");
 			if(!flashvars.model) setupComplete();
 		}
+		
+		/**
+		 * A stub method you should use to register
+		 * this controller with the DocumentControllers class.
+		 * 
+		 * <p>This is specifically for when you have multiple SWFs
+		 * that extended DocumentController, and you need references to the
+		 * DocumentController from each.</p>
+		 * 
+		 * @see net.guttershark.control.DocumentControllers DocumentControllers Class
+		 */
+		protected function registerController():void{}
 		
 		/**
 		 * A stub method you should use to initialize URL paths for the movie.
@@ -376,7 +389,7 @@ package net.guttershark.control
 		 * <listing>
 		 * override protected function initModel():void
 		 * {
-		 *     MyModel.xml = model;
+		 *     MyModel.gi().xml = model;
 		 * }
 		 */
 		protected function initModel():void{}
@@ -457,18 +470,6 @@ package net.guttershark.control
 			akamaiIdentComplete(XML(ident.contentLoader.data).ip.toString());
 			ident.dispose();
 			ident = null;
-		}
-		
-		/**
-		 * The instance of the site controller. This will always return the lowest
-		 * child in a chain of subclasses. If the DocumentController is extended by a class
-		 * called Main, this would return an instance of Main.
-		 * 
-		 * @return The lowest child in the inheritance chain.
-		 */
-		public static function get Instance():*
-		{
-			return DocumentController._siteInstance;
 		}
 
 		/**
