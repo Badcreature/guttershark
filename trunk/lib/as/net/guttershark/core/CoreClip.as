@@ -1,5 +1,7 @@
 package net.guttershark.core 
 {
+	import net.guttershark.managers.PathManager;	
+	
 	import flash.display.MovieClip;
 	
 	import net.guttershark.events.EventManager;
@@ -62,9 +64,14 @@ package net.guttershark.core
 		protected var sm:ServiceManager;
 		
 		/**
-		 * The singleton instance of the FlashLibrary.
+		 * The FlashLibrary singleton instance.
 		 */
 		protected var fb:FlashLibrary;
+		
+		/**
+		 * The PathManager singleton instance.
+		 */
+		protected var pm:PathManager;
 
 		/**
 		 * Constructor for CoreClips instances.
@@ -80,6 +87,7 @@ package net.guttershark.core
 			al = AssetLibrary.gi();
 			sm = ServiceManager.gi();
 			fb = FlashLibrary.gi();
+			pm = PathManager.gi();
 		}
 
 		/**
