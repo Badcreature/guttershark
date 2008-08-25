@@ -15,7 +15,7 @@ package
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.preloading.events.PreloadProgressEvent;
 	import net.guttershark.util.Bandwidth;
-	import net.guttershark.util.CPU;		
+	import net.guttershark.util.CPU;	
 
 	public class Main extends DocumentController
 	{

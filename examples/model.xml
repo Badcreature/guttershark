@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<model>
-	<assetPaths basePath="assets/">
-		<bitmapPath>bmp/</bitmapPath>
-		<soundPath>sounds/</soundPath>
-		<swfPath>swf/</swfPath>
-		<flvPath>flv/</flvPath>
-		<xmlPath>xml/</xmlPath>
-	</assetPaths>
-	
+<model>	
 	<assets>
 		<asset libraryName="jpg1" source="jpg1.jpg" />
 		<asset libraryName="jpg2" source="jpg2.jpg" />
@@ -18,15 +10,6 @@
 		<asset libraryName="png2" source="png2.png" />
 		<asset libraryName="sound1" source="sound1.mp3" />
 	</assets>
-	
-	<textformats>
-		<tf id="Helv" size="1" embedFonts="true" />
-	</textformats>
-	
-	<stylesheets>
-		<css id="css1" src="" />
-	</stylesheets>
-	
 	<preload>
 		<asset libraryName="jpg1" />
 		<asset libraryName="jpg2" />
@@ -37,15 +20,12 @@
 		<asset libraryName="png2" />
 		<asset libraryName="sound1" />
 	</preload>
-	
 	<links>
 		<link id="google" href="http://www.google.com/" target="_blank" />
 	</link>
-	
 	<attributes>
 		<attribute id="example" value="whateverYouWant" />
 	</attributes>
-	
 	<services>
 		<remoting>
 			<endpoint id="amfphp" gateway="http://www.leftvsright.com/console/weborb.aspx" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3">

@@ -7,11 +7,11 @@ package
 	import fl.video.VideoAlign;
 	import fl.video.VideoScaleMode;
 	
-	import net.guttershark.akamai.AkamaiNCManager;
 	import net.guttershark.control.DocumentController;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
-	import net.guttershark.video.FLVPlaybackQueueManager;		
+	import net.guttershark.util.akamai.AkamaiNCManager;
+	import net.guttershark.video.FLVPlaybackQueueManager;	
 
 	public class Main extends DocumentController
 	{
