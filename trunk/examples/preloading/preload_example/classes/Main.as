@@ -1,5 +1,7 @@
 package  
 {
+	import net.guttershark.preloading.AssetTypes;	
+	
 	import flash.display.MovieClip;
 	
 	import gs.TweenMax;
@@ -12,7 +14,7 @@ package
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.preloading.events.AssetCompleteEvent;
-	import net.guttershark.preloading.events.PreloadProgressEvent;		
+	import net.guttershark.preloading.events.PreloadProgressEvent;	
 
 	public class Main extends DocumentController 
 	{
@@ -20,7 +22,6 @@ package
 		private var preloadController:PreloadController;
 		private var ml:Model;
 		private var em:EventManager;
-
 		public var preloader:MovieClip;
 
 		public function Main()
@@ -36,6 +37,9 @@ package
 		override protected function setupComplete():void
 		{
 			ml = Model.gi();
+			ml.setRootURL("./");
+			ml.addPath("assets", "/assets");
+			ml.addPath("bitmap","/assets");
 			em = EventManager.gi();
 			em.addEventListenerDelegate(PreloadController,PreloadControllerEventListenerDelegate);
 			preloadController = new PreloadController(400);

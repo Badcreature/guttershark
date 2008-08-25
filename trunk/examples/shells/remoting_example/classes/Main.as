@@ -18,7 +18,7 @@ package
 		
 		override protected function flashvarsForStandalone():Object
 		{
-			return {model:"site.xml",initRemotingEndpoints:[Endpoints.AMFPHP,Endpoints.RUBYAMF]};
+			return {autoInitModel:true,model:"site.xml",initRemotingEndpoints:[Endpoints.AMFPHP,Endpoints.RUBYAMF]};
 		}
 		
 		override protected function setupComplete():void
