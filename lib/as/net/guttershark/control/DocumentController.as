@@ -19,7 +19,7 @@ package net.guttershark.control
 	import com.asual.swfaddress.SWFAddressEvent;
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
-	import net.guttershark.akamai.Ident;
+	import net.guttershark.util.akamai.Ident;
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.remoting.RemotingManager;
@@ -28,7 +28,7 @@ package net.guttershark.control
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.QueryString;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;		
+	import net.guttershark.util.XMLLoader;	
 
 	/**
 	 * The DocumentController class is the base Document Class for all sites. The DocumentController provides 
@@ -179,7 +179,7 @@ package net.guttershark.control
 			setupFlashvars();
 			setupQueryString();
 			restoreSharedObject();
-			initURLS();
+			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
 			if(flashvars.swfAddress) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
@@ -205,9 +205,17 @@ package net.guttershark.control
 		protected function registerController():void{}
 		
 		/**
-		 * A stub method you should use to initialize URL paths for the movie.
+		 * A stub method you should use to initialize Paths with the PathManager
+		 * when the flash movie is running as a standalone. This will only be called
+		 * when the Flash player is running in the FlashIDE or standalone player.
+		 * 
+		 * <p>When the player is embedded in an HTML document, you can still use the
+		 * PathManager, but the PathManager uses external interface for all path
+		 * handling.</p>
+		 * 
+		 * <p>See the lib/js/guttershark.js file</p>
 		 */
-		protected function initURLS():void{}
+		protected function initPathsForStandalone():void{}
 		
 		/**
 		 * Stub method you should override to hook into swf address change events.

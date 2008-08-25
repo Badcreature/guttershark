@@ -19,7 +19,7 @@ package net.guttershark.util
 	 * <p>The FlashLibrary provides static methods as shortcuts, but also allows
 	 * dynamic use to get instances of classes from the library.</p>
 	 * 
-	 * @example Examples of both types of use:
+	 * @example Examples of both usage types:
 	 * <listing>
 	 * //traditional:
 	 * var mc:MovieClip = FlashLibrary.GetMovieClip("Test") as MovieClip;
@@ -42,7 +42,7 @@ package net.guttershark.util
 		 */
 		public function FlashLibrary():void
 		{
-			//Singleton.assertSingle(FlashLibrary);
+			Singleton.assertSingle(FlashLibrary);
 		}
 		
 		/**
