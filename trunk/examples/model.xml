@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <model>	
-	<assets>
+	<assets bitmapPath="bitmapPath">
 		<asset libraryName="jpg1" source="jpg1.jpg" />
 		<asset libraryName="jpg2" source="jpg2.jpg" />
 		<asset libraryName="swftest" source="swfload_test.swf" />
