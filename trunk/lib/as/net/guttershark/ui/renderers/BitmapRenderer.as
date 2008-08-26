@@ -9,6 +9,8 @@ package net.guttershark.ui.renderers
 	import net.guttershark.preloading.events.PreloadProgressEvent;	
 	
 	/**
+	 * IN DEVELOPMENT.
+	 * 
 	 * The BitmapRenderer Class wraps up a fair amount of logic
 	 * that is written over and over to load and display a bitmap. And
 	 * also provides some common methods that aren't always used, but when

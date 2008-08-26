@@ -2,6 +2,9 @@ package net.guttershark.ui.renderers
 {
 	import net.guttershark.core.CoreClip;	
 	
+	/**
+	 * IN DEVELOPMENT.
+	 */
 	public class FLVRenderer extends CoreClip 
 	{
 		

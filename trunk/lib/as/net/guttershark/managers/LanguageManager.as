@@ -5,7 +5,7 @@
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.core.Singleton;
-	import net.guttershark.lang.ILocalizableClip;
+	import net.guttershark.ui.lang.ILocalizableClip;
 	import net.guttershark.util.XMLLoader;		
 
 	/**
