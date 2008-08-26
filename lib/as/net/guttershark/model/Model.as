@@ -10,33 +10,31 @@ package net.guttershark.model
 	import net.guttershark.preloading.Asset;
 	import net.guttershark.remoting.RemotingManager;
 	import net.guttershark.services.ServiceManager;
-	import net.guttershark.util.Assert;		
+	import net.guttershark.util.Assert;
 
 	/**
-	 * The Model class provides shortcuts for parsing a default model xml file,
-	 * and provides shortcut methods for common operations.
+	 * The Model Clas provides shortcuts for parsing a site model xml file as
+	 * well as other model centric methods.
+	 * 
+	 * <p>The model class also provides Path logic for URL path definitions.</p>
 	 * 
 	 * @example Example model XML file:
 	 * <listing>	
 	 * &lt;?xml version="1.0" encoding="utf-8"?&gt;
 	 * &lt;model&gt;
-	 *    &lt;assetPaths basePath="assets/"&gt;
-	 *        &lt;bitmapPath&gt;bmp/&lt;/bitmapPath&gt;
-	 *        &lt;soundPath&gt;sounds/&lt;/soundPath&gt;
-	 *        &lt;swfPath&gt;swf/&lt;/swfPath&gt;
-	 *        &lt;flvPath&gt;flv/&lt;/flvPath&gt;
-	 *        &lt;xmlPath&gt;xml/&lt;/xmlPath&gt;
-	 *    &lt;/assetPaths&gt;
 	 *    &lt;assets&gt;
 	 *        &lt;asset libraryName="clayBanner1" source="clay_banners_1.jpg" /&gt;
 	 *        &lt;asset libraryName="clayBanner2" source="clay_banners_2.jpg" /&gt;
 	 *        &lt;asset libraryName="clayWebpage" source="clay_webpage.jpg" /&gt;
 	 *    &lt;/assets&gt;
-	 *    &lt;preload&gt;
-	 *       &lt;asset libraryName="clayBanner1" /&gt;
-	 *       &lt;asset libraryName="clayBanner2" /&gt;
-	 *       &lt;asset libraryName="clayWebpage" /&gt;
-	 *    &lt;/preload&gt;
+	 *    &lt;links&gt;
+	 *        &lt;link id="google" url="http://www.google.com" /&gt;
+	 *        &lt;link id="rubyamf" url="http://www.rubyamf.org" /&gt;
+	 *        &lt;link id="guttershark" url="http://www.guttershark.net" window="_blank" /&gt;
+	 *    &lt/links&gt;
+	 *    &lt;attributes&gt;
+	 *        &lt;attribute id="host" value="http://www.guttershark.net" /&gt;
+	 *    &lt;/attributes&gt;
 	 *    &lt;services&gt;
 	 *       &lt;remoting&gt;
 	 *          &lt;endpoint id="amfphp" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
@@ -49,14 +47,6 @@ package net.guttershark.model
 	 *          &lt;/endpoint&gt;
 	 *       &lt;/remoting&gt;
 	 *    &lt;/services&gt;
-	 *    &lt;links&gt;
-	 *        &lt;link id="google" url="http://www.google.com" /&gt;
-	 *        &lt;link id="rubyamf" url="http://www.rubyamf.org" /&gt;
-	 *        &lt;link id="guttershark" url="http://www.guttershark.net" window="_blank" /&gt;
-	 *    &lt/links&gt;
-	 *    &lt;attributes&gt;
-	 *        &lt;attribute id="host" value="http://www.guttershark.net" /&gt;
-	 *    &lt;/attributes&gt;
 	 * &lt;/model&gt;
 	 * </listing>
 	 */
@@ -72,37 +62,6 @@ package net.guttershark.model
 		 * Reference to the entire site XML file.
 		 */
 		protected var _model:XML;
-		
-		/**
-		 * Stores a reference to the &lt;assetPaths&gt;&lt;/assetPaths&gt; node.
-		 * 
-		 * @example An assetPath node:
-		 * <listing>	
-		 * &lt;assetPaths basePath="assets/"&gt;
-		 *    &lt;bitmapPath&gt;bmp/&lt;/bitmapPath&gt;
-		 *    &lt;soundPath&gt;sounds/&lt;/soundPath&gt;
-		 *    &lt;swfPath&gt;swf/&lt;/swfPath&gt;
-		 *    &lt;flvPath&gt;flv/&lt;/flvPath&gt;
-		 * &lt;/assetPaths&gt;
-		 * </listing>
-		 */
-		protected var assetPaths:XMLList;
-		
-		/**
-		 * Stores a reference to the &lt;preload&gt;&lt;/preload&gt; node.
-		 * 
-		 * @example A preload node.
-		 * <listing>	
-		 * &lt;preload&gt;
-		 *     &lt;asset libraryName="test1" /&gt;
-		 * &lt;/preload&gt;
-		 * </listing>
-		 * 
-		 * <p>In the above example, the <code>asset</code> node will correlate directly
-		 * to another node in the <code>assets</code> nodes with the same libraryName. 
-		 * The libraryName is used as a lookup id into the <code>assets</code> nodes.</p>
-		 */
-		protected var preload:XMLList;
 		
 		/**
 		 * Stores a reference to the &lt;assets&gt;&lt;/assets&gt; node.
@@ -176,16 +135,20 @@ package net.guttershark.model
 		protected var attributes:XMLList;
 		
 		/**
-		 * The flash movies' flashvars.
+		 * The flash movies flashvars.
 		 */
 		public var flashvars:Object;
 		
 		/**
-		 * url infomration object, only used when the external or
-		 * standalone player is being used.
+		 * all paths are stored here, if external interface is not available.
 		 */
-		private var urlParams:Object;
+		private var paths:Dictionary;
 		
+		/**
+		 * ExternalInterface availability flag.
+		 */
+		private var available:Boolean;
+
 		/**
 		 * @private
 		 * Constructor for Model instances.
@@ -193,9 +156,10 @@ package net.guttershark.model
 		public function Model()
 		{
 			Singleton.assertSingle(Model);
-			urlParams = {};
+			paths = new Dictionary();
+			checkEI();
 		}
-		
+
 		/**
 		 * Singleton access.
 		 */
@@ -212,9 +176,7 @@ package net.guttershark.model
 		{
 			Assert.NotNull(xml, "Parameter xml cannot be null");
 			_model = xml;
-			if(_model.assetPaths) assetPaths = _model.assetPaths;
 			if(_model.assets) assets = _model.assets;
-			if(_model.preload) preload = _model.preload;
 			if(_model.links) links = _model.links;
 			if(_model.services)
 			{
@@ -233,39 +195,19 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Creates an Array of Asset instances for preloading with a PreloadController.
-		 * 
-		 * @return	An array containing Asset instances you can pass directly to a preloadController.addItems() method.
-		 * 
-		 * @see net.guttershark.preloading.PreloadController#addItems() PreloadController#addItems method.
-		 */
-		public function getAssetsForPreload():Array
-		{
-			checkForXML();
-			var assetsToLoad:Array = [];
-			for each(var ast:XML in _model.preload.asset)
-			{
-				var asset:XMLList = assets.asset.(@libraryName == ast.@libraryName);
-				var source:String = asset.@source;
-				assetsToLoad.push(new Asset(source, asset.@libraryName));
-			}
-			return assetsToLoad;
-		}
-		
-		/**
 		 * Get an Asset instance by the library name.
 		 * 
 		 * @param	libraryName	The libraryName of the asset to create.
 		 * @param	prependAssetPaths	Whether or not to automatically prepend asset paths, based on nodes from XML.
 		 * @return	An instance of an Asset.
 		 */
-		public function getAssetByLibraryName(libraryName:String, prependAssetPaths:Boolean = true):Asset
+		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String):Asset
 		{
 			checkForXML();
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			var node:XMLList = assets..asset.(@libraryName == libraryName);
 			var ft:String = (node.@forceType != undefined && node.@forceType != "") ? node.@forceType : null;
-			var s:String = node.@source;
+			var s:String = (prependSourcePath) ? prependSourcePath+node.@source : node.@source;
 			return new Asset(s,libraryName,ft);
 		}
 		
@@ -318,6 +260,7 @@ package net.guttershark.model
 
 		/**
 		 * Creates and returns a URLRequest from a link node.
+		 * 
 		 * @param	id	The id of the link node.
 		 * @return	URLRequest
 		 */
@@ -332,6 +275,7 @@ package net.guttershark.model
 		
 		/**
 		 * Get the window attribute value on a link node.
+		 * 
 		 * @param	id	The id of the link node.
 		 * @return	String
 		 */
@@ -345,6 +289,7 @@ package net.guttershark.model
 		
 		/**
 		 * Get the value from an attribute node.
+		 * 
 		 * @param	attributeID	The id of an attribute node.
 		 */
 		public function getAttribute(attributeID:String):String
@@ -357,90 +302,15 @@ package net.guttershark.model
 		/**
 		 * checks if external interface is available.
 		 */	
-		private function checkEI():Boolean
+		private function checkEI():void
 		{
 			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer())
 			{
-				trace("WARNING: ExternalInterface is not available, using interal urlParams variable to read and write. Not guttershark.js javascript.");
-				return false;
-			}
-			return true;
-		}
-		
-		/**
-		 * Set's the root URL in the guttershark.js javascript file. Or if ExternalInterface
-		 * isn't available, it's kept track of internally.
-		 */
-		public function setRootURL(path:String):void
-		{
-			if(!checkEI())
-			{
-				urlParams.rootURL = path;
+				trace("WARNING: ExternalInterface is not available, path logic will use internal dictionary.");
+				available = false;
 				return;
 			}
-			ExternalInterface.call("guttershark.setRootURL",path);
-		}
-		
-		/**
-		 * Get the root URL from the guttershark.js javascript file. Or if ExternalInterface
-		 * isn't available, it's kept track of internally.
-		 */
-		public function getRootURL():String
-		{
-			if(!checkEI()) return urlParams.rootURL;
-			return ExternalInterface.call("guttershark.getRootURL");
-		}
-		
-		/**
-		 * Add's a path for by identifier, adds the path to the guttershark.js file. Or if ExternalInterface
-		 * isn't available, it's kept track of internally.
-		 * 
-		 * @param	id	The id for the path, IE: assets.
-		 * @param	pathFromRoot	The absolute URL from root, IE: "/assets"
-		 */
-		public function addPath(id:String,pathFromRoot:String):void
-		{
-			if(!checkEI())
-			{
-				if(!urlParams.paths) urlParams.paths = new Dictionary();
-				urlParams.paths[id] = pathFromRoot;
-			}
-			ExternalInterface.call("guttershark.addPath",id,pathFromRoot);
-		}
-		
-		/**
-		 * Get a path by identifer. It does not return the full URL. It get's the path from the
-		 * guttershark.js javascript file. Or if ExternalInterface isn't available, 
-		 * it's kept track of internally.
-		 * 
-		 * @param	id	The id for the path.
-		 * @return	The path that was saved, IE: "/assets";
-		 */
-		public function getPath(id:String):String
-		{
-			if(!checkEI())
-			{
-				return urlParams.paths[id];
-			}
-			return ExternalInterface.call("guttershark.getPath",id);
-		}
-		
-		/**
-		 * Get's a full URL for a path. Path is grabbed from the guttershark.js javascript file
-		 * Or if ExternalInterface isn't available, it's kept track of internally.
-		 * 
-		 * @param	id	The id for the path.
-		 * @return	The full URL (root+path).
-		 */
-		public function getFullPath(id:String):String
-		{
-			if(!checkEI())
-			{
-				if(!urlParams.rootURL) throw new Error("rootURL was never set.");
-				if(!urlParams.paths[id]) throw new Error("Path by id {"+id+"} not available");
-				return urlParams.rootURL + urlParams.paths[id];
-			}
-			return ExternalInterface.call("guttershark.getFullPath",id);
+			available = true;
 		}
 		
 		/**
@@ -450,6 +320,71 @@ package net.guttershark.model
 		protected function checkForXML():void
 		{
 			Assert.NotNull(_model, "The model xml must be set on the model before attempting to read a property from it. Please see documentation in the DocumentController for the flashvars.model and flashvars.autoInitModel property.",AssertError);
+		}
+		
+		/**
+		 * Check whether or not a path has been defined.
+		 */
+		public function isPathDefined(path:String):Boolean
+		{
+			if(!available) return !(paths[path]==false);
+			return ExternalInterface.call("net.guttershark.Paths.isPathDefined",path);
+		}
+		
+		/**
+		 * Add a URL Path to the model. If ExternalInterface is available, it
+		 * uses the guttershark javascript api. Otherwise everything is
+		 * stored in a local dictionary.
+		 * 
+		 * @param	pathId	The path identifier.
+		 * @param	path	The path.
+		 */	
+		public function addPath(pathId:String, path:String):void
+		{
+			if(!available)
+			{
+				paths[pathId]=path;
+				return;
+			}
+			ExternalInterface.call("net.guttershark.Paths.addPath",pathId,path);
+		}
+		
+		/**
+		 * Get a path concatenated from the given pathIds. They need
+		 * to be in order that you want them concatenated.
+		 * 
+		 * @param	...pathIds	An array of pathIds whose values will be concatenated together.
+		 */
+		public function getPath(...pathIds:Array):String
+		{
+			var fp:String = "";
+			if(!available)
+			{
+				for each(var id:String in pathIds)
+				{
+					if(!paths[id]) throw new Error("Path {"+id+"} not defined.");
+					fp += paths[id];	
+				}
+				return fp;
+			}
+			return ExternalInterface.call("net.guttershark.Paths.getPath",pathIds);
+		}
+		
+		/**
+		 * Get a "full path", which consists of two regular paths concatenated together.
+		 * 
+		 * @param	firstPathId The first path.
+		 * @param	secondPathId The second path, which get's concatenated to the firstPath.
+		 */
+		public function getFullPath(firstPathId:String,secondPathId:String):String
+		{
+			if(!available)
+			{
+				if(!paths[firstPathId]) throw new Error("Path {"+firstPathId+"} not defined.");
+				if(!paths[secondPathId]) throw new Error("Path {"+secondPathId+"} not defined.");
+				return paths[firstPathId]+paths[secondPathId];
+			}
+			return ExternalInterface.call("net.guttershark.Paths.getFullPath",firstPathId,secondPathId);
 		}
 	}
 }
