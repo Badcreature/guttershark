@@ -3,7 +3,6 @@ package net.guttershark.core
 	import net.guttershark.events.EventManager;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
-	import net.guttershark.managers.PathManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.PreloadController;
@@ -66,11 +65,6 @@ package net.guttershark.core
 		protected var fb:FlashLibrary;
 
 		/**
-		 * The PathManager singleton instance.
-		 */
-		protected var pm:PathManager;
-
-		/**
 		 * Constructor for CoreObject instances.
 		 */
 		public function CoreObject()
@@ -84,7 +78,6 @@ package net.guttershark.core
 			al = AssetLibrary.gi();
 			sm = ServiceManager.gi();
 			fb = FlashLibrary.gi();
-			pm = PathManager.gi();
 		}
 
 		/**

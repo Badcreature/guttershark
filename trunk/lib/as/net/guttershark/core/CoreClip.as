@@ -1,7 +1,5 @@
 package net.guttershark.core 
 {
-	import net.guttershark.managers.PathManager;	
-	
 	import flash.display.MovieClip;
 	
 	import net.guttershark.events.EventManager;
@@ -12,7 +10,7 @@ package net.guttershark.core
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.remoting.RemotingManager;
 	import net.guttershark.services.ServiceManager;
-	import net.guttershark.util.FlashLibrary;		
+	import net.guttershark.util.FlashLibrary;	
 
 	/**
 	 * The CoreClass Class is a base class that provides
@@ -67,11 +65,6 @@ package net.guttershark.core
 		 * The FlashLibrary singleton instance.
 		 */
 		protected var fb:FlashLibrary;
-		
-		/**
-		 * The PathManager singleton instance.
-		 */
-		protected var pm:PathManager;
 
 		/**
 		 * Constructor for CoreClips instances.
@@ -87,7 +80,6 @@ package net.guttershark.core
 			al = AssetLibrary.gi();
 			sm = ServiceManager.gi();
 			fb = FlashLibrary.gi();
-			pm = PathManager.gi();
 		}
 
 		/**

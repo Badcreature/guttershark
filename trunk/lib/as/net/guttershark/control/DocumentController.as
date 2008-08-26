@@ -179,13 +179,14 @@ package net.guttershark.control
 			setupFlashvars();
 			setupQueryString();
 			restoreSharedObject();
-			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
 			if(flashvars.swfAddress) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
 			if(flashvars.sniffCPU) CPU.calculate();
 			if(flashvars.sniffBandwidth) sniffBandwidth();
 			if(flashvars.model || flashvars.siteXML) loadModel();
+			if(!flashvars.model && !flashvars.siteXML) initModel();
+			if(!flashvars.autoInitModel && !flashvars.model && !flashvars.siteXML && (PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer())) initPathsForStandalone();
 			if(flashvars.akamaiHost) loadAkamai();
 			if(flashvars.onlineStatus) initOnlineStatus();
 			if(!flashvars.model && flashvars.initRemotingEndpoints) throw new Error("You cannot initialize remoting endpoints without a site XML file in place.");
@@ -374,6 +375,7 @@ package net.guttershark.control
 			model = modelXMLLoader.data;
 			if(flashvars.autoInitModel) Model.gi().xml = model;
 			else initModel();
+			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
 			modelXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
 			modelXMLLoader.dispose();
 			modelXMLLoader = null;

@@ -1,5 +1,9 @@
 if(typeof net == "undefined") var net = {};
 if(typeof net.guttershark == "undefined") net.guttershark = {};
+
+/**
+ * The Paths class is used for all Path definitions in guttershark.
+ */
 net.guttershark.Paths=new function()
 {
 	var _paths={};
@@ -17,40 +21,26 @@ net.guttershark.Paths=new function()
 		}
 		_paths[pathId]=path;
 	}
-	this.getPath=function(pathId)
+	this.getPath=function(pathIds)
 	{
-		if(!_paths[pathId])
+		if(!pathIds)
 		{
-			alert("Path not set for {"+pathId+"}")
+			alert("Parameter pathIds required.");
 			return;
 		}
-		return _paths[pathId];
+		var fp = "";
+		for(var i = 0; i < pathIds.length; i++)
+		{
+			if(!_paths[pathIds[i]])
+			{
+				alert("Path for id {"+pathIds[i]+"} not defined.")
+				return;
+			}
+			fp += _paths[pathIds[i]];
+		}
+		return fp;
 	}
-	this.getFullPath=function(firstPathId,secondPathId)
-	{
-		if(!firstPathId)
-		{
-			alert("Parameter firstPathId required");
-			return;
-		}
-		if(!secondPathId)
-		{
-			alert("Parameter secondPathId required");
-			return;
-		}
-		if(!_paths[firstPathId])
-		{
-			alert("Path for {"+firstPathId+"} not defined.");
-			return;
-		}
-		if(!_paths[secondPathId])
-		{
-			alert("Path for {"+secondPathId+"} not defined.");
-			return;
-		}
-		return _paths[firstPathId]+_paths[secondPathId];
-	}
-	this.isDefined=function(path)
+	this.isPathDefined=function(path)
 	{
 		return !(_paths[path]===false);
 	}
