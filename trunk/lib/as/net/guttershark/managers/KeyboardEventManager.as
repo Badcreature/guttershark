@@ -66,6 +66,8 @@ package net.guttershark.managers
 		 * km.addMapping(stage,"Whatup",onWhatup);
 		 * km.addMapping(stage,"CONTROL+SHIFT+M", onM);
 		 * km.addMapping(stage,"CONTROL+m",onM);
+		 * km.addMapping(myTextField,"ENTER",onEnter);
+		 * 
 		 * private function onM():void
 		 * {
 		 *    trace("on control+shift+m");
