@@ -7,29 +7,18 @@ package net.guttershark.ui.views
 	import net.guttershark.util.DisplayListUtils;		
 
 	/**
-	 * The BasicView class provides common case functionality needed
-	 * 90% of the time a "view" must be implemented.
+	 * The BasicView Class provides hooks into a number of different
+	 * events that occur from a DisplayObject. There is a particular
+	 * order of events that occur, which allows you to override
+	 * certain methods to hook in to specific times.
 	 * 
-	 * <p>The common functionality:</p>
+	 * <p>Order of events:</p>
 	 * <ul>
-	 * <li>Wait to initialize the clip until it's added to the stage.</li>
-	 * <li>Initiate the clip on add to stage.</li>
-	 * <li>Add event listeners on children objects.</li>
-	 * <li>Perform cleanup when removed from stage.</li>
+	 * <li>1. Adds listeners to addedToStage, removedFromStage, resize, deactive, activate.</li>
+	 * <li>2. init() - Called from the constructor. (do not reference the <em><code>stage</code></em> property in this method, you will get exceptions as the display object is not on the stage.)</li>
 	 * </ul>
 	 * 
-	 * <p>The init method is the last step in the setup chain for a view, 
-	 * this should be used to continue initializing a view, like changing
-	 * visibility / alpha on children properties, etc.</p>
-	 * 
-	 * <p>The cleanup method should be overwritten as well. The cleanup method
-	 * is called when the clip is removed from the stage. This is not 
-	 * supposed to replace <code>dispose()</code>, it's for "off the display list"
-	 * cleanup.</p>
-	 * 
-	 * <p>Override the dispose mothod for complete dispose logic, the cleanup
-	 * method should be implemented to have temporary "not in display list"
-	 * cleanup code.</p>
+	 * <p>Override the provided methods to hook into the events being listened too.</p>
 	 */
 	public class BasicView extends CoreClip implements IDisposable
 	{
@@ -44,6 +33,7 @@ package net.guttershark.ui.views
 			addEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
 			addEventListener(Event.ACTIVATE, onActivated);
 			addEventListener(Event.DEACTIVATE, onDeactive);
+			init();
 		}
 
 		/**
@@ -51,9 +41,10 @@ package net.guttershark.ui.views
 		 */
 		private function onAdd(e:Event):void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE,onAdd);
-			addedToStage();
+			if(stage && !stage.hasEventListener(Event.RESIZE)) stage.addEventListener(Event.RESIZE, onResize);
 			addListeners();
+			resized();
+			addedToStage();
 		}
 		
 		/**
@@ -61,7 +52,6 @@ package net.guttershark.ui.views
 		 */
 		private function onRemoved(e:Event):void
 		{
-			removeEventListener(Event.REMOVED_FROM_STAGE,onRemoved);
 			removedFromStage();
 			removeListeners();
 		}
@@ -105,10 +95,7 @@ package net.guttershark.ui.views
 		/**
 		 * Override this method to hook into the added to stage event.
 		 */
-		protected function addedToStage():void
-		{
-			init();
-		}
+		protected function addedToStage():void{}
 		
 		/**
 		 * Override this method to hook into the removed from stage event.
@@ -119,9 +106,7 @@ package net.guttershark.ui.views
 		}
 		
 		/**
-		 * The init method is the final method after initial setup stage listeners
-		 * and other logic is complete. Override this and provide you're own
-		 * custom children initialization logic.
+		 * Initialize the BasicView.
 		 */
 		protected function init():void{}
 		
@@ -130,15 +115,8 @@ package net.guttershark.ui.views
 		 * and use for adding event listeners onto children objects. This is
 		 * called after the clip has been added to the stage, so the
 		 * stage property is always available.
-		 * 
-		 * <p>This method also implements logic for the stage resize event
-		 * so make sure to call super.addListeners() if you need the resize
-		 * events to work correctly.</p>
 		 */
-		protected function addListeners():void
-		{
-			if(stage) stage.addEventListener(Event.RESIZE, onResize);
-		}
+		protected function addListeners():void{}
 		
 		/**
 		 * The removeListeners method is a stub method you should override 

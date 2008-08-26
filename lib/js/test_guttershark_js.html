@@ -4,16 +4,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>untitled</title>
 	<script type="text/javascript" src="guttershark.js"></script>
+	<script type="text/javascript">
+		net.guttershark.Paths.addPath("root","http://tagsf.com/");
+		net.guttershark.Paths.addPath("assets","assets/");
+		//alert("T");
+		alert(net.guttershark.Paths.getPath(["root","assets"]));
+	</script>
 </head>
 <body>
-	<script type="text/javascript">
-		function test()
-		{
-			alert(getFullPath("assets"));
-		}
-		setRootURL("http://tagsf/");
-		addPath("assets","flash/assets");
-		setTimeout(test,3000);
-	</script>
 </body>
 </html>
