@@ -20,15 +20,15 @@ package net.guttershark.control
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
 	import net.guttershark.managers.PlayerManager;
+	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.model.Model;
-	import net.guttershark.remoting.RemotingManager;
-	import net.guttershark.services.ServiceManager;
+	import net.guttershark.services.remoting.RemotingManager;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.QueryString;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;
+	import net.guttershark.util.akamai.Ident;	
 
 	/**
 	 * The DocumentController class is the base Document Class for all sites. The DocumentController provides 

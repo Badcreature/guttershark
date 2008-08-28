@@ -1,8 +1,7 @@
 package net.guttershark.services.remoting.events
 {
-	
-	import flash.events.Event;
-	
+	import flash.events.Event;	
+
 	/**
 	 * ConnectionEvent is dispatched from RemotingConnection for 
 	 * any events that occur from attempting to connect to the 

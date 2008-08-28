@@ -1,8 +1,5 @@
 package net.guttershark.services.remoting.events
 {
-	import net.guttershark.services.remoting.RemotingService;	
-	import net.guttershark.services.remoting.RemotingConnection;	
-	import net.guttershark.remoting.events.CallEvent;	
 
 	/**
 	 * The IRemotingEventsDelegate creates the contract for an object

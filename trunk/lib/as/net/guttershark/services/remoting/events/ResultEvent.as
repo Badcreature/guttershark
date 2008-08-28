@@ -1,8 +1,7 @@
 package net.guttershark.services.remoting.events
 {
+	import flash.events.Event;	
 
-	import flash.events.Event;
-	
 	/**
 	 * A result event for any remoting call.
 	 */

@@ -1,15 +1,14 @@
 package net.guttershark.services.remoting
 {
-
 	import flash.events.*;
 	import flash.utils.Proxy;
-	import flash.utils.flash_proxy; 
+	import flash.utils.flash_proxy;
 	
 	import net.guttershark.core.IDisposable;
 	import net.guttershark.services.remoting.events.*;
 	import net.guttershark.services.remoting.limiting.RemotingCallLimiter;
-	import net.guttershark.util.cache.ICacheStore;
-	
+	import net.guttershark.util.cache.ICacheStore;	
+
 	/**
 	 * Dispatched when a remoting call retries.
 	 * 

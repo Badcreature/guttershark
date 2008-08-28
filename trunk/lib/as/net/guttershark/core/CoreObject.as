@@ -1,14 +1,14 @@
 package net.guttershark.core 
 {
-	import net.guttershark.managers.SoundManager;	
 	import net.guttershark.events.EventManager;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
+	import net.guttershark.managers.ServiceManager;
+	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.preloading.PreloadController;
-	import net.guttershark.remoting.RemotingManager;
-	import net.guttershark.services.ServiceManager;
+	import net.guttershark.services.remoting.RemotingManager;
 	import net.guttershark.util.FlashLibrary;		
 
 	/**

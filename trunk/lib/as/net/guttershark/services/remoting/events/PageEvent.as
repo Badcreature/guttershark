@@ -1,8 +1,7 @@
 package net.guttershark.services.remoting.events
 {
-	
-	import flash.events.Event;
-	
+	import flash.events.Event;	
+
 	/**
 	 * Generic event used when paging is performing actions.
 	 * 

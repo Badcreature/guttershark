@@ -1,11 +1,10 @@
 package net.guttershark.services.remoting.paging
 {
-	
 	import flash.events.EventDispatcher;
 	
 	import net.guttershark.services.remoting.events.FaultEvent;
 	import net.guttershark.services.remoting.events.PageEvent;
-	import net.guttershark.services.remoting.events.ResultEvent;
+	import net.guttershark.services.remoting.events.ResultEvent;	
 
 	/**
 	 * Dispatched when a page was received.
