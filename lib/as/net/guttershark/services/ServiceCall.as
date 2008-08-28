@@ -1,4 +1,4 @@
-package net.guttershark.services 
+package net.guttershark.services.http
 {
 	import flash.events.Event;
 	import flash.net.URLLoader;
