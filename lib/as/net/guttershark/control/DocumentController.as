@@ -19,7 +19,6 @@ package net.guttershark.control
 	import com.asual.swfaddress.SWFAddressEvent;
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
-	import net.guttershark.util.akamai.Ident;
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.remoting.RemotingManager;
@@ -28,19 +27,21 @@ package net.guttershark.control
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.QueryString;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;	
+	import net.guttershark.util.XMLLoader;
+	import net.guttershark.util.akamai.Ident;
 
 	/**
 	 * The DocumentController class is the base Document Class for all sites. The DocumentController provides 
-	 * default functionality that 90% of flash sites need. This should always be extended and never used directly.
+	 * default functionality that 90% of flash sites need on startup. This should always be extended
+	 * and never used directly.
 	 * 
 	 * <p>By providing any of the following flash var properties, you initiate default functionality.</p>
 	 * 
 	 * <p>Available FlashVar Properties:</p>
 	 * <ul>
-	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress</li>
+	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress change events.</li>
 	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
-	 * <li><strong>autoInitModel</strong> (Boolean) - Whether or not to automatically set the xml on the default Model class, or call initModel() so you can initialize a subclassed model</li>
+	 * <li><strong>autoInitModel</strong> (Boolean) - Whether or not to automatically set the loaded xml on the default Model class. If you do not autoInitModel, you should override initModel() so you can initialize the model or a subclassed model</li>
 	 * <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded. Or you can specify sniffBandwidthURL for a custom file.</li>
 	 * <li><strong>sniffBandwidthURL</strong> (String) - The file to load for the bandwidth sniff.</li>
 	 * <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
@@ -55,13 +56,14 @@ package net.guttershark.control
 	 * </ul>
 	 * 
 	 * <p>FlashVar properties can be declared when running in the Flash IDE by overriding the <code><a href="#flashvarsForStandalone()">flashvarsForStandalone()</a></code> 
-	 * method. Otherwise you need to put the flashvars on the flash object in HTML.</p>
+	 * method. Otherwise you <strong>must</strong> declate the flashvars on the flash object in HTML.</p>
 	 * 
 	 * @example Overriding the flashvarsForStandalone method to provide flashvars for IDE development:
 	 * <listing>	
 	 * override protected function flashvarsForStandalone():Object
 	 * {
 	 *     return {model:"model.xml",
+	 *        autoInitModel:true,
 	 *        initRemotingEndpoints:"amfphp",
 	 *        sniffCPU:true,
 	 *        sniffBandwidth:true,
@@ -197,7 +199,7 @@ package net.guttershark.control
 		 * A stub method you should use to register
 		 * this controller with the DocumentControllers class.
 		 * 
-		 * <p>This is specifically for when you have multiple SWFs
+		 * <p>This is specifically useful when you have multiple SWFs
 		 * that extended DocumentController, and you need references to the
 		 * DocumentController from each.</p>
 		 * 
@@ -207,8 +209,7 @@ package net.guttershark.control
 		
 		/**
 		 * A stub method you should use to initialize Paths with the PathManager
-		 * when the flash movie is running as a standalone. This will only be called
-		 * when the Flash player is running in the FlashIDE or standalone player.
+		 * when the flash movie is running as a standalone.
 		 * 
 		 * <p>When the player is embedded in an HTML document, you can still use the
 		 * PathManager, but the PathManager uses external interface for all path
@@ -389,9 +390,10 @@ package net.guttershark.control
 		 * is in place for situations where you extend from the base Model class,
 		 * and can only initialize the model once.
 		 * 
-		 * <p>The raw XML you need is the <em><code>model</code></em> property.</p>
+		 * <p>You need to set the xml propery on a subclassed model,
+		 * see the <em><code>model</code></em> property.</p>
 		 * 
-		 * <p>If are only using the default Model class, you can specify the
+		 * <p>If you are only using the default Model class, you can specify the
 		 * <em><code>autoInitModel</code><em> flash var property, which will
 		 * automatically set the xml property on the default Model</p>
 		 * 
@@ -500,21 +502,11 @@ package net.guttershark.control
 		 * override protected function restoreSharedObject():void
 		 * {
 		 *   sharedObject = SharedObject.getLocal("test");
+		 *   Model.gi().sharedObject = sharedObject;
 		 * }
 		 * </listing>
 		 */
 		protected function restoreSharedObject():void{}
-		
-		/**
-		 * A convenience method for flushing the sharedObject property on this
-		 * site controller to disk.
-		 * 
-		 * @return	A property from the SharedObjectFlushStatus class.
-		 */
-		public function flushSharedObject():String
-		{
-			return sharedObject.flush();
-		}
 		
 		/**
 		 * A method you can override when publishing from the flash IDE to provide

@@ -1,11 +1,11 @@
 package net.guttershark.model 
 {
+	import flash.net.SharedObject;	
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.core.Singleton;
-	import net.guttershark.errors.AssertError;
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.preloading.Asset;
 	import net.guttershark.remoting.RemotingManager;
@@ -13,10 +13,8 @@ package net.guttershark.model
 	import net.guttershark.util.Assert;
 
 	/**
-	 * The Model Clas provides shortcuts for parsing a site model xml file as
+	 * The Model Class provides shortcuts for parsing a site model xml file as
 	 * well as other model centric methods.
-	 * 
-	 * <p>The model class also provides Path logic for URL path definitions.</p>
 	 * 
 	 * @example Example model XML file:
 	 * <listing>	
@@ -140,6 +138,13 @@ package net.guttershark.model
 		public var flashvars:Object;
 		
 		/**
+		 * A SharedObject - use this property on the model, when you 
+		 * override the <em><code>restoreSharedObject</code></em> from
+		 * the DocumentController.
+		 */
+		public var sharedObject:SharedObject;
+
+		/**
 		 * all paths are stored here, if external interface is not available.
 		 */
 		private var paths:Dictionary;
@@ -198,7 +203,7 @@ package net.guttershark.model
 		 * Get an Asset instance by the library name.
 		 * 
 		 * @param	libraryName	The libraryName of the asset to create.
-		 * @param	prependAssetPaths	Whether or not to automatically prepend asset paths, based on nodes from XML.
+		 * @param	prependSourcePath	The path to append to the source property of the asset.
 		 * @return	An instance of an Asset.
 		 */
 		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String):Asset
@@ -319,9 +324,9 @@ package net.guttershark.model
 		 */
 		protected function checkForXML():void
 		{
-			Assert.NotNull(_model, "The model xml must be set on the model before attempting to read a property from it. Please see documentation in the DocumentController for the flashvars.model and flashvars.autoInitModel property.",AssertError);
+			Assert.NotNull(_model, "The model xml must be set on the model before attempting to read a property from it. Please see documentation in the DocumentController for the flashvars.model and flashvars.autoInitModel property.",Error);
 		}
-		
+
 		/**
 		 * Check whether or not a path has been defined.
 		 */
