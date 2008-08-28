@@ -19,4 +19,10 @@ package net.guttershark.util
 		public static function RestrictEmail(tf:TextField):void
 		{
 			tf.restrict = "a-zA-Z0-9@._\-";
+		}
+		
+		public static function SetAutoSize(value:String, ...fields:Array):void
+		{
+			var i:int = 0;
+			while(fields[i]!=null){fields[i].autoSize=value;i++;};
 		}	}}

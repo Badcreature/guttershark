@@ -4,7 +4,7 @@ package
 	import flash.utils.setTimeout;
 	
 	import net.guttershark.control.DocumentController;
-	import net.guttershark.lang.LocalizableClip;
+	import net.guttershark.ui.lang.LocalizableClip;
 	import net.guttershark.managers.LanguageManager;	
 
 	public class Main extends DocumentController
@@ -21,8 +21,8 @@ package
 		
 		override protected function setupComplete():void
 		{
-			LanguageManager.gi().loadLanguage("./english.xml","en");
 			LanguageManager.gi().loadLanguage("./french.xml","fr");
+			LanguageManager.gi().loadLanguage("./english.xml","en");
 			LanguageManager.gi().languageCode = "fr";
 			
 			//this line will not do anything, as the language has not loaded.
