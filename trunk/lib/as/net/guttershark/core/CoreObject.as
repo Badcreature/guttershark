@@ -1,5 +1,6 @@
 package net.guttershark.core 
 {
+	import net.guttershark.managers.SoundManager;	
 	import net.guttershark.events.EventManager;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
@@ -60,9 +61,14 @@ package net.guttershark.core
 		protected var sm:ServiceManager;
 		
 		/**
-		 * The singleton instance of the FlashLibrary.
+		 * The FlashLibrary singleton instance.
 		 */
 		protected var fb:FlashLibrary;
+		
+		/**
+		 * The SoundManager singleton instance.
+		 */
+		protected var snm:SoundManager;
 
 		/**
 		 * Constructor for CoreObject instances.
@@ -78,6 +84,7 @@ package net.guttershark.core
 			al = AssetLibrary.gi();
 			sm = ServiceManager.gi();
 			fb = FlashLibrary.gi();
+			snm = SoundManager.gi();
 		}
 
 		/**

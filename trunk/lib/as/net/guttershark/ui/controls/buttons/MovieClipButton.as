@@ -5,7 +5,7 @@ package net.guttershark.ui.controls.buttons
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import net.guttershark.sound.SoundManager;
+	import net.guttershark.managers.SoundManager;
 
 	/**
 	 * The MovieClipButton class is a generic class you can bind

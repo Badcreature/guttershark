@@ -10,7 +10,6 @@ package net.guttershark.preloading
 	
 	import net.guttershark.core.IDisposable;
 	import net.guttershark.core.Singleton;
-	import net.guttershark.errors.AssetError;
 	import net.guttershark.util.Assert;
 	import net.guttershark.util.XMLLoader;	
 
@@ -104,7 +103,7 @@ package net.guttershark.preloading
 		public function getAsset(libraryName:String):*
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
-			if(!assets[libraryName]) throw new AssetError("Item not registered in library with the id: " + libraryName);
+			if(!assets[libraryName]) throw new Error("Item not registered in library with the id: " + libraryName);
 			return assets[libraryName];
 		}
 		
@@ -121,7 +120,7 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return getAsset(libraryName) as Loader;
-			throw new AssetError("SWF {" + libraryName + "} was not found");
+			throw new Error("SWF {" + libraryName + "} was not found");
 		}
 		
 		/**
@@ -141,7 +140,7 @@ package net.guttershark.preloading
 				var SymbolClass:Class = swf.contentLoaderInfo.applicationDomain.getDefinition(classNameInLibrary) as Class;
 				return SymbolClass;
 			}
-			throw new AssetError("No class reference: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found");
+			throw new Error("No class reference: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found");
 		}
 		
 		/**
@@ -162,7 +161,7 @@ package net.guttershark.preloading
 				var symbolInstance:MovieClip = new SymbolClassMC() as MovieClip;
 				return symbolInstance;
 			}
-			throw(new AssetError("No movie clip: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
+			throw(new Error("No movie clip: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -184,7 +183,7 @@ package net.guttershark.preloading
 				var symbolInstance:Sprite = new SymbolClassMC() as Sprite;
 				return symbolInstance;
 			}
-			throw(new AssetError("No sprite: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
+			throw(new Error("No sprite: {" + classNameInLibrary + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -207,7 +206,7 @@ package net.guttershark.preloading
 				var fontInstance:Font = new FontClass();
 				return fontInstance;
 			}
-			throw(new AssetError("No font: {" + fontLinkageId + "} in swf {" + libraryName + "} was found"));
+			throw(new Error("No font: {" + fontLinkageId + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -228,7 +227,7 @@ package net.guttershark.preloading
 				var bitmapInstance:Bitmap = new BitmapClass();
 				return bitmapInstance;
 			}
-			throw(new AssetError("No bitmap: {" + bitmapLinkageId + "} in swf {" + libraryName + "} was found"));
+			throw(new Error("No bitmap: {" + bitmapLinkageId + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -250,7 +249,7 @@ package net.guttershark.preloading
 				var soundInstance:Sound = new SoundClass();
 				return soundInstance;
 			}
-			throw(new AssetError("No sound: {" + soundLinkageId + "} in swf {" + libraryName + "} was found"));
+			throw(new Error("No sound: {" + soundLinkageId + "} in swf {" + libraryName + "} was found"));
 		}
 		
 		/**
@@ -269,7 +268,7 @@ package net.guttershark.preloading
 				//return Bitmap(getAsset(libraryName).content);
 				//return BitmapUtils.CopyBitmap(getAsset(libraryName).content);
 			}
-			throw new AssetError("Bitmap {" + libraryName + "} was not found.");
+			throw new Error("Bitmap {" + libraryName + "} was not found.");
 		}
 		
 		/**
@@ -282,7 +281,7 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return getAsset(libraryName) as Sound;
-			throw new AssetError("Sound {" + libraryName + "} was not found.");
+			throw new Error("Sound {" + libraryName + "} was not found.");
 		}
 		
 		/**
@@ -295,7 +294,7 @@ package net.guttershark.preloading
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			if(assets[libraryName] != null) return XMLLoader(getAsset(libraryName)).data as XML;
-			throw new AssetError("XML {" + libraryName + "} was not found.");
+			throw new Error("XML {" + libraryName + "} was not found.");
 		}
 
 		/**

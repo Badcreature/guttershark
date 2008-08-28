@@ -5,8 +5,7 @@ package net.guttershark.util
 	import flash.utils.flash_proxy;
 	import flash.utils.Proxy;
 	
-	import net.guttershark.core.IDisposable;
-	import net.guttershark.errors.AccessError;	
+	import net.guttershark.core.IDisposable;	
 	
 	/**
 	 * The BitField class is a wrapper class that manages
@@ -112,10 +111,10 @@ package net.guttershark.util
 				//if(f.bitCount == 1) throw new AccessError("Field operation out of range, the minumum value that can be represented by this field is 0");
 				f.neg = true;
 				var t:int = -(max) - 1;
-				if(value < t) throw new AccessError("Field operation out of range, the minumum value that can be represented by this field is " + t.toString());
+				if(value < t) throw new Error("Field operation out of range, the minumum value that can be represented by this field is " + t.toString());
 				value = ~(value+1);
 			}
-			if(value > max) throw new AccessError("Field operation out of range, the maximum value that can be represented by this field is " + max.toString());
+			if(value > max) throw new Error("Field operation out of range, the maximum value that can be represented by this field is " + max.toString());
 			if(f.bitOffset > 0) field = (field & ~(max << f.bitOffset)) | ((value & max) << f.bitOffset);
 			else field = (field & ~(max)) | ((value & max));
 		}

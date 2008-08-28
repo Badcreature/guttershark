@@ -1,21 +1,21 @@
-package net.guttershark.sound
+package net.guttershark.managers
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.core.Singleton;
-	import net.guttershark.sound.events.VolumeEvent;		
+	import net.guttershark.core.Singleton;	
 
 	/**
 	 * Dispatched when the internal volume has changed.
 	 * 
-	 * @eventType	net.guttershark.sound.events.VolumeEvent
+	 * @eventType	flash.events.Event
 	 */
-	[Event("change", type="net.guttershark.sound.events.VolumeEvent")]
+	[Event("change", type="flash.events.Event")]
 
 	/**
 	 * The SoundManager class is used to control sounds in 
@@ -56,12 +56,12 @@ package net.guttershark.sound
 		/**
 		 * Array of sounds transforms currently being used by playing sounds.
 		 */
-		private var _soundTransforms:Array;
+		private var _soundTransforms:Dictionary;
 		
 		/**
 		 * Any sound currently playing.
 		 */
-		private var _playingSounds:Array;
+		private var _playingSounds:Dictionary;
 		
 		/**
 		 * @private
@@ -73,10 +73,10 @@ package net.guttershark.sound
 			Singleton.assertSingle(SoundManager);
 			_soundDic = new Dictionary();
 			_sndObjectsWithTransforms = new Dictionary();
-			_volume = 0;
+			_playingSounds = new Dictionary();
+			_soundTransforms = new Dictionary();
 			_mainTransform = new SoundTransform(1,0);
-			_playingSounds = [];
-			_soundTransforms = [];
+			_volume = 0;
 		}
 		
 		/**
@@ -148,8 +148,9 @@ package net.guttershark.sound
 		public function stopSound(name:String):void
 		{
 			if(!_playingSounds[name]) return;
-			var ch:SoundChannel = SoundChannel(_playingSounds[name]);
+			var ch:SoundChannel = _playingSounds[name] as SoundChannel;
 			ch.stop();
+			_playingSounds[name] = null;
 		}
 		
 		/**
@@ -158,6 +159,7 @@ package net.guttershark.sound
 		public function stopAllSounds():void
 		{
 			for each(var ch:SoundChannel in _playingSounds) ch.stop();
+			_playingSounds = new Dictionary();
 		}
 		
 		/**
@@ -170,10 +172,9 @@ package net.guttershark.sound
 			_mainTransform.volume = level;
 			var obj:*;
 			for each(obj in _sndObjectsWithTransforms) obj.soundTransform.volume = _mainTransform.volume;
-			dispatchEvent(new VolumeEvent(_mainTransform.volume));
+			dispatchEvent(new Event(Event.CHANGE));
 		}
-		
-		/**
+		/**
 		 * Read the internal volume.
 		 */
 		public function get volume():Number
@@ -190,7 +191,7 @@ package net.guttershark.sound
 			var tmp2:Number = _mainTransform.volume;
 			_mainTransform.volume = tmp1;
 			_volume = tmp2;
-			dispatchEvent(new VolumeEvent(_mainTransform.volume));
+			dispatchEvent(new Event(Event.CHANGE));
 		}
 	}
 }
