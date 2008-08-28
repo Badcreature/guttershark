@@ -1,13 +1,15 @@
-package net.guttershark.services 
+package net.guttershark.managers 
 {
 	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.core.Singleton;	
+	import net.guttershark.core.Singleton;
+	import net.guttershark.services.http.Service;
 
 	/**
-	 * The ServiceManager is an abstract HTTP service manager and supports dynamic use as to simplify calling target services.
+	 * The ServiceManager is an abstract HTTP service manager and
+	 * supports dynamic use as to simplify calling target services.
 	 * 
 	 * <p>The ServiceManager should be initialized from the DocumentController
 	 * using flashvars.initHTTP. That is the simplest way of initializing

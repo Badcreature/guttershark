@@ -1,13 +1,12 @@
-package net.guttershark.remoting.paging
+package net.guttershark.services.remoting.paging
 {
-	
 	import flash.events.EventDispatcher;
 	
 	import net.guttershark.services.remoting.RemotingService;
+	import net.guttershark.services.remoting.errors.PageError;
 	import net.guttershark.services.remoting.events.CallEvent;
 	import net.guttershark.services.remoting.events.PageEvent;
-	import net.guttershark.services.remoting.errors.PageError;
-	
+
 	/**
 	 * Dispatched when any one of the paging requests retries.
 	 * 

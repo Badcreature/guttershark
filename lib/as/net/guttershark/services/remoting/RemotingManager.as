@@ -10,7 +10,7 @@ package net.guttershark.services.remoting
 	import net.guttershark.services.remoting.events.ConnectionEvent;
 	import net.guttershark.services.remoting.events.IRemotingEventsDelegate;
 	import net.guttershark.util.Assert;
-	import net.guttershark.util.cache.Cache;		
+	import net.guttershark.util.cache.Cache;	
 
 	/**
 	 * 

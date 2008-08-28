@@ -1,8 +1,6 @@
 package net.guttershark.services.remoting.events
 {
-	
-	import net.guttershark.remoting.events.CallEvent;	
-	
+
 	/**
 	 * The RemotingEventsDelegate class is a super implementation of
 	 * the IRemotingEventsInterface. This is in place so you can extend it

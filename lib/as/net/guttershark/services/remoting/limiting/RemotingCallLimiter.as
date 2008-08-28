@@ -1,6 +1,5 @@
 package net.guttershark.services.remoting.limiting
 {
-	
 	import net.guttershark.core.IDisposable;	
 
 	/**

@@ -1,16 +1,16 @@
 package net.guttershark.model 
 {
-	import flash.net.SharedObject;	
 	import flash.external.ExternalInterface;
+	import flash.net.SharedObject;
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.core.Singleton;
 	import net.guttershark.managers.PlayerManager;
+	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.preloading.Asset;
-	import net.guttershark.remoting.RemotingManager;
-	import net.guttershark.services.ServiceManager;
-	import net.guttershark.util.Assert;
+	import net.guttershark.services.remoting.RemotingManager;
+	import net.guttershark.util.Assert;		
 
 	/**
 	 * The Model Class provides shortcuts for parsing a site model xml file as

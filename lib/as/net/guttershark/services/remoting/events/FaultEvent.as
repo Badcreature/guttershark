@@ -1,8 +1,7 @@
 package net.guttershark.services.remoting.events
 {
-	
-	import flash.events.ErrorEvent;
-	
+	import flash.events.ErrorEvent;	
+
 	/**
 	 * A fault object wrapper for any faulty remoting request.
 	 */

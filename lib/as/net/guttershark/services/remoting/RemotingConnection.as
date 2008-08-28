@@ -1,12 +1,11 @@
 package net.guttershark.services.remoting
 {
-
 	import flash.events.*;
 	import flash.net.NetConnection;
 	
-	import net.guttershark.services.remoting.events.ConnectionEvent;
 	import net.guttershark.core.IDisposable;
-	
+	import net.guttershark.services.remoting.events.ConnectionEvent;	
+
 	/**
 	 * Dispatched when a connection is successful.
 	 * 
