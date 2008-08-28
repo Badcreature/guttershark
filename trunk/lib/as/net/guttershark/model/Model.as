@@ -369,22 +369,5 @@ package net.guttershark.model
 			}
 			return ExternalInterface.call("net.guttershark.Paths.getPath",pathIds);
 		}
-		
-		/**
-		 * Get a "full path", which consists of two regular paths concatenated together.
-		 * 
-		 * @param	firstPathId The first path.
-		 * @param	secondPathId The second path, which get's concatenated to the firstPath.
-		 */
-		public function getFullPath(firstPathId:String,secondPathId:String):String
-		{
-			if(!available)
-			{
-				if(!paths[firstPathId]) throw new Error("Path {"+firstPathId+"} not defined.");
-				if(!paths[secondPathId]) throw new Error("Path {"+secondPathId+"} not defined.");
-				return paths[firstPathId]+paths[secondPathId];
-			}
-			return ExternalInterface.call("net.guttershark.Paths.getFullPath",firstPathId,secondPathId);
-		}
 	}
 }

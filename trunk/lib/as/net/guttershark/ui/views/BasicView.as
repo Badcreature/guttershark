@@ -23,6 +23,8 @@ package net.guttershark.ui.views
 	public class BasicView extends CoreClip implements IDisposable
 	{
 
+		private var addr:Boolean;
+
 		/**
 		 * Constructor for BasicView instances.
 		 */
@@ -41,7 +43,11 @@ package net.guttershark.ui.views
 		 */
 		private function onAdd(e:Event):void
 		{
-			if(stage && !stage.hasEventListener(Event.RESIZE)) stage.addEventListener(Event.RESIZE, onResize);
+			if(stage && !addr)
+			{
+				stage.addEventListener(Event.RESIZE, onResize);
+				addr = true;
+			}
 			addListeners();
 			resized();
 			addedToStage();
