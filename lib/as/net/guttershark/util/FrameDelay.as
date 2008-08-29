@@ -1,9 +1,7 @@
 package net.guttershark.util 
 {
 
-	import flash.events.Event;	
-	
-	import net.guttershark.core.IDisposable;
+	import flash.events.Event;
 	
 	/**
 	 * The FrameDelay class allows for a callback to be called after
@@ -18,7 +16,7 @@ package net.guttershark.util
 	 * }
 	 * </listing>
 	 */
-	public class FrameDelay implements IDisposable
+	public class FrameDelay
 	{
 		
 		/**

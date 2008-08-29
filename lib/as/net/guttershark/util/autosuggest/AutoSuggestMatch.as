@@ -1,8 +1,6 @@
 package net.guttershark.util.autosuggest
 {
 	
-	import net.guttershark.core.IDisposable;	
-
 	/**
 	 * The AutoSuggestMatch class represents a matched search term that was found
 	 * in an AutoSuggest instance.
@@ -26,7 +24,7 @@ package net.guttershark.util.autosuggest
 	 * 
 	 * @see net.guttershark.util.autosuggest.AutoSuggest
 	 */
-	public class AutoSuggestMatch implements IDisposable
+	public class AutoSuggestMatch
 	{
 
 		/**

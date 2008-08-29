@@ -5,8 +5,6 @@ package net.guttershark.util
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
-
-	import net.guttershark.core.IDisposable;
 	
 	/**
 	 * The XMLLoader class is used to load xml. It wraps common logic
@@ -15,7 +13,7 @@ package net.guttershark.util
 	 * 
 	 * @see #load()
 	 */
-	public class XMLLoader extends EventDispatcher implements IDisposable
+	public class XMLLoader extends EventDispatcher
 	{	
 
 		/**

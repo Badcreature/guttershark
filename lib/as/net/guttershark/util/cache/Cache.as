@@ -17,7 +17,7 @@ package net.guttershark.util.cache
 	 * trace(cache.getCachedObject("tocache"));
 	 * </listing>
 	 */
-	public class Cache implements ICacheStore
+	public class Cache
 	{
 
 		/**

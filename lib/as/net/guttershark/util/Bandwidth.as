@@ -8,8 +8,6 @@ package net.guttershark.util
 	import flash.net.URLRequest;
 	import flash.utils.getTimer;
 	
-	import net.guttershark.core.IDisposable;
-	
 	/**
 	 * The Bandwidth class is used for sniffing the clients bandwidth. It uses
 	 * bitmap.jpg as a benchmark.
@@ -31,7 +29,7 @@ package net.guttershark.util
 	 * 
 	 * @see net.guttershark.control.DocumentController DocumentController class
 	 */
-	public class Bandwidth extends EventDispatcher implements IDisposable
+	public class Bandwidth extends EventDispatcher
 	{
 
 		/**
