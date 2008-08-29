@@ -1,8 +1,8 @@
-package net.guttershark.core 
+package net.guttershark.display 
 {
 	import flash.display.MovieClip;
 	
-	import net.guttershark.events.EventManager;
+	import net.guttershark.managers.EventManager;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
 	import net.guttershark.managers.ServiceManager;
@@ -19,7 +19,7 @@ package net.guttershark.core
 	 * and over in movie clips. This class is relief
 	 * from having to type the same code over and over.
 	 */
-	public class CoreClip extends MovieClip implements IDisposable
+	public class CoreClip extends MovieClip
 	{
 
 		/**

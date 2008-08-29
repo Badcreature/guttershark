@@ -1,13 +1,12 @@
-package net.guttershark.ui.views 
+package net.guttershark.display.views 
 {
-
 	import flash.events.Event;
-
-	import net.guttershark.ui.views.BasicView;
-	import net.guttershark.util.FrameDelay;
-	import net.guttershark.util.Assert;
-	import net.guttershark.util.FramePulse;
 	
+	import net.guttershark.display.views.BasicView;
+	import net.guttershark.util.Assert;
+	import net.guttershark.util.FrameDelay;
+	import net.guttershark.util.FramePulse;	
+
 	/**
 	 * The AnimatedView class provides structure to a class
 	 * where views need to have animated timelines, rather

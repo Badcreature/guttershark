@@ -1,4 +1,4 @@
-package net.guttershark.ui.controls.buttons 
+package net.guttershark.display.controls.buttons 
 {
 	public interface IToggleable
 	{

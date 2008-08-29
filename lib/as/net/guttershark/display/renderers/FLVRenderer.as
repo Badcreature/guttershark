@@ -1,4 +1,4 @@
-package net.guttershark.ui.renderers 
+package net.guttershark.display.renderers 
 {
 	import net.guttershark.core.CoreClip;	
 	

@@ -1,4 +1,4 @@
-﻿package net.guttershark.ui.lang
+﻿package net.guttershark.display.lang
 {
 
 	/**
