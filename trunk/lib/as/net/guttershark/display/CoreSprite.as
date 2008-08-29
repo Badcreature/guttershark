@@ -1,8 +1,8 @@
-package net.guttershark.core 
+package net.guttershark.display
 {
 	import flash.display.Sprite;
 	
-	import net.guttershark.events.EventManager;
+	import net.guttershark.managers.EventManager;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
 	import net.guttershark.managers.ServiceManager;
@@ -19,7 +19,7 @@ package net.guttershark.core
 	 * and over in sprites. This class is relief
 	 * from having to type the same code over and over.
 	 */
-	public class CoreSprite extends Sprite implements IDisposable
+	public class CoreSprite extends Sprite
 	{
 
 		/**
@@ -92,6 +92,10 @@ package net.guttershark.core
 		/**
 		 * Dispose of the object.
 		 */
-		public function dispose():void{}
+		public function dispose():void
+		{
+		}
 	}
 }
+
+import net.guttershark.managers.EventManager;

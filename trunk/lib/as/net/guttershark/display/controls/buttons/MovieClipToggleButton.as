@@ -1,11 +1,11 @@
-package net.guttershark.ui.controls.buttons
+package net.guttershark.display.controls.buttons
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import net.guttershark.sound.SoundManager;
-	import net.guttershark.ui.controls.buttons.IToggleable;
-	import net.guttershark.ui.controls.buttons.MovieClipButton;		
+	import net.guttershark.display.controls.buttons.IToggleable;
+	import net.guttershark.display.controls.buttons.MovieClipButton;
+	import net.guttershark.managers.SoundManager;
 
 	/**
 	 * The MovieClipToggleButton class is a basic button that

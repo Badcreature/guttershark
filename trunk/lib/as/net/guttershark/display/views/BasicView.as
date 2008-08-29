@@ -1,10 +1,9 @@
-package net.guttershark.ui.views
+package net.guttershark.display.views
 {
 	import flash.events.Event;
 	
-	import net.guttershark.core.CoreClip;
-	import net.guttershark.core.IDisposable;
-	import net.guttershark.util.DisplayListUtils;		
+	import net.guttershark.display.CoreClip;
+	import net.guttershark.util.DisplayListUtils;	
 
 	/**
 	 * The BasicView Class provides hooks into a number of different
@@ -20,7 +19,7 @@ package net.guttershark.ui.views
 	 * 
 	 * <p>Override the provided methods to hook into the events being listened too.</p>
 	 */
-	public class BasicView extends CoreClip implements IDisposable
+	public class BasicView extends CoreClip
 	{
 
 		private var addr:Boolean;

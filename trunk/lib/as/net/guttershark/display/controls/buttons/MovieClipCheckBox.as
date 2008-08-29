@@ -1,7 +1,7 @@
-package net.guttershark.ui.controls.buttons 
+package net.guttershark.display.controls.buttons 
 {
 	
-	import net.guttershark.sound.SoundManager;	
+	import net.guttershark.managers.SoundManager;	
 	
 	/**
 	 * The MovieClipCheckBox Class inherits from MovieClipToggleButton

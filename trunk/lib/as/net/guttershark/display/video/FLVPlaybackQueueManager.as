@@ -1,4 +1,4 @@
-package net.guttershark.video
+package net.guttershark.display.video
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
