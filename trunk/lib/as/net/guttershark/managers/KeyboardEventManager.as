@@ -6,7 +6,7 @@ package net.guttershark.managers
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	
-	import net.guttershark.core.Singleton;		
+	import net.guttershark.util.Singleton;	
 
 	/**
 	 * The KeyboardEventManager class simplifies working with keyboard events.
