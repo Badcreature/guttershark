@@ -9,7 +9,7 @@ package net.guttershark.util
 	import flash.utils.*;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.core.Singleton;	
+	import net.guttershark.util.Singleton;	
 
 	/**
 	 * The FlashLibrary class simplifies getting items from the Flash Library at runtime,

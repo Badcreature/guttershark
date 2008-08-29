@@ -7,8 +7,6 @@ package net.guttershark.util
 	import flash.system.Capabilities;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.core.IDisposable;
-	
 	/**
 	 * The QueryString class is used for reading query string parameters
 	 * in the web browsers address bar. This class will only work when flash
@@ -41,7 +39,7 @@ package net.guttershark.util
 	 * address bar, you will get that value, if it is not present, you will
 	 * receive <code>null</code>.</p>
 	 */
-	dynamic public class QueryString extends Proxy implements IDisposable
+	dynamic public class QueryString extends Proxy
 	{
 
 		private var paramsCache:Dictionary;

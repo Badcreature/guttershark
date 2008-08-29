@@ -7,7 +7,6 @@ package net.guttershark.util.akamai
 	import flash.events.Event;
 	
 	import net.guttershark.util.XMLLoader;
-	import net.guttershark.core.IDisposable;
 
 	/**
 	 * The Ident class is used for pinging an Akamai Ident service to determine
@@ -18,7 +17,7 @@ package net.guttershark.util.akamai
 	 * 
 	 * @see	#findBestIPForAkamaiApplication()
 	 */
-	public class Ident implements IDisposable
+	public class Ident
 	{
 
 		/**

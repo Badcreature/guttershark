@@ -5,8 +5,6 @@ package net.guttershark.util
 	import flash.utils.flash_proxy;
 	import flash.utils.Proxy;
 	
-	import net.guttershark.core.IDisposable;	
-	
 	/**
 	 * The BitField class is a wrapper class that manages
 	 * using an unsigned integer as a bit field. This concept
@@ -37,7 +35,7 @@ package net.guttershark.util
 	 * <p>So this example is only using 1 unsigned integer internally to the bitfield,
 	 * which will save on memory. It's pretty nit picky, but every "bit" helps.</p>
 	 */
-	dynamic public class BitField extends Proxy implements IDisposable
+	dynamic public class BitField extends Proxy
 	{
 
 		/**

@@ -1,8 +1,6 @@
 package net.guttershark.util.autosuggest
 {
 	
-	import net.guttershark.core.IDisposable;	
-
 	/**
 	 * The AutoSuggest class provides the search logic needed for an auto suggest,
 	 * as well as providing you with match data.
@@ -24,7 +22,7 @@ package net.guttershark.util.autosuggest
 	 * 
 	 * @see net.guttershark.util.autosuggest.AutoSuggestMatch
 	 */
-	public class AutoSuggest implements IDisposable
+	public class AutoSuggest
 	{
 
 		/**
