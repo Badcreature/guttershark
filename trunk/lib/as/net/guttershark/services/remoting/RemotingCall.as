@@ -6,7 +6,7 @@ package net.guttershark.services.remoting
 	
 	import net.guttershark.services.remoting.events.*;
 	import net.guttershark.services.remoting.limiting.RemotingCallLimiter;
-	import net.guttershark.util.cache.ICacheStore;	
+	import net.guttershark.util.cache.Cache;
 
 	/**
 	 * Dispatched when any one of the remoting call requests retries.
@@ -94,7 +94,7 @@ package net.guttershark.services.remoting
 		/**
 		 * A cache object if cache is being used.
 		 */
-		public var remotingCache:ICacheStore;
+		public var remotingCache:Cache;
 		
 		/**
 		 * A limiter if being used.
@@ -286,3 +286,5 @@ package net.guttershark.services.remoting
 		}
 	}
 }
+
+import net.guttershark.util.cache.Cache;
