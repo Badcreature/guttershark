@@ -1,15 +1,14 @@
 package net.guttershark.preloading.workers
 {
+	import flash.utils.Dictionary;
 	
-	import flash.utils.Dictionary;	
-	
-	import net.guttershark.preloading.workers.XMLWorker;	
-	import net.guttershark.preloading.workers.SWFWorker;	
-	import net.guttershark.preloading.workers.SoundWorker;	
-	import net.guttershark.preloading.workers.ProgressiveFLVWorker;	
 	import net.guttershark.preloading.workers.BitmapWorker;
 	import net.guttershark.preloading.workers.ILoadWorker;
-	
+	import net.guttershark.preloading.workers.ProgressiveFLVWorker;
+	import net.guttershark.preloading.workers.SWFWorker;
+	import net.guttershark.preloading.workers.SoundWorker;
+	import net.guttershark.preloading.workers.XMLWorker;	
+
 	/**
 	 * The WorkerInstances class is an instance factory that returns instances
 	 * of workers based on a filetype being loaded.
@@ -63,6 +62,7 @@ package net.guttershark.preloading.workers
 			RegisterWorkerForFileType("xml",XMLWorker);
 			RegisterWorkerForFileType("flv",ProgressiveFLVWorker);
 			RegisterWorkerForFileType("mp3",SoundWorker);
+			RegisterWorkerForFileType("css",StyleSheetWorker);
 			defaultsRegistered = true;
 		}
 
@@ -87,7 +87,6 @@ package net.guttershark.preloading.workers
 		 */
 		public static function GetWorkerInstance(fileType:String):ILoadWorker
 		{
-			
 			if(!workerKlasses[fileType]) throw new Error("No worker for filetype " + fileType + " was registered.");
 			var klass:Class = workerKlasses[fileType];
 			var worker:ILoadWorker = new klass();
