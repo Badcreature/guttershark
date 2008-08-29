@@ -1,7 +1,6 @@
 package net.guttershark.services.remoting.limiting
 {
-	import net.guttershark.core.IDisposable;	
-
+	
 	/**
 	 * Used in a RemotingService to stop duplicate calls 
 	 * to a call that that hasn't responded yet.
@@ -11,7 +10,7 @@ package net.guttershark.services.remoting.limiting
 	 * calls being made that haven't responded is
 	 * not a good thing. This stops that.
 	 */
-	public class RemotingCallLimiter implements IDisposable
+	public class RemotingCallLimiter
 	{
 
 		/**

@@ -3,14 +3,13 @@ package net.guttershark.services.remoting
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.core.IDisposable;
-	import net.guttershark.core.Singleton;
-	import net.guttershark.events.EventDispatcherProxy;
 	import net.guttershark.services.remoting.events.CallEvent;
 	import net.guttershark.services.remoting.events.ConnectionEvent;
 	import net.guttershark.services.remoting.events.IRemotingEventsDelegate;
 	import net.guttershark.util.Assert;
-	import net.guttershark.util.cache.Cache;	
+	import net.guttershark.util.Singleton;
+	import net.guttershark.util.cache.Cache;
+	import net.guttershark.util.events.EventDispatcherProxy;	
 
 	/**
 	 * 
@@ -164,7 +163,7 @@ package net.guttershark.services.remoting
 	 * @see net.guttershark.control.DocumentController#remotingManager remotingManager property on the DocumentController
 	 * @see net.guttershark.model.SiteXMLParser SiteXMLParser class
 	 */
-	public class RemotingManager implements IDisposable 
+	public class RemotingManager 
 	{
 
 		/**

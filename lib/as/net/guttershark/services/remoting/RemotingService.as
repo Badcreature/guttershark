@@ -4,10 +4,9 @@ package net.guttershark.services.remoting
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.core.IDisposable;
 	import net.guttershark.services.remoting.events.*;
 	import net.guttershark.services.remoting.limiting.RemotingCallLimiter;
-	import net.guttershark.util.cache.ICacheStore;	
+	import net.guttershark.util.cache.Cache;		
 
 	/**
 	 * Dispatched when a remoting call retries.
@@ -81,7 +80,7 @@ package net.guttershark.services.remoting
 	 * 
 	 * @see net.guttershark.remoting.RemotingManager
 	 */
-	public dynamic class RemotingService extends Proxy implements IEventDispatcher,IDisposable
+	public dynamic class RemotingService extends Proxy implements IEventDispatcher
 	{	
 
 		/**
@@ -128,8 +127,8 @@ package net.guttershark.services.remoting
 		/**
 		 * A Cache instance that caches remoting calls and the responses.
 		 */
-		public var remotingCache:ICacheStore;
-		
+		public var remotingCache:Cache;
+
 		/**
 		 * Maximum retries per call.
 		 */

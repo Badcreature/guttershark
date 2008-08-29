@@ -3,7 +3,6 @@ package net.guttershark.services.remoting
 	import flash.events.*;
 	import flash.net.NetConnection;
 	
-	import net.guttershark.core.IDisposable;
 	import net.guttershark.services.remoting.events.ConnectionEvent;	
 
 	/**
@@ -50,7 +49,7 @@ package net.guttershark.services.remoting
 	 * 
 	 * @see net.guttershark.remoting.RemotingService
 	 */
-	public class RemotingConnection extends EventDispatcher implements IDisposable
+	public class RemotingConnection extends EventDispatcher
 	{	
 
 		/**
