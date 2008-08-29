@@ -1,16 +1,15 @@
 package net.guttershark.managers 
 {
-
-	import flash.text.TextField;
 	import flash.net.URLVariables;
-	import net.guttershark.ui.controls.buttons.IToggleable;
-	import net.guttershark.core.IDisposable;
+	import flash.text.TextField;
+	
+	import net.guttershark.display.controls.buttons.IToggleable;	
 
 	/**
-	 * The FormFieldManager Class simplifies managing InteractiveObjects
+	 * The FormManager Class simplifies managing InteractiveObjects
 	 * that compose a form.
 	 */
-	public class FormFieldManager implements IDisposable
+	public class FormManager
 	{
 
 		private var tfs:Array;
@@ -21,7 +20,7 @@ package net.guttershark.managers
 		/**
 		 * Constructor for FormFieldManager instances.
 		 */
-		public function FormFieldManager()
+		public function FormManager()
 		{
 			tfs = new Array();
 			tbs = new Array();

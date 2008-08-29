@@ -4,9 +4,9 @@
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.core.Singleton;
-	import net.guttershark.ui.lang.ILocalizableClip;
-	import net.guttershark.util.XMLLoader;		
+	import net.guttershark.display.lang.ILocalizableClip;
+	import net.guttershark.util.Singleton;
+	import net.guttershark.util.XMLLoader;	
 
 	/**
 	 * The LanguageManager manages loading different language

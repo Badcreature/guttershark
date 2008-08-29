@@ -8,7 +8,7 @@ package net.guttershark.managers
 	import flash.media.SoundTransform;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.core.Singleton;	
+	import net.guttershark.util.Singleton;
 
 	/**
 	 * Dispatched when the internal volume has changed.

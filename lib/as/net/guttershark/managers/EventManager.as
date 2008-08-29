@@ -1,4 +1,4 @@
-package net.guttershark.events 
+package net.guttershark.managers 
 {
 	import net.guttershark.preloading.events.AssetCompleteEvent;	
 	import net.guttershark.preloading.events.PreloadProgressEvent;	

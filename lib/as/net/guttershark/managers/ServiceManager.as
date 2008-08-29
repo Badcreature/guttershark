@@ -4,7 +4,7 @@ package net.guttershark.managers
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.core.Singleton;
+	import net.guttershark.util.Singleton;
 	import net.guttershark.services.http.Service;
 
 	/**
