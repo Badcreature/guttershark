@@ -1,10 +1,7 @@
 package net.guttershark.preloading
 {
-	import net.guttershark.util.Assert;	
-	
 	import flash.events.SecurityErrorEvent;
 	
-	import net.guttershark.core.IDisposable;
 	import net.guttershark.preloading.PreloadController;
 	import net.guttershark.preloading.events.AssetCompleteEvent;
 	import net.guttershark.preloading.events.AssetErrorEvent;
@@ -20,7 +17,7 @@ package net.guttershark.preloading
 	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 * @see net.guttershark.preloading.AssetLibrary AssetLibrary class
 	 */
-	public class Asset implements IDisposable
+	public class Asset
 	{
 
 		/**

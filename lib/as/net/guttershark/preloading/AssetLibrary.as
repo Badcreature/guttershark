@@ -8,10 +8,9 @@ package net.guttershark.preloading
 	import flash.text.Font;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.core.IDisposable;
-	import net.guttershark.core.Singleton;
 	import net.guttershark.util.Assert;
-	import net.guttershark.util.XMLLoader;	
+	import net.guttershark.util.Singleton;
+	import net.guttershark.util.XMLLoader;
 
 	/**
 	 * The AssetLibrary is a singleton that stores all assets
@@ -19,7 +18,7 @@ package net.guttershark.preloading
 	 * 
 	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 */
-	public class AssetLibrary implements IDisposable
+	public class AssetLibrary
 	{	
 		
 		/**

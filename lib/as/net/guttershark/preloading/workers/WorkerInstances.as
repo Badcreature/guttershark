@@ -3,7 +3,6 @@ package net.guttershark.preloading.workers
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.preloading.workers.BitmapWorker;
-	import net.guttershark.preloading.workers.ILoadWorker;
 	import net.guttershark.preloading.workers.ProgressiveFLVWorker;
 	import net.guttershark.preloading.workers.SWFWorker;
 	import net.guttershark.preloading.workers.SoundWorker;
@@ -85,11 +84,11 @@ package net.guttershark.preloading.workers
 		 * @param	fileType	The type of the worker. EX: 'bitmap', or 'swf', etc. The Worker must
 		 * have been registered previously before getting an instnace of it.
 		 */
-		public static function GetWorkerInstance(fileType:String):ILoadWorker
+		public static function GetWorkerInstance(fileType:String):Worker
 		{
 			if(!workerKlasses[fileType]) throw new Error("No worker for filetype " + fileType + " was registered.");
 			var klass:Class = workerKlasses[fileType];
-			var worker:ILoadWorker = new klass();
+			var worker:Worker = new klass();
 			return worker;
 		}
 	}

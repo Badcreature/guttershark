@@ -1,7 +1,5 @@
 package net.guttershark.preloading.workers
 {
-	import net.guttershark.core.IDisposable;	
-
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.HTTPStatusEvent;
@@ -15,8 +13,8 @@ package net.guttershark.preloading.workers
 	import net.guttershark.preloading.events.AssetErrorEvent;
 	import net.guttershark.preloading.events.AssetOpenEvent;
 	import net.guttershark.preloading.events.AssetProgressEvent;
-	import net.guttershark.preloading.events.AssetStatusEvent;
-	
+	import net.guttershark.preloading.events.AssetStatusEvent;	
+
 	/**
 	 * Dispatched when the worker has completed downloading the asset.
 	 * 
@@ -105,7 +103,7 @@ package net.guttershark.preloading.workers
 	 * @see #load()
 	 * @see net.guttershark.preloading.Asset 
 	 */
-	public class Worker extends EventDispatcher implements ILoadWorker,IDisposable
+	public class Worker extends EventDispatcher
 	{
 
 		/**
