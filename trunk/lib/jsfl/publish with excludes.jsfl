@@ -1,3 +1,5 @@
+//http://exanimo.com/actionscript/flash-cs3-and-exclude-xml/
+
 // TODO: Better error handling (or at least some indication that there was an error!
 
 var as3PackagePaths;
