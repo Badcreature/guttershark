@@ -1,13 +1,12 @@
-package net.guttershark.preloading.workers
+package net.guttershark.support.preloading.workers
 {
-	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
 	
-	import net.guttershark.preloading.Asset;
+	import net.guttershark.support.preloading.Asset;
 		
 	/**
 	 *	The SoundWorker class is the worker loads all

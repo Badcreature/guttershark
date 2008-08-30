@@ -1,8 +1,7 @@
-package net.guttershark.preloading.events 
+package net.guttershark.support.preloading.events
 {
-	
-	import flash.events.Event;
-	
+	import flash.events.Event;	
+
 	/**
 	 * The PreloadProgressEvent dispatches to notify listeners the overall
 	 * progress of a PreloadController.

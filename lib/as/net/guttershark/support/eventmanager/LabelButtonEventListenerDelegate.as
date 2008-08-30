@@ -1,4 +1,4 @@
-package net.guttershark.util.events.manager
+package net.guttershark.support.eventmanager
 {
 	import fl.controls.LabelButton;
 	import fl.events.ComponentEvent;

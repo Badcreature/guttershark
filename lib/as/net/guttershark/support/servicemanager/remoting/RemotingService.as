@@ -1,12 +1,14 @@
-package net.guttershark.services.remoting
+package net.guttershark.support.servicemanager.remoting
 {
 	import flash.events.*;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.services.remoting.events.*;
-	import net.guttershark.services.remoting.limiting.RemotingCallLimiter;
-	import net.guttershark.util.cache.Cache;		
+	import net.guttershark.support.servicemanager.remoting.RemotingCall;
+	import net.guttershark.support.servicemanager.remoting.RemotingConnection;
+	import net.guttershark.support.servicemanager.remoting.events.*;
+	import net.guttershark.support.servicemanager.remoting.limiting.RemotingCallLimiter;
+	import net.guttershark.util.cache.Cache;
 
 	/**
 	 * Dispatched when a remoting call retries.

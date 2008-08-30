@@ -14,7 +14,7 @@ package net.guttershark.util
 		 * Check to see if the mouse is within the bounds of a rectangle.
 		 * 
 		 * @param	DisplayObject	The scope of mouse coordinates to use.
-		 * @param	Rectangle	The bounds in wich to check the mouse position agains.
+		 * @param	Rectangle	The bounds in wich to check the mouse position against.
 		 * @throws	ArgumentError	Error if scope, or rectangle are not provided.
 		 * @return	Boolean
 		 */

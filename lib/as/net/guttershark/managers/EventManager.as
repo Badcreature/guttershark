@@ -1,9 +1,5 @@
 package net.guttershark.managers 
 {
-	import net.guttershark.preloading.events.AssetCompleteEvent;	
-	import net.guttershark.preloading.events.PreloadProgressEvent;	
-	import net.guttershark.preloading.PreloadController;	
-	
 	import flash.display.InteractiveObject;
 	import flash.display.LoaderInfo;
 	import flash.events.ActivityEvent;
@@ -28,6 +24,9 @@ package net.guttershark.managers
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	
+	import net.guttershark.control.PreloadController;
+	import net.guttershark.support.preloading.events.AssetCompleteEvent;
+	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.XMLLoader;		
 

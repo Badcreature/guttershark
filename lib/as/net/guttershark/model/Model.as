@@ -7,8 +7,8 @@ package net.guttershark.model
 	
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.managers.ServiceManager;
-	import net.guttershark.preloading.Asset;
-	import net.guttershark.services.remoting.RemotingManager;
+	import net.guttershark.support.preloading.Asset;
+	import net.guttershark.support.servicemanager.remoting.RemotingManager;
 	import net.guttershark.util.Assert;
 	import net.guttershark.util.Singleton;	
 

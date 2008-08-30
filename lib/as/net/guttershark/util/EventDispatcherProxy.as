@@ -1,6 +1,5 @@
-package net.guttershark.util.events 
+package net.guttershark.util 
 {
-	
 	import flash.events.Event;	
 	import flash.events.EventDispatcher;	
 	import flash.events.IEventDispatcher;	

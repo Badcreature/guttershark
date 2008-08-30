@@ -1,4 +1,4 @@
-package net.guttershark.services.remoting.errors 
+package net.guttershark.support.servicemanager.remoting.errors 
 {
 
 	/**

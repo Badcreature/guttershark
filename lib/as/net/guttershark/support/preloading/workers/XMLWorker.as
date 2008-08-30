@@ -1,6 +1,5 @@
-package net.guttershark.preloading.workers
+package net.guttershark.support.preloading.workers
 {
-	
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
@@ -8,9 +7,10 @@ package net.guttershark.preloading.workers
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
 	
-	import net.guttershark.preloading.Asset;
-	import net.guttershark.util.XMLLoader;
-	
+	import net.guttershark.support.preloading.Asset;
+	import net.guttershark.support.preloading.workers.Worker;
+	import net.guttershark.util.XMLLoader;	
+
 	/**
 	 *	The XMLWorker class is the worker that loads all
 	 *	xml files.

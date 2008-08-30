@@ -1,6 +1,5 @@
-package net.guttershark.preloading.workers
+package net.guttershark.support.preloading.workers
 {
-	
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
@@ -11,7 +10,7 @@ package net.guttershark.preloading.workers
 	import flash.net.URLRequest;
 	import flash.net.URLRequestHeader;
 	
-	import net.guttershark.preloading.Asset;
+	import net.guttershark.support.preloading.Asset;
 		
 	/**
 	 *	The ProgressiveFLVWorker class is the worker that loads all

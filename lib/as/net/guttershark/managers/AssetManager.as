@@ -1,4 +1,4 @@
-package net.guttershark.preloading
+package net.guttershark.managers
 {
 	import flash.display.Bitmap;
 	import flash.display.Loader;
@@ -13,18 +13,18 @@ package net.guttershark.preloading
 	import net.guttershark.util.XMLLoader;
 
 	/**
-	 * The AssetLibrary is a singleton that stores all assets
+	 * The AssetManager is a singleton that stores all assets
 	 * loaded by any PreloadController.
 	 * 
 	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 */
-	public class AssetLibrary
+	public class AssetManager
 	{	
 		
 		/**
 		 * Singleton instance.
 		 */
-		private static var inst:AssetLibrary;
+		private static var inst:AssetManager;
 		
 		/**
 		 * Store for assets.
@@ -35,18 +35,18 @@ package net.guttershark.preloading
 		 * @private
 		 * Constructor for AssetLibrary instances.
 		 */
-		public function AssetLibrary()
+		public function AssetManager()
 		{
-			Singleton.assertSingle(AssetLibrary);
+			Singleton.assertSingle(AssetManager);
 			assets = new Dictionary(false);
 		}
 		
 		/**
 		 * Singleton Instance.
 		 */
-		public static function gi():AssetLibrary
+		public static function gi():AssetManager
 		{
-			if(!inst) inst = Singleton.gi(AssetLibrary);
+			if(!inst) inst = Singleton.gi(AssetManager);
 			return inst;
 		}
 		

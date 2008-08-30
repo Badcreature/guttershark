@@ -1,4 +1,4 @@
-package net.guttershark.preloading.workers
+package net.guttershark.support.preloading.workers
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -8,12 +8,12 @@ package net.guttershark.preloading.workers
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
 	
-	import net.guttershark.preloading.Asset;
-	import net.guttershark.preloading.events.AssetCompleteEvent;
-	import net.guttershark.preloading.events.AssetErrorEvent;
-	import net.guttershark.preloading.events.AssetOpenEvent;
-	import net.guttershark.preloading.events.AssetProgressEvent;
-	import net.guttershark.preloading.events.AssetStatusEvent;	
+	import net.guttershark.support.preloading.Asset;
+	import net.guttershark.support.preloading.events.AssetCompleteEvent;
+	import net.guttershark.support.preloading.events.AssetErrorEvent;
+	import net.guttershark.support.preloading.events.AssetOpenEvent;
+	import net.guttershark.support.preloading.events.AssetProgressEvent;
+	import net.guttershark.support.preloading.events.AssetStatusEvent;	
 
 	/**
 	 * Dispatched when the worker has completed downloading the asset.

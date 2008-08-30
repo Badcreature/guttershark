@@ -2,15 +2,15 @@ package net.guttershark.display
 {
 	import flash.display.MovieClip;
 	
+	import net.guttershark.control.PreloadController;
+	import net.guttershark.managers.AssetManager;
 	import net.guttershark.managers.EventManager;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
-	import net.guttershark.preloading.AssetLibrary;
-	import net.guttershark.preloading.PreloadController;
-	import net.guttershark.services.remoting.RemotingManager;
+	import net.guttershark.support.servicemanager.remoting.RemotingManager;
 	import net.guttershark.util.FlashLibrary;	
 
 	/**
@@ -53,9 +53,9 @@ package net.guttershark.display
 		protected var pc:PreloadController;
 		
 		/**
-		 * The AssetLibrary singleton instance.
+		 * The AssetManager singleton instance.
 		 */
-		protected var al:AssetLibrary;
+		protected var am:AssetManager;
 		
 		/**
 		 * The ServiceManager singleton instance.
@@ -83,7 +83,7 @@ package net.guttershark.display
 			km = KeyboardEventManager.gi();
 			lm = LanguageManager.gi();
 			rm = RemotingManager.gi();
-			al = AssetLibrary.gi();
+			am = AssetManager.gi();
 			sm = ServiceManager.gi();
 			fb = FlashLibrary.gi();
 			snm = SoundManager.gi();

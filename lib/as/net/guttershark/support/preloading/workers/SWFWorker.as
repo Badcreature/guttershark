@@ -1,8 +1,7 @@
-package net.guttershark.preloading.workers
+package net.guttershark.support.preloading.workers
 {
-	
-	import net.guttershark.preloading.workers.BitmapWorker;
-	
+	import net.guttershark.support.preloading.workers.BitmapWorker;
+
 	/**
 	 *	The SWFWorker class is the worker that loads all
 	 *	swf files.

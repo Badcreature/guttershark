@@ -4,8 +4,8 @@ package net.guttershark.managers
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.util.Singleton;
-	import net.guttershark.services.http.Service;
+	import net.guttershark.support.servicemanager.http.Service;
+	import net.guttershark.util.Singleton;	
 
 	/**
 	 * The ServiceManager is an abstract HTTP service manager and

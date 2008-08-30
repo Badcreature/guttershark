@@ -1,10 +1,9 @@
-package net.guttershark.preloading.events
+package net.guttershark.support.preloading.events
 {
-	
 	import flash.events.Event;
 	
-	import net.guttershark.preloading.Asset;
-	
+	import net.guttershark.support.preloading.Asset;	
+
 	/**
 	 * The AssetStatusEvent dispatches for an Asset that had an HTTP status other than 0 or 200.
 	 */

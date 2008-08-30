@@ -1,14 +1,15 @@
-package net.guttershark.preloading.workers 
+package net.guttershark.support.preloading.workers
 {
-	import flash.text.StyleSheet;	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.text.StyleSheet;
 	
-	import net.guttershark.preloading.Asset;
-	import net.guttershark.preloading.events.AssetCompleteEvent;		
+	import net.guttershark.support.preloading.Asset;
+	import net.guttershark.support.preloading.events.AssetCompleteEvent;
+	import net.guttershark.support.preloading.workers.Worker;
 
 	public class StyleSheetWorker extends Worker
 	{
