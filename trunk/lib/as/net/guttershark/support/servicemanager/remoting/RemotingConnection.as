@@ -1,9 +1,9 @@
-package net.guttershark.services.remoting
+package net.guttershark.support.servicemanager.remoting
 {
 	import flash.events.*;
 	import flash.net.NetConnection;
 	
-	import net.guttershark.services.remoting.events.ConnectionEvent;	
+	import net.guttershark.support.servicemanager.remoting.events.ConnectionEvent;
 
 	/**
 	 * Dispatched when a connection is successful.

@@ -1,15 +1,17 @@
-package net.guttershark.preloading
+package net.guttershark.support.preloading
 {
 	import flash.events.SecurityErrorEvent;
 	
-	import net.guttershark.preloading.PreloadController;
-	import net.guttershark.preloading.events.AssetCompleteEvent;
-	import net.guttershark.preloading.events.AssetErrorEvent;
-	import net.guttershark.preloading.events.AssetOpenEvent;
-	import net.guttershark.preloading.events.AssetProgressEvent;
-	import net.guttershark.preloading.events.AssetStatusEvent;
-	import net.guttershark.preloading.workers.WorkerInstances;
-	import net.guttershark.util.StringUtils;	
+	import net.guttershark.control.PreloadController;
+	import net.guttershark.managers.AssetManager;
+	import net.guttershark.support.preloading.AssetTypes;
+	import net.guttershark.support.preloading.events.AssetCompleteEvent;
+	import net.guttershark.support.preloading.events.AssetErrorEvent;
+	import net.guttershark.support.preloading.events.AssetOpenEvent;
+	import net.guttershark.support.preloading.events.AssetProgressEvent;
+	import net.guttershark.support.preloading.events.AssetStatusEvent;
+	import net.guttershark.support.preloading.workers.WorkerInstances;
+	import net.guttershark.util.StringUtils;
 
 	/**
 	 * The Asset class defines an asset to preload with a PreloadController.
@@ -247,7 +249,7 @@ package net.guttershark.preloading
 		 */
 		public function disposeFinal():void
 		{
-			AssetLibrary.gi().removeAsset(libraryName);
+			AssetManager.gi().removeAsset(libraryName);
 			removeListenersFromWorker();
 			worker.dispose();
 			libraryName = null;

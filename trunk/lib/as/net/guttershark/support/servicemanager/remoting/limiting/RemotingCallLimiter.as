@@ -1,4 +1,4 @@
-package net.guttershark.services.remoting.limiting
+package net.guttershark.support.servicemanager.remoting.limiting
 {
 	
 	/**

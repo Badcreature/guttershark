@@ -1,9 +1,8 @@
-package net.guttershark.util.events
+package net.guttershark.util
 {
-	
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	
+	import flash.events.EventDispatcher;	
+
 	/**
 	 * The EventBroadcaster is a static class, and wraps one instance of
 	 * an event dispatcher and has static methods to work with that

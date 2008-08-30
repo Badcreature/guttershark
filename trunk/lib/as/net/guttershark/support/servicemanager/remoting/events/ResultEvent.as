@@ -1,4 +1,4 @@
-package net.guttershark.services.remoting.events
+package net.guttershark.support.servicemanager.remoting.events
 {
 	import flash.events.Event;	
 

@@ -1,9 +1,9 @@
-package net.guttershark.services.remoting.events
+package net.guttershark.support.servicemanager.remoting.events
 {
 	import flash.events.Event;
 	
-	import net.guttershark.services.remoting.RemotingConnection;
-	import net.guttershark.services.remoting.RemotingService;	
+	import net.guttershark.support.servicemanager.remoting.RemotingConnection;
+	import net.guttershark.support.servicemanager.remoting.RemotingService;	
 
 	public class CallEvent extends Event
 	{

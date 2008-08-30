@@ -1,10 +1,9 @@
-package net.guttershark.preloading.events
+package net.guttershark.support.preloading.events
 {
-	
 	import flash.events.Event;
 	
-	import net.guttershark.preloading.Asset;
-	
+	import net.guttershark.support.preloading.Asset;	
+
 	/**
 	 * The AssetErrorEvent dispatches when an asset has stopped loading due to an error.
 	 */

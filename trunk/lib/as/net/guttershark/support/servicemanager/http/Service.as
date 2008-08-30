@@ -1,4 +1,4 @@
-package net.guttershark.services.http
+package net.guttershark.support.servicemanager.http
 {
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;

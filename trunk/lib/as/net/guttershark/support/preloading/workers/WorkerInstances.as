@@ -1,12 +1,13 @@
-package net.guttershark.preloading.workers
+package net.guttershark.support.preloading.workers
 {
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.preloading.workers.BitmapWorker;
-	import net.guttershark.preloading.workers.ProgressiveFLVWorker;
-	import net.guttershark.preloading.workers.SWFWorker;
-	import net.guttershark.preloading.workers.SoundWorker;
-	import net.guttershark.preloading.workers.XMLWorker;	
+	import net.guttershark.support.preloading.workers.BitmapWorker;
+	import net.guttershark.support.preloading.workers.ProgressiveFLVWorker;
+	import net.guttershark.support.preloading.workers.SWFWorker;
+	import net.guttershark.support.preloading.workers.SoundWorker;
+	import net.guttershark.support.preloading.workers.Worker;
+	import net.guttershark.support.preloading.workers.XMLWorker;	
 
 	/**
 	 * The WorkerInstances class is an instance factory that returns instances

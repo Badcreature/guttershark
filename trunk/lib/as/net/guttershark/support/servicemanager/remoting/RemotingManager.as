@@ -1,15 +1,16 @@
-package net.guttershark.services.remoting 
+package net.guttershark.support.servicemanager.remoting
 {
-	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.services.remoting.events.CallEvent;
-	import net.guttershark.services.remoting.events.ConnectionEvent;
-	import net.guttershark.services.remoting.events.IRemotingEventsDelegate;
+	import net.guttershark.support.servicemanager.remoting.RemotingConnection;
+	import net.guttershark.support.servicemanager.remoting.RemotingService;
+	import net.guttershark.support.servicemanager.remoting.events.CallEvent;
+	import net.guttershark.support.servicemanager.remoting.events.ConnectionEvent;
+	import net.guttershark.support.servicemanager.remoting.events.IRemotingEventsDelegate;
 	import net.guttershark.util.Assert;
+	import net.guttershark.util.EventDispatcherProxy;
 	import net.guttershark.util.Singleton;
 	import net.guttershark.util.cache.Cache;
-	import net.guttershark.util.events.EventDispatcherProxy;	
 
 	/**
 	 * 

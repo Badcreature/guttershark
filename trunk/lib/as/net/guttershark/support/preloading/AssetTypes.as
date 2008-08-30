@@ -1,4 +1,4 @@
-package net.guttershark.preloading 
+package net.guttershark.support.preloading
 {
 	public class AssetTypes 
 	{

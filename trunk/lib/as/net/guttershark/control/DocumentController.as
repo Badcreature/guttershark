@@ -22,7 +22,7 @@ package net.guttershark.control
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.model.Model;
-	import net.guttershark.services.remoting.RemotingManager;
+	import net.guttershark.support.servicemanager.remoting.RemotingManager;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.QueryString;

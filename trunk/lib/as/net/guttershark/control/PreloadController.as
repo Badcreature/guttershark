@@ -1,18 +1,18 @@
-package net.guttershark.preloading
+package net.guttershark.control
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
-	import net.guttershark.preloading.Asset;
-	import net.guttershark.preloading.AssetLibrary;
-	import net.guttershark.preloading.events.AssetCompleteEvent;
-	import net.guttershark.preloading.events.AssetErrorEvent;
-	import net.guttershark.preloading.events.AssetOpenEvent;
-	import net.guttershark.preloading.events.AssetProgressEvent;
-	import net.guttershark.preloading.events.AssetStatusEvent;
-	import net.guttershark.preloading.events.PreloadProgressEvent;
-	import net.guttershark.preloading.workers.WorkerInstances;
-	import net.guttershark.util.ArrayUtils;	
+	import net.guttershark.managers.AssetManager;
+	import net.guttershark.support.preloading.Asset;
+	import net.guttershark.support.preloading.events.AssetCompleteEvent;
+	import net.guttershark.support.preloading.events.AssetErrorEvent;
+	import net.guttershark.support.preloading.events.AssetOpenEvent;
+	import net.guttershark.support.preloading.events.AssetProgressEvent;
+	import net.guttershark.support.preloading.events.AssetStatusEvent;
+	import net.guttershark.support.preloading.events.PreloadProgressEvent;
+	import net.guttershark.support.preloading.workers.WorkerInstances;
+	import net.guttershark.util.ArrayUtils;
 
 	/**
 	 * Dispatched for each item that has completed downloading.
@@ -279,23 +279,6 @@ package net.guttershark.preloading
 		{
 			_working = false;
 		}
-		
-		/**
-		 * This is provided for backwards compatibility and is the
-		 * equivalent of using AssetLibrary.gi(). AssetLibrary is
-		 * now a singleton, so all preload controllers register
-		 * assets into the same AssetLibrary.
-		 * 
-		 * <p><strong><em>This will be deprecated in the future,
-		 * so please start using AssetLibrary.gi()</em></strong></p>
-		 * 
-		 * @see net.guttershark.preloading.AssetLibrary AssetLibrary class
-		 * @return 	AssetLibrary 
-		 */
-		public function get library():AssetLibrary
-		{
-			return AssetLibrary.gi();
-		}
 
 		/**
 		 * A boolean indicating whether or not this controller is doing any preloading.
@@ -412,7 +395,7 @@ package net.guttershark.preloading
 		public function complete(e:AssetCompleteEvent):void
 		{
 			loaded++;
-			AssetLibrary.gi().addAsset(e.asset.libraryName,e.asset.data);
+			AssetManager.gi().addAsset(e.asset.libraryName,e.asset.data);
 			dispatchEvent(new AssetCompleteEvent(AssetCompleteEvent.COMPLETE,e.asset));
 			updateStatus();
 			updateLoading();
