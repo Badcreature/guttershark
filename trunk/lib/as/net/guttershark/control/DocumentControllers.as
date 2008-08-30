@@ -1,7 +1,7 @@
 package net.guttershark.control 
 {	import flash.utils.Dictionary;
 	
-	import net.guttershark.core.Singleton;
+	import net.guttershark.util.Singleton;	
 
 	/**
 	 * The DocumentControllers Class is used as a lookup for
