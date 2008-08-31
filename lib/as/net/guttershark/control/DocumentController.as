@@ -20,15 +20,15 @@ package net.guttershark.control
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
 	import net.guttershark.managers.PlayerManager;
-	import net.guttershark.managers.ServiceManager;
+	//import net.guttershark.managers.ServiceManager;
 	import net.guttershark.model.Model;
-	import net.guttershark.support.servicemanager.remoting.RemotingManager;
+	//import net.guttershark.support.servicemanager.remoting.RemotingManager;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.QueryString;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;	
+	import net.guttershark.util.akamai.Ident;
 
 	/**
 	 * The DocumentController class is the base Document Class for all sites. The DocumentController provides 
@@ -212,8 +212,8 @@ package net.guttershark.control
 		 * when the flash movie is running as a standalone.
 		 * 
 		 * <p>When the player is embedded in an HTML document, you can still use the
-		 * PathManager, but the PathManager uses external interface for all path
-		 * handling.</p>
+		 * PathManager, but the PathManager uses external interface and the guttershark
+		 * javascript Path class for all path handling.</p>
 		 * 
 		 * <p>See the lib/js/guttershark.js file</p>
 		 */
@@ -235,7 +235,7 @@ package net.guttershark.control
 		
 		/**
 		 * Initialize the remoting manager.
-		 */
+		 *
 		private function intiailizeRemotingManager():void
 		{
 			var endpoints:Array;
@@ -244,19 +244,20 @@ package net.guttershark.control
 			var m:Model = Model.gi();
 			var l:int = endpoints.length;
 			for(var i:int = 0; i < l; i++) m.initializeRemotingEndpoint(endpoints[i], RemotingManager.gi());
-		}
+		}*/
 		
 		/**
 		 * Initialize the service manager.
 		 */
 		private function initializeServiceManager():void
 		{
-			var services:Array;
+			/*var services:Array;
 			if(flashvars.initHTTP is Array) services = flashvars.initHTTP;
 			else services = flashvars.initHTTP.split(",");
 			var m:Model = Model.gi();
 			var l:int = services.length;
 			for(var i:int = 0; i < l; i++) m.initializeHTTPService(services[i],ServiceManager.gi());
+			*/
 		}
 
 		/**
@@ -357,6 +358,9 @@ package net.guttershark.control
 		 */
 		private function onBandwidthComplete(e:Event):void
 		{
+			_bandwidthSniffer.contentLoader.removeEventListener(Event.COMPLETE,onBandwidthComplete);
+			_bandwidthSniffer.dispose();
+			_bandwidthSniffer = null;
 			onBandwidthSniffComplete();
 		}
 		
@@ -376,12 +380,13 @@ package net.guttershark.control
 			model = modelXMLLoader.data;
 			if(flashvars.autoInitModel) Model.gi().xml = model;
 			else initModel();
-			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
 			modelXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
 			modelXMLLoader.dispose();
 			modelXMLLoader = null;
-			if(flashvars.initRemotingEndpoints) intiailizeRemotingManager();
-			if(flashvars.initHTTP) initializeServiceManager();
+			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
+			if(flashvars.initServices) Model.gi().initServices();
+			//if(flashvars.initRemotingEndpoints) intiailizeRemotingManager();
+			//if(flashvars.initHTTP) initializeServiceManager();
 			setupComplete();
 		}
 		
