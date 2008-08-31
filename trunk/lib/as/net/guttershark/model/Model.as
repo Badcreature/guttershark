@@ -6,9 +6,8 @@ package net.guttershark.model
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.managers.PlayerManager;
-	import net.guttershark.managers.ServiceManager;
+	import net.guttershark.nsm.ServiceManager;
 	import net.guttershark.support.preloading.Asset;
-	import net.guttershark.support.servicemanager.remoting.RemotingManager;
 	import net.guttershark.util.Assert;
 	import net.guttershark.util.Singleton;	
 
@@ -222,7 +221,7 @@ package net.guttershark.model
 		 * 
 		 * @param	endpointID	The endpoint id.
 		 * @param	remotingManager	A remoting manager to intialize services in.
-		 */
+		
 		public function initializeRemotingEndpoint(endpointID:String, remotingManager:RemotingManager):void
 		{
 			checkForXML();
@@ -246,14 +245,14 @@ package net.guttershark.model
 				if(service.@id == undefined) throw new Error("<service> nodes must have an \"id\" attribute.");
 				remotingManager.createService(service.@id, endpoint.@gateway.toString(),service.toString(),timeout,retries,limiter,cache,cacheExpire);
 			}
-		}
+		} */
 		
 		/**
 		 * Initialize http service for a specific service id. Uses the supplied service manager.
 		 * 
 		 * @param	serviceID	The service id.
 		 * @param	serviceManager	The service manager that will house the services.
-		 */
+		
 		public function initializeHTTPService(serviceID:String,serviceManager:ServiceManager):void
 		{
 			checkForXML();
@@ -261,6 +260,48 @@ package net.guttershark.model
 			Assert.NotNull(serviceManager, "Parameter serviceManager cannot be null");
 			var service:XMLList = http.service.(@id == serviceID);
 			serviceManager.createService(serviceID,service.@url,service.@defaultResponseFormat);
+		} */
+		
+		/**
+		 * Initializes all services defined in the model XML with the ServiceManager.
+		 */
+		public function initServices():void
+		{
+			var sm:ServiceManager = ServiceManager.gi();
+			var children:XMLList = xml.services.service;
+			var oe:int = 3;
+			var gateway:String;
+			var attempts:int = 1;
+			var timeout:int = 10000;
+			var limiter:Boolean = false;
+			var url:String;
+			var drf:String;
+			for each(var s:XML in children)
+			{
+				if(s.@attempts != undefined) attempts = int(s.@attempts);
+				if(s.@timeout != undefined) timeout = int(s.@timeout);
+				if(s.@limiter != undefined && s.@limiter=="true") limiter = true;
+				if(s.@gateway != undefined)
+				{
+					var r:XMLList = xml.services.gateway.(@id == s.@gateway);
+					if(!r) throw new Error("Gateway {"+s.@gateway+"} not found.");
+					if(r.@url != undefined) gateway = r.@url;
+					if(r.@path != undefined) gateway = getPath(r.@path);
+					if(!gateway) throw new Error("Gateway not found, you must have a url or path attribute on defined on the gateway node.");
+					if(r.@objectEncoding!=undefined) oe = int(r.@objectEncoding);
+					if(oe != 3 && oe != 0) throw new Error("ObjectEncoding can only be 0 or 3.");
+					sm.createRemotingService(s.@id,gateway,s.@endpoint,oe,attempts,timeout,limiter);
+				}
+				else
+				{
+					//trace("create http service");
+					if(s.@url != undefined) url = s.@url;
+					if(s.@path != undefined) url = getPath(s.@path);
+					if(s.@responseFormat != undefined) drf = s.@responseFormat;
+					if(drf != null && drf != "variables" && drf != "xml" && drf != "text" && drf != "binary") throw new Error("The defined response format is not supported, only xml|text|binary|variables is supported.");
+					sm.createHTTPService(s.@id, url, attempts, timeout, limiter, drf);
+				}
+			}
 		}
 
 		/**
