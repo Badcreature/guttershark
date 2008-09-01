@@ -1,11 +1,11 @@
-package net.guttershark.nsm.remoting
+package net.guttershark.support.servicemanager.remoting
 {
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.nsm.remoting.RemotingCall;
-	import net.guttershark.nsm.shared.Limiter;
-	import net.guttershark.nsm.remoting.RemotingConnection;
+	import net.guttershark.support.servicemanager.remoting.RemotingCall;
+	import net.guttershark.support.servicemanager.remoting.RemotingConnection;
+	import net.guttershark.support.servicemanager.shared.Limiter;	
 
 	public dynamic class RemotingService extends Proxy
 	{

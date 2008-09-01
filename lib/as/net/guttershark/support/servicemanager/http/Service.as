@@ -1,8 +1,8 @@
-package net.guttershark.nsm.http
+package net.guttershark.support.servicemanager.http
 {
 	import flash.utils.Proxy;
 	
-	import net.guttershark.nsm.shared.Limiter;	
+	import net.guttershark.support.servicemanager.shared.Limiter;	
 
 	/**
 	 * The Service Class represents a unique URL that acts as an HTTP service and is managed

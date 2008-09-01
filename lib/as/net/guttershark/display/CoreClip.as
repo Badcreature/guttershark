@@ -7,10 +7,10 @@ package net.guttershark.display
 	import net.guttershark.managers.EventManager;
 	import net.guttershark.managers.KeyboardEventManager;
 	import net.guttershark.managers.LanguageManager;
+	import net.guttershark.managers.LayoutManager;
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
-	import net.guttershark.support.servicemanager.remoting.RemotingManager;
 	import net.guttershark.util.FlashLibrary;	
 
 	/**
@@ -40,12 +40,7 @@ package net.guttershark.display
 		/**
 		 * The LanguageManager singleton instance.
 		 */
-		protected var lm:LanguageManager;
-		
-		/**
-		 * The RemotingManager singleton instance.
-		 */
-		protected var rm:RemotingManager;
+		protected var lgm:LanguageManager;
 		
 		/**
 		 * A placeholder variable for a PreloadController instance. You should initialize this yourself.
@@ -71,6 +66,11 @@ package net.guttershark.display
 		 * The SoundManager singleton instance.
 		 */
 		protected var snm:SoundManager;
+		
+		/**
+		 * An instance of a layout manager.
+		 */
+		public var lm:LayoutManager;
 
 		/**
 		 * Constructor for CoreClips instances.
@@ -80,9 +80,9 @@ package net.guttershark.display
 			super();
 			em = EventManager.gi();
 			ml = Model.gi();
+			lm = new LayoutManager(this);
 			km = KeyboardEventManager.gi();
-			lm = LanguageManager.gi();
-			rm = RemotingManager.gi();
+			lgm = LanguageManager.gi();
 			am = AssetManager.gi();
 			sm = ServiceManager.gi();
 			fb = FlashLibrary.gi();

@@ -13,6 +13,7 @@ package net.guttershark.control
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.support.preloading.workers.WorkerInstances;
 	import net.guttershark.util.ArrayUtils;
+	import net.guttershark.util.Assert;		
 
 	/**
 	 * Dispatched for each item that has completed downloading.
@@ -60,30 +61,26 @@ package net.guttershark.control
 	 * The PreloadController is a controller you use for loading multiple assets. It provides you
 	 * with methods for starting, stopping, pausing, resuming and prioritizing of assets.
 	 * 
-	 * <p>The PreloadController uses an internal AssetLibrary to store all loaded assets.
-	 * You can access the library to retrieve assets after the preload is complete. Events are also
-	 * dispatched for each item that has completed downloading.</p>
-	 * 
-	 * @see #library library property
-	 * @see #start() start method
+	 * <p>The PreloadController uses the AssetManager to store all loaded assets.</p>
 	 * 
 	 * @example Using the preload controller:
-	 * <listing version="3.0">
-	 * 
-	 * public class PreloaderTest extends MovieClip 
+	 * <listing version="3.0">		
+	 * public class PreloaderTest extends DocumentController 
 	 * {
 	 *    
-	 *    private var preloadController:PreloadController;
+	 *    private var pc:PreloadController;
+	 *    private var em:EventManager;
 	 *    public var preloader:MovieClip;
 	 *    
 	 *    public function PreloaderTest()
 	 *    {
 	 *        super();
-	 *        this.loaderInfo.addEventListener(Event.COMPLETE, onSWFComplete);
 	 *    }
 	 *    
-	 *    private function onSWFComplete(e:Event):void
+	 *    private function setupComplete():void
 	 *    {
+	 *        em = EventManager.gi();
+	 *        pc = new PreloadController(400);
 	 *        var assets:Array = [
 	 *           new Asset("assets/jpg1.jpg","jpg1"),
 	 *           new Asset("assets/jpg2.jpg","jpg2"),	
@@ -93,29 +90,26 @@ package net.guttershark.control
 	 *           new Asset("assets/sound1.mp3","snd1"),
 	 *           new Asset("assets/Pizza_Song.flv","pizza")
 	 *       ];
-	 *       preloadController = new PreloadController(400);
-	 *       preloadController.addItems(assets);
-	 *       preloadController.addEventListener(PreloadProgressEvent.PROGRESS, onProgress);
-	 *       preloadController.addEventListener(Event.COMPLETE,onPreloaderComplete);
-	 *       preloadController.addEventListener(AssetCompleteEvent.COMPLETE, onItemComplete);
-	 *       preloadController.prioritize(assets[4]); //prioritize the swf.
-	 *       preloadController.start(); //start it;
-	 *       preloadController.stop(); //pause it
-	 *       setTimeout(preloadController.start,4000); //resume it
+	 *       pc.addItems(assets);
+	 *       em.handleEvents(pc,this,"onPC");
+	 *       pc.prioritize(assets[4]); //prioritize the swf.
+	 *       pc.start(); //start it;
+	 *       pc.stop(); //pause it
+	 *       setTimeout(pc.start,4000); //resume it
 	 *    }
 	 *    
-	 *    private function onProgress(pe:PreloadProgressEvent):void
+	 *    private function onPCProgress(pe:PreloadProgressEvent):void
 	 *    {
 	 *        trace("progress: pixels: " + pe.pixels + " percent: " + pe.percent);
 	 *        preloader.width = pe.pixels
 	 *    }
 	 *    
-	 *    private function onItemComplete(e:AssetCompleteEvent):void
+	 *    private function onPCAssetComplete(e:AssetCompleteEvent):void
 	 *    {
 	 *        trace(e.asset.libraryName + " " + e.asset.source);
 	 *    }
 	 *    
-	 *    private function onPreloaderComplete(e:Event):void
+	 *    private function onPCComplete(e:Event):void
 	 *    {
 	 *        addChild(AssetLibrary.gi().getMovieClipFromSWFLibrary("swf1", "Test"));
 	 *        addChild(AssetLibrary.gi().getBitmap("jpg1"));
@@ -189,17 +183,20 @@ package net.guttershark.control
 		private var lastPixelUpdate:Number;
 		
 		/**
+		 * The last asset that loaded.
+		 */
+		private var lastCompleteAsset:Asset;
+		
+		/**
 		 * Constructor for PreloadController instances.
 		 * 
-		 * @param 	pixelsToFill	The total number of pixels this preloader needs to fill. This is used in calculating both pixels and percent. if you aren't interested in pixels, don't pass this parameter. 
-		 * @throws	ArgumentError	If no items are in the array.
-		 * @throws	ArgumentError	If pixelsToFill is 0.
+		 * @param 	pixelsToFill	The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
 		 * 
 		 * @see net.guttershark.preloading.events.PreloadProgressEvent PreloadProgressEvent event
 		 */
 		public function PreloadController(pixelsToFill:int = 100)
 		{
-			if(pixelsToFill == 0) throw new ArgumentError("Pixels to fill must be greater than zero.");
+			Assert.GreaterThan(pixelsToFill, 0, "Pixels to fill must be greater than zero.");
 			WorkerInstances.RegisterDefaultWorkers();
 			totalPixelsToFill = pixelsToFill;
 			bytesTotalPool = [];
@@ -213,7 +210,7 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * Add items to the controller to load. If the preloader is currently working,
+		 * Add items to the controller to load - if the preloader is currently working,
 		 * these items will be appended to the items to load.
 		 * 
 		 * @param	items	An array of Asset instances.
@@ -221,7 +218,7 @@ package net.guttershark.control
 		 * @see net.guttershark.preloading.Asset Asset class
 		 */
 		public function addItems(items:Array):void
-		{ 
+		{
 			if(!this.loadItems[0]) this.loadItems = ArrayUtils.Clone(items);
 			else this.loadItems.concat(items);
 			loadItemsDuplicate = ArrayUtils.Clone(loadItems);
@@ -238,14 +235,13 @@ package net.guttershark.control
 			if(!this.loadItems[0]) this.loadItems = ArrayUtils.Clone(items);
 			else
 			{
-				for(var i:int = 0; i < items.length; i++) this.loadItems.unshift(items[i]); 
+				for(var i:int = 0; i < items.length; i++) this.loadItems.unshift(items[i]);
 			}
 			loadItemsDuplicate = ArrayUtils.Clone(loadItems);
 		}
 
 		/**
-		 * Starts loading the items in this preload controller. This is also used to resume
-		 * a preload controller that had previously been stopped.
+		 * Starts loading the assets, and resumes loading from a stopped state.
 		 * 
 		 * @see #stop() stop method
 		 */
@@ -261,19 +257,11 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * Stops this preload controller from loading assets. 
-		 * 
-		 * <p>If there is a currently loading asset, it will finish first.</p>
-		 * 
-		 * <p>This does not completely destroy the controller, you can call
-		 * start() and it will resume loading whatever assets were in the controller.</p>
-		 * 
-		 * <p>This does not purge the internal asset library.</p>
-		 * 
-		 * <p>The only way to destroy and reset a controller is by calling reset.</p>
+		 * Stops this preload controller from loading assets, if there is
+		 * an asset currently loading, that asset will finish loading, but the
+		 * controller will not continue after that.
 		 * 
 		 * @see #start() start method
-		 * @see #reset() reset method
 		 */
 		public function stop():void
 		{
@@ -288,6 +276,31 @@ package net.guttershark.control
 			return _working;
 		}
 		
+		/**
+		 * Get the number of items left in the preload queue.
+		 */
+		public function get numLeft():int
+		{
+			return loadItems.length;
+		}
+		
+		/**
+		 * Set the number of pixels to fill, useful if
+		 * the pixel calculations need to change.
+		 */
+		public function set pixelsToFill(px:int):void
+		{
+			totalPixelsToFill = px;
+		}
+		
+		/**
+		 * The last completed asset to load.
+		 */
+		public function get lastCompletedAsset():Asset
+		{
+			return lastCompleteAsset;
+		}
+
 		/**
 		 * Prioritize an asset.
 		 * 
@@ -311,7 +324,7 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * This method is recursively called to load each item in the queue.
+		 * Recursively called to load each item in the queue.
 		 */
 		private function load():void
 		{
@@ -320,41 +333,6 @@ package net.guttershark.control
 			currentItem = item;
 			loadingItemsPool[item.source] = item;
 			item.load(this);
-		}
-		
-		/**
-		 * Get the number of items left in the preload queue.
-		 */
-		public function get numLeft():int
-		{
-			return loadItems.length;
-		}
-		
-		/**
-		 * Set the number of pixels to fill, useful if
-		 * the pixel calculations need to.
-		 */
-		public function set pixelsToFill(px:int):void
-		{
-			totalPixelsToFill = px;
-		}
-		
-		/**
-		 * @private
-		 * 
-		 * Every LoadItem in the queue calls this method on it's progress event.
-		 * 
-		 * @param	pe		AssetProgressEvent
-		 */
-		public function progress(pe:AssetProgressEvent):void
-		{
-			var item:Asset = Asset(pe.asset);
-			var source:String = pe.asset.source;
-			if(item.bytesTotal < 0 || isNaN(item.bytesTotal)) return;
-			else if(item.bytesLoaded < 0 || isNaN(item.bytesLoaded)) return;
-			if(!bytesTotalPool[source]) bytesTotalPool[source] = item.bytesTotal;
-			bytesLoadedPool[source] = item.bytesLoaded;
-			updateStatus();
 		}
 		
 		/**
@@ -386,6 +364,69 @@ package net.guttershark.control
 		}
 		
 		/**
+		 * This is used to check the status of this preloader.
+		 */
+		private function updateLoading():void
+		{
+			if(loadItems.length > 0) load();
+			else if((loaded + loadErrors) >= (loadItems.length))
+			{	
+				_working = false;
+				dispatchEvent(new PreloadProgressEvent(PreloadProgressEvent.PROGRESS,totalPixelsToFill,100));
+				dispatchEvent(new Event(Event.COMPLETE));
+				reset();
+			}
+		}
+		
+		/**
+		 * Resets internal state. 
+		 */
+		public function reset():void
+		{
+			loadErrors = 0;
+			loaded = 0;
+			loadItems = [];
+			loadItemsDuplicate = [];
+			bytesTotalPool = [];
+			bytesLoadedPool = [];
+			currentItem = null;
+			lastCompleteAsset = null;
+		}
+		
+		/**
+		 * Dispose of this preloadController.
+		 */
+		public function dispose():void
+		{
+			loadErrors = 0;
+			loaded = 0;
+			loadItems = null;
+			loadItemsDuplicate = null;
+			bytesTotalPool = null;
+			bytesLoadedPool = null;
+			currentItem = null;
+			lastCompleteAsset = null;
+		}
+
+		/**
+		 * @private
+		 * 
+		 * Every Asset in the queue calls this method on it's progress event.
+		 * 
+		 * @param	pe		AssetProgressEvent
+		 */
+		public function progress(pe:AssetProgressEvent):void
+		{
+			var item:Asset = Asset(pe.asset);
+			var source:String = pe.asset.source;
+			if(item.bytesTotal < 0 || isNaN(item.bytesTotal)) return;
+			else if(item.bytesLoaded < 0 || isNaN(item.bytesLoaded)) return;
+			if(!bytesTotalPool[source]) bytesTotalPool[source] = item.bytesTotal;
+			bytesLoadedPool[source] = item.bytesLoaded;
+			updateStatus();
+		}
+		
+		/**
 		 * @private
 		 * 
 		 * Each item calls this method on it's complete.
@@ -395,6 +436,7 @@ package net.guttershark.control
 		public function complete(e:AssetCompleteEvent):void
 		{
 			loaded++;
+			lastCompleteAsset = e.asset;
 			AssetManager.gi().addAsset(e.asset.libraryName,e.asset.data);
 			dispatchEvent(new AssetCompleteEvent(AssetCompleteEvent.COMPLETE,e.asset));
 			updateStatus();
@@ -444,37 +486,6 @@ package net.guttershark.control
 		public function open(e:AssetOpenEvent):void
 		{	
 			dispatchEvent(new AssetOpenEvent(AssetOpenEvent.OPEN,e.asset));
-		}
-
-		/**
-		 * This is used to check the status of this preloader.
-		 */
-		private function updateLoading():void
-		{
-			if(loadItems.length > 0) load();
-			else if((loaded + loadErrors) >= (loadItems.length))
-			{	
-				_working = false;
-				dispatchEvent(new PreloadProgressEvent(PreloadProgressEvent.PROGRESS,totalPixelsToFill,100));
-				dispatchEvent(new Event(Event.COMPLETE));
-				reset();
-			}
-		}
-		
-		/**
-		 * Resets everything in this controller. Note that this will not purge the library. 
-		 * 
-		 * @see net.guttershark.preloading.AssetLibrary#purge() AssetLibrary purge function
-		 */
-		public function reset():void
-		{
-			loadErrors = 0;
-			loaded = 0;
-			loadItems = [];
-			loadItemsDuplicate = [];
-			bytesTotalPool = [];
-			bytesLoadedPool = [];
-			currentItem = null;
 		}
 	}
 }

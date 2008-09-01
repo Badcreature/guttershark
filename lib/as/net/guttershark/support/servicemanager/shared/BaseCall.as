@@ -1,7 +1,7 @@
-package net.guttershark.nsm.shared
+package net.guttershark.support.servicemanager.shared
 {
 	import flash.events.TimerEvent;
-	import flash.utils.Timer;		
+	import flash.utils.Timer;	
 
 	public class BaseCall 
 	{

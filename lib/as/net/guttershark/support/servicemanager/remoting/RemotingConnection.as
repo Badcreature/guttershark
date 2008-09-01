@@ -1,45 +1,8 @@
-package net.guttershark.nsm.remoting
+package net.guttershark.support.servicemanager.remoting
 {
 	import flash.events.*;
-	import flash.net.NetConnection;
-	
-	import net.guttershark.support.servicemanager.remoting.events.ConnectionEvent;
+	import flash.net.NetConnection;	
 
-	/**
-	 * Dispatched when a connection is successful.
-	 * 
-	 * @eventType net.guttershark.remoting.events.ConnectionEvent
-	 */
-	 [Event("connected", type="net.guttershark.remoting.events.ConnectionEvent")]
-	
-	/**
-	 * Dispatched when a connection fails.
-	 * 
-	 * @eventType net.guttershark.remoting.events.ConnectionEvent
-	 */
-	 [Event("failed", type="net.guttershark.remoting.events.ConnectionEvent")]
-	
-	/**
-	 * Dispatched when a connection disconnects.
-	 * 
-	 * @eventType net.guttershark.remoting.events.ConnectionEvent
-	 */
-	 [Event("disconnect", type="net.guttershark.remoting.events.ConnectionEvent")]
-	
-	/**
-	 * Dispatched when a security error occurs.
-	 * 
-	 * @eventType net.guttershark.remoting.events.ConnectionEvent
-	 */
-	 [Event("securityError", type="net.guttershark.remoting.events.ConnectionEvent")]
-	
-	/**
-	 * Dispatched when an AMF format error occurs.
-	 * 
-	 * @eventType net.guttershark.remoting.events.ConnectionEvent
-	 */
-	 [Event("formatError", type="net.guttershark.remoting.events.ConnectionEvent")]
-	
 	/**
 	 * The RemotingConnection class simplifies connecting a net connection to 
 	 * a Flash Remoting gateway.
@@ -90,9 +53,7 @@ package net.guttershark.nsm.remoting
 		{
 			connection.close();
 			connection = null;
-			var ce:ConnectionEvent = new ConnectionEvent(ConnectionEvent.ERROR);
-			ce.message = event.text;
-			dispatchEvent(ce);
+			trace("NetConnection Error"+event.text);
 		}
 		
 		/**
@@ -100,31 +61,21 @@ package net.guttershark.nsm.remoting
 		 */
 		private function onConnectionStatus(event:NetStatusEvent):void
 		{
-			var ce:ConnectionEvent;
 			switch(event.info.code)
 			{
 				case "NetConnection.Connect.Success":
-					ce = new ConnectionEvent(ConnectionEvent.CONNECTED);
-					ce.message = event.info.code;
-					dispatchEvent(ce);
 					break;
 				case "NetConnection.Connect.Failed":
-					ce = new ConnectionEvent(ConnectionEvent.FAILED);
-					dispatchEvent(ce);
+					trace("Error: NetConnection Failed");
 					break;
 				case "NetConnection.Call.BadVersion":
-					ce = new ConnectionEvent(ConnectionEvent.FORMAT_ERROR);
-					dispatchEvent(ce);
+					trace("Error: NetConnection BadVersion");
 					break;
 				case "NetConnection.Call.Prohibited":
-					ce = new ConnectionEvent(ConnectionEvent.SECURITY_ERROR);
-					ce.message = event.info.code;
-					dispatchEvent(ce);
+					trace("Error: NetConnection Prohibited");
 					break;
 				case "NetConnection.Connect.Closed":
-					ce = new ConnectionEvent(ConnectionEvent.DISCONNECT);
-					ce.message = event.info.code;
-					dispatchEvent(ce);
+					trace("Error: NetConnection Closed");
 					break;
 			}
 		}

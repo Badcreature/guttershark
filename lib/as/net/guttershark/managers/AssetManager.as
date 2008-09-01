@@ -10,7 +10,7 @@ package net.guttershark.managers
 	
 	import net.guttershark.util.Assert;
 	import net.guttershark.util.Singleton;
-	import net.guttershark.util.XMLLoader;
+	import net.guttershark.util.XMLLoader;		
 
 	/**
 	 * The AssetManager is a singleton that stores all assets
@@ -30,6 +30,11 @@ package net.guttershark.managers
 		 * Store for assets.
 		 */
 		private var assets:Dictionary;
+		
+		/**
+		 * The last asset that was registered with this manager.
+		 */
+		private var _lastLibraryName:String;
 
 		/**
 		 * @private
@@ -64,6 +69,7 @@ package net.guttershark.managers
 			Assert.NotNull(obj, "Parameter obj cannot be null");
 			if(assets[libraryName]) trace("WARNING: The asset defined by libraryName: {" + libraryName + "} already had an asset registered in the library. The previous asset is no longer available.");
 			assets[libraryName] = obj;
+			_lastLibraryName = libraryName;
 		}
 		
 		/**
@@ -76,6 +82,23 @@ package net.guttershark.managers
 		{
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
 			assets[libraryName] = null;
+		}
+		
+		/**
+		 * The last libraryName that was used to register an object.
+		 * This is useful for when you don't neccessarily have a
+		 * libraryName available, but you know that the librayName
+		 * you need was the last asset registered in the AssetManager.
+		 * 
+		 * @example Using the lastLibraryName property.
+		 * <listing>
+		 * var am:AssetManager = AssetManager.gi();
+		 * addChild(am.getBitmap(am.lastLibraryName));
+		 * </listing>
+		 */
+		public function get lastLibraryName():String
+		{
+			return _lastLibraryName;
 		}
 		
 		/**
@@ -303,6 +326,7 @@ package net.guttershark.managers
 		public function dispose():void
 		{
 			assets = new Dictionary(false);
+			_lastLibraryName = null;
 		}
 	}
 }

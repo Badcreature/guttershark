@@ -6,13 +6,13 @@ package net.guttershark.model
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.managers.PlayerManager;
-	import net.guttershark.nsm.ServiceManager;
+	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.support.preloading.Asset;
 	import net.guttershark.util.Assert;
 	import net.guttershark.util.Singleton;	
 
 	/**
-	 * The Model Class provides shortcuts for parsing a site model xml file as
+	 * The Model Class provides shortcuts for parsing a model xml file as
 	 * well as other model centric methods.
 	 * 
 	 * @example Example model XML file:
@@ -56,73 +56,28 @@ package net.guttershark.model
 		protected static var inst:Model;
 		
 		/**
-		 * Reference to the entire site XML file.
+		 * Reference to the entire model XML.
 		 */
 		protected var _model:XML;
 		
 		/**
-		 * Stores a reference to the &lt;assets&gt;&lt;/assets&gt; node.
-		 * 
+		 * Stores a reference to the &lt;assets&gt;&lt;/assets&gt;
+		 * node in the model xml.
+		 *
 		 * <p>The assets node is an asset pool that is used in many other places
 		 * as a lookup for info about an asset.</p>
-		 * 
-		 * @example An assets nodes:
-		 * <listing>	
-		 * &lt;assets&gt;
-		 *    &lt;asset libraryName="test1" source="test1.jpg" /&gt;
-		 *    &lt;asset libraryName="test2" source="test2.jpg" /&gt;
-		 *    &lt;asset libraryName="test3" source="test3.jpg" /&gt;
-		 * &lt;/assets&gt;
-		 * </listing>
 		 */
 		protected var assets:XMLList;
 		
 		/**
-		 * Stores a reference to the <code>&lt;remoting&gt;&lt;/remoting&gt;</code> node.
-		 * 
-		 * @example A remoting nodes set.
-		 * <listing>	
-		 * &lt;services&gt;
-		 *     &lt;remoting&gt;
-		 *         &lt;endpoint id="amfphp" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" useCache="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
-		 *             &lt;service id="amfphp_service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
-		 *             &lt;service id="amfphp_service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
-		 *         &lt;/endpoint&gt;
-		 *         &lt;endpoint id="rubyamf" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" useCache="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
-		 *             &lt;service id="rubyamf_service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
-		 *             &lt;service id="rubyamf_service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
-		 *         &lt;/endpoint&gt;
-		 *     &lt;/remoting&gt;
-		 * &lt;/services&gt;
-		 * </listing>
-		 * 
-		 * <p>The above attributes in the endpoint node are all the available attributes. Generally you don't need
-		 * to specify them on the service level, so they're only available as canvas options for
-		 * each service.</p>
-		 */
-		protected var remoting:XMLList;
-		
-		/**
-		 * Stores a reference to the <code>&lt;http&gt;&lt;/http&gt;</code> node.
-		 */
-		protected var http:XMLList;
-		
-		/**
-		 * Stores a reference to the <code>&lt;links&gt;&lt;/links&gt;</code> node.
-		 * 
-		 * @example A links node set.
-		 * <listing>
-		 * &lt;links&gt;
-	 	 *     &lt;link id="google" url="http://www.google.com" /&gt;
-	 	 *     &lt;link id="rubyamf" url="http://www.rubyamf.org" /&gt;
-	 	 *     &lt;link id="guttershark" url="http://www.guttershark.net" /&gt;
-	 	 * &lt/links&gt;
-		 * </listing>
+		 * Stores a reference to the <code>&lt;links&gt;&lt;/links&gt;</code>
+		 * node in the model xml.
 		 */
 		protected var links:XMLList;
 		
 		/**
-		 * Stores a reference to the <code>&lt;attributes&gt;&lt;/attributes&gt;</code> node.
+		 * Stores a reference to the <code>&lt;attributes&gt;&lt;/attributes&gt;</code>
+		 * node in the model xml.
 		 * 
 		 * @example An attributes node set.
 		 * &lt;attributes&gt;
@@ -132,19 +87,22 @@ package net.guttershark.model
 		protected var attributes:XMLList;
 		
 		/**
-		 * The flash movies flashvars.
+		 * A placeholder variable for the movie's flashvars - this is
+		 * not set by default, you need to set it in your controller.
 		 */
 		public var flashvars:Object;
 		
 		/**
-		 * A SharedObject - use this property on the model, when you 
-		 * override the <em><code>restoreSharedObject</code></em> from
-		 * the DocumentController.
+		 * A placeholder variable for the movie's shared object - this is
+		 * not set by default, override <em><code>restoreSharedObject</code></em>
+		 * in your DocumentController, and set this property to a shared object.
+		 * 
+		 * @see net.guttershark.control.DocumentController DocumentController Class
 		 */
 		public var sharedObject:SharedObject;
 
 		/**
-		 * all paths are stored here, if external interface is not available.
+		 * If external interface is not available, all paths are stored here.
 		 */
 		private var paths:Dictionary;
 		
@@ -174,7 +132,7 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Set the model XML file on the singleton instance.
+		 * sets the model xml
 		 */
 		public function set xml(xml:XML):void
 		{
@@ -182,16 +140,11 @@ package net.guttershark.model
 			_model = xml;
 			if(_model.assets) assets = _model.assets;
 			if(_model.links) links = _model.links;
-			if(_model.services)
-			{
-				if(_model.services.remoting) remoting = _model.services.remoting;
-				if(_model.services.http) http = _model.services.http;
-			}
 			if(_model.attributes) attributes = _model.attributes;
 		}
 		
 		/**
-		 * Get the internal model XML file.
+		 * The XML used as the model.
 		 */
 		public function get xml():XML
 		{
@@ -212,55 +165,9 @@ package net.guttershark.model
 			var node:XMLList = assets..asset.(@libraryName == libraryName);
 			var ft:String = (node.@forceType != undefined && node.@forceType != "") ? node.@forceType : null;
 			var s:String = (prependSourcePath) ? prependSourcePath+node.@source : node.@source;
+			if(node.@path != undefined) s = getPath(node.@path.toString()) + node.@source.toString();
 			return new Asset(s,libraryName,ft);
 		}
-		
-		/**
-		 * Initialize remoting services for a specified endpoint, using
-		 * the supplied remoting manager.
-		 * 
-		 * @param	endpointID	The endpoint id.
-		 * @param	remotingManager	A remoting manager to intialize services in.
-		
-		public function initializeRemotingEndpoint(endpointID:String, remotingManager:RemotingManager):void
-		{
-			checkForXML();
-			Assert.NotNull(remoting, "No remoting nodes were found. Please define them in the services node.");
-			Assert.NotNull(endpointID, "Parameter id cannot be null");
-			var endpoint:XMLList = remoting.endpoint.(@id == endpointID);
-			if(!endpoint) throw new Error("Endpoint " + endpointID + " could not be found.");
-			RemotingManager.DefaultObjectEncoding = int(endpoint.@objectEncoding);
-			var timeout:int = (endpoint.@callTimeout) ? endpoint.@callTimeout : 5000;
-			var retries:int = (endpoint.@maxRetries) ? endpoint.@maxRetries : 5;
-			var limiter:Boolean;
-			if(endpoint.@useLimiter)
-			{
-				if(endpoint.@useLimiter == "true") limiter = true;
-				else limiter = false;
-			}
-			for each(var service:XML in endpoint.service)
-			{
-				var cache:Boolean = (service.@useCache == "true") ? true : false;
-				var cacheExpire:int = (service.@cacheExpireTimeout) ? int(service.@cacheExpireTimeout) : -1;
-				if(service.@id == undefined) throw new Error("<service> nodes must have an \"id\" attribute.");
-				remotingManager.createService(service.@id, endpoint.@gateway.toString(),service.toString(),timeout,retries,limiter,cache,cacheExpire);
-			}
-		} */
-		
-		/**
-		 * Initialize http service for a specific service id. Uses the supplied service manager.
-		 * 
-		 * @param	serviceID	The service id.
-		 * @param	serviceManager	The service manager that will house the services.
-		
-		public function initializeHTTPService(serviceID:String,serviceManager:ServiceManager):void
-		{
-			checkForXML();
-			Assert.NotNull(serviceID, "Parameter serviceID cannot be null");
-			Assert.NotNull(serviceManager, "Parameter serviceManager cannot be null");
-			var service:XMLList = http.service.(@id == serviceID);
-			serviceManager.createService(serviceID,service.@url,service.@defaultResponseFormat);
-		} */
 		
 		/**
 		 * Initializes all services defined in the model XML with the ServiceManager.
@@ -286,7 +193,7 @@ package net.guttershark.model
 					var r:XMLList = xml.services.gateway.(@id == s.@gateway);
 					if(!r) throw new Error("Gateway {"+s.@gateway+"} not found.");
 					if(r.@url != undefined) gateway = r.@url;
-					if(r.@path != undefined) gateway = getPath(r.@path);
+					if(r.@path != undefined) gateway = getPath(r.@path.toString());
 					if(!gateway) throw new Error("Gateway not found, you must have a url or path attribute on defined on the gateway node.");
 					if(r.@objectEncoding!=undefined) oe = int(r.@objectEncoding);
 					if(oe != 3 && oe != 0) throw new Error("ObjectEncoding can only be 0 or 3.");
@@ -294,9 +201,8 @@ package net.guttershark.model
 				}
 				else
 				{
-					//trace("create http service");
 					if(s.@url != undefined) url = s.@url;
-					if(s.@path != undefined) url = getPath(s.@path);
+					if(s.@path != undefined) url = getPath(s.@path.toString());
 					if(s.@responseFormat != undefined) drf = s.@responseFormat;
 					if(drf != null && drf != "variables" && drf != "xml" && drf != "text" && drf != "binary") throw new Error("The defined response format is not supported, only xml|text|binary|variables is supported.");
 					sm.createHTTPService(s.@id, url, attempts, timeout, limiter, drf);
@@ -378,7 +284,7 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Add a URL Path to the model. If ExternalInterface is available, it
+		 * Add a URL path to the model. If ExternalInterface is available, it
 		 * uses the guttershark javascript api. Otherwise everything is
 		 * stored in a local dictionary.
 		 * 
@@ -397,7 +303,9 @@ package net.guttershark.model
 		
 		/**
 		 * Get a path concatenated from the given pathIds. They need
-		 * to be in order that you want them concatenated.
+		 * to be in order that you want them concatenated. If ExternalInterface is available, it
+		 * uses the guttershark javascript api. Otherwise everything is
+		 * stored in a local dictionary.
 		 * 
 		 * @param	...pathIds	An array of pathIds whose values will be concatenated together.
 		 */
@@ -409,11 +317,24 @@ package net.guttershark.model
 				for each(var id:String in pathIds)
 				{
 					if(!paths[id]) throw new Error("Path {"+id+"} not defined.");
-					fp += paths[id];	
+					fp += paths[id];
 				}
 				return fp;
 			}
-			return ExternalInterface.call("net.guttershark.Paths.getPath",pathIds);
+			return ExternalInterface.call("net.guttershark.Paths.getPath",pathIds as Array);
+		}
+		
+		/**
+		 * Flush the <em><code>sharedObject</code></em> property.
+		 */
+		public function flushSharedObject():void
+		{
+			if(!sharedObject)
+			{
+				trace("WARNING: sharedObject was not flushed, it is null.");
+				return;
+			}
+			sharedObject.flush();
 		}
 	}
 }
