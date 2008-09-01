@@ -9,7 +9,6 @@ package net.guttershark.control
 	import flash.events.TimerEvent;
 	import flash.external.ExternalInterface;
 	import flash.net.LocalConnection;
-	import flash.net.SharedObject;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestHeader;
 	import flash.utils.Dictionary;
@@ -20,70 +19,56 @@ package net.guttershark.control
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
 	import net.guttershark.managers.PlayerManager;
-	//import net.guttershark.managers.ServiceManager;
 	import net.guttershark.model.Model;
-	//import net.guttershark.support.servicemanager.remoting.RemotingManager;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
-	import net.guttershark.util.QueryString;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;
+	import net.guttershark.util.akamai.Ident;	
 
 	/**
-	 * The DocumentController class is the base Document Class for all sites. The DocumentController provides 
-	 * default functionality that 90% of flash sites need on startup. This should always be extended
-	 * and never used directly.
-	 * 
-	 * <p>By providing any of the following flash var properties, you initiate default functionality.</p>
+	 * The DocumentController Class is the document class for an FLA. It contains
+	 * default startup functionality that you can hook into - and all logic
+	 * is controllable through flashvars.
 	 * 
 	 * <p>Available FlashVar Properties:</p>
 	 * <ul>
-	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress change events.</li>
-	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
 	 * <li><strong>autoInitModel</strong> (Boolean) - Whether or not to automatically set the loaded xml on the default Model class. If you do not autoInitModel, you should override initModel() so you can initialize the model or a subclassed model</li>
-	 * <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded. Or you can specify sniffBandwidthURL for a custom file.</li>
-	 * <li><strong>sniffBandwidthURL</strong> (String) - The file to load for the bandwidth sniff.</li>
-	 * <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
+	 * <li><strong>initServices</strong> (Boolean) - Initialize the <code><em>RemotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a model file (see net.guttershark.model.Model for examples).</li>
+	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000 (1 minute).</li>
 	 * <li><strong>onlineStatusPingURL</strong> (String) - Specify the URL to an image to ping for online status. The default is "./ping.png".</li>
-	 * <li><strong>initRemotingEndpoints</strong> (CSV EX:"amfphp,rubyamf") - Initialize the <code><em>RemotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a model file (see net.guttershark.model.Model for examples).</li> 
-	 * <li><strong>initHTTP</strong> (CSV EX:"user,session") - Initialize the <code><em>ServiceManager</em></code>, and initialize the specified services. The specified services must be defined in a model file. (see net.guttershark.model.Model for examples).</li>
+	 * <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded. Or you can specify sniffBandwidthURL for a custom file.</li>
+	 * <li><strong>sniffBandwidthURL</strong> (String) - The file to load for the bandwidth sniff.</li>
+	 * <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
+	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress change events.</li>
 	 * <li><strong>(in development)trackingMonitor</strong> (Boolean) - Connect to the tracking monitor, and send notifications from the javascript tracking library to the trackingMonitor.</li>
 	 * <li><strong>(in development)trackingSimulateXMLFile</strong> (String) - The path to a tracking xml file to use for making simulated tracking calls. This is specifically for when you're in the Flash IDE and need to at least simulate tracking calls for QA. The tags get sent to the tracking monitor.</li>
 	 * </ul>
 	 * 
-	 * <p>FlashVar properties can be declared when running in the Flash IDE by overriding the <code><a href="#flashvarsForStandalone()">flashvarsForStandalone()</a></code> 
+	 * <p>Flashvar properties can be supplied when running in the Flash IDE 
+	 * by overriding the <code><a href="#flashvarsForStandalone()">flashvarsForStandalone()</a></code> 
 	 * method. Otherwise you <strong>must</strong> declate the flashvars on the flash object in HTML.</p>
 	 * 
 	 * @example Overriding the flashvarsForStandalone method to provide flashvars for IDE development:
 	 * <listing>	
 	 * override protected function flashvarsForStandalone():Object
 	 * {
-	 *     return {model:"model.xml",
-	 *        autoInitModel:true,
-	 *        initRemotingEndpoints:"amfphp",
-	 *        sniffCPU:true,
-	 *        sniffBandwidth:true,
-	 *        onlineStatus:true
-	 *     };
+	 *     return {model:"model.xml",initServices:true};
 	 * }	
 	 * </listing>
 	 * 
-	 * @example Declaring FlashVars on a Flash object with SWFObject:
+	 * @example Declaring flashvars on a Flash object with SWFObject:
 	 * <listing>	
 	 * &lt;script type="text/javascript"&gt;
 	 *     // &lt;![CDATA[
+	 *     ...
 	 *     var so = new SWFObject("main.swf", "flaswf", "100%", "100%", "9", "#000");
 	 *     so.addVariable("model","model.xml");
-	 *     so.addVariable("sniffCPU",true);
-	 *     so.addVariable("sniffBandwidth",true);
-	 *     so.addVariable("akamaiHost","http://cp44952.edgefcs.net/");
-	 *     so.addVariable("onlineStatus",true);
-	 *     so.addVariable("onlineStatusPingFrequency",120000);
-	 *     so.addVariable("initRemotingEndpoints","amfphp,rubyamf");
+	 *     so.addVariable("initServices","true");
+	 *     ...
 	 *     // ]]&gt;
 	 * &lt;/script&gt;
 	 * </listing>
@@ -92,19 +77,14 @@ package net.guttershark.control
 	 */
 	public class DocumentController extends Sprite
 	{
-		
-		/**
-		 * A reference to the DocumentControllers instance.
-		 */
-		protected var dcs:DocumentControllers;
 
 		/**
-		 * The model XML. This comes from loading an xml file provided by flashvars.model property.
+		 * The model XML - this is the xml that gets loaded from flashvars.model property.
 		 */
 		public var model:XML;
 		
 		/**
-		 * FlashVars on this movie.
+		 * The flashvars on this movie.
 		 */
 		public var flashvars:Object;
 
@@ -124,16 +104,6 @@ package net.guttershark.control
 		private var _bandwidthSniffer:Bandwidth;
 
 		/**
-		 * A shared object for this application.
-		 */
-		public var sharedObject:SharedObject;
-		
-		/**
-		 * A query string object used for deeplink data reading.
-		 */
-		public var queryString:QueryString;
-
-		/**
 		 * The timer used to initiate the ping loader.
 		 */
 		private var statusPingTimer:Timer;
@@ -147,11 +117,6 @@ package net.guttershark.control
 		 * The url request for the ping image.
 		 */
 		private var pingimg:URLRequest;
-		
-		/**
-		 * The url request header that adds a no cache policy on the ping image.
-		 */
-		private var nocache:URLRequestHeader;
 		
 		/**
 		 * Online indicator.
@@ -170,60 +135,30 @@ package net.guttershark.control
 
 		/**
 		 * Constructor for DocumentController instances. This should not
-		 * be used directly, only subclassed.
+		 * be used directly, only subclassed as a Document Class for an FLA.
 		 */
 		public function DocumentController()
 		{
-			dcs = DocumentControllers.gi();
-			registerController();
 			online = true;
 			MacMouseWheel.setup(stage);
 			setupFlashvars();
-			setupQueryString();
-			restoreSharedObject();
 			if(flashvars.swfAddress) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
 			if(flashvars.sniffCPU) CPU.calculate();
 			if(flashvars.sniffBandwidth) sniffBandwidth();
-			if(flashvars.model || flashvars.siteXML) loadModel();
-			if(!flashvars.model && !flashvars.siteXML) initModel();
-			if(!flashvars.autoInitModel && !flashvars.model && !flashvars.siteXML && (PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer())) initPathsForStandalone();
+			if(flashvars.model) loadModel();
 			if(flashvars.akamaiHost) loadAkamai();
 			if(flashvars.onlineStatus) initOnlineStatus();
-			if(!flashvars.model && flashvars.initRemotingEndpoints) throw new Error("You cannot initialize remoting endpoints without a site XML file in place.");
-			if(!flashvars.model) setupComplete();
+			if(!flashvars.model)
+			{
+				if(PlayerManager.IsIDEPlayer()||PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
+				initModel();
+				restoreSharedObject();
+				setupComplete();
+			}
 		}
 		
-		/**
-		 * A stub method you should use to register
-		 * this controller with the DocumentControllers class.
-		 * 
-		 * <p>This is specifically useful when you have multiple SWFs
-		 * that extended DocumentController, and you need references to the
-		 * DocumentController from each.</p>
-		 * 
-		 * @see net.guttershark.control.DocumentControllers DocumentControllers Class
-		 */
-		protected function registerController():void{}
-		
-		/**
-		 * A stub method you should use to initialize Paths with the PathManager
-		 * when the flash movie is running as a standalone.
-		 * 
-		 * <p>When the player is embedded in an HTML document, you can still use the
-		 * PathManager, but the PathManager uses external interface and the guttershark
-		 * javascript Path class for all path handling.</p>
-		 * 
-		 * <p>See the lib/js/guttershark.js file</p>
-		 */
-		protected function initPathsForStandalone():void{}
-		
-		/**
-		 * Stub method you should override to hook into swf address change events.
-		 */
-		protected function swfAddressChange(sae:SWFAddressEvent):void{}
-
 		/**
 		 * Setup the flash vars on this movie.
 		 */
@@ -234,40 +169,23 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * Initialize the remoting manager.
-		 *
-		private function intiailizeRemotingManager():void
-		{
-			var endpoints:Array;
-			if(flashvars.initRemotingEndpoints is Array) endpoints = flashvars.initRemotingEndpoints;
-			else endpoints = flashvars.initRemotingEndpoints.split(",");
-			var m:Model = Model.gi();
-			var l:int = endpoints.length;
-			for(var i:int = 0; i < l; i++) m.initializeRemotingEndpoint(endpoints[i], RemotingManager.gi());
-		}*/
+		 * A method you can override to restore a shared object from disk.
+		 * 
+		 * @example Using the sharedObject property to restore the shared object to:
+		 * <listing>	
+		 * override protected function restoreSharedObject():void
+		 * {
+		 *   sharedObject = SharedObject.getLocal("test");
+		 *   Model.gi().sharedObject = sharedObject;
+		 * }
+		 * </listing>
+		 */
+		protected function restoreSharedObject():void{}
 		
 		/**
-		 * Initialize the service manager.
+		 * Stub method you should override to hook into SWFAddress change events.
 		 */
-		private function initializeServiceManager():void
-		{
-			/*var services:Array;
-			if(flashvars.initHTTP is Array) services = flashvars.initHTTP;
-			else services = flashvars.initHTTP.split(",");
-			var m:Model = Model.gi();
-			var l:int = services.length;
-			for(var i:int = 0; i < l; i++) m.initializeHTTPService(services[i],ServiceManager.gi());
-			*/
-		}
-
-		/**
-		 * Setup the querystring data.
-		 */
-		private function setupQueryString():void
-		{
-			queryString = new QueryString();
-			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) queryString.querystringData = queryStringForStandalone();
-		}
+		protected function swfAddressChange(sae:SWFAddressEvent):void{}
 		
 		/**
 		 * Setup tracking for all AS implemented tracking.
@@ -281,34 +199,140 @@ package net.guttershark.control
 		}
 		
 		/**
+		 * Setup connections for the tracking monitor, and listen for
+		 * external interface calls.
+		 */
+		private function setupTrackingMonitor():void
+		{
+			if((PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer())) return;
+			lc = new LocalConnection();
+			lc.addEventListener(StatusEvent.STATUS, onLCStatus);
+			ExternalInterface.addCallback("tracked", onJSTrack);
+		}
+		
+		/**
+		 * Sniff the client's bandwidth.
+		 */
+		private function sniffBandwidth():void
+		{
+			if(flashvars.sniffBandwidthURL) _bandwidthSniffer = new Bandwidth(new URLRequest(flashvars.sniffBandwidthURL));
+			else _bandwidthSniffer = new Bandwidth();
+			_bandwidthSniffer.contentLoader.addEventListener(Event.COMPLETE, onBandwidthComplete);
+			_bandwidthSniffer.detect();
+		}
+		
+		/**
+		 * Load the site xml.
+		 */
+		private function loadModel():void
+		{
+			modelXMLLoader = new XMLLoader();
+			modelXMLLoader.contentLoader.addEventListener(Event.COMPLETE,onSiteXMLComplete);
+			modelXMLLoader.load(new URLRequest(flashvars.model || flashvars.siteXML));
+		}
+		
+		/**
+		 * A stub method you should use to setup path logic with the
+		 * model.
+		 * 
+		 * <p>This will only execute if you're running the player as
+		 * standalone.</p>
+		 * 
+		 * <p>Path logic with the Model will store and retrieve paths
+		 * in a dictionary if running in standalone mode. Otherwise
+		 * ExternalInterface is used in conjunction with the
+		 * lib/js/guttershark.js file. This is so that when running
+		 * a swf in HTML, you can hook into javascript to define
+		 * paths needed - instead of compiled AS3, or static XML - which
+		 * in either case requires changes for the swf to be moved anywhere else.
+		 * But in javascript, you can execute logic that dictates your choices
+		 * for urls before the SWF even renders.</p>
+		 * 
+		 * <p>See the lib/js/guttershark.js file</p>
+		 */
+		protected function initPathsForStandalone():void{}
+		
+		/**
+		 * Hits an akamai ident service.
+		 */
+		private function loadAkamai():void
+		{
+			ident = new Ident();
+			ident.contentLoader.addEventListener(Event.COMPLETE, onAkamaiIdentComplete);
+			ident.findBestIPForAkamaiApplication(flashvars.akamaiHost);
+		}
+		
+		/**
+		 * Start the online status watching.
+		 */
+		private function initOnlineStatus():void
+		{
+			statusLoader = new Loader();
+			statusLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onPingComplete);
+			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.DISK_ERROR, onPingError);
+			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onPingError);
+			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR,onPingError);
+			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR,onPingError);
+			statusLoader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, onPingStatus);
+			if(flashvars.onlineStatusPingURL) pingimg = new URLRequest(flashvars.onlineStatusPingURL); 
+			else pingimg = new URLRequest("./ping.png");
+			var nocache:URLRequestHeader = new URLRequestHeader("Cache-Control","no-cache");
+			pingimg.requestHeaders = [nocache];
+			if(flashvars.onlineStatusPingFrequency) statusPingTimer = new Timer(flashvars.onlineStatusPingFrequency);
+			else statusPingTimer = new Timer(60000);
+			statusPingTimer.addEventListener(TimerEvent.TIMER,onTimeToPing);
+			statusPingTimer.start();
+		}
+		
+		/**
+		 * A method you should override to initialize your own model - this
+		 * is in place for situations where you need to extend the base Model class,
+		 * and can only initialize the Model once.
+		 * 
+		 * <p>If you are only using the default Model class, you can specify the
+		 * <em><code>autoInitModel</code><em> flashvar property, which will
+		 * automatically set the xml property on the default Model, which
+		 * initializes it for you.</p>
+		 * 
+		 * @example A custom initModel method:
+		 * <listing>
+		 * override protected function initModel():void
+		 * {
+		 *     MySubclassedModel.gi().xml = model;
+		 * }
+		 */
+		protected function initModel():void{}
+		
+		/**
+		 * @private
+		 * 
+		 * When the site xml completes loading.
+		 */
+		private function onSiteXMLComplete(e:Event):void
+		{
+			model = modelXMLLoader.data;
+			if(flashvars.autoInitModel) Model.gi().xml = model;
+			else
+			{
+				initModel();
+				restoreSharedObject();
+			}
+			modelXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
+			modelXMLLoader.dispose();
+			modelXMLLoader = null;
+			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
+			if(flashvars.initServices) Model.gi().initServices();
+			setupComplete();
+		}
+		
+		/**
 		 * On tracking xml load complete.
 		 */
 		private function ontc(e:Event):void
 		{
 			Tracking.SimulationTrackingXML = trackingXMLLoader.data;
 		}
-
-		/**
-		 * Setup connections for the tracking monitor, and listen for
-		 * external interface calls.
-		 */
-		private function setupTrackingMonitor():void
-		{
-			if((PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()))
-			{
-				return;
-				/*trace("WARNING: No tracking tags will fire because the SWF is currently not " +
-				"wrapped in HTML, and you did not enable useASTracking.");*/
-				/*trace("WARNING: TrackingMonitor will not be used with the standalone player, " +
-				"Unless you've opted into calling all tracking through AS3 with the Tracking class" +
-				"and a loaded tracking XML file. Otherwise you must use the javascript" +
-				"tracking framework, and the swf embedded in HTML.");*/
-			}
-			lc = new LocalConnection();
-			lc.addEventListener(StatusEvent.STATUS, onLCStatus);
-			ExternalInterface.addCallback("tracked", onJSTrack);
-		}
-		
+				
 		/**
 		 * On call from ExternalInterface.. from javascript tracking framework.
 		 */
@@ -333,27 +357,6 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * Load the site xml.
-		 */
-		private function loadModel():void
-		{
-			modelXMLLoader = new XMLLoader();
-			modelXMLLoader.contentLoader.addEventListener(Event.COMPLETE,onSiteXMLComplete);
-			modelXMLLoader.load(new URLRequest(flashvars.model || flashvars.siteXML));
-		}
-		
-		/**
-		 * Sniff the client's bandwidth.
-		 */
-		private function sniffBandwidth():void
-		{
-			if(flashvars.sniffBandwidthURL) _bandwidthSniffer = new Bandwidth(new URLRequest(flashvars.sniffBandwidthURL));
-			else _bandwidthSniffer = new Bandwidth();
-			_bandwidthSniffer.contentLoader.addEventListener(Event.COMPLETE, onBandwidthComplete);
-			_bandwidthSniffer.detect();
-		}
-		
-		/**
 		 * Handle the bandwidth sniff complete.
 		 */
 		private function onBandwidthComplete(e:Event):void
@@ -369,69 +372,6 @@ package net.guttershark.control
 		 * complete event.
 		 */
 		protected function onBandwidthSniffComplete():void{}
-		
-		/**
-		 * @private
-		 * 
-		 * When the site xml completes loading.
-		 */
-		private function onSiteXMLComplete(e:Event):void
-		{
-			model = modelXMLLoader.data;
-			if(flashvars.autoInitModel) Model.gi().xml = model;
-			else initModel();
-			modelXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
-			modelXMLLoader.dispose();
-			modelXMLLoader = null;
-			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
-			if(flashvars.initServices) Model.gi().initServices();
-			//if(flashvars.initRemotingEndpoints) intiailizeRemotingManager();
-			//if(flashvars.initHTTP) initializeServiceManager();
-			setupComplete();
-		}
-		
-		/**
-		 * A method you should override to initialize your own model. This
-		 * is in place for situations where you extend from the base Model class,
-		 * and can only initialize the model once.
-		 * 
-		 * <p>You need to set the xml propery on a subclassed model,
-		 * see the <em><code>model</code></em> property.</p>
-		 * 
-		 * <p>If you are only using the default Model class, you can specify the
-		 * <em><code>autoInitModel</code><em> flash var property, which will
-		 * automatically set the xml property on the default Model</p>
-		 * 
-		 * @example A custom initModel method:
-		 * <listing>
-		 * override protected function initModel():void
-		 * {
-		 *     MyModel.gi().xml = model;
-		 * }
-		 */
-		protected function initModel():void{}
-		
-		/**
-		 * Start the online status watching.
-		 */
-		private function initOnlineStatus():void
-		{
-			statusLoader = new Loader();
-			statusLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onPingComplete);
-			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.DISK_ERROR, onPingError);
-			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onPingError);
-			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR,onPingError);
-			statusLoader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR,onPingError);
-			statusLoader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, onPingStatus);
-			if(flashvars.onlineStatusPingURL) pingimg = new URLRequest(flashvars.onlineStatusPingURL); 
-			else pingimg = new URLRequest("./ping.png");
-			nocache = new URLRequestHeader("Cache-Control","no-cache");
-			pingimg.requestHeaders = [nocache];
-			if(flashvars.onlineStatusPingFrequency) statusPingTimer = new Timer(flashvars.onlineStatusPingFrequency);
-			else statusPingTimer = new Timer(60000);
-			statusPingTimer.addEventListener(TimerEvent.TIMER,onTimeToPing);
-			statusPingTimer.start();
-		}
 	
 		/**
 		 * On ping complete.
@@ -469,15 +409,6 @@ package net.guttershark.control
 			applicationOffline();
 		}
 		
-		/**
-		 * Hit an akamai ident service.
-		 */
-		private function loadAkamai():void
-		{
-			ident = new Ident();
-			ident.contentLoader.addEventListener(Event.COMPLETE, onAkamaiIdentComplete);
-			ident.findBestIPForAkamaiApplication(flashvars.akamaiHost);
-		}
 		
 		/**
 		 * event handler method for akamai ident sniff.
@@ -493,32 +424,20 @@ package net.guttershark.control
 		 * A method you should override that provides the final hook in the
 		 * chain of setup method calls.
 		 * 
-		 * <p>If a model file is being loaded, setupComplete will wait to be
-		 * called until after the xml is loaded. But will not wait for bandwidth sniff
-		 * or akamai ident hits. Use <code><em>onBandwidthSniffComplete() and akamaiIdentComplete()</em></code></p>
+		 * </p>setupComplete ensures that the model xml file has finished loading
+		 * (if flashvars.model was set). But it will not wait for sniffBandwidth,
+		 * or akamai idents.</p>
 		 */
 		protected function setupComplete():void{}
 		
 		/**
-		 * A method you can override to restore a shared object from disk.
-		 * 
-		 * @example Using the sharedObject property to restore the shared object to:
-		 * <listing>	
-		 * override protected function restoreSharedObject():void
-		 * {
-		 *   sharedObject = SharedObject.getLocal("test");
-		 *   Model.gi().sharedObject = sharedObject;
-		 * }
-		 * </listing>
-		 */
-		protected function restoreSharedObject():void{}
-		
-		/**
 		 * A method you can override when publishing from the flash IDE to provide
-		 * a default set of flash vars. This is because flashvars won't exist when
-		 * publishing from the flash IDE.
+		 * a default set of flashvars. Flashvars won't exist when
+		 * publishing from the flash IDE, so in this case, you just return
+		 * an Object with properties on it that fake what your flashvars will
+		 * actually be when coming from HTML.
 		 * 
-		 * @return A generic object with hard coded custom flashvar keys.
+		 * @return A generic object with hard code properties.
 		 */
 		protected function flashvarsForStandalone():Object
 		{
@@ -527,9 +446,7 @@ package net.guttershark.control
 		
 		/**
 		 * A method you can override when publishing from the flash IDE to provide
-		 * a default set of querystring data. The custom data get's set on the
-		 * <code>queryString</code> property so you can continue to use that property
-		 * without worrying about if your in the IDE or not.
+		 * a default set of querystring data.
 		 * 
 		 * @return A dictionary with deeplink keys and values.
 		 */

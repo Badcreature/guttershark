@@ -1,4 +1,4 @@
-package net.guttershark.nsm.shared 
+package net.guttershark.support.servicemanager.shared 
 {
 	public class CallFault 
 	{

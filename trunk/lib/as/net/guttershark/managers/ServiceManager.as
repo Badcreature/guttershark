@@ -1,15 +1,14 @@
-package net.guttershark.nsm
+package net.guttershark.managers
 {
-	import net.guttershark.nsm.http.Service;	
-	
 	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
-	import net.guttershark.nsm.remoting.RemotingService;
-	import net.guttershark.nsm.remoting.RemotingConnection;
-	import net.guttershark.util.Singleton;		
-
+	import net.guttershark.support.servicemanager.http.Service;
+	import net.guttershark.support.servicemanager.remoting.RemotingConnection;
+	import net.guttershark.support.servicemanager.remoting.RemotingService;
+	import net.guttershark.util.Singleton;	
+	
 	public dynamic class ServiceManager extends Proxy
 	{
 		

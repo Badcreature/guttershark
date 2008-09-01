@@ -1,4 +1,4 @@
-package net.guttershark.nsm.http 
+package net.guttershark.support.servicemanager.http 
 {
 	public class ResponseFormat 
 	{

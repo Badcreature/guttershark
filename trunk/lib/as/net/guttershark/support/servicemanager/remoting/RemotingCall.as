@@ -1,14 +1,13 @@
-package net.guttershark.nsm.remoting
+package net.guttershark.support.servicemanager.remoting
 {
-	import net.guttershark.nsm.shared.CallFault;	
-	import net.guttershark.nsm.shared.CallResult;	
-	
 	import flash.events.TimerEvent;
 	import flash.net.Responder;
 	import flash.utils.*;
 	
-	import net.guttershark.nsm.shared.BaseCall;
-	import net.guttershark.nsm.remoting.RemotingService;
+	import net.guttershark.support.servicemanager.remoting.RemotingService;
+	import net.guttershark.support.servicemanager.shared.BaseCall;
+	import net.guttershark.support.servicemanager.shared.CallFault;
+	import net.guttershark.support.servicemanager.shared.CallResult;		
 
 	public class RemotingCall extends BaseCall
 	{

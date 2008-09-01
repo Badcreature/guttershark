@@ -1,6 +1,6 @@
-package net.guttershark.nsm.shared
+package net.guttershark.support.servicemanager.shared
 {
-	import flash.utils.Dictionary;	
+	import flash.utils.Dictionary;		
 
 	/**
 	 * Used in a RemotingService to stop duplicate calls 

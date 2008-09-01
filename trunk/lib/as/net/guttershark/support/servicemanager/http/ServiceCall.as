@@ -1,8 +1,5 @@
-package net.guttershark.nsm.http
+package net.guttershark.support.servicemanager.http
 {
-	import net.guttershark.nsm.shared.CallResult;	
-	import net.guttershark.nsm.shared.CallFault;	
-	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.TimerEvent;
@@ -12,7 +9,9 @@ package net.guttershark.nsm.http
 	import flash.utils.ByteArray;
 	import flash.utils.Timer;
 	
-	import net.guttershark.nsm.shared.BaseCall;
+	import net.guttershark.support.servicemanager.shared.BaseCall;
+	import net.guttershark.support.servicemanager.shared.CallFault;
+	import net.guttershark.support.servicemanager.shared.CallResult;		
 
 	/**
 	 * The ServiceCall class is an abstract http service caller and uses callbacks
