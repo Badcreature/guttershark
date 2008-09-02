@@ -1,3 +1,35 @@
+/*                   __    __                         __                       __         
+ *                  /\ \__/\ \__                     /\ \                     /\ \        
+ *       __   __  __\ \ ,_\ \ ,_\    __   _ __   ____\ \ \___      __     _ __\ \ \/'\    
+ *     /'_ `\/\ \/\ \\ \ \/\ \ \/  /'__`\/\`'__\/',__\\ \  _ `\  /'__`\  /\`'__\ \ , <    
+ *    /\ \_\ g \ \_u \\ \ t_\ \ t_/\  __e\ \ \/r\__, `s\ \ \ \ h/\ \L\.a_\ \ r/ \ \ \\`k  
+ *    \ \____ \ \____/ \ \__\\ \__\ \____\\ \_\\/\____/ \ \_\ \_\ \__/.\_\\ \_\  \ \_\ \_\
+ *     \/___L\ \/___/   \/__/ \/__/\/____/ \/_/ \/___/   \/_/\/_/\/__/\/_/ \/_/   \/_/\/_/
+ *       /\____/                                                                          
+ *       \_/__/                                                                           
+ *    
+ *    Actionscript 3 Library
+ *    
+ *    Copyright (c) 2008 Aaron Smith
+ *    
+ *    Permission is hereby granted, free of charge, to any person obtaining a copy
+ *    of this software and associated documentation files (the "Software"), to deal
+ *    in the Software without restriction, including without limitation the rights
+ *    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *    copies of the Software, and to permit persons to whom the Software is
+ *    furnished to do so, subject to the following conditions:
+ *    
+ *    The above copyright notice and this permission notice shall be included in
+ *    all copies or substantial portions of the Software.
+ *    
+ *    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *    THE SOFTWARE.
+ */
 package net.guttershark.control
 {
 	import flash.display.Loader;
@@ -27,15 +59,15 @@ package net.guttershark.control
 	import net.guttershark.util.akamai.Ident;	
 
 	/**
-	 * The DocumentController Class is the document class for an FLA. It contains
-	 * default startup functionality that you can hook into - and all logic
+	 * The DocumentController Class is the document class for an FLA, it contains
+	 * default startup functionality that you can hook into, and all logic
 	 * is controllable through flashvars.
 	 * 
 	 * <p>Available FlashVar Properties:</p>
 	 * <ul>
-	 * <li><strong>autoInitModel</strong> (Boolean) - Whether or not to automatically set the loaded xml on the default Model class. If you do not autoInitModel, you should override initModel() so you can initialize the model or a subclassed model</li>
+	 * <li><strong>autoInitModel</strong> (Boolean) - Whether or not to automatically set the loaded xml on the default Model class. If you do not specify autoInitModel, you should override initModel() so you can initialize the model or a subclassed model</li>
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
-	 * <li><strong>initServices</strong> (Boolean) - Initialize the <code><em>RemotingManager</em></code>, and initialize these endpoints. The remoting endpoints must be defined in a model file (see net.guttershark.model.Model for examples).</li>
+	 * <li><strong>initServices</strong> (Boolean) - Initialize the <code><em>ServiceManager</em></code>, with all of the service declarations defined in a model.xml file.</li>
 	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000 (1 minute).</li>
@@ -71,9 +103,7 @@ package net.guttershark.control
 	 *     ...
 	 *     // ]]&gt;
 	 * &lt;/script&gt;
-	 * </listing>
-	 * 
-	 * <p>See the examples in from SVN in "examples/shells" for more examples of using different snippets of the default functionality.</p> 
+	 * </listing> 
 	 */
 	public class DocumentController extends Sprite
 	{
@@ -183,7 +213,7 @@ package net.guttershark.control
 		protected function restoreSharedObject():void{}
 		
 		/**
-		 * Stub method you should override to hook into SWFAddress change events.
+		 * A method you can override to hook into SWFAddress change events.
 		 */
 		protected function swfAddressChange(sae:SWFAddressEvent):void{}
 		
@@ -232,21 +262,11 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * A stub method you should use to setup path logic with the
-		 * model.
+		 * A method you can override to intialize path logic with the
+		 * model, when running in the Flash IDE.
 		 * 
 		 * <p>This will only execute if you're running the player as
 		 * standalone.</p>
-		 * 
-		 * <p>Path logic with the Model will store and retrieve paths
-		 * in a dictionary if running in standalone mode. Otherwise
-		 * ExternalInterface is used in conjunction with the
-		 * lib/js/guttershark.js file. This is so that when running
-		 * a swf in HTML, you can hook into javascript to define
-		 * paths needed - instead of compiled AS3, or static XML - which
-		 * in either case requires changes for the swf to be moved anywhere else.
-		 * But in javascript, you can execute logic that dictates your choices
-		 * for urls before the SWF even renders.</p>
 		 * 
 		 * <p>See the lib/js/guttershark.js file</p>
 		 */
@@ -285,21 +305,22 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * A method you should override to initialize your own model - this
+		 * A method you can override to initialize your own model - this
 		 * is in place for situations where you need to extend the base Model class,
 		 * and can only initialize the Model once.
 		 * 
 		 * <p>If you are only using the default Model class, you can specify the
-		 * <em><code>autoInitModel</code><em> flashvar property, which will
+		 * <em><code>autoInitModel</code></em> flashvar property, which will
 		 * automatically set the xml property on the default Model, which
 		 * initializes it for you.</p>
 		 * 
 		 * @example A custom initModel method:
-		 * <listing>
+		 * <listing>	
 		 * override protected function initModel():void
 		 * {
 		 *     MySubclassedModel.gi().xml = model;
 		 * }
+		 * </listing>
 		 */
 		protected function initModel():void{}
 		

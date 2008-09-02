@@ -1,12 +1,12 @@
 package net.guttershark.util 
 {
-	
+
 	/**
 	 * The ArrayUtils class contains utility methods for arrays.
 	 */
 	public class ArrayUtils 
 	{
-		
+
 		/**
 		 * Clones an array.
 		 * @param	array	The array to clone.
@@ -14,46 +14,50 @@ package net.guttershark.util
 		 */
 		public static function Clone(array:Array):Array
 		{
-			Assert.NotNull(array, "The array cannot be null");
+			Assert.NotNull(array,"The array cannot be null");
 			return array.concat();
 		}
-		
+
 		/**
 		 * Shuffles an array.
 		 * @param	array	The array to shuffle.
 		 */
 		public static function Shuffle(array:Array):void
 		{
-			Assert.NotNull(array, "The array cannot be null");
+			Assert.NotNull(array,"The array cannot be null");
 			var len:Number = array.length; 
-	   		var rand:Number;
-	   		var temp:*;
-	   		for(var i:int = 0; i < len; i++)
-	   		{ 
-	   			rand = Math.floor(Math.random()*len); 
-	   			temp = array[i]; 
-	   			array[i] = array[rand]; 
-	   			array[rand] = temp;
-	   		}
+			var rand:Number;
+			var temp:*;
+			for(var i:int = 0;i < len; i++)
+			{ 
+				rand = Math.floor(Math.random() * len); 
+				temp = array[i]; 
+				array[i] = array[rand]; 
+				array[rand] = temp;
+			}
 		}
-		
+
 		/**
 		 * Insert an element into array at a specific index.
 		 */
-		public static function insert(a : Array, objElement : Object, nIndex : int) : Array {
-			var aA : Array = a.slice( 0, nIndex - 1 );
-			var aB : Array = a.slice( nIndex, a.length - 1 );
-			aA.push( objElement );
-			return ArrayUtils.merge( aA, aB );
+		public static function insert(a:Array, objElement:Object, nIndex:int):Array 
+		{
+			var aA:Array = a.slice(0,nIndex - 1);
+			var aB:Array = a.slice(nIndex,a.length - 1);
+			aA.push(objElement);
+			return ArrayUtils.merge(aA,aB);
 		}
 
 		/**
 		 * Remove all instances of an element from an array.
 		 */
-		public static function remove(a : Array, objElement : Object) : Array {
-			for(var i : int = 0; i < a.length ; i++) {
-				if (a[i] === objElement) {
-					a.splice( i, 1 );
+		public static function remove(a:Array, objElement:Object):Array 
+		{
+			for(var i:int = 0;i < a.length; i++) 
+			{
+				if (a[i] === objElement) 
+				{
+					a.splice(i,1);
 				}
 			}
 			return a;
@@ -62,16 +66,20 @@ package net.guttershark.util
 		/**
 		 * 	Determines if a value exists within the array.
 		 */			
-		public static function contains(a : Array, val : Object) : Boolean {
-			return (a.indexOf( val ) != -1);
+		public static function contains(a:Array, val:Object):Boolean 
+		{
+			return (a.indexOf(val) != -1);
 		}	
 
 		/**
 		 * Search an array for a given element and return its index or <code>NaN</code>.
 		 */	
-		public static function search(a : Array, objElement : Object) : int {
-			for (var i : int = 0; i < a.length ; i++) {
-				if (a[i] === objElement) {
+		public static function search(a:Array, objElement:Object):int 
+		{
+			for (var i:int = 0;i < a.length; i++) 
+			{
+				if (a[i] === objElement) 
+				{
 					return i;
 				}
 			}
@@ -81,10 +89,12 @@ package net.guttershark.util
 		/**
 		 * Shuffle array items.
 		 */
-		public static function shuffle(a : Array) : void {
-			for (var i : int = 0; i < a.length ; i++) {
-				var tmp : * = a[i];
-				var rand : int = int( Math.random( ) * a.length );
+		public static function shuffle(a:Array):void 
+		{
+			for (var i:int = 0;i < a.length; i++) 
+			{
+				var tmp:* = a[i];
+				var rand:int = int(Math.random() * a.length);
 				a[i] = a[rand];
 				a[rand] = tmp;
 			}
@@ -94,16 +104,19 @@ package net.guttershark.util
 		 * Create a new array that only contains unique instances of objects in the specified array.
 		 * this can be used to remove duplication object instances from an array.
 		 */
-		public static function uniqueCopy(a : Array) : Array {
-			var newArray : Array = new Array( );
-			var len : int = a.length;
-			var item : Object;
-			for (var i : int = 0; i < len ; ++i) {
+		public static function uniqueCopy(a:Array):Array 
+		{
+			var newArray:Array = new Array();
+			var len:int = a.length;
+			var item:Object;
+			for (var i:int = 0;i < len; ++i) 
+			{
 				item = a[i];
-				if(contains( newArray, item )) {
+				if(contains(newArray,item)) 
+				{
 					continue;
 				}
-				newArray.push( item );
+				newArray.push(item);
 			}
 			return newArray;
 		}
@@ -113,17 +126,22 @@ package net.guttershark.util
 		 * @param a 		array to clone.
 		 * @return Array 	new array with items that are references to the original array.
 		 */
-		public static function copy(a : Array) : Array {	
-			return a.slice( );
+		public static function copy(a:Array):Array 
+		{	
+			return a.slice();
 		}
 
-		public static function equals(arr1 : Array, arr2 : Array) : Boolean {
-			if(arr1.length != arr2.length) {
+		public static function equals(arr1:Array, arr2:Array):Boolean 
+		{
+			if(arr1.length != arr2.length) 
+			{
 				return false;
 			}
-			var len : int = arr1.length;
-			for(var i : int = 0; i < len ; i++) {
-				if(arr1[i] !== arr2[i]) {
+			var len:int = arr1.length;
+			for(var i:int = 0;i < len; i++) 
+			{
+				if(arr1[i] !== arr2[i]) 
+				{
 					return false;
 				}
 			}
@@ -133,10 +151,12 @@ package net.guttershark.util
 		/**
 		 * Merge two arrays into one.
 		 */
-		public static function merge(aA : Array, aB : Array) : Array {
-			var aC : Array = ArrayUtils.copy( aB );
-			for(var i : int = aA.length - 1; i > -1 ; i--) {
-				aC.unshift( aA[i] );
+		public static function merge(aA:Array, aB:Array):Array 
+		{
+			var aC:Array = ArrayUtils.copy(aB);
+			for(var i:int = aA.length - 1;i > -1; i--) 
+			{
+				aC.unshift(aA[i]);
 			}
 			return aC;
 		}	
@@ -145,16 +165,19 @@ package net.guttershark.util
 		 * Swap two elements positions in an array
 		 * @throws Error on invalid array index
 		 */
-		public static function swap(a : Array, nA : int, nB : int) : Array {
-			if (nA >= a.length || nA < 0) {
-				throw new Error( "@@@ sekati.utils.ArrayUtils.swap() Error: Index 'A' (" + nA + ") is not a valid index in the array '" + a.toString( ) + "'." );
+		public static function swap(a:Array, nA:int, nB:int):Array 
+		{
+			if (nA >= a.length || nA < 0) 
+			{
+				throw new Error("@@@ sekati.utils.ArrayUtils.swap() Error: Index 'A' (" + nA + ") is not a valid index in the array '" + a.toString() + "'.");
 				return a;
 			}
-			if(nB >= a.length || nB < 0) {
-				throw new Error( "@@@ sekati.utils.ArrayUtils.swap() Error: Index 'A' (" + nB + ") is not a valid index in the array '" + a.toString( ) + "'." );
+			if(nB >= a.length || nB < 0) 
+			{
+				throw new Error("@@@ sekati.utils.ArrayUtils.swap() Error: Index 'A' (" + nB + ") is not a valid index in the array '" + a.toString() + "'.");
 				return a;
 			}
-			var objElement : Object = a[nA];
+			var objElement:Object = a[nA];
 			a[nA] = a[nB];
 			a[nB] = objElement;
 			return a;
@@ -163,22 +186,27 @@ package net.guttershark.util
 		/**
 		 * Return alphabetically sorted array.
 		 */
-		public static function asort(a : Array) : Array {
-			var aFn : Function = function (element1 : String, element2 : String):Boolean {
-				return element1.toUpperCase( ) > element2.toUpperCase( );
+		public static function asort(a:Array):Array 
+		{
+			var aFn:Function = function (element1:String, element2:String):Boolean 
+			{
+				return element1.toUpperCase() > element2.toUpperCase();
 			};
-			return a.sort( aFn );
+			return a.sort(aFn);
 		}
 
 		/**
 		 * Return array with duplicate entries removed.
 		 */
-		public static function removeDuplicate(a : Array) : Array {
-			a.sort( );
-			var o : Array = new Array( );
-			for (var i : int = 0; i < a.length ; i++) {
-				if (a[i] != a[i + 1]) {
-					o.push( a[i] );
+		public static function removeDuplicate(a:Array):Array 
+		{
+			a.sort();
+			var o:Array = new Array();
+			for (var i:int = 0;i < a.length; i++) 
+			{
+				if (a[i] != a[i + 1]) 
+				{
+					o.push(a[i]);
 				}
 			}
 			return o;
@@ -187,10 +215,14 @@ package net.guttershark.util
 		/**
 		 * Compare two arrays for a matching value.
 		 */	
-		public static function matchValues(aA : Array, aB : Array) : Boolean {
-			for (var f : int = 0; f < aA.length ; f++) {
-				for (var l : int = 0; l < aB.length ; l++) {
-					if (aB[l].toLowerCase( ) === aA[f].toLowerCase( )) {
+		public static function matchValues(aA:Array, aB:Array):Boolean 
+		{
+			for (var f:int = 0;f < aA.length; f++) 
+			{
+				for (var l:int = 0;l < aB.length; l++) 
+				{
+					if (aB[l].toLowerCase() === aA[f].toLowerCase()) 
+					{
 						return true;
 					}
 				}
@@ -208,15 +240,19 @@ package net.guttershark.util
 		 * 	trace( "arrays (ordered) compare: " + ArrayUtil.compare( a, b, true ) );	// returns false
 		 * </listing>
 		 */
-		public static function compare(aA : Array, aB : Array, hasSameOrder : Boolean = false) : Boolean {
-			var a : Array = (hasSameOrder) ? aA : aA.slice( ).sort( Array.DESCENDING );
-			var b : Array = (hasSameOrder) ? aB : aB.slice( ).sort( Array.DESCENDING );
-			if(a.length != b.length) {
+		public static function compare(aA:Array, aB:Array, hasSameOrder:Boolean = false):Boolean 
+		{
+			var a:Array = (hasSameOrder) ? aA : aA.slice().sort(Array.DESCENDING);
+			var b:Array = (hasSameOrder) ? aB : aB.slice().sort(Array.DESCENDING);
+			if(a.length != b.length) 
+			{
 				return false;
 			}
-			var len : int = a.length;
-			for(var i : int = 0; i < len ; i++) {
-				if(a[i] !== b[i]) {
+			var len:int = a.length;
+			for(var i:int = 0;i < len; i++) 
+			{
+				if(a[i] !== b[i]) 
+				{
 					return false;
 				}
 			}
@@ -231,12 +267,16 @@ package net.guttershark.util
 		 * @param isCaseInsensitive 	define whether <code>prop</code>/<code>val</code> should be case-insensitive (use only if search <code>val</code> is <code>String</code>).
 		 * @return Object 				the first array object with the <code>prop</code>/<code>val</code> match.
 		 */
-		public static function locatePropVal(a : Array, prop : String, val : Object, isCaseInsensitive : Boolean = false) : Object {
-			for(var o :String in a) {
-				if (!isCaseInsensitive) {
+		public static function locatePropVal(a:Array, prop:String, val:Object, isCaseInsensitive:Boolean = false):Object 
+		{
+			for(var o :String in a) 
+			{
+				if (!isCaseInsensitive) 
+				{
 					if (a[o][prop] == val) return a[o];
-				} else {
-					if (a[o][prop].toUpperCase( ) == String( val ).toUpperCase( )) return a[o];	
+				} else 
+				{
+					if (a[o][prop].toUpperCase() == String(val).toUpperCase()) return a[o];	
 				}		
 			}
 			return null;
@@ -250,12 +290,16 @@ package net.guttershark.util
 		 * @param isCaseInsensitive 	define whether <code>prop</code>/<code>val</code> should be case-insensitive (use only if search <code>val</code> is <code>String</code>).
 		 * @return uint 				the index of the first array object with the <code>prop</code>/<code>val</code> match.
 		 */
-		public static function locatePropValIndex(a : Array, prop : String, val : Object, isCaseInsensitive : Boolean = false) : uint {
-			for (var i : int = 0; i < a.length ; i++) {
-				if (!isCaseInsensitive) {
+		public static function locatePropValIndex(a:Array, prop:String, val:Object, isCaseInsensitive:Boolean = false):uint 
+		{
+			for (var i:int = 0;i < a.length; i++) 
+			{
+				if (!isCaseInsensitive) 
+				{
 					if (a[i][prop] == val) return i;
-				} else {
-					if (a[i][prop].toUpperCase( ) == String( val ).toUpperCase( )) return i;	
+				} else 
+				{
+					if (a[i][prop].toUpperCase() == String(val).toUpperCase()) return i;	
 				}
 			}
 			return NaN;
@@ -269,13 +313,17 @@ package net.guttershark.util
 		 * @param isCaseInsensitive 	define whether <code>prop</code>/<code>val</code> should be case-insensitive (use only if search <code>val</code> is <code>String</code>).
 		 * @return Array 				of objects that contain the <code>prop</code>/<code>val</code> match.
 		 */
-		public static function sliceByPropVal(a : Array, prop : String, val : Object, isCaseInsensitive : Boolean = false) : Array {
-			var ma : Array = new Array( );
-			for(var o :String in a) {
-				if (!isCaseInsensitive) {
-					if (a[o][prop] == val) ma.push( a[o] );
-				} else {
-					if (a[o][prop].toUpperCase( ) == String( val ).toUpperCase( )) ma.push( a[o] );	
+		public static function sliceByPropVal(a:Array, prop:String, val:Object, isCaseInsensitive:Boolean = false):Array 
+		{
+			var ma:Array = new Array();
+			for(var o :String in a) 
+			{
+				if (!isCaseInsensitive) 
+				{
+					if (a[o][prop] == val) ma.push(a[o]);
+				} else 
+				{
+					if (a[o][prop].toUpperCase() == String(val).toUpperCase()) ma.push(a[o]);	
 				}
 			}
 			return ma;	
@@ -292,11 +340,14 @@ package net.guttershark.util
 		 * var nearestHigh : Number = ArrayUtil.nearestNeighbor(4, a, true); 	// returns 1 (index) 
 		 * </listing>
 		 */
-		public static function nearestNeighbor(val : Number, range : Array, returnIndex : Boolean = false) : Number {
-			var nearest : Number = range[0];
-			var index : uint = 0;
-			for (var i : int = 1; i < range.length ; i++) {
-				if (Math.abs( range[i] - val ) < Math.abs( nearest - val )) {
+		public static function nearestNeighbor(val:Number, range:Array, returnIndex:Boolean = false):Number 
+		{
+			var nearest:Number = range[0];
+			var index:uint = 0;
+			for (var i:int = 1;i < range.length; i++) 
+			{
+				if (Math.abs(range[i] - val) < Math.abs(nearest - val)) 
+				{
 					nearest = range[i];
 					index = i;
 				}
@@ -307,11 +358,13 @@ package net.guttershark.util
 		/**
 		 * Return the array index of the minimum value in a numeric array.
 		 */
-		public static function min(a : Array) : int {
-			var i : int = a.length;
-			var min : Number = a[0];
-			var idx : int = 0;
-			while (i-- > 1) {
+		public static function min(a:Array):int 
+		{
+			var i:int = a.length;
+			var min:Number = a[0];
+			var idx:int = 0;
+			while (i-- > 1) 
+			{
 				if(a[i] < min) min = a[idx = i];
 			}
 			return idx;
@@ -320,11 +373,13 @@ package net.guttershark.util
 		/**
 		 * Return the array index of the maximum value in a numeric array.
 		 */	
-		public static function max(a : Array) : int {
-			var i : int = a.length;
-			var max : Number = a[0];
-			var idx : int = 0;	
-			while(i-- > 1) {
+		public static function max(a:Array):int 
+		{
+			var i:int = a.length;
+			var max:Number = a[0];
+			var idx:int = 0;	
+			while(i-- > 1) 
+			{
 				if(a[i] > max) max = a[idx = i];
 			}
 			return idx;	
@@ -334,16 +389,18 @@ package net.guttershark.util
 		 * Return the minimum value in a numeric array.
 		 * @return Number 	minimum value (0 is returned with 0 length arrays)
 		 */	
-		public static function minVal(a : Array) : Number {
-			return ((a.length <= 0) ? 0 : a[ArrayUtils.max( a )]);
+		public static function minVal(a:Array):Number 
+		{
+			return ((a.length <= 0) ? 0 : a[ArrayUtils.max(a)]);
 		}
 
 		/**
 		 * Return the maximum value in a numeric array.
 		 * @return Number 	maximum value
 		 */	
-		public static function maxVal(a : Array) : Number {
-			return ((a[ArrayUtils.max( a )] < 0) ? 0 : a[ArrayUtils.max( a )]);
+		public static function maxVal(a:Array):Number 
+		{
+			return ((a[ArrayUtils.max(a)] < 0) ? 0 : a[ArrayUtils.max(a)]);
 		}
 	}
 }

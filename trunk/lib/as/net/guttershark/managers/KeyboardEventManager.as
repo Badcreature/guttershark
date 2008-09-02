@@ -72,13 +72,20 @@ package net.guttershark.managers
 		 * {
 		 *    trace("on control+shift+m");
 		 * }
+		 * 
 		 * private function onF():void
 		 * {
 		 *    trace("on f");
 		 * }
+		 * 
 		 * private function onWhatup():void
 		 * {
 		 *    trace("you typed 'Whatup'");
+		 * }
+		 * 
+		 * private function onEnter():void
+		 * {
+		 *     trace("you pressed enter in the text field");
 		 * }
 		 * </listing>
 		 * 

@@ -7,7 +7,8 @@ package net.guttershark.managers
 
 	/**
 	 * The FormManager Class simplifies managing InteractiveObjects
-	 * that compose a form.
+	 * that compose a form - THIS IS STILL IN DEVELOPMENT, BUT EVERYTHING
+	 * HERE WORKS, IT'S JUST NOT FEATURE COMPLETE.
 	 */
 	public class FormManager
 	{

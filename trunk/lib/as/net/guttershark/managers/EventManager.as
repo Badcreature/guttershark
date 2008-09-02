@@ -33,15 +33,17 @@ package net.guttershark.managers
 	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
 	 * for numerous AS3 top level classes, guttershark classes, and component events on
-	 * an opt-in basis.
+	 * an opt-in basis. Depending on the callbacks you have defined in your callback delegate,
+	 * event listeners will be added to the object. So this means that not all events will
+	 * be listened for, only ones with callback functions defined.
 	 * 
 	 * <p>Events can also be cycled through the javascript tracking framework. You can
-	 * send all events that exist for an object through the tracking framework, or (by
-	 * default), only send the events through tracking that you have callbacks for.</p>
+	 * send all events that exist for an object through the tracking framework, or - (by
+	 * default), only send the events through tracking that you have callbacks defined for.</p>
 	 * 
 	 * @example Using EventManager with a MovieClip.
 	 * <listing>	
-	 * import net.guttershark.events.EventManager;
+	 * import net.guttershark.managers.EventManager;
 	 * 
 	 * public class Main extends Sprite
 	 * {
@@ -73,8 +75,23 @@ package net.guttershark.managers
 	 * }
 	 * </listing>
 	 * 
-	 * <p><strong>Callback methods will only be called if you have them defined. Your callback methods must 
-	 * be defined with the specified prefix, plus the name of the event. Specified in the below tables.</strong><p>
+	 * <p>Callback methods are defined by the prefix you give to the <em><code>handleEvents</code></em>
+	 * method, plus the event name.</p>
+	 * 
+	 * @example How callbacks must be defined:
+	 * <listing>	
+	 * import net.guttershark.managers.EventManager;
+	 * 
+	 * var em:EventManager = EventManager.gi();
+	 * var mc:MovieClip = new MovieClip();
+	 * 
+	 * em.handleEvents(mc,this,"onMyMC",false,true); //onMyMC is the "prefix"
+	 * 
+	 * function onMyMCClick():void{} //Click is the Event -> so the callback must be defined like prefix+event -> onMyMCClick
+	 * 
+	 * //to define a handler for MouseMove, the prefix is "onMyMC" the event is "MouseMove".
+	 * function onMyMCMouseMove():void{}
+	 * </listing>
 	 * 
 	 * <p>Passing the originating event object back to your callback is optional, but there are a few
 	 * events that are not optional, because they contain information you probably need.
@@ -87,8 +104,8 @@ package net.guttershark.managers
 	 * 
 	 * @example Adding support for event handler delegate of an FLVPlayback component:
 	 * <listing>	
-	 * import net.guttershark.events.EventManager;
-	 * import net.guttershark.events.delegates.FLVPlaybackEventListenerDelegate;
+	 * import net.guttershark.managers.EventManager;
+	 * import net.guttershark.support.eventmanager.FLVPlaybackEventListenerDelegate;
 	 * var em:EventManager = EventManager.gi();
 	 * em.addEventListenerDelegate(FLVPlayback,FLVPlaybackEventListenerDelegate);
 	 * em.handleEvents(myFLVPlayback,this,"onMyFLVPlayback");
@@ -96,19 +113,19 @@ package net.guttershark.managers
 	 * 
 	 * @example Adding support for tracking (only the click event will go through tracking):
 	 * <listing>	
-	 * import net.guttershark.events.EventManager;
+	 * import net.guttershark.managers.EventManager;
 	 * var em:EventManager = EventManager.gi();
 	 * var mc:MovieClip = new MovieClip();
-	 * em.handleEvents(mc,this,"onMyMC",false,true); //true = tracking.
+	 * em.handleEvents(mc,this,"onMyMC",false,true);
 	 * function onMyMCClick(){}
 	 * </listing>
 	 * 
-	 * @example Adding support for tracking - all events cycle through tracking.
+	 * @example Adding support for tracking (all events cycle through tracking):
 	 * <listing>	
-	 * import net.guttershark.events.EventManager;
+	 * import net.guttershark.managers.EventManager;
 	 * var em:EventManager = EventManager.gi();
 	 * var mc:MovieClip = new MovieClip();
-	 * em.handleEvents(mc,this,"onMyMC",false,true,<strong>true</strong>);
+	 * em.handleEvents(mc,this,"onMyMC",false,false,<strong>true</strong>);
 	 * function onMyMCClick(){}
 	 * </listing>
 	 * 
@@ -118,7 +135,7 @@ package net.guttershark.managers
 	 * 
 	 * @example Using the EventManager in a loop situation for unique tracking:
 	 * <listing>	
-	 * import net.guttershark.events.EventManager;
+	 * import net.guttershark.managers.EventManager;
 	 * var em:EventManager = EventManager.gi();
 	 * for(var i:int = 0; i < myClips.length; i++)
 	 * {

@@ -14,9 +14,9 @@ package net.guttershark.display
 	import net.guttershark.util.FlashLibrary;	
 
 	/**
-	 * The CoreClass Class is a base class that provides
+	 * The CoreClip Class is a base class that provides
 	 * common properties and methods that are used over
-	 * and over in movie clips. This class is relief
+	 * and over in movie clips; this class is relief
 	 * from having to type the same code over and over.
 	 */
 	public class CoreClip extends MovieClip
@@ -90,8 +90,46 @@ package net.guttershark.display
 		}
 
 		/**
-		 * Dispose of the object.
+		 * Dispose of references to pre-defined properties. The only thing
+		 * this method does is set references to null. If you have custom
+		 * key mappings, or custom event handling with an instance, you should
+		 * override dispose, clear up your own custom stuff, then call super.dispose();
+		 * 
+		 * @example Cleaning up a subclassed CoreClip
+		 * <listing>	
+		 * public class MyMC extends CoreClip
+		 * {
+		 *     public var themc:MovieClip;
+		 *     public function MyMC()
+		 *     {
+		 *         super();
+		 *         em.handleEvents(themc,this,"onTheMC");
+		 *     }
+		 *     
+		 *     public function onTheMCClick():void
+		 *     {
+		 *         trace("clicked");
+		 *     }
+		 *     
+		 *     override public function dispose():void
+		 *     {
+		 *         em.disposeEventsForObject(themc);
+		 *         super.dispose();
+		 *     }
+		 * }
+		 * </listing>
 		 */
-		public function dispose():void{}
+		public function dispose():void
+		{
+			em = null;
+			ml = null;
+			lm = null;
+			km = null;
+			lgm = null;
+			am = null;
+			sm = null;
+			fb = null;
+			snm = null;
+		}
 	}
 }

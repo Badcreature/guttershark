@@ -1,7 +1,7 @@
 package net.guttershark.display.renderers 
 {
-	import net.guttershark.core.CoreClip;	
-	
+	import net.guttershark.display.CoreClip;		
+
 	/**
 	 * IN DEVELOPMENT.
 	 */
