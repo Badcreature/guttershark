@@ -148,6 +148,7 @@ package net.guttershark.support.preloading
 		 */
 		private function removeListenersFromWorker():void
 		{
+			if(!worker) return;
 			worker.removeEventListener(AssetCompleteEvent.COMPLETE,onComplete);
 			worker.removeEventListener(AssetProgressEvent.PROGRESS, controller.progress);
 			worker.removeEventListener(AssetErrorEvent.ERROR, onError);
@@ -161,6 +162,7 @@ package net.guttershark.support.preloading
 		 */
 		private function addListenersToWorker():void
 		{
+			if(!worker) return;
 			worker.addEventListener(AssetCompleteEvent.COMPLETE,onComplete);
 			worker.addEventListener(AssetProgressEvent.PROGRESS, controller.progress);
 			worker.addEventListener(AssetErrorEvent.ERROR, onError);
@@ -238,9 +240,11 @@ package net.guttershark.support.preloading
 		public function dispose():void
 		{
 			removeListenersFromWorker();
-			worker.dispose();
+			if(worker) worker.dispose();
 			worker = null;
 			controller = null;
+			libraryName = null;
+			fileType = null;
 		}
 		
 		/**
@@ -251,7 +255,7 @@ package net.guttershark.support.preloading
 		{
 			AssetManager.gi().removeAsset(libraryName);
 			removeListenersFromWorker();
-			worker.dispose();
+			if(worker) worker.dispose();
 			libraryName = null;
 			fileType = null;
 			controller = null;

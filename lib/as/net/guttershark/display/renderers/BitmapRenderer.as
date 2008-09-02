@@ -1,14 +1,7 @@
 package net.guttershark.display.renderers 
 {
-	import flash.geom.Point;	
-	import flash.display.Bitmap;
-	
-	import net.guttershark.core.CoreClip;
-	import net.guttershark.preloading.Asset;
-	import net.guttershark.preloading.PreloadController;
-	import net.guttershark.preloading.events.PreloadProgressEvent;	
-	
-	/**
+	import flash.display.Bitmap;	import flash.geom.Point;		import net.guttershark.control.PreloadController;	import net.guttershark.display.CoreClip;	import net.guttershark.support.preloading.Asset;	import net.guttershark.support.preloading.events.PreloadProgressEvent;		
+	/**
 	 * IN DEVELOPMENT.
 	 * 
 	 * The BitmapRenderer Class wraps up a fair amount of logic
@@ -103,7 +96,7 @@ package net.guttershark.display.renderers
 				trace("WARNING: No current asset, not displaying anything.");
 				return;
 			}
-			addChild(al.getBitmap(_ca.libraryName) as Bitmap);
+			addChild(am.getBitmap(_ca.libraryName) as Bitmap);
 		}
 		
 		/**

@@ -16,7 +16,7 @@ package net.guttershark.managers
 	 * The AssetManager is a singleton that stores all assets
 	 * loaded by any PreloadController.
 	 * 
-	 * @see net.guttershark.preloading.PreloadController PreloadController class
+	 * @see net.guttershark.control.PreloadController PreloadController Class
 	 */
 	public class AssetManager
 	{	
@@ -91,9 +91,9 @@ package net.guttershark.managers
 		 * you need was the last asset registered in the AssetManager.
 		 * 
 		 * @example Using the lastLibraryName property.
-		 * <listing>
+		 * <listing>	
 		 * var am:AssetManager = AssetManager.gi();
-		 * addChild(am.getBitmap(am.lastLibraryName));
+		 * addChild(am.getBitmap(am.lastLibraryName)); //assuming you know the last asset was a bitmap
 		 * </listing>
 		 */
 		public function get lastLibraryName():String

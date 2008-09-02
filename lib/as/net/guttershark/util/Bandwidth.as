@@ -23,6 +23,9 @@ package net.guttershark.util
      * function onComplete(e:Event)
      * {
      * 		trace(Bandwidth.Speed);
+     * 		trace(Bandwidth.Speed==Bandwidth.HIGH);
+     * 		trace(Bandwidth.Speed==Bandwidth.MED);
+     * 		trace(Bandwidth.Speed==Bandwidth.LOW);
      * 		//Bandwidth.Speed will be equal to Bandwidth.LOW / MED / HIGH. One of the three.
      * }
 	 * </listing>
