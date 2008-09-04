@@ -1,13 +1,24 @@
 package net.guttershark.util.validators 
 {	import net.guttershark.util.StringUtils;
-	/**	 * String Validation methods for form fields	 * @see sekati.utils.StringUtils	 */	public class StringValidator 
+	
+	/**	 * String Validation methods for form fields	 */	public class StringValidator 
 	{
+		
 		/**		 * Validate a string as a valid email address.		 */		public static function isValidEmail(str:String):Boolean 
-		{			var emailExpression:RegExp = /^[a-z][\w.-]+@\w[\w.-]+\.[\w.-]*[a-z][a-z]$/i;			return !emailExpression.test(str);		}
+		{			var emailExpression:RegExp = /^[a-z][\w.-]+@\w[\w.-]+\.[\w.-]*[a-z][a-z]$/i;			return emailExpression.test(str);		}
 		
-		/**		 * Validate a string as a phone number.		 */		public static  function validatePhone(str:String):Boolean
-		{			var phoneExpression:RegExp = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/i;			return !phoneExpression.test(str);		}		
+		/**		 * Validate a string as a phone number.		 */		public static  function isValidPhone(str:String):Boolean
+		{			var phoneExpression:RegExp = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/i;			return phoneExpression.test(str);		}
 		
+		/**
+		 * Test for empty string, which will match an emptry string, or a string with only spaces.
+		 */
+		public static function isEmpty(str:String):Boolean
+		{
+			var r:RegExp = /^\s{0,}$/i;
+			return r.test(str);
+		}	
+
 		/**		 * Validate as "http://" or "https://".		 */		public static function isURL(str:String):Boolean 
 		{			return (str.substring(0,7) == "http://" || str.substring(0,8) == "https://");		}	
 			

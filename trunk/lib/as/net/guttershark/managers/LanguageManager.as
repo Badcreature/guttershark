@@ -45,6 +45,7 @@
 		private var codes:Dictionary;
 		
 		/**
+		 * @private
 		 * Constructor for LanguageManager instances.
 		 */
 		public function LanguageManager()

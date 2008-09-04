@@ -182,8 +182,9 @@ package net.guttershark.control
 			if(flashvars.onlineStatus) initOnlineStatus();
 			if(!flashvars.model)
 			{
-				if(PlayerManager.IsIDEPlayer()||PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
 				initModel();
+				if(PlayerManager.IsIDEPlayer()||PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
+				if(flashvars.initServices) Model.gi().initServices();
 				restoreSharedObject();
 				setupComplete();
 			}
