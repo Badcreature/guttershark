@@ -42,6 +42,7 @@ package net.guttershark.support.servicemanager.remoting
 			callProps.endpoint=endpoint;
 			callProps.method=methodName;
 			var rcall:RemotingCall = new RemotingCall(this,callProps);
+			if(callProps.onCreate) callProps.onCreate();
 			var unique:String=(rc.gateway+endpoint+methodName+callProps.params.toString());
 			rcall.id = unique;
 			if(limiter)
