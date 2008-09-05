@@ -7,7 +7,10 @@ package net.guttershark.util
 	import net.guttershark.managers.PlayerManager;		
 
 	/**
-	 * The Tracking class implements tracking calls.
+	 * The Tracking Class sends tracking calls through
+	 * ExternalInterface to the tracking framework.
+	 * 
+	 * @see external: guttershark/lib/js/tracking.
 	 */
 	public class Tracking
 	{

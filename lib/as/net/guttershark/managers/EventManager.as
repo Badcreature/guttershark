@@ -1,5 +1,7 @@
 package net.guttershark.managers 
 {
+	import net.guttershark.util.Bandwidth;	
+	
 	import flash.display.InteractiveObject;
 	import flash.display.LoaderInfo;
 	import flash.events.ActivityEvent;
@@ -351,6 +353,14 @@ package net.guttershark.managers
 				return;
 			}
 			
+			if(obj is Bandwidth)
+			{
+				var b:Bandwidth = Bandwidth(obj);
+				edinfo[b.contentLoader] = edinfo[obj];
+				if(callbackPrefix + "Complete" in callbackDelegate || cycleAllThroughTracking) b.contentLoader.addEventListener(Event.COMPLETE, onBandwidthComplete,false,0,true);
+				return;
+			}
+			
 			for each(var objType:Class in handlers)
 			{
 				if(obj is objType)
@@ -429,6 +439,11 @@ package net.guttershark.managers
 			{
 				handleEvents(objects[i],callbackDelegate,prefixes[i],returnEventObjects,cycleThroughTracking);
 			}
+		}
+		
+		private function onBandwidthComplete(e:Event):void
+		{
+			handleEvent(e,"Complete");
 		}
 		
 		private function onAssetComplete(ace:AssetCompleteEvent):void
@@ -715,16 +730,24 @@ package net.guttershark.managers
 		public function disposeEventsForObject(obj:IEventDispatcher):void
 		{
 			if(!edinfo[obj]) return;
-			
 			var callbackPrefix:String = edinfo[obj].callbackPrefix;
 			var callbackDelegate:* = edinfo[obj].callbackDelegate;
 			var cycleAllThroughTracking:Boolean = edinfo[obj].cycleAllThroughTracking;
+			if(edinfo[obj]) edinfo[obj] = null;
 			
 			if(obj is XMLLoader)
 			{
 				var x:XMLLoader = XMLLoader(obj);
 				edinfo[x.contentLoader] = null;
 				if((callbackPrefix + "Complete") in callbackDelegate || cycleAllThroughTracking) x.contentLoader.removeEventListener(Event.COMPLETE,onXMLLoaderComplete);
+				return;
+			}
+			
+			if(obj is Bandwidth)
+			{
+				var b:Bandwidth = Bandwidth(obj);
+				edinfo[b.contentLoader] = null;
+				if((callbackPrefix+"Complete") in callbackDelegate || cycleAllThroughTracking) b.contentLoader.removeEventListener(Event.COMPLETE, onBandwidthComplete);
 				return;
 			}
 			
@@ -830,7 +853,6 @@ package net.guttershark.managers
 				instances[obj].dispose();
 				instances[obj] = null;
 			}
-			if(edinfo[obj]) edinfo[obj] = null;
 		}
 		
 		/**
@@ -839,10 +861,7 @@ package net.guttershark.managers
 		 */
 		public function disposeEventsForObjects(...objects:Array):void
 		{
-			for each(var obj:* in objects)
-			{
-				disposeEventsForObject(obj);
-			}
+			for each(var obj:* in objects) disposeEventsForObject(obj);
 		}	
 	}
 }

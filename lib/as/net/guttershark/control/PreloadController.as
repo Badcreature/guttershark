@@ -1,7 +1,5 @@
 package net.guttershark.control
 {
-	import net.guttershark.util.FrameDelay;	
-	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
@@ -15,7 +13,8 @@ package net.guttershark.control
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.support.preloading.workers.WorkerInstances;
 	import net.guttershark.util.ArrayUtils;
-	import net.guttershark.util.Assert;		
+	import net.guttershark.util.Assert;
+	import net.guttershark.util.FrameDelay;		
 
 	/**
 	 * Dispatched for each asset that has completed downloading.
@@ -65,7 +64,7 @@ package net.guttershark.control
 	 * @eventType flash.events.Event
 	 */
 	[Event("complete", type="flash.events.Event")]
-import flash.utils.setTimeout;	
+
 	/**
 	 * The PreloadController Class is a controller you use for loading Assets; it provides you
 	 * with methods for starting, stopping, pausing, resuming and prioritizing of assets, 

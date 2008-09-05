@@ -7,7 +7,7 @@ package net.guttershark.util
 	import flash.net.URLRequest;
 	
 	/**
-	 * The XMLLoader class is used to load xml. It wraps common logic
+	 * The XMLLoader Class is used to load xml. It wraps common logic
 	 * that must be in place to load XML, and shortens the amount of code
 	 * you need to write to load XML.
 	 * 
@@ -40,17 +40,20 @@ package net.guttershark.util
 		 * 
 		 * @param	request	A URLRequest to the xml file.
 		 * 
-		 * @throws	ArgumentError	When the request was not supplied.
-		 * 
 		 * @example Load an xml file:
 		 * <listing>	
+		 * import net.guttershark.managers.EventManager;
+		 * import net.guttershark.util.XMLLoader;
+		 * 
 		 * private var xloader:XMLLoader = new XMLLoader();
-		 * xloader.contentLoader.addEventListener(Event.COMPLETE, onx);
-		 * private function onx(e:Event):void
+		 * em.handleEvents(xloader,this,"onXML");
+		 * 
+		 * public function onXMLComplete():void
 		 * {
 		 *   trace(e.target.data);
 		 *   trace(xloader.data);
 		 * }
+		 * 
 		 * xloader.load(new URLRequest(myxmlfile));
 		 * </listing>
 		 */
