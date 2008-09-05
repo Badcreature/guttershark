@@ -6,8 +6,7 @@ package net.guttershark.util.cache
 	import flash.utils.setInterval;
 	
 	/**
-	 * The Cache class is an implementation of an ICacheStore for caching
-	 * objects in memory.
+	 * The Cache Class caches objects in memory.
 	 * 
 	 * @example Caching an object:
 	 * <listing>	
@@ -89,11 +88,7 @@ package net.guttershark.util.cache
 		public function purgeItem(key:*):void
 		{
 			if(!cache[key]) return;
-			else if(cache[key])
-			{
-				delete cache[key];
-				cache[key] = null;
-			}
+			else if(cache[key]) cache[key] = null;
 		}
 		
 		/**

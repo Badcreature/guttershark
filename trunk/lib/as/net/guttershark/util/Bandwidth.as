@@ -9,18 +9,18 @@ package net.guttershark.util
 	import flash.utils.getTimer;
 	
 	/**
-	 * The Bandwidth class is used for sniffing the clients bandwidth. It uses
-	 * bitmap.jpg as a benchmark.
-	 * 
-	 * <p>This class is integrated with the base DocumentController of the
-	 * net.guttershark package.</p>
+	 * The Bandwidth Class downloads a bitmap file, and benchmarks the client's
+	 * bandwidth.
 	 *  
-	 * @example Sniffing the users' bandwidth.
+	 * @example Sniffing the users bandwidth.
 	 * <listing>	
+	 * import net.guttershark.managers.EventManager;
+	 * import net.guttershark.util.Bandwidth;
+	 * 
      * var bs:Bandwidth = new Bandwidth();
-     * bs.contentLoader.addEventListener(Event.COMPLETE, onComplete);
+     * em.handleEvents(bs,this,"onBS");
      * bs.detect();
-     * function onComplete(e:Event)
+     * public function onBSComplete():void
      * {
      * 		trace(Bandwidth.Speed);
      * 		trace(Bandwidth.Speed==Bandwidth.HIGH);
@@ -76,8 +76,8 @@ package net.guttershark.util
 		/**
 		 * Constructor for Bandwidth instances.
 		 * 
-		 * @param	image	This is an optional parameter. By default the sniffer loads a
-		 * ./bandwidth.jpg file. You can pass a different URLRequest here to change what file
+		 * @param	image	This is an optional parameter. By default the sniffer loads a reference to
+		 * ./bandwidth.jpg. You can pass a different URLRequest here to change what file
 		 * is used in the bandwidth detection.
 		 * 
 		 * @param	targetLowBandwidth	The target Kbps for low bandwidth
@@ -97,8 +97,8 @@ package net.guttershark.util
 		}
 			
 		/**
-		  * Triggers the detection process.
-		  */
+		 * Inititiates the bandwidth detection process.
+		 */
 		public function detect():void
 		{
 			if(!detectImage) throw new Error("You must supply an image to load.");
@@ -106,8 +106,8 @@ package net.guttershark.util
 			startTime = 0;
 			totalBytes = 0;
 			bandwidth = 0;
-			contentLoader.addEventListener(Event.OPEN,onStart);
-			contentLoader.addEventListener(ProgressEvent.PROGRESS,onProgress);
+			contentLoader.addEventListener(Event.OPEN,onStart,false,0,true);
+			contentLoader.addEventListener(ProgressEvent.PROGRESS,onProgress,false,0,true);
 			contentLoader.load(detectImage);
 		}
 				
@@ -158,6 +158,7 @@ package net.guttershark.util
 		 */
 		public function dispose():void
 		{
+			removeListeners();
 			detectImage = null;
 			contentLoader = null;
 			endTime = NaN;

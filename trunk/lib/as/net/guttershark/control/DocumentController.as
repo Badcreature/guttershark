@@ -172,7 +172,7 @@ package net.guttershark.control
 			online = true;
 			MacMouseWheel.setup(stage);
 			setupFlashvars();
-			if(flashvars.swfAddress) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
+			if(flashvars.swfAddress && !PlayerManager.IsStandAlonePlayer() && !PlayerManager.IsIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
 			if(flashvars.sniffCPU) CPU.calculate();
