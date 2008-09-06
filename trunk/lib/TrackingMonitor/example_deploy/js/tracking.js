@@ -209,6 +209,8 @@ function atlas(xmlid)
 
 function monitorTrack(msg)
 {
+	alert("monitor track");
+	alert(tracking.monitorDelegate);
 	try
 	{
 		if(tracking.monitorDelegate) tracking.monitorDelegate.tracked(msg);

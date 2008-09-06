@@ -18,11 +18,7 @@ package net.guttershark.managers
 	[Event("change", type="flash.events.Event")]
 
 	/**
-	 * The SoundManager class is used to control sounds in 
-	 * a flash movie through one interface. Actionscript 3 
-	 * has a much different sound model from AS 2. This class is 
-	 * used to take care of those differences and bundle up a way to 
-	 * control sound globally.
+	 * The SoundManager Class is used to control sounds document wide.
 	 */
 	public class SoundManager extends EventDispatcher
 	{
@@ -110,6 +106,16 @@ package net.guttershark.managers
 		}
 		
 		/**
+		 * Remove a sprite from sound control
+		 * 
+		 * @param	obj	The sprite to remove.
+		 */
+		public function removeSprite(obj:Sprite):void
+		{
+			_sndObjectsWithTransforms[obj] = null;
+		}
+
+		/**
 		 * Remove a sound from the manager.
 		 * 
 		 * @param	name	The unique sound identifier used when registering it into the manager.
@@ -120,21 +126,20 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Play a sound that has been registered previously.
+		 * Play a sound that was previously registered.
 		 * 
 		 * @param	name	The unique name used when registering it into the manager.
 		 * @param	startOffset	The start offset for the sound.
 		 * @param	int	The number of times to loop the sound.
 		 * @param	customVolume	A custom volume to play at, other than the current internal volume.
 		 */
-		public function playSound(name:String, startOffset:Number = 0, loopCount:int = 0, customVolume:Number = 0):void
+		public function playSound(name:String, startOffset:Number = 0, loopCount:int = 0, customVolume:Number = -1):void
 		{
 			var snd:Sound = Sound(_soundDic[name]);
-			if(customVolume > 0)
+			if(customVolume > -1)
 			{
-				var st:SoundTransform = new SoundTransform(volume,0);
+				var st:SoundTransform = new SoundTransform(customVolume,0);
 				_soundTransforms[name] = st;
-				st.volume = 0;
 				_playingSounds[name] = snd.play(startOffset, loopCount, st);
 			}
 			else _playingSounds[name] = snd.play(startOffset, loopCount, _mainTransform);
