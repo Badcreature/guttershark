@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<videos vidPath="assets/videos/flvs/" prevPath="assets/videos/previews/">
+	<video name="MCDONALDS" flv="mcdonalds.flv" preview="conan1.jpg" />
+	<video name="MARRY ME" flv="marry.flv" preview="conan2.jpg" />
+	<video name="BOTTLE OPENER" flv="bottle.flv" preview="conan3.jpg" />
+	<video name="LADIES NIGHT" flv="ladies.flv" preview="conan1.jpg" />
+	<video name="FISHING" flv="fishing.flv" preview="conan2.jpg" />
+</videos>
