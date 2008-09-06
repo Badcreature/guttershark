@@ -1,0 +1,5 @@
+The VIP_5 Site example has all it's class dependencies bundles in the classes folder. Including
+a version of Guttershark. The version of Guttershark in the classes folder has slight differences
+from the trunk version of guttershark, the differences aren't that big, but there is still
+an archived version of guttershark bundled with the example so that there is no maintanence on
+keeping the example running.
