@@ -43,11 +43,12 @@ package net.guttershark.managers
 	 * <li>onCreate (Function) - A function to call, as soon as a remoting call instance was created (the request hasn't gone out yet though.).</li>
 	 * <li>onResult (Function) - A function to call, and pass a CallResult object to.</li>
 	 * <li>onFault (Function) - A function to call, and pass a CallFault object to.</li>
-	 * <li>onRetry (Function) - A function to call for every retry of a service.</li>
-	 * <li>onTimeout (Function) - A function to call after every retry has been attempted, and no result was returned.</li>
+	 * <li>onRetry (Function) - A function to call for every retry of a service call.</li>
+	 * <li>onTimeout (Function) - A function to call after every retry has been attempted, and no result or fault was returned.</li>
 	 * <li>attempts (int) - The number of retry attempts allowed.</li>
 	 * <li>timeout (int - milliseconds) - The amount of time allowed for each call before another attempt is made.</li>
-	 * <li>returnArgs (Boolean) - Return the original "params" sent through the request as the second parameter to you onResult, or onFault callback</li>
+	 * <li>returnArgs (Boolean) - Return the original <em><code>callprops.params</code></em> sent through the
+	 * request as the second parameter to your onResult, or onFault callback</li>
 	 * </ul>
 	 * 
 	 * @example An extended remoting call example, with all callProp objects filled in:
@@ -62,9 +63,9 @@ package net.guttershark.managers
 	 * sm.createRemotingService("users","http://localhost/amfphp/gateway.php",3,1,3000,true);
 	 * 
 	 * //make a remoting call.
-	 * sm.users.getUserByName({param:["sam"],onResult:onr,onFault:onf,onCreate:onc,onRetry:onrt,onTimeout:ont,attempts:2,timeout:3000,returnArgs:false});
-	 * function onr(cr:CallResult):void{} //onResult
-	 * function onf(cf:CallFault):void{} //onFault
+	 * sm.users.getUserByName({param:["sam"],onResult:onr,onFault:onf,onCreate:onc,onRetry:onrt,onTimeout:ont,attempts:2,timeout:3000,returnArgs:true});
+	 * function onr(cr:CallResult,params:Array):void{} //onResult
+	 * function onf(cf:CallFault,params:Array):void{} //onFault
 	 * function onc():void{} //onCreate
 	 * function onrt():void{} //onRetry
 	 * function ont:void(){} //onTimeout
@@ -74,6 +75,8 @@ package net.guttershark.managers
 	 * that if a request is being made to a service with X parameters, another
 	 * request to that service CANNOT be made until a result,timeout,or fault
 	 * occurs on the first call.</p>
+	 * 
+	 * <p>Now into HTTP Service calls</p>
 	 * 
 	 * @example Setting up an HTTP Service and make a basic call:
 	 * <listing>	
@@ -96,8 +99,8 @@ package net.guttershark.managers
 	 * <ul>
 	 * <li>data (Object) - Data to submit to the service (post or get).</li>
 	 * <li>routes (Array) - An array of "route" paths that get concatenated together.</li>
-	 * <li>method (String) - Post or get</li>
-	 * <li>responseFormat (String) - The response format to expect, see net.guttershark.support.servicemanager.http.ResponseFormat.
+	 * <li>method (String) - post or get</li>
+	 * <li>responseFormat (String) - The response format to expect, see net.guttershark.support.servicemanager.http.ResponseFormat.</li>
 	 * <li>onCreate (Function) - A function to call, as soon as a remoting call instance was created (the request hasn't gone out yet though.).</li>
 	 * <li>onResult (Function) - A function to call, and pass a CallResult object to.</li>
 	 * <li>onFault (Function) - A function to call, and pass a CallFault object to.</li>
@@ -124,26 +127,26 @@ package net.guttershark.managers
 	 * 
 	 * <p>When you are creating a service (createHTTPService / createRemotingService) the parameters
 	 * you give to the service are the "defaults", but you can override the attempts,timeout,limiter
-	 * paramet by supplying it in the callProps object.</p>
+	 * parameter by supplying it in the callProps object.</p>
 	 * 
 	 * <p>HTTP Service's must supply a reponse format for each call, whether it be the default
 	 * that was defined when calling createHTTPService, or by overriding it in a callProp.
 	 * Each call response that is received is parsed differently depending on the response format,
 	 * and the result property on the CallResult object is also different.</p>
 	 * 
-	 * <p>The service manager supports a couple extra features, if you follow the rules with the
+	 * <p>HTTP Service calls support a couple extra features, if you follow the rules with the
 	 * responses from the server.</p>
 	 * 
-	 * <p><strong>xml responses</strong></p>
+	 * <p><strong>for "xml" responses</strong></p>
 	 * <p>A successful xml response can be any well formed xml</p>
-	 * <p>To indicate a fault, but the xml is welformed and the response is ok, define the XML structure like this:</p> 
+	 * <p>To indicate a fault, send an XML structure like this as the response:</p> 
 	 * <listing>	
 	 * &lt;root&gt;
 	 *     &lt;fault&gt;my message&lt;/fault&gt;
 	 * &lt;/root&gt;
 	 * </listing>
 	 * 
-	 * <p><strong>variable responses</strong></p>
+	 * <p><strong>for "variable" responses</strong></p>
 	 * <p>The response should be a url encoded string like so: (name=asdfasd&email=asdfasd&test=sdfsdf)</p>
 	 * <p>To indicate a fault through variables define it like so: (fault=my%20fault%20message).</p>
 	 */
@@ -174,7 +177,7 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Creates a new remoting service internally, that you can access dynamically.
+		 * Creates a new remoting service internally, that you can access as a property on the service manager instance.
 		 * 
 		 * @param	id	The id for the service - you can access the service dyanmically as well, like serviceManager.{id}.
 		 * @param	gateway	The gateway url for the remoting server.
@@ -194,7 +197,7 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Creates a new http service internally, that you can access dynamically.
+		 * Creates a new http service internally, that you can access as a property on the service manager instance.
 		 * 
 		 * @param	id	The id for the service - you can access the service dyanmically as well, like serviceManager.{id}.
 		 * @param	url	The http url for the service.
@@ -227,7 +230,7 @@ package net.guttershark.managers
 		flash_proxy override function callProperty(methodName:*, ...args):*
 		{
 			if(!services[methodName]) throw new Error("Service {"+methodName+"} not found.");
-			if(services[methodName] is RemotingService) throw new Error("RemotingService not supported, only an http Service can be called this way.");
+			if(services[methodName] is RemotingService) throw new Error("RemotingService cannot be called this way. Please see the documentation in ServiceManager.");
 			var callProps:Object = args[0];
 			services[methodName].send(callProps);
 		}

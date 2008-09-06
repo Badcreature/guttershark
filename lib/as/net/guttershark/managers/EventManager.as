@@ -1,7 +1,5 @@
 package net.guttershark.managers 
 {
-	import net.guttershark.util.Bandwidth;	
-	
 	import flash.display.InteractiveObject;
 	import flash.display.LoaderInfo;
 	import flash.events.ActivityEvent;
@@ -29,6 +27,7 @@ package net.guttershark.managers
 	import net.guttershark.control.PreloadController;
 	import net.guttershark.support.preloading.events.AssetCompleteEvent;
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
+	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.XMLLoader;		
 

@@ -13,7 +13,7 @@ package net.guttershark.managers
 	import net.guttershark.util.XMLLoader;		
 
 	/**
-	 * The AssetManager is a singleton that stores all assets
+	 * The AssetManager Class is a singleton that stores all assets
 	 * loaded by any PreloadController.
 	 * 
 	 * @see net.guttershark.control.PreloadController PreloadController Class
