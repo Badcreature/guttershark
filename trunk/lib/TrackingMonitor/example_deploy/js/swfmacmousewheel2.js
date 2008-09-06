@@ -1,4 +1,0 @@
-/**
- * SWFMacMouseWheel v2.0: Mac Mouse Wheel functionality in flash - http://blog.pixelbreaker.com/
- */
-var swfmacmousewheel=function(){if(!swfobject)return null;var u=navigator.userAgent.toLowerCase();var p=navigator.platform.toLowerCase();var d=p?/mac/.test(p):/mac/.test(u);if(!d)return null;var k=[];var r=function(event){var o=0;if(event.wheelDelta){o=event.wheelDelta/120;if(window.opera)o= -o;}else if(event.detail){o= -event.detail;}if(event.preventDefault)event.preventDefault();return o;};var l=function(event){var o=r(event);var c;for(var i=0;i<k.length;i++){c=swfobject.getObjectById(k[i]);if(typeof(c.externalMouseEvent)=='function')c.externalMouseEvent(o);}};if(window.addEventListener)window.addEventListener('DOMMouseScroll',l,false);window.onmousewheel=document.onmousewheel=l;return{registerObject:function(m){k[k.length]=m;}};}();
