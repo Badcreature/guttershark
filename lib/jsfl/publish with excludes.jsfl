@@ -180,7 +180,8 @@ if(getDocumentPath())
 			
 			//publish the fla, with the original publish profile.
 		    dom.importPublishProfile(publishProfileSource);
-			dom.publish();
+			//dom.publish();
+			dom.testMovie();
 			
 			//get rid of the temp files.
 			cleanup();
@@ -188,13 +189,15 @@ if(getDocumentPath())
 		else
 		{
 			//no excluded classes.
-			dom.publish();
+			//dom.publish();
+			dom.testMovie();
 		}
 	}
 	else
 	{
 		//no {fla}_exclude.xml file.
-		dom.publish();
+		//dom.publish();
+		dom.testMovie();
 	}
 }
 else
