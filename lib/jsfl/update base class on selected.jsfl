@@ -1,3 +1,7 @@
+/**
+ * Prompts for a new base class, that will be set
+ * on all selected items in the library.
+ */
 var newBaseClass = prompt("Enter the new base class", "");
 var items = fl.getDocumentDOM().library.getSelectedItems();
 var i=0;
