@@ -23,10 +23,10 @@ package net.guttershark.support.eventmanager
 			super.addListeners(obj);
 			if(obj is UIComponent)
 			{
-				obj.addEventListener(ComponentEvent.MOVE, onMove);
-				obj.addEventListener(ComponentEvent.RESIZE,onResize);
-				obj.addEventListener(ComponentEvent.SHOW,onShow);
-				obj.addEventListener(ComponentEvent.HIDE,onHide);
+				if(callbackPrefix + "Move" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.MOVE, onMove, false, 0, true);
+				if(callbackPrefix + "Resize" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.RESIZE,onResize);
+				if(callbackPrefix + "Show" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.SHOW,onShow);
+				if(callbackPrefix + "Hide" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.HIDE,onHide);
 			}
 		}
 		

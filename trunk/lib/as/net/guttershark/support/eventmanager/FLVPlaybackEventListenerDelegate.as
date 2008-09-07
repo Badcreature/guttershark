@@ -13,7 +13,7 @@ package net.guttershark.support.eventmanager
 	 * 
 	 * @example Setting up the FLVPlaybackEventListenersDelegate on EventManager:
 	 * <listing>
-	 * import net.guttershark.events.listenerdelegates.FLVPlaybackEventListenerDelegate.
+	 * import net.guttershark.support.eventmanager.FLVPlaybackEventListenerDelegate.
 	 * EventManager.gi().addEventListenerDelegate(FLVPlayback,FLVPlaybackEventListenerDelegate);
 	 * </listing>
 	 * 
@@ -32,22 +32,22 @@ package net.guttershark.support.eventmanager
 			super.addListeners(obj);
 			if(obj is FLVPlayback)
 			{
-				if(callbackPrefix + "Pause" in callbackDelegate) obj.addEventListener(VideoEvent.PAUSED_STATE_ENTERED, onFLVPause,false,0,true);
-				if(callbackPrefix + "Play" in callbackDelegate) obj.addEventListener(VideoEvent.PLAYING_STATE_ENTERED, onFLVPlay,false,0,true);
-				if(callbackPrefix + "Stop" in callbackDelegate) obj.addEventListener(VideoEvent.STOPPED_STATE_ENTERED, onFLVStopped,false,0,true);
-				if(callbackPrefix + "PlayheadUpdate" in callbackDelegate) obj.addEventListener(VideoEvent.PLAYHEAD_UPDATE, onFLVPlayheadUpdate,false,0,true);
-				if(callbackPrefix + "AutoRewound" in callbackDelegate) obj.addEventListener(VideoEvent.AUTO_REWOUND, onFLVAutoRewound,false,0,true);
-				if(callbackPrefix + "Buffering" in callbackDelegate)  obj.addEventListener(VideoEvent.BUFFERING_STATE_ENTERED, onFLVBufferState,false,0,true);
-				if(callbackPrefix + "Close" in callbackDelegate) obj.addEventListener(VideoEvent.CLOSE, onFLVClose,false,0,true);
-				if(callbackPrefix + "Complete" in callbackDelegate)  obj.addEventListener(VideoEvent.COMPLETE, onFLVComplete,false,0,true);
-				if(callbackPrefix + "FastFoward" in callbackDelegate) obj.addEventListener(VideoEvent.FAST_FORWARD, onFLVFastForward,false,0,true);
-				if(callbackPrefix + "Ready" in callbackDelegate)  obj.addEventListener(VideoEvent.READY, onFLVReady,false,0,true);
-				if(callbackPrefix + "Rewind" in callbackDelegate) obj.addEventListener(VideoEvent.REWIND, onFLVRewind,false,0,true);
-				if(callbackPrefix + "ScrubFinish" in callbackDelegate) obj.addEventListener(VideoEvent.SCRUB_FINISH, onFLVScrubFinish,false,0,true);
-				if(callbackPrefix + "ScrubStart" in callbackDelegate) obj.addEventListener(VideoEvent.SCRUB_START, onFLVScrubStart,false,0,true);
-				if(callbackPrefix + "Seeked" in callbackDelegate)  obj.addEventListener(VideoEvent.SEEKED, onFLVSeeked,false,0,true);
-				if(callbackPrefix + "SkinLoaded" in callbackDelegate)  obj.addEventListener(VideoEvent.SKIN_LOADED, onFLVSkinLoaded,false,0,true);
-				if(callbackPrefix + "StateChange" in callbackDelegate)  obj.addEventListener(VideoEvent.STATE_CHANGE, onFLVStateChange,false,0,true);
+				if(callbackPrefix + "Pause" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.PAUSED_STATE_ENTERED, onFLVPause,false,0,true);
+				if(callbackPrefix + "Play" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.PLAYING_STATE_ENTERED, onFLVPlay,false,0,true);
+				if(callbackPrefix + "Stop" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.STOPPED_STATE_ENTERED, onFLVStopped,false,0,true);
+				if(callbackPrefix + "PlayheadUpdate" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.PLAYHEAD_UPDATE, onFLVPlayheadUpdate,false,0,true);
+				if(callbackPrefix + "AutoRewound" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.AUTO_REWOUND, onFLVAutoRewound,false,0,true);
+				if(callbackPrefix + "Buffering" in callbackDelegate || cycleAllThroughTracking)  obj.addEventListener(VideoEvent.BUFFERING_STATE_ENTERED, onFLVBufferState,false,0,true);
+				if(callbackPrefix + "Close" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.CLOSE, onFLVClose,false,0,true);
+				if(callbackPrefix + "Complete" in callbackDelegate || cycleAllThroughTracking)  obj.addEventListener(VideoEvent.COMPLETE, onFLVComplete,false,0,true);
+				if(callbackPrefix + "FastFoward" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.FAST_FORWARD, onFLVFastForward,false,0,true);
+				if(callbackPrefix + "Ready" in callbackDelegate || cycleAllThroughTracking)  obj.addEventListener(VideoEvent.READY, onFLVReady,false,0,true);
+				if(callbackPrefix + "Rewind" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.REWIND, onFLVRewind,false,0,true);
+				if(callbackPrefix + "ScrubFinish" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.SCRUB_FINISH, onFLVScrubFinish,false,0,true);
+				if(callbackPrefix + "ScrubStart" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.SCRUB_START, onFLVScrubStart,false,0,true);
+				if(callbackPrefix + "Seeked" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.SEEKED, onFLVSeeked,false,0,true);
+				if(callbackPrefix + "SkinLoaded" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.SKIN_LOADED, onFLVSkinLoaded,false,0,true);
+				if(callbackPrefix + "StateChange" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(VideoEvent.STATE_CHANGE, onFLVStateChange,false,0,true);
 			}
 		}
 		

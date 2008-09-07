@@ -30,19 +30,22 @@ package net.guttershark.support.eventmanager
 			if(obj is UIComponent)
 			{
 				uic = new UIComponentEventListenerDelegate();
+				uic.cycleAllThroughTracking = cycleAllThroughTracking;
+				uic.callbackDelegate = callbackDelegate;
+				uic.callbackPrefix = callbackPrefix;
 				uic.eventHandlerFunction = this.handleEvent;
 				uic.addListeners(obj);
 			}
 			
 			if(obj is ComboBox)
 			{
-				obj.addEventListener(Event.CHANGE, onChange);
-				obj.addEventListener(Event.CLOSE, onClose);
-				obj.addEventListener(Event.OPEN, onOpen);
-				obj.addEventListener(ComponentEvent.ENTER, onEnter);
-				obj.addEventListener(ListEvent.ITEM_ROLL_OUT, onItemRollOut);
-				obj.addEventListener(ListEvent.ITEM_ROLL_OVER, onItemRollOver);
-				obj.addEventListener(ScrollEvent.SCROLL, onScroll);
+				if(callbackPrefix + "Change" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE, onChange, false, 0, true);
+				if(callbackPrefix + "Close" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CLOSE, onClose, false, 0, true);
+				if(callbackPrefix + "Open" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.OPEN, onOpen, false, 0, true);
+				if(callbackPrefix + "Enter" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.ENTER, onEnter, false, 0, true);
+				if(callbackPrefix + "ItemRollOut" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ListEvent.ITEM_ROLL_OUT, onItemRollOut, false, 0, true);
+				if(callbackPrefix + "ItemRollOver" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ListEvent.ITEM_ROLL_OVER, onItemRollOver, false, 0, true);
+				if(callbackPrefix + "Scroll" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ScrollEvent.SCROLL, onScroll, false, 0, true);
 			}
 		}
 		
