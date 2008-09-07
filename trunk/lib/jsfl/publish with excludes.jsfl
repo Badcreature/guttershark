@@ -5,7 +5,6 @@
  * @see http://exanimo.com/actionscript/flash-cs3-and-exclude-xml/
  */
 
-
 //TODO: Better error handling (or at least some indication that there was an error!
 var as3PackagePaths;
 var docName = document.name.substr(-4).toLowerCase() == '.fla' ? document.name.substr(0, document.name.length - 4) : document.name;
