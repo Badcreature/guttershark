@@ -1,9 +1,13 @@
 /**
- * Organizes all library items - folders get created for each item type and items get moved around.
+ * Organizes all library items - folders get 
+ * created for each item type and items get moved into those folders.
  */
 
 //possible item types:
-//undefined,component,movie clip,graphic,button,folder,font,sound,bitmap,compiled clip,screen,video
+//undefined,component,movie clip,
+//graphic,button,folder,font,
+//sound,bitmap,compiled clip,screen,video
+
 var lib = fl.getDocumentDOM().library;
 function makeFolders()
 {
