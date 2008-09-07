@@ -26,10 +26,11 @@ package net.guttershark.managers
 	
 	import net.guttershark.control.PreloadController;
 	import net.guttershark.support.preloading.events.AssetCompleteEvent;
+	import net.guttershark.support.preloading.events.AssetErrorEvent;
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;		
+	import net.guttershark.util.XMLLoader;	
 
 	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
@@ -182,7 +183,7 @@ package net.guttershark.managers
 	 * <p>Supported Guttershark Classes:</p>
 	 * <table border='1'>
 	 * <tr bgcolor="#999999"><td width="200"><strong>Object</strong></td><td width="200"><strong>EventListenerDelegate</strong></td><td><strong>Events</strong></td></tr>
-	 * <tr><td>PreloadController</td><td>NA</td><td>Complete,Progress,AssetComplete</td></tr>
+	 * <tr><td>PreloadController</td><td>NA</td><td>Complete,Progress,AssetComplete,AssetError</td></tr>
 	 * <tr><td>XMLLoader</td><td>NA</td><td>Complete</td></tr>
 	 * </table>
 	 * 
@@ -199,6 +200,8 @@ package net.guttershark.managers
 	 * 
 	 * <p>Non-negotiable event types that always pass event objects to your callbacks:</p>
 	 * <ul>
+	 * <li>AssetErrorEvent.ERROR</li>
+	 * <li>AssetCompleteEvent.COMPLETE</li>
 	 * <li>ActivityEvent.ACTIVITY</li>
 	 * <li>ColorPickerEvent.CHANGE</li>
 	 * <li>ComponentEvent.LABEL_CHANGE</li>
@@ -336,6 +339,7 @@ package net.guttershark.managers
 				if(((callbackPrefix + "Progress") in callbackDelegate)) obj.addEventListener(PreloadProgressEvent.PROGRESS, onProgress, false, 0, true);
 				if(((callbackPrefix + "Complete") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(Event.COMPLETE, onComplete, false, 0, true);
 				if(((callbackPrefix + "AssetComplete") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(AssetCompleteEvent.COMPLETE, onAssetComplete, false, 0, true);
+				if(((callbackPrefix + "AssetError") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(AssetErrorEvent.ERROR,onAssetError, false, 0, true);
 			}
 			
 			if(obj is TextField)
@@ -448,6 +452,11 @@ package net.guttershark.managers
 		private function onAssetComplete(ace:AssetCompleteEvent):void
 		{
 			handleEvent(ace,"AssetComplete",true);
+		}
+		
+		private function onAssetError(aee:AssetErrorEvent):void
+		{
+			handleEvent(aee,"AssetError",true);
 		}
 
 		private function onProgress(pe:PreloadProgressEvent):void
@@ -811,9 +820,13 @@ package net.guttershark.managers
 				return;
 			}
 			
-			if(((callbackPrefix + "Progress") in callbackDelegate) || cycleAllThroughTracking) obj.removeEventListener(PreloadProgressEvent.PROGRESS, onProgress);
-			if(((callbackPrefix + "Complete") in callbackDelegate) || cycleAllThroughTracking) obj.removeEventListener(Event.COMPLETE, onComplete);
-			if(((callbackPrefix + "AssetComplete") in callbackDelegate) || cycleAllThroughTracking) obj.removeEventListener(AssetCompleteEvent.COMPLETE, onAssetComplete);
+			if(obj is PreloadController)
+			{
+				if(((callbackPrefix + "Progress") in callbackDelegate) || cycleAllThroughTracking) obj.removeEventListener(PreloadProgressEvent.PROGRESS, onProgress);
+				if(((callbackPrefix + "Complete") in callbackDelegate) || cycleAllThroughTracking) obj.removeEventListener(Event.COMPLETE, onComplete);
+				if(((callbackPrefix + "AssetComplete") in callbackDelegate) || cycleAllThroughTracking) obj.removeEventListener(AssetCompleteEvent.COMPLETE, onAssetComplete);
+				if(((callbackPrefix + "AssetError") in callbackDelegate) || cycleAllThroughTracking) obj.removeEventListener(AssetErrorEvent.ERROR,onAssetError);
+			}
 			
 			if(obj is InteractiveObject)
 			{
