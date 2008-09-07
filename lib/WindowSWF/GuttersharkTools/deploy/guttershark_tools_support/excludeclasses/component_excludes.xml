@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<excludeAssets>
+	<asset name="fl.video.FLVPlayback" default="true" />
+	<asset name="fl.video.VideoEvent" default="true" />
+	<asset name="fl.video.ScrollEvent" />
+</excludeAssets>

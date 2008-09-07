@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AS3Classpath>
+<AS3Classpath generateProblems="false" type="lib" useAsSharedCode="false">playerglobal.swc</AS3Classpath>
+<AS3Classpath generateProblems="true" type="source" useAsSharedCode="false">EXTERNALS_LIB</AS3Classpath>
+<AS3Classpath generateProblems="true" type="source" useAsSharedCode="false">FLASH9_COMPONENTS_UI</AS3Classpath>
+<AS3Classpath generateProblems="true" type="source" useAsSharedCode="false">GUTTERSHARK_LIB</AS3Classpath>
+<AS3Classpath generateProblems="true" type="source" useAsSharedCode="false">classes</AS3Classpath>
+<AS3Classpath generateProblems="true" type="source" useAsSharedCode="false">FLASH9_COMPONENTS_FLVPLAYBACK</AS3Classpath>
+</AS3Classpath>
