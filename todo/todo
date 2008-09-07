@@ -1,0 +1,5 @@
+-jsfl's..
+ -make new {Class type} (creates the class with stubbed out overrides, places it in target dir, updates library item, etc)
+ -create new guttershark project (includes fla, updates export to ../deploy/XXX)
+ -exclude class manager application (creates/reads/edits the correct exclude xml file per fla.)
+-model documentation
