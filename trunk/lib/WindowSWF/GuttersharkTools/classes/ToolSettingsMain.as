@@ -1,16 +1,17 @@
 package  
 {
+	import flash.text.TextField;
+	
 	import fl.controls.Button;
 	import fl.controls.CheckBox;
-	import fl.controls.TextInput;
 	
 	import net.guttershark.model.Model;	
 
 	public class ToolSettingsMain extends BaseToolMain
 	{
 		
-		public var flexHome:TextInput;
-		public var gsHome:TextInput;
+		public var flexHome:TextField;
+		public var gsHome:TextField;
 		public var autoLoadLastTool:CheckBox;
 		public var autoSelectTracking:CheckBox;
 		public var savebtn:Button;
