@@ -129,7 +129,7 @@ package
 		
 		protected function showSWF():void
 		{
-			shownSWF.y = 47;
+			shownSWF.y = 50;
 			var s:* = shownSWF.content;
 			if(!firstLoad) getTool("preferences").updateLastTool(s.id);
 			firstLoad = false;
