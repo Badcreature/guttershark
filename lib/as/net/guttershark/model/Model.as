@@ -158,7 +158,7 @@ package net.guttershark.model
 		 * @param	prependSourcePath	The path to append to the source property of the asset.
 		 * @return	An instance of an Asset.
 		 */
-		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String):Asset
+		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String = null):Asset
 		{
 			checkForXML();
 			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
