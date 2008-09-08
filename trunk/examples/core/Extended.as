@@ -1,1 +1,0 @@
-package{	import Singleton;		public class Extended	{				private static var inst:Extended;				public static function gi():Extended		{			if(!inst) inst = Singleton.gi(Extended); 			return inst;		}				public function Extended()		{			Singleton.assertSingle(Extended);		}				public function test():void		{			trace("Extended");		}	}}

@@ -1,11 +1,11 @@
 package  
 {
-	import flash.utils.Dictionary;	
 	import flash.display.Loader;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
+	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	
 	import adobe.utils.MMExecute;
@@ -16,11 +16,10 @@ package
 	import net.guttershark.control.PreloadController;
 	import net.guttershark.display.CoreSprite;
 	import net.guttershark.managers.EventManager;
-	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.support.eventmanager.ComboBoxEventListenerDelegate;
 	import net.guttershark.support.preloading.Asset;
 	import net.guttershark.util.XMLLoader;		
-
+	
 	public class Main extends CoreSprite 
 	{
 
@@ -83,25 +82,7 @@ package
 				obj.label = n.@label;
 				obj.src = n.@src;
 				obj.id = n.@id;
-				var lwp:String = n.@loadWhenPlayer;
-				if(lwp) lwp = lwp.toLowerCase();
-				if(!lwp || lwp == "all")
-				{
-					dp.addItem(obj);
-					continue;
-				}
-				else if(PlayerManager.IsActiveX() && lwp == "activex")
-				{
-					dp.addItem(obj);
-				}
-				else if(PlayerManager.IsIDEPlayer() && lwp == "ide")
-				{
-					dp.addItem(obj);
-				}
-				else if(PlayerManager.IsStandAlonePlayer() && lwp == "standalone")
-				{
-					dp.addItem(obj);
-				}
+				dp.addItem(obj);
 			}
 			tcb.dataProvider = dp;
 			loadSWF();

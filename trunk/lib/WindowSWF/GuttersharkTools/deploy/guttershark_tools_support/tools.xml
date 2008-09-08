@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tools>
-	<!--
-		loadWhenPlayer = all | ide | activex | standalone
-	-->
-	<tool id="preferences" label="PREFERENCES" src="guttershark_tools_support/toolsettings/toolsettings.swf" loadWhenPlayer="all" />
-	<tool id="library" label="LIBRARY TOOLS" src="guttershark_tools_support/librarytools/librarytools.swf" loadWhenPlayer="ide" />
-	<tool id="video" label="VIDEO TOOLS" src="guttershark_tools_support/videotools/videotools.swf" loadWhenPlayer="all" />
-	<tool id="tracking" label="TRACKING MONITOR" src="guttershark_tools_support/trackingmonitor/trackingmonitor.swf" loadWhenPlayer="all" />
-	<tool id="services" label="SERVICE EXPLORER" src="guttershark_tools_support/serviceexplorer/serviceexplorer.swf" loadWhenPlayer="all" />
-	<tool id="excludes" label="EXCLUDE CLASSES" src="guttershark_tools_support/excludeclasses/excludeclasses.swf" loadWhenPlayer="ide" />
+	<tool id="preferences" label="PREFERENCES" src="guttershark_tools_support/toolsettings/toolsettings.swf" />
+	<tool id="library" label="LIBRARY TOOLS" src="guttershark_tools_support/librarytools/librarytools.swf" />
+	<tool id="video" label="VIDEO TOOLS" src="guttershark_tools_support/videotools/videotools.swf" />
+	<tool id="tracking" label="TRACKING MONITOR" src="guttershark_tools_support/trackingmonitor/trackingmonitor.swf" />
+	<tool id="services" label="SERVICE EXPLORER" src="guttershark_tools_support/serviceexplorer/serviceexplorer.swf" />
+	<tool id="excludes" label="EXCLUDE CLASSES" src="guttershark_tools_support/excludeclasses/excludeclasses.swf" />
 </tools>

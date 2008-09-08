@@ -70,8 +70,6 @@ package
 			changeFLA();
 		}
 		
-		
-
 		public function onSaveClick():void
 		{
 			if(!saved) save();
@@ -144,7 +142,6 @@ package
 		override public function save():void
 		{
 			saved = true;
-			MMExecute("fl.trace('save')");
 		}
 		
 		private function resetExcludeClasses():void
@@ -183,10 +180,11 @@ package
 			{
 				case "customExcludes":
 					MMExecute("fl.trace('WARNING: Exclude xml file was not found, creating it.')");
-					customExcludes = new XML('<excludeAssets><asset name=\"PointlessThing\" /></excludeAssets>');
+					//customExcludes =
+					var s:String = '<excludeAssets><asset name="PointlessThing" /></excludeAssets>';
 					var fileURI:String = "file://"+xmlFile;
 					MMExecute("fl.trace('"+fileURI+"')");
-					//MMExecute("FLfile.write('"+fileURI+"','"+customExcludes.toString()+"')");
+					//MMExecute("FLfile.write('"+fileURI+"','"+s+"')");
 					MMExecute("FLfile.write('"+fileURI+"','test')");
 					break;
 				case "libExcludes":
@@ -304,12 +302,14 @@ package
 
 		private function exclude(key:String):void
 		{
+			MMExecute("fl.trace('excluding: " + key + "')");
 			saved = false;
 			excludedClassesLookup[key.toString()] = true;
 		}
 		
 		private function excluded(key:String):Boolean
 		{
+			return false;
 			if(excludedClassesLookup[key.toString()] === true) return true;
 			excludedClassesLookup[key.toString()] = true;
 			return false;

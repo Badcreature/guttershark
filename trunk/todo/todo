@@ -1,5 +1,30 @@
--jsfl's..
- -make new {Class type} (creates the class with stubbed out overrides, places it in target dir, updates library item, etc)
- -create new guttershark project (includes fla, updates export to ../deploy/XXX)
- -exclude class manager application (creates/reads/edits the correct exclude xml file per fla.)
+--guttershark tool
+---bugs - sharedOBject bug, export classes bug, write XML
+-preferences - general guttershark tool preferences
+-scaffolding
+ -project
+ -clips (defining classes / predefine overrides,etc)
+-publish tools
+ -exclude classes
+ -publish patterns
+ -batch publish
+-library tools - tools used against the current library
+-video tools
+ -preview player
+  -statistics? filesize, fps, etc.
+ -akamai
+  -test ident
+  -test connection
+  -test video stream
+  -statistics (bandwidth,etc)
+-tracking monitor
+-service explorer
+ -remoting
+ -post/get
+ -wsdl
+ -file upload
+
+
+
+---other stuff
 -model documentation
