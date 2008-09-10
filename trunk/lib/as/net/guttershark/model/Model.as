@@ -74,6 +74,12 @@ package net.guttershark.model
 		protected var attributes:XMLList;
 		
 		/**
+		 * Stores a reference to the <code>&lt;services&gt;lt;/services&gt;</code
+		 * node in the model xml.
+		 */
+		protected var services:XMLList;
+		
+		/**
 		 * A placeholder variable for the movies flashvars - this is
 		 * not set by default, you need to set it in your controller.
 		 */
