@@ -9,7 +9,7 @@ package net.guttershark.model
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.support.preloading.Asset;
 	import net.guttershark.util.Assert;
-	import net.guttershark.util.Singleton;	
+	import net.guttershark.util.Singleton;
 
 	/**
 	 * The Model Class provides shortcuts for parsing a model xml file as
@@ -20,7 +20,7 @@ package net.guttershark.model
 	 * &lt;?xml version="1.0" encoding="utf-8"?&gt;
 	 * &lt;model&gt;
 	 *    &lt;assets&gt;
-	 *        &lt;asset libraryName="clayBanner1" source="clay_banners_1.jpg" /&gt;
+	 *        &lt;asset libraryName="clayBanner1" source="clay_banners_1.jpg" preload="true" /&gt;
 	 *        &lt;asset libraryName="clayBanner2" source="clay_banners_2.jpg" /&gt;
 	 *        &lt;asset libraryName="clayWebpage" source="clay_webpage.jpg" /&gt;
 	 *    &lt;/assets&gt;
@@ -33,25 +33,20 @@ package net.guttershark.model
 	 *        &lt;attribute id="host" value="http://www.guttershark.net" /&gt;
 	 *    &lt;/attributes&gt;
 	 *    &lt;services&gt;
-	 *       &lt;remoting&gt;
-	 *          &lt;endpoint id="amfphp" gateway="http://localhost/amfphp/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
-	 *             &lt;service id="amfphp_service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
-	 *             &lt;service id="amfphp_service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
-	 *          &lt;/endpoint&gt;
-	 *          &lt;endpoint id="rubyamf" gateway="http://localhost/rubyamf/gateway.php" useLimiter="true" maxRetries="5" callTimeout="5000" objectEncoding="3"&gt;
-	 *             &lt;service id="rubyamf_service1" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service1&lt;/service&gt;
-	 *             &lt;service id="rubyamf_service2" useCache="false" cacheExpireTimeout="-1"&gt;com.myphp.Service2&lt;/service&gt;
-	 *          &lt;/endpoint&gt;
-	 *       &lt;/remoting&gt;
+	 *        &lt;gateway id="amfphp" path="amfphp" url="http://localhost/amfphp/gateway.php" objectEncoding="3" /&gt;
+	 *        &lt;service id="test" gateway="amfphp" endpoint="Test" limiter="true" attempts="4" timeout="1000" /&gt;
+	 *        &lt;service id="foo" url="http://localhost/" attempts="4" timeout="1000" /&gt;
+	 *        &lt;service id="sessionDestroy" path="sessiondestroy" url="http://tagsf/services/codeigniter/session/destroy" attempts="4" timeout="1000" responseFormat="variables" /&gt;
+	 *        &lt;service id="ci" url="http://tagsf/services/codeigniter/" attempts="4" timeout="1000" responseFormat="variables" /&gt;
 	 *    &lt;/services&gt;
 	 * &lt;/model&gt;
 	 * </listing>
 	 */
-	dynamic public class Model
+	public dynamic class Model
 	{
 		
 		/**
-		 * singleton instance
+		 * Singleton instance
 		 */
 		protected static var inst:Model;
 		
@@ -63,9 +58,6 @@ package net.guttershark.model
 		/**
 		 * Stores a reference to the &lt;assets&gt;&lt;/assets&gt;
 		 * node in the model xml.
-		 *
-		 * <p>The assets node is an asset pool that is used in many other places
-		 * as a lookup for info about an asset.</p>
 		 */
 		protected var assets:XMLList;
 		
@@ -78,22 +70,17 @@ package net.guttershark.model
 		/**
 		 * Stores a reference to the <code>&lt;attributes&gt;&lt;/attributes&gt;</code>
 		 * node in the model xml.
-		 * 
-		 * @example An attributes node set.
-		 * &lt;attributes&gt;
-	 	 *     &lt;attribute id="host" value="http://www.guttershark.net" /&gt;
-	 	 * &lt;/attributes&gt;
 		 */
 		protected var attributes:XMLList;
 		
 		/**
-		 * A placeholder variable for the movie's flashvars - this is
+		 * A placeholder variable for the movies flashvars - this is
 		 * not set by default, you need to set it in your controller.
 		 */
 		public var flashvars:Object;
 		
 		/**
-		 * A placeholder variable for the movie's shared object - this is
+		 * A placeholder variable for the movies shared object - this is
 		 * not set by default, override <em><code>restoreSharedObject</code></em>
 		 * in your DocumentController, and set this property to a shared object.
 		 * 
@@ -110,6 +97,11 @@ package net.guttershark.model
 		 * ExternalInterface availability flag.
 		 */
 		private var available:Boolean;
+		
+		/**
+		 * Flag for warning about ExternalInterface.
+		 */
+		private var warnedAboutEI:Boolean;
 
 		/**
 		 * @private
@@ -119,7 +111,6 @@ package net.guttershark.model
 		{
 			Singleton.assertSingle(Model);
 			paths = new Dictionary();
-			checkEI();
 		}
 
 		/**
@@ -209,6 +200,28 @@ package net.guttershark.model
 				}
 			}
 		}
+		
+		/**
+		 * Returns an array of Asset instances from the assets node,
+		 * that has a "preload" attribute set to true (preload='true').
+		 */
+		public function getAssetsForPreload():Array
+		{
+			var a:XMLList = assets..asset;
+			if(!a)
+			{
+				trace("WARNING: No assets were defined, not doing anything.");
+				return null;
+			}
+			var payload:Array = [];
+			for each(var n:XML in a)
+			{
+				if(!n.attribute("preload")) continue;
+				var ast:Asset = new Asset(n.@source,n.@libraryName);
+				payload.push(ast);
+			}
+			return payload;
+		}
 
 		/**
 		 * Creates and returns a URLRequest from a link node.
@@ -258,7 +271,11 @@ package net.guttershark.model
 		{
 			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer())
 			{
-				trace("WARNING: ExternalInterface is not available, path logic will use internal dictionary.");
+				if(!warnedAboutEI)
+				{
+					trace("WARNING: ExternalInterface is not available, path logic will use internal dictionary.");
+					warnedAboutEI = true;
+				}
 				available = false;
 				return;
 			}
@@ -279,6 +296,7 @@ package net.guttershark.model
 		 */
 		public function isPathDefined(path:String):Boolean
 		{
+			checkEI();
 			if(!available) return !(paths[path]==false);
 			return ExternalInterface.call("net.guttershark.Paths.isPathDefined",path);
 		}
@@ -293,6 +311,7 @@ package net.guttershark.model
 		 */	
 		public function addPath(pathId:String, path:String):void
 		{
+			checkEI();
 			if(!available)
 			{
 				paths[pathId]=path;
@@ -311,6 +330,7 @@ package net.guttershark.model
 		 */
 		public function getPath(...pathIds:Array):String
 		{
+			checkEI();
 			var fp:String = "";
 			if(!available)
 			{

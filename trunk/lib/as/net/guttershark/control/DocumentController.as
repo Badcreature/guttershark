@@ -7,28 +7,6 @@
  *     \/___L\ \/___/   \/__/ \/__/\/____/ \/_/ \/___/   \/_/\/_/\/__/\/_/ \/_/   \/_/\/_/
  *       /\____/                                                                          
  *       \_/__/                                                                           
- *    
- *    Actionscript 3 Library
- *    
- *    Copyright (c) 2008 Aaron Smith
- *    
- *    Permission is hereby granted, free of charge, to any person obtaining a copy
- *    of this software and associated documentation files (the "Software"), to deal
- *    in the Software without restriction, including without limitation the rights
- *    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *    copies of the Software, and to permit persons to whom the Software is
- *    furnished to do so, subject to the following conditions:
- *    
- *    The above copyright notice and this permission notice shall be included in
- *    all copies or substantial portions of the Software.
- *    
- *    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- *    THE SOFTWARE.
  */
 package net.guttershark.control
 {
@@ -50,13 +28,21 @@ package net.guttershark.control
 	import com.asual.swfaddress.SWFAddressEvent;
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
+	import net.guttershark.managers.AssetManager;
+	import net.guttershark.managers.EventManager;
+	import net.guttershark.managers.KeyboardEventManager;
+	import net.guttershark.managers.LanguageManager;
+	import net.guttershark.managers.LayoutManager;
 	import net.guttershark.managers.PlayerManager;
+	import net.guttershark.managers.ServiceManager;
+	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
+	import net.guttershark.util.FlashLibrary;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;	
+	import net.guttershark.util.akamai.Ident;		
 
 	/**
 	 * The DocumentController Class is the document class for an FLA, it contains
@@ -65,7 +51,6 @@ package net.guttershark.control
 	 * 
 	 * <p>Available FlashVar Properties:</p>
 	 * <ul>
-	 * <li><strong>autoInitModel</strong> (Boolean) - Whether or not to automatically set the loaded xml on the default Model class. If you do not specify autoInitModel, you should override initModel() so you can initialize the model or a subclassed model</li>
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
 	 * <li><strong>initServices</strong> (Boolean) - Initialize the <code><em>ServiceManager</em></code>, with all of the service declarations defined in a model.xml file.</li>
 	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
@@ -82,7 +67,7 @@ package net.guttershark.control
 	 * 
 	 * <p>Flashvar properties can be supplied when running in the Flash IDE 
 	 * by overriding the <code><a href="#flashvarsForStandalone()">flashvarsForStandalone()</a></code> 
-	 * method. Otherwise you <strong>must</strong> declate the flashvars on the flash object in HTML.</p>
+	 * method. Otherwise you <strong>must</strong> declare the flashvars on the flash object in HTML.</p>
 	 * 
 	 * @example Overriding the flashvarsForStandalone method to provide flashvars for IDE development:
 	 * <listing>	
@@ -164,11 +149,69 @@ package net.guttershark.control
 		private var trackingXMLLoader:XMLLoader;
 
 		/**
+		 * The EventManager singleton instance.
+		 */
+		protected var em:EventManager;
+		
+		/**
+		 * The Model singleton instance.
+		 */
+		protected var ml:Model;
+		
+		/**
+		 * The KeyboardEventManager singleton instance.
+		 */
+		protected var km:KeyboardEventManager;
+		
+		/**
+		 * The LanguageManager singleton instance.
+		 */
+		protected var lgm:LanguageManager;
+		
+		/**
+		 * A placeholder variable for a PreloadController instance. You should initialize this yourself.
+		 */
+		protected var pc:PreloadController;
+		
+		/**
+		 * The AssetManager singleton instance.
+		 */
+		protected var am:AssetManager;
+
+		/**
+		 * The ServiceManager singleton instance.
+		 */
+		protected var sm:ServiceManager;
+
+		/**
+		 * The singleton instance of the FlashLibrary.
+		 */
+		protected var fb:FlashLibrary;
+
+		/**
+		 * The SoundManager singleton instance.
+		 */
+		protected var snm:SoundManager;
+
+		/**
+		 * An instance of a layout manager.
+		 */
+		public var lm:LayoutManager;
+
+		/**
 		 * Constructor for DocumentController instances. This should not
 		 * be used directly, only subclassed as a Document Class for an FLA.
 		 */
 		public function DocumentController()
 		{
+			lm = new LayoutManager(this);
+			snm = SoundManager.gi();
+			fb = FlashLibrary.gi();
+			sm = ServiceManager.gi();
+			am = AssetManager.gi();
+			lgm = LanguageManager.gi();
+			km = KeyboardEventManager.gi();
+			em = EventManager.gi();
 			online = true;
 			MacMouseWheel.setup(stage);
 			setupFlashvars();
@@ -184,7 +227,6 @@ package net.guttershark.control
 			{
 				initModel();
 				if(PlayerManager.IsIDEPlayer()||PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
-				if(flashvars.initServices) Model.gi().initServices();
 				restoreSharedObject();
 				setupComplete();
 			}
@@ -306,24 +348,23 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * A method you can override to initialize your own model - this
-		 * is in place for situations where you need to extend the base Model class,
-		 * and can only initialize the Model once.
-		 * 
-		 * <p>If you are only using the default Model class, you can specify the
-		 * <em><code>autoInitModel</code></em> flashvar property, which will
-		 * automatically set the xml property on the default Model, which
-		 * initializes it for you.</p>
+		 * A method you can override to initialize your own model - you should
+		 * always call super.initModel().
 		 * 
 		 * @example A custom initModel method:
 		 * <listing>	
 		 * override protected function initModel():void
 		 * {
-		 *     MySubclassedModel.gi().xml = model;
+		 *     super.initModel();
+		 *     fm = FooBarModel.gi(); //your model
 		 * }
 		 * </listing>
 		 */
-		protected function initModel():void{}
+		protected function initModel():void
+		{
+			ml = Model.gi();
+			if(model) ml.xml = model;
+		}
 		
 		/**
 		 * @private
@@ -333,17 +374,13 @@ package net.guttershark.control
 		private function onSiteXMLComplete(e:Event):void
 		{
 			model = modelXMLLoader.data;
-			if(flashvars.autoInitModel) Model.gi().xml = model;
-			else
-			{
-				initModel();
-				restoreSharedObject();
-			}
+			initModel();
+			restoreSharedObject();
 			modelXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
 			modelXMLLoader.dispose();
 			modelXMLLoader = null;
 			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
-			if(flashvars.initServices) Model.gi().initServices();
+			if(flashvars.initServices) ml.initServices();
 			setupComplete();
 		}
 		
