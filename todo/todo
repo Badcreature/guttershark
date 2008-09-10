@@ -2,27 +2,28 @@
 ---bugs - sharedOBject bug, export classes bug, write XML
 -preferences - general guttershark tool preferences
 -scaffolding
- -project
- -clips (defining classes / predefine overrides,etc)
+ -create projects
+ -code - (creating classes, clips, etc)
 -publish tools
  -exclude classes
  -publish patterns
- -batch publish
+ -batch publishing
 -library tools - tools used against the current library
 -video tools
- -preview player
-  -statistics? filesize, fps, etc.
+ -preview player (loads an XML file, which set's up the player) (do we provide stats to? filesize, fps, etc.) 
  -akamai
   -test ident
   -test connection
   -test video stream
   -statistics (bandwidth,etc)
--tracking monitor
+-tracking tools
 -service explorer
  -remoting
  -post/get
  -wsdl
  -file upload
+-locale tools
+ -language xml management (work with excel/xml)
 
 
 
