@@ -176,6 +176,48 @@ package net.guttershark.managers
 		}
 		
 		/**
+		 * Clear all keys that have been referenced as being down.
+		 * This is needed in cases where the object that is dispatching
+		 * keyboard events, is hidden, just before or after you call removeMapping
+		 * - which will cause the KEY_UP events to stop dispatching,
+		 * which is bad, as that event is crucial for this manager.
+		 * 
+		 * <p>The only time you need this is when your hiding
+		 * the target object just before, or after you set it's visible
+		 * property to false, or, remove it from the stage.</p>
+		 * 
+		 * @example Handling race conditions with the KEY_UP event.
+		 * <listing>	
+		 * var emailField:TextField;
+		 * var submitView:BasicView;
+		 * 
+		 * km.addMapping(emailField,"ENTER",onEnter);
+		 * 
+		 * function onEnter():void
+		 * {
+		 *     submitView.hide();
+		 *     //because submitView's visible property is now false, 
+		 *     //the KEY_UP event for the emailField does not fire - which
+		 *     //is a crucial feature, and clears internal states of what
+		 *     //keys are currently pressed. unfortunately there isn't a way
+		 *     //around this. So you must call clearKeys to fix this.
+		 *     
+		 *     //The problem will happen even if you place the submitView.hide()
+		 *     //call after the removeMapping function call as well.
+		 *     
+		 *     km.clearKeys();
+		 *     km.removeMapping(emailField,"ENTER");
+		 *     
+		 *     //submitView.hide(); //the same problem occurs here, as it's a race condition with the KEY_UP event.
+		 * }	
+		 * </listing>
+		 */
+		public function clearKeys():void
+		{
+			keysDown = "";
+		}
+
+		/**
 		 * Returns the shortcut string representation of a keyCode
 		 */
 		private function getShortcutForKey(keyCode:uint):String
@@ -453,6 +495,7 @@ package net.guttershark.managers
 			if(mappingCountByScope[scope]['sequence'] > 0) mappingCountByScope[scope]['sequence']--;
 			if(mappingCountByScope[scope]['sequence'] == 0)
 			{
+				sequenceCallbacks[scope] = null;
 				scope.removeEventListener(KeyboardEvent.KEY_UP, onKeyUpForSequence);
 				scope.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDownForSequence);
 			}
