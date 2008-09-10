@@ -1,0 +1,1 @@
+package net.guttershark.util.crypt{	/**	 * Marker interface for all cryptographic hashing classes.	 * @see http://en.wikipedia.org/wiki/Cryptographic_hash_function	 * @see http://en.wikipedia.org/wiki/Marker_interface_pattern	 */	public interface IHash{}}

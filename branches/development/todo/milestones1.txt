@@ -1,0 +1,89 @@
+Hey guys, let's start with this stuff.
+
+There are a couple things we can do simultaneously:
+ -doc auditing
+ -screencast tutorials site design
+ -tool ideas
+
+Here's my list of todo's to get this kick started.
+ 1. create a branch called "development" on google code. (leave trunk as is, and we all work out of development - se we don't break every project we build with trunk) 
+ 2. give everyone write access to svn. This is good, everyone can commit which is ok, because we're in the development branch. And will relieve us from emailing comment snippets to audit.
+ 3. move the windowSWF tools out of google SVN onto guttershark.net svn.
+
+##DOC AUDITING##
+The best place to do the audit is in the source code itself. When there's a hole - fill it. I also try to mimic how adobe documents their classes. By that I mean what they write for the Constructor of a class, how they word documentation for methods and properties, etc.
+
+We should also put example snippets of code in either method documentation, or class level documentation. For this just follow what I've been doing for now. As soon a I figure out how to include an example at the bottom of the class we can switch it all over.
+
+Here's documentation on how to document code.
+http://livedocs.adobe.com/flex/3/html/help.html?content=asdoc_1.html
+
+You can also just follow everything I've been doing.
+
+The key sections to read:
+"About the ASDoc tool"
+"Creating ASDoc Comments"
+"Documenting Actionscript Elements"
+"ASDoc tags"
+
+The only tag in comments I always supply is the @param tag (if there are params of course). Most of the other stuff isn't that important - sometimes I put other tags in, sometimes not. ASDoc will pick up a lot of things.
+
+Here's that list of packages and who should audit which.
+ 1. control - aaron
+ 2. display - larry
+ 3. managers - trueman
+ 4. support - aaron
+ 5. util - cip
+
+##SITE / BRANDING##
+For guttershark.net - which is like the "pitch," we replicate how gotoandLearn works.
+
+For the blog, I think all we should do is update the colors, and change header and sidebar links to be sIFR so we can use helvetica.
+
+current links:
+ 1. guttershark.net 
+ 2. blog.guttershark.net
+
+colors:
+ -pink #FF0066
+ -cyan #00CCFF
+ -font - helvetica nueu bold condensed
+
+#TOOLS#
+Here are the top level tools. Each top level tool has tabs in it with tools related to that category.
+
+ -preferences - general guttershark tool preferences
+ -scaffolding
+  (tab)-create projects
+  (tab)-code - (creating classes, clips, etc)
+ -publish tools
+  (tab)-exclude classes
+  (tab)-publish patterns
+  (tab)-batch publishing
+ -library tools - tools used against the current library
+ -video tools
+  (tab)-preview player (loads an XML file, which set's up the player) (do we provide stats to? filesize, fps, etc.) 
+  (tab)-akamai
+           -test ident
+           -test connection
+           -test video stream
+           -statistics (bandwidth,etc)
+ -tracking tools
+  (tab)-tracking monitor
+ -service explorer
+  (tab)-remoting
+  (tab)-post/get
+  (tab)-wsdl
+  (tab)-file upload
+ -locale tools
+  (tab)-language xml management (work with excel/xml)
+ -model tools?
+
+So beyond the above tools, are there any other categories we can work with? Also we need ideas for things to do with library tools, scaffolding, video, locale, etc. It's not feature bloat, it will actually be useful things.
+
+The other thing to keep in mind, is that if you have some process that you can script with JSFL, and it requires minimal input - (prompt,ok/cancel,etc), just use JSFL. We don't need a whole tool pane for it. This is better because you can hook up keyboard shortcuts to run them.
+
+Here are the docs for JSFL
+http://livedocs.adobe.com/flash/9.0/main/wwhelp/wwhimpl/js/html/wwhelp.htm?href=Part7_Extending_Flash_1.html
+
+There is a book called "Extending Flash", within that you want to look at "Top Level Functions and Methods" then look at the "Objects" section, which is an API reference to JSFL. You can also look at jsfl I've been writing in trunk/lib/jsfl/
