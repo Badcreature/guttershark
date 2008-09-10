@@ -1,0 +1,527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="Assert,net.guttershark.util.Assert,Compatible,DictionaryKeysOfType,False,GreaterThan,NotNull,NotNullOrEmpty,State,True" name="keywords">
+<title>net.guttershark.util.Assert</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Assert - Guttershark Flash API Docs';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?net/guttershark/util/Assert.html&amp;net/guttershark/util/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Assert</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Assert"); titleBar_setSubNav(false,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.util</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Assert</td>
+</tr>
+</table>
+<p></p>
+  The Assert class assists with validating arguments and is a relief mechanism
+  for having to write the same logic over and over when checking arguments.
+  
+  <p>The default error that's thrown when a condition is not met is an
+  ArgumentError. You can change what error is thrown by providing the exceptionType
+  parameter.</p>
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>Using the Assert class:
+  <div class='listing'><pre> 
+  public function setItems(array:Array, maxCount:int)
+  {
+      Assert.NotNullOrEmpty(array, "Parameter array cannot be null or empty");
+      Assert.NotNull(maxCount, "Parameter maxCount cannot be null");
+  }
+  </pre></div>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#Compatible()">Compatible</a>(object:*, type:Class, message:String, exceptionType:Class = null):void</div>
+<div class="summaryTableDescription">[static]
+   Check that an object is a compatible instance, or interface of a certain class.</div>
+</td><td class="summaryTableOwnerCol">Assert</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#DictionaryKeysOfType()">DictionaryKeysOfType</a>(dictionary:Dictionary, type:Class, message:String, exceptionType:Class = null):void</div>
+<div class="summaryTableDescription">[static]
+   Assert that a dictionary has keys that are only of the specified type.</div>
+</td><td class="summaryTableOwnerCol">Assert</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#False()">False</a>(val:Boolean, message:String, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">[static]
+   Assert that the passed value is false.</div>
+</td><td class="summaryTableOwnerCol">Assert</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#GreaterThan()">GreaterThan</a>(target:Number, minimum:Number, message:String, exceptionType:Class = null):void</div>
+<div class="summaryTableDescription">[static]
+   Check that a target number is greater than a minimum amount.</div>
+</td><td class="summaryTableOwnerCol">Assert</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#NotNull()">NotNull</a>(object:*, message:String, exceptionType:Class = null):void</div>
+<div class="summaryTableDescription">[static]
+   Check that the object is not null.</div>
+</td><td class="summaryTableOwnerCol">Assert</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#NotNullOrEmpty()">NotNullOrEmpty</a>(array:Array, message:String, exceptionType:Class = null):void</div>
+<div class="summaryTableDescription">[static]
+   Check to see if an array is null or empty.</div>
+</td><td class="summaryTableOwnerCol">Assert</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#State()">State</a>(expression:Boolean, message:String, exceptionType:Class = null):void</div>
+<div class="summaryTableDescription">[static]
+   Assert a boolean expression.</div>
+</td><td class="summaryTableOwnerCol">Assert</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#True()">True</a>(val:Boolean, message:String, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">[static]
+   Assert that the passed value is true.</div>
+</td><td class="summaryTableOwnerCol">Assert</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="Compatible()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Compatible</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function Compatible(object:*, type:Class, message:String, exceptionType:Class = null):void</code><p>
+   Check that an object is a compatible instance, or interface of a certain class.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">object</span>:*</code> &mdash; The object to check.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:Class</code> &mdash; The Class that object needs to be an instance of in order to pass the test.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; A message to use for an ArgumentError.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The class of the exception type you want to throw. Default is ArgumentError if not specified.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; If object is null.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; ArgumentError If message is null.
+   </td>
+</tr>
+</table>
+</div>
+<a name="DictionaryKeysOfType()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">DictionaryKeysOfType</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function DictionaryKeysOfType(dictionary:Dictionary, type:Class, message:String, exceptionType:Class = null):void</code><p>
+   Assert that a dictionary has keys that are only of the specified type.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">dictionary</span>:Dictionary</code> &mdash; The dictionary to validate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:Class</code> &mdash; The class type that each key should be.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; A message to use for an Error.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The class of the exception type you want to throw. Default is ArgumentError if not specified.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; ArgumentError If message is null.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; If a key in the dictionary is not of the specified type.
+   </td>
+</tr>
+</table>
+</div>
+<a name="False()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">False</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function False(val:Boolean, message:String, exceptionType:Class = null):Boolean</code><p>
+   Assert that the passed value is false.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">val</span>:Boolean</code> &mdash; The boolean value to assert.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; The message to throw if the assertion is false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exception type to throw if there is an error.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="GreaterThan()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">GreaterThan</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function GreaterThan(target:Number, minimum:Number, message:String, exceptionType:Class = null):void</code><p>
+   Check that a target number is greater than a minimum amount.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:Number</code> &mdash; The target number.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">minimum</span>:Number</code> &mdash; The minimum the target can be.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; A message to use for an ArgumentError.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The class of the exception type you want to throw. Default is ArgumentError if not specified.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; If object is null.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; ArgumentError If message is null. 
+   </td>
+</tr>
+</table>
+</div>
+<a name="NotNull()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">NotNull</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function NotNull(object:*, message:String, exceptionType:Class = null):void</code><p>
+   Check that the object is not null.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">object</span>:*</code> &mdash; The object to check.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; A message to use for an ArgumentError.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The class of the exception type you want to throw. Default is ArgumentError if not specified.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; If object is null.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; ArgumentError If message is null.
+   </td>
+</tr>
+</table>
+</div>
+<a name="NotNullOrEmpty()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">NotNullOrEmpty</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function NotNullOrEmpty(array:Array, message:String, exceptionType:Class = null):void</code><p>
+   Check to see if an array is null or empty.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">array</span>:Array</code> &mdash; An array to validate that it's not null, and not empty.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; A message to use for an ArgumentError.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The class of the exception type you want to throw. Default is ArgumentError if not specified.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; If array is null.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; ArgumentError If message is null.
+   </td>
+</tr>
+</table>
+</div>
+<a name="State()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">State</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function State(expression:Boolean, message:String, exceptionType:Class = null):void</code><p>
+   Assert a boolean expression. If the expression is false an error is raised.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">expression</span>:Boolean</code> &mdash; An expression as a boolean.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; A message to use for an Error.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The class of the exception type you want to throw. Default is ArgumentError if not specified.
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; If object is null.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20"></td><td><code></code> &mdash; ArgumentError If message is null.
+   </td>
+</tr>
+</table>
+</div>
+<a name="True()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">True</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function True(val:Boolean, message:String, exceptionType:Class = null):Boolean</code><p>
+   Assert that the passed value is true.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">val</span>:Boolean</code> &mdash; The boolean value to assert.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; The message to throw if the assertion is false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exception type to throw if there is an error.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
