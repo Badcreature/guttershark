@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tools>
-	<tool id="preferences" label="PREFERENCES" src="guttershark_tools_support/toolsettings/toolsettings.swf" />
+	<tool id="preferences" label="PREFERENCES" src="guttershark_tools_support/preferences/preferences.swf" />
+	<tool id="scaffoldingtools" label="SCAFFOLDING TOOLS" src="guttershark_tools_support/scaffoldingtools/scaffoldingtools.swf" />
+	<tool id="publishtools" label="PUBLISH TOOLS" src="guttershark_tools_support/publishtools/publishtools.swf" />
 	<tool id="library" label="LIBRARY TOOLS" src="guttershark_tools_support/librarytools/librarytools.swf" />
 	<tool id="video" label="VIDEO TOOLS" src="guttershark_tools_support/videotools/videotools.swf" />
-	<tool id="tracking" label="TRACKING MONITOR" src="guttershark_tools_support/trackingmonitor/trackingmonitor.swf" />
-	<tool id="services" label="SERVICE EXPLORER" src="guttershark_tools_support/serviceexplorer/serviceexplorer.swf" />
-	<tool id="excludes" label="EXCLUDE CLASSES" src="guttershark_tools_support/excludeclasses/excludeclasses.swf" />
+	<tool id="tracking" label="TRACKING TOOLS" src="guttershark_tools_support/trackingtools/trackingtools.swf" />
+	<tool id="services" label="SERVICE TOOLS" src="guttershark_tools_support/serviceexplorer/serviceexplorer.swf" />
+	<tool id="localetools" label="LOCALE TOOLS" src="guttershark_tools_support/localetools/localetools.swf" />
 </tools>

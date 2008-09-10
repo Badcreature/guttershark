@@ -150,7 +150,7 @@ package net.guttershark.util
 			contentLoader.removeEventListener(Event.OPEN,onStart);
 			contentLoader.removeEventListener(ProgressEvent.PROGRESS,onProgress);
 			contentLoader.removeEventListener(Event.COMPLETE,onComplete);
-			contentLoader.close();
+			//contentLoader.close();
 		}
 		
 		/**

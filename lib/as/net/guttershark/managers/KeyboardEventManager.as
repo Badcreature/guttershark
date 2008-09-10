@@ -464,6 +464,7 @@ package net.guttershark.managers
 		private function onKeyUp(ke:KeyboardEvent):void
 		{
 			var scope:* = ke.target;
+			if(!keyMappings[scope]) return;
 			if(keyMappings[scope][ke.keyCode]) keyMappings[scope][ke.keyCode]();
 			else if(keyMappings[scope][ke.charCode]) keyMappings[scope][ke.charCode]();
 		}

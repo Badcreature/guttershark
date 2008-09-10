@@ -72,4 +72,12 @@ package net.guttershark.util
 			{
 				clip.useHandCursor = value;
 			}
-		}		}}
+		}	
+		
+		public static function SetMouseChildren(value:Boolean,...clips:Array):void
+		{
+			for each(var clip:MovieClip in clips)
+			{
+				clip.mouseChildren = value;
+			}
+		}	}}

@@ -153,6 +153,8 @@ if(getDocumentPath())
 					if(FLfile.exists(classSource))
 					{
 						//rename the class.
+						//continue; //#THIS IS THE CAKE, JUST RENAMING THE FILE, TAKES IT OUT OF THE COMPILE BECAUSE IT CANT BE FOUND.
+						//uncommend the above continue, to see the X factor, which makes it work.
 						renamedClasses.push(classSource);
 						if(!FLfile.copy(classSource,classSource+'.bkup')||!FLfile.remove(classSource))
 						{
