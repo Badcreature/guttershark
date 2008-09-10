@@ -92,4 +92,14 @@ package net.guttershark.util
 		{
 			var i:int = 0;
 			while(fields[i]!=null){fields[i].autoSize=value;i++;};
+		}
+		
+		/**
+		 * Select all the text in a text field.
+		 * 
+		 * @param	tf	The text field to select all in.
+		 */
+		public static function selectAll(tf:TextField):void
+		{
+			tf.setSelection(0,tf.length);
 		}	}}
