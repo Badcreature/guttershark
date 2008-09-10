@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="Logger,net.guttershark.util.Logger,DEBUG,ERROR,FATAL,Filters,INFO,Level,NONE,ShowTimestamp,WARN,debug,error,fatal,info,warn" name="keywords">
+<title>net.guttershark.util.Logger</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Logger - Guttershark Flash API Docs';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?net/guttershark/util/Logger.html&amp;net/guttershark/util/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Logger</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Logger"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.util</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Logger</td>
+</tr>
+</table>
+<p></p>
+  The Logger class is a utility class for logging output, and filtering log messages.
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>Simple logging setup:
+  <div class='listing'><pre> 
+  Logger.Level = Logger.DEBUG;
+  Logger.info("This is my message");
+  </pre></div> 
+  
+  <p>The above example is the most basic example. You can also add in "filters" to 
+  filter out traces. The second parameter to any method on the Logger class 
+  can be any filter you want.</p>
+  
+  <p></p>Setup with filters in place:
+  <div class='listing'><pre> 
+  Logger.Level = Logger.DEBUG; //wide open
+  Logger.Filters = ["Preloading","Startup"];
+  Logger.info("This is my message","Preloading");
+  Logger.warn("This is my message2","Startup");
+  Logger.warn("This is my message2","Startup","Preloading");
+  Logger.debug("This is my message3","OtherFilter");
+  </pre></div>
+  
+  <p>In this example there are two filters on the logger (Startup, Preloading).
+  Any filter message that comes through the logger that matches on of the allowable
+  filters will get traced. Others will be suppressed. So the "This is my message3" 
+  will not  be shown because it's not an allowable filter.</p>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#DEBUG">DEBUG</a> : int = 0<div class="summaryTableDescription">[static]
+   Shortcut for the DEBUG level.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#ERROR">ERROR</a> : int = 3<div class="summaryTableDescription">[static]
+   Shortcut for ERROR level.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#FATAL">FATAL</a> : int = 4<div class="summaryTableDescription">[static]
+   Shortcut for FATAL level.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#Filters">Filters</a> : Array<div class="summaryTableDescription">[static]
+   Filters that are set on this logger.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#INFO">INFO</a> : int = 1<div class="summaryTableDescription">[static]
+   Shortcut for INFO level.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#Level">Level</a> : int<div class="summaryTableDescription">[static]
+   The current log level.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#NONE">NONE</a> : int = 5<div class="summaryTableDescription">[static]
+   Shortcut for NONE level.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#ShowTimestamp">ShowTimestamp</a> : Boolean = false<div class="summaryTableDescription">[static]
+   Show timestamps in the log messages.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#WARN">WARN</a> : int = 2<div class="summaryTableDescription">[static]
+   Shortcut for WARN level.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#debug()">debug</a>(obj:Object, ... channels):void</div>
+<div class="summaryTableDescription">[static]
+   Log a DEBUG level message
+   </div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#error()">error</a>(obj:*, ... channels):void</div>
+<div class="summaryTableDescription">[static]
+   Log an ERROR level message.</div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#fatal()">fatal</a>(obj:Object, ... channels):void</div>
+<div class="summaryTableDescription">[static]
+   Log a FATAL level message
+   </div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#info()">info</a>(obj:Object, ... channels):void</div>
+<div class="summaryTableDescription">[static]
+   Log an INFO level message
+   </div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#warn()">warn</a>(obj:Object, ... channels):void</div>
+<div class="summaryTableDescription">[static]
+   Log an WARN level message
+   </div>
+</td><td class="summaryTableOwnerCol">Logger</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="DEBUG"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">DEBUG</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var DEBUG:int = 0</code><p>
+   Shortcut for the DEBUG level.
+   Logger.Level = Logger.DEBUG;
+   </p></div>
+<a name="ERROR"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">ERROR</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var ERROR:int = 3</code><p>
+   Shortcut for ERROR level.
+   Logger.Level = Logger.ERROR
+   </p></div>
+<a name="FATAL"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">FATAL</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var FATAL:int = 4</code><p>
+   Shortcut for FATAL level.
+   Logger.Level = Logger.FATAL
+   </p></div>
+<a name="Filters"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Filters</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var Filters:Array</code><p>
+   Filters that are set on this logger.
+   </p></div>
+<a name="INFO"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">INFO</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var INFO:int = 1</code><p>
+   Shortcut for INFO level.
+   Logger.Level = Logger.INFO
+   </p></div>
+<a name="Level"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Level</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var Level:int</code><p>
+   The current log level.
+   </p></div>
+<a name="NONE"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">NONE</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var NONE:int = 5</code><p>
+   Shortcut for NONE level.
+   Logger.Level = Logger.NONE
+   </p></div>
+<a name="ShowTimestamp"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">ShowTimestamp</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var ShowTimestamp:Boolean = false</code><p>
+   Show timestamps in the log messages.
+   </p></div>
+<a name="WARN"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">WARN</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var WARN:int = 2</code><p>
+   Shortcut for WARN level.
+   Logger.Level = Logger.WARN;
+   </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="debug()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">debug</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function debug(obj:Object, ... channels):void</code><p>
+   Log a DEBUG level message
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:Object</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code>... <span class="label">channels</span></code></td>
+</tr>
+</table>
+</div>
+<a name="error()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">error</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function error(obj:*, ... channels):void</code><p>
+   Log an ERROR level message.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:*</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code>... <span class="label">channels</span></code></td>
+</tr>
+</table>
+</div>
+<a name="fatal()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">fatal</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function fatal(obj:Object, ... channels):void</code><p>
+   Log a FATAL level message
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:Object</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code>... <span class="label">channels</span></code></td>
+</tr>
+</table>
+</div>
+<a name="info()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">info</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function info(obj:Object, ... channels):void</code><p>
+   Log an INFO level message
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:Object</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code>... <span class="label">channels</span></code></td>
+</tr>
+</table>
+</div>
+<a name="warn()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">warn</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function warn(obj:Object, ... channels):void</code><p>
+   Log an WARN level message
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:Object</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code>... <span class="label">channels</span></code></td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
