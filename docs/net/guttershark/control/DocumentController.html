@@ -1,0 +1,710 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="DocumentController,net.guttershark.control.DocumentController,am,em,fb,flashvars,km,lgm,lm,ml,model,online,pc,sm,snm,akamaiIdentComplete,applicationOffline,applicationOnline,flashvarsForStandalone,initModel,initPathsForStandalone,onBandwidthSniffComplete,queryStringForStandalone,restoreSharedObject,setupComplete,startOnlineStatus,stopOnlineStatus,swfAddressChange" name="keywords">
+<title>net.guttershark.control.DocumentController</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'DocumentController - Guttershark Flash API Docs';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?net/guttershark/control/DocumentController.html&amp;net/guttershark/control/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;DocumentController</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class DocumentController"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.control</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class DocumentController</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">DocumentController <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> flash.display.Sprite</td>
+</tr>
+</table>
+<p></p>
+  The DocumentController Class is the document class for an FLA, it contains
+  default startup functionality that you can hook into, and all logic
+  is controllable through flashvars.
+  
+  <p>Available FlashVar Properties:</p>
+  <ul>
+  <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
+  <li><strong>initServices</strong> (Boolean) - Initialize the <code><em>ServiceManager</em></code>, with all of the service declarations defined in a model.xml file.</li>
+  <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
+  <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
+  <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000 (1 minute).</li>
+  <li><strong>onlineStatusPingURL</strong> (String) - Specify the URL to an image to ping for online status. The default is "./ping.png".</li>
+  <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded. Or you can specify sniffBandwidthURL for a custom file.</li>
+  <li><strong>sniffBandwidthURL</strong> (String) - The file to load for the bandwidth sniff.</li>
+  <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
+  <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress change events.</li>
+  <li><strong>(in development)trackingMonitor</strong> (Boolean) - Connect to the tracking monitor, and send notifications from the javascript tracking library to the trackingMonitor.</li>
+  <li><strong>(in development)trackingSimulateXMLFile</strong> (String) - The path to a tracking xml file to use for making simulated tracking calls. This is specifically for when you're in the Flash IDE and need to at least simulate tracking calls for QA. The tags get sent to the tracking monitor.</li>
+  </ul>
+  
+  <p>Flashvar properties can be supplied when running in the Flash IDE 
+  by overriding the <code><a href="#flashvarsForStandalone()">flashvarsForStandalone()</a></code> 
+  method. Otherwise you <strong>must</strong> declare the flashvars on the flash object in HTML.</p>
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>Overriding the flashvarsForStandalone method to provide flashvars for IDE development:
+  <div class='listing'><pre> 
+  override protected function flashvarsForStandalone():Object
+  {
+      return {model:"model.xml",initServices:true};
+  } 
+  </pre></div>
+  
+  <p></p>Declaring flashvars on a Flash object with SWFObject:
+  <div class='listing'><pre> 
+  &lt;script type="text/javascript"&gt;
+      // &lt;![CDATA[
+      ...
+      var so = new SWFObject("main.swf", "flaswf", "100%", "100%", "9", "#000");
+      so.addVariable("model","model.xml");
+      so.addVariable("initServices","true");
+      ...
+      // ]]&gt;
+  &lt;/script&gt;
+  </pre></div> 
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#flashvars">flashvars</a> : Object<div class="summaryTableDescription">
+   The flashvars on this movie.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#lm">lm</a> : <a href="../managers/LayoutManager.html">LayoutManager</a>
+<div class="summaryTableDescription">
+   An instance of a layout manager.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#model">model</a> : XML<div class="summaryTableDescription">
+   The model XML - this is the xml that gets loaded from flashvars.model property.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#online">online</a> : Boolean<div class="summaryTableDescription">
+   Online indicator.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+</table>
+</div>
+<a name="protectedPropertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Properties</div>
+<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#am">am</a> : <a href="../managers/AssetManager.html">AssetManager</a>
+<div class="summaryTableDescription">
+   The AssetManager singleton instance.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#em">em</a> : <a href="../managers/EventManager.html">EventManager</a>
+<div class="summaryTableDescription">
+   The EventManager singleton instance.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#fb">fb</a> : <a href="../util/FlashLibrary.html">FlashLibrary</a>
+<div class="summaryTableDescription">
+   The singleton instance of the FlashLibrary.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#km">km</a> : <a href="../managers/KeyboardEventManager.html">KeyboardEventManager</a>
+<div class="summaryTableDescription">
+   The KeyboardEventManager singleton instance.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#lgm">lgm</a> : <a href="../managers/LanguageManager.html">LanguageManager</a>
+<div class="summaryTableDescription">
+   The LanguageManager singleton instance.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#ml">ml</a> : <a href="../model/Model.html">Model</a>
+<div class="summaryTableDescription">
+   The Model singleton instance.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#pc">pc</a> : <a href="../control/PreloadController.html">PreloadController</a>
+<div class="summaryTableDescription">
+   A placeholder variable for a PreloadController instance.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#sm">sm</a> : <a href="../managers/ServiceManager.html">ServiceManager</a>
+<div class="summaryTableDescription">
+   The ServiceManager singleton instance.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#snm">snm</a> : <a href="../managers/SoundManager.html">SoundManager</a>
+<div class="summaryTableDescription">
+   The SoundManager singleton instance.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#DocumentController()">DocumentController</a>()</div>
+<div class="summaryTableDescription">
+   Constructor for DocumentController instances.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#startOnlineStatus()">startOnlineStatus</a>():void</div>
+<div class="summaryTableDescription">
+   Start the online status pinging.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stopOnlineStatus()">stopOnlineStatus</a>():void</div>
+<div class="summaryTableDescription">
+   Stop the online status pinging.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#akamaiIdentComplete()">akamaiIdentComplete</a>(ip:String):void</div>
+<div class="summaryTableDescription">
+   A method you can override to hook into the complete event from the akamai
+   ident hit.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#applicationOffline()">applicationOffline</a>():void</div>
+<div class="summaryTableDescription">
+   A method you can override to hook into the application offline event.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#applicationOnline()">applicationOnline</a>():void</div>
+<div class="summaryTableDescription">
+   A method you can override to hook into the application online event.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#flashvarsForStandalone()">flashvarsForStandalone</a>():Object</div>
+<div class="summaryTableDescription">
+   A method you can override when publishing from the flash IDE to provide
+   a default set of flashvars.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#initModel()">initModel</a>():void</div>
+<div class="summaryTableDescription">
+   A method you can override to initialize your own model - you should
+   always call super.initModel().</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#initPathsForStandalone()">initPathsForStandalone</a>():void</div>
+<div class="summaryTableDescription">
+   A method you can override to intialize path logic with the
+   model, when running in the Flash IDE.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#onBandwidthSniffComplete()">onBandwidthSniffComplete</a>():void</div>
+<div class="summaryTableDescription">
+   A method you can override to hook into the bandwidth sniff
+   complete event.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#queryStringForStandalone()">queryStringForStandalone</a>():Dictionary</div>
+<div class="summaryTableDescription">
+   A method you can override when publishing from the flash IDE to provide
+   a default set of querystring data.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#restoreSharedObject()">restoreSharedObject</a>():void</div>
+<div class="summaryTableDescription">
+   A method you can override to restore a shared object from disk.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#setupComplete()">setupComplete</a>():void</div>
+<div class="summaryTableDescription">
+   A method you should override that provides the final hook in the
+   chain of setup method calls.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#swfAddressChange()">swfAddressChange</a>(sae:SWFAddressEvent):void</div>
+<div class="summaryTableDescription">
+   A method you can override to hook into SWFAddress change events.</div>
+</td><td class="summaryTableOwnerCol">DocumentController</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="am"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">am</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var am:<a href="../managers/AssetManager.html">AssetManager</a></code><p>
+   The AssetManager singleton instance.
+   </p></div>
+<a name="em"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">em</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var em:<a href="../managers/EventManager.html">EventManager</a></code><p>
+   The EventManager singleton instance.
+   </p></div>
+<a name="fb"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">fb</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var fb:<a href="../util/FlashLibrary.html">FlashLibrary</a></code><p>
+   The singleton instance of the FlashLibrary.
+   </p></div>
+<a name="flashvars"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">flashvars</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var flashvars:Object</code><p>
+   The flashvars on this movie.
+   </p></div>
+<a name="km"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">km</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var km:<a href="../managers/KeyboardEventManager.html">KeyboardEventManager</a></code><p>
+   The KeyboardEventManager singleton instance.
+   </p></div>
+<a name="lgm"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">lgm</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var lgm:<a href="../managers/LanguageManager.html">LanguageManager</a></code><p>
+   The LanguageManager singleton instance.
+   </p></div>
+<a name="lm"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">lm</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var lm:<a href="../managers/LayoutManager.html">LayoutManager</a></code><p>
+   An instance of a layout manager.
+   </p></div>
+<a name="ml"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">ml</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var ml:<a href="../model/Model.html">Model</a></code><p>
+   The Model singleton instance.
+   </p></div>
+<a name="model"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">model</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var model:XML</code><p>
+   The model XML - this is the xml that gets loaded from flashvars.model property.
+   </p></div>
+<a name="online"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">online</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var online:Boolean</code><p>
+   Online indicator.
+   </p></div>
+<a name="pc"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">pc</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var pc:<a href="../control/PreloadController.html">PreloadController</a></code><p>
+   A placeholder variable for a PreloadController instance. You should initialize this yourself.
+   </p></div>
+<a name="sm"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">sm</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var sm:<a href="../managers/ServiceManager.html">ServiceManager</a></code><p>
+   The ServiceManager singleton instance.
+   </p></div>
+<a name="snm"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">snm</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var snm:<a href="../managers/SoundManager.html">SoundManager</a></code><p>
+   The SoundManager singleton instance.
+   </p></div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="DocumentController()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">DocumentController</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function DocumentController()</code><p>
+   Constructor for DocumentController instances. This should not
+   be used directly, only subclassed as a Document Class for an FLA.
+   </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="akamaiIdentComplete()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">akamaiIdentComplete</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function akamaiIdentComplete(ip:String):void</code><p>
+   A method you can override to hook into the complete event from the akamai
+   ident hit. This will only be called if you provided the <code><strong><em>akamaiHost</em></strong></code>
+   property in flashvars.
+   
+   </p><p>You should hook into this for two things.</p>
+   <ul>
+   <li>Set the <code>AkamaiNCManager.FMS_IP = ip;</code></li>
+   <li>Set the <code>VideoPlayer.iNCManager = "net.guttershark.akamai.AkamaiNCManager";</code></li>
+   </ul>
+   </p>
+   
+   <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">ip</span>:String</code> &mdash; The IP that was found from the Ident service.
+      </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">AkamaiNCManager Class</div>
+</div>
+<a name="applicationOffline()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">applicationOffline</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function applicationOffline():void</code><p>
+   A method you can override to hook into the application offline event. This is only useful
+   if you've opted into the <code>onlineStatus</code> flashvar property. 
+   </p></div>
+<a name="applicationOnline()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">applicationOnline</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function applicationOnline():void</code><p>
+   A method you can override to hook into the application online event. This is only useful
+   if you've opted into the <code>onlineStatus</code> flashvar property.
+   </p></div>
+<a name="flashvarsForStandalone()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">flashvarsForStandalone</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function flashvarsForStandalone():Object</code><p>
+   A method you can override when publishing from the flash IDE to provide
+   a default set of flashvars. Flashvars won't exist when
+   publishing from the flash IDE, so in this case, you just return
+   an Object with properties on it that fake what your flashvars will
+   actually be when coming from HTML.
+   
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Object</code> &mdash; A generic object with hard code properties.
+   </td>
+</tr>
+</table>
+</div>
+<a name="initModel()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">initModel</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function initModel():void</code><p>
+   A method you can override to initialize your own model - you should
+   always call super.initModel().
+   
+   </p><br>
+<span class="label">Example</span>
+<br>A custom initModel method:
+   <div class='listing'><pre> 
+   override protected function initModel():void
+   {
+       super.initModel();
+       fm = FooBarModel.gi(); //your model
+   }
+   </pre></div>
+   <p></p>
+</div>
+<a name="initPathsForStandalone()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">initPathsForStandalone</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function initPathsForStandalone():void</code><p>
+   A method you can override to intialize path logic with the
+   model, when running in the Flash IDE.
+   
+   </p><p>This will only execute if you're running the player as
+   standalone.</p>
+   
+   <p>See the lib/js/guttershark.js file</p>
+   </div>
+<a name="onBandwidthSniffComplete()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onBandwidthSniffComplete</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function onBandwidthSniffComplete():void</code><p>
+   A method you can override to hook into the bandwidth sniff
+   complete event.
+   </p></div>
+<a name="queryStringForStandalone()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">queryStringForStandalone</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function queryStringForStandalone():Dictionary</code><p>
+   A method you can override when publishing from the flash IDE to provide
+   a default set of querystring data.
+   
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Dictionary</code> &mdash; A dictionary with deeplink keys and values.
+   </td>
+</tr>
+</table>
+</div>
+<a name="restoreSharedObject()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">restoreSharedObject</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function restoreSharedObject():void</code><p>
+   A method you can override to restore a shared object from disk.
+   
+   </p><br>
+<span class="label">Example</span>
+<br>Using the sharedObject property to restore the shared object to:
+   <div class='listing'><pre> 
+   override protected function restoreSharedObject():void
+   {
+     sharedObject = SharedObject.getLocal("test");
+     Model.gi().sharedObject = sharedObject;
+   }
+   </pre></div>
+   <p></p>
+</div>
+<a name="setupComplete()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">setupComplete</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function setupComplete():void</code><p>
+   A method you should override that provides the final hook in the
+   chain of setup method calls.
+   
+   </p>setupComplete ensures that the model xml file has finished loading
+   (if flashvars.model was set). But it will not wait for sniffBandwidth,
+   or akamai idents.</p>
+   </p></div>
+<a name="startOnlineStatus()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">startOnlineStatus</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function startOnlineStatus():void</code><p>
+   Start the online status pinging. The online status pinging will
+   start by default if you specify the <code>onlineStatus</code> flashvar
+   property. This should be used to restart the pinging if you stopped it
+   at some point.
+   </p></div>
+<a name="stopOnlineStatus()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stopOnlineStatus</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stopOnlineStatus():void</code><p>
+   Stop the online status pinging.
+   </p></div>
+<a name="swfAddressChange()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">swfAddressChange</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected function swfAddressChange(sae:SWFAddressEvent):void</code><p>
+   A method you can override to hook into SWFAddress change events.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">sae</span>:SWFAddressEvent</code></td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
