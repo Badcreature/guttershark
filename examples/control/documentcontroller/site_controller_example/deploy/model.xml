@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<assets>
+		<asset libraryName="asset_1" source="assets/bmp/asset_1.jpg" preload="true" />
+		<asset libraryName="asset_2" source="assets/bmp/asset_2.jpg" preload="true" />
+		<asset libraryName="swftest" source="assets/swf/swfload_test.swf" preload="true" />
+		<asset libraryName="pizza_song" source="assets/flv/Pizza_Song.flv" preload="true" />
+		<asset libraryName="testxml" source="assets/xml/test.xml" />
+	</assets>
+</model>
