@@ -1,21 +1,9 @@
 package net.guttershark.display.video
 {
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.NetStatusEvent;
-	import flash.utils.clearTimeout;
-	import flash.utils.setTimeout;
+	import net.guttershark.util.Assertions;	
 	
-	import fl.video.FLVPlayback;
-	import fl.video.VideoEvent;
-	import fl.video.VideoPlayer;
-	
-	import gs.TweenLite;
-	
-	import net.guttershark.util.Assert;
-	import net.guttershark.util.BitField;
-
-	/**
+	import flash.events.Event;	import flash.events.EventDispatcher;	import flash.events.NetStatusEvent;	import flash.utils.clearTimeout;	import flash.utils.setTimeout;		import fl.video.FLVPlayback;	import fl.video.VideoEvent;	import fl.video.VideoPlayer;		import gs.TweenLite;		import net.guttershark.util.BitField;
+	/**
 	 * The FLVPlaybackQueueManager uses an instance of an FLVPlayback
 	 * to play videos in a queue. It uses an FLVPlayback for 
 	 * the VideoPlayer stack functionality.
@@ -102,11 +90,17 @@ package net.guttershark.display.video
 		private var streamFailTimeout:Number;
 		
 		/**
+		 * Assertions
+		 */
+		private var ast:Assertions;
+
+		/**
 		 * Constructor for FLVPlaybackQueueManager instances.
 		 */
 		public function FLVPlaybackQueueManager()
 		{
 			currentPlayerIndex = -1;
+			ast = Assertions.gi();
 			states = new BitField();
 			states.addField("httpAttempt",1,0); //0 for inactive, 1 for http, 2 for rtmp
 			states.addField("rtmpAttempt",1,1); //0 for inactive, 1 for http, 2 for rtmp
@@ -128,7 +122,7 @@ package net.guttershark.display.video
 		 */
 		public function set queue(queue:Array):void
 		{
-			Assert.NotNullOrEmpty(queue, "Parameter queue cannot be null or empty.");
+			ast.notNilOrEmpty(queue,"Parameter queue cannot be null or empty.");
 			queueIndex = -1;
 			_queue = queue;
 		}
@@ -147,7 +141,7 @@ package net.guttershark.display.video
 		 */
 		public function set player(player:FLVPlayback):void
 		{
-			Assert.NotNull(player, "Parameter player cannot be null.");
+			ast.notNil(player, "Parameter player cannot be null.");
 			_player = player;
 			_player.activeVideoPlayerIndex = 1;
 			_player.activeVideoPlayerIndex = 2;
@@ -164,7 +158,7 @@ package net.guttershark.display.video
 		 */
 		public function set streamAttemptTimeBeforeFail(seconds:Number):void
 		{
-			Assert.GreaterThan(seconds, .1, "Parameter seconds must be greater than .1");
+			ast.greater(seconds, .1, "Parameter seconds must be greater than .1");
 			streamFailTime = seconds;
 		}
 		
@@ -230,7 +224,7 @@ package net.guttershark.display.video
 		 */
 		public function playNow(source:String):void
 		{
-			Assert.NotNull(source, "Parameter source cannot be null");
+			ast.notNil(source,"Parameter source cannot be null");
 			var vp:VideoPlayer = getPlayer(source);
 			states.httpAttempt = 1;
 			states.goingOut = false;
@@ -248,7 +242,7 @@ package net.guttershark.display.video
 		 */
 		private function getPlayer(source:String):VideoPlayer
 		{
-			Assert.NotNull(source, "Parameter source cannot be null");
+			ast.notNil(source,"Parameter source cannot be null");
 			var isr:Boolean = false;
 			if(source.indexOf("rtmp://") > -1) isr = true;
 			currentPlayerIndex++;

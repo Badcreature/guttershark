@@ -1,4 +1,4 @@
-package net.guttershark.util 
+package net.guttershark.util.types 
 {
 	
 	import flash.display.Bitmap;
@@ -24,12 +24,11 @@ package net.guttershark.util
 		 * addChild(bitmap2);
 		 * </listing>
 		 * 
-		 * @param	Bitmap	The bitmap to copy.
-		 * @return	The copied bitmap.
+		 * @param Bitmap The bitmap to copy.
 		 */
-		public static function CopyBitmap(bitmapToCopy:Bitmap):Bitmap
+		public static function copyBitmap(bitmapToCopy:Bitmap):Bitmap
 		{
-			Assert.NotNull(bitmapToCopy, "Parameter bitmapToCopy cannot be null");
+			if(!bitmapToCopy) throw new ArgumentError("Parameter bitmapToCopy cannot be null");
 			var b:Bitmap = new Bitmap(bitmapToCopy.bitmapData);
 			return b;
 		}

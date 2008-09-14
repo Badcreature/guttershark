@@ -4,14 +4,13 @@ package net.guttershark.support.preloading
 	
 	import net.guttershark.control.PreloadController;
 	import net.guttershark.managers.AssetManager;
-	import net.guttershark.support.preloading.AssetTypes;
 	import net.guttershark.support.preloading.events.AssetCompleteEvent;
 	import net.guttershark.support.preloading.events.AssetErrorEvent;
 	import net.guttershark.support.preloading.events.AssetOpenEvent;
 	import net.guttershark.support.preloading.events.AssetProgressEvent;
 	import net.guttershark.support.preloading.events.AssetStatusEvent;
 	import net.guttershark.support.preloading.workers.WorkerInstances;
-	import net.guttershark.util.StringUtils;
+	import net.guttershark.util.types.StringUtils;	
 
 	/**
 	 * The Asset class defines an asset to preload with a PreloadController.
@@ -68,15 +67,13 @@ package net.guttershark.support.preloading
 		/**
 		 * Constructor for Asset instances.
 		 * 
-		 * @param	source 			The source URL to the asset
-		 * @param	libraryName 	The name to be used in an AssetLibrary
-		 * @param	forceFileType	Force the asset's file type (file extension without the ".", EX: xml);
-		 * @param	forceAssetType	Force the asset's type identifier
-		 * @throws	Error 			If the filetype couldn't be figured out from the source property.
+		 * @param source The source URL to the asset
+		 * @param libraryName The name to be used in an AssetLibrary
+		 * @param forceFileType	Force the asset's file type (file extension without the ".", EX: xml);
+		 * @param forceAssetType Force the asset's type identifier
 		 */
-		public function Asset(source:String, libraryName:String = null, forceFileType:String = null, forceAssetType:String = null)
+		public function Asset(source:String, libraryName:String = null, forceFileType:String = null)
 		{
-			if(forceFileType && !forceAssetType) throw new Error("Both forceFileType && forceAssetType must be set when forcing asset types");
 			if(!forceFileType)
 			{
 				var fileType:String = StringUtils.FindFileType(source);
@@ -84,8 +81,6 @@ package net.guttershark.support.preloading
 				this.fileType = fileType;
 			}
 			else this.fileType = forceFileType;
-			if(!forceAssetType) assetType = Asset.AssetTypeFromSource(source);
-			else assetType = forceAssetType;
 			this.source = source;
 			if(!libraryName)
 			{
@@ -93,39 +88,6 @@ package net.guttershark.support.preloading
 				this.libraryName = source;
 			}
 			else this.libraryName = libraryName;
-		}
-		
-		/**
-		 * Returns the enumerated value from AssetType found from the filename of the asset. This
-		 * is used in a couple places where there is switch to append/prepend
-		 * paths based on type before the actual asset is created.
-		 */
-		public static function AssetTypeFromSource(filename:String):String
-		{
-			var t:String = StringUtils.FindFileType(filename);
-			var at:String;
-			switch(t)
-			{
-				case "jpg":
-				case "jpeg":
-				case "png":
-				case "gif":
-				case "bmp":
-					at = AssetTypes.BITMAP;
-					break;
-				case "swf":
-					at = AssetTypes.SWF;
-					break;
-				case "mp3":
-				case "wav":
-				case "aiff":
-					at = AssetTypes.SOUND;
-					break;
-				case "flv":
-					at = AssetTypes.VIDEO;
-					break;
-			}
-			return at;
 		}
 
 		/**

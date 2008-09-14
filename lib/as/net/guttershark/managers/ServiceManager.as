@@ -187,12 +187,14 @@ package net.guttershark.managers
 		 * @param	timeout	The time allowed for each call, before making another attempt.
 		 * @param	limiter	Use a call limiter.
 		 */
-		public function createRemotingService(id:String,gateway:String,endpoint:String,objectEncoding:int,attempts:int=1,timeout:int=10000,limiter:Boolean=false):void
+		public function createRemotingService(id:String,gateway:String,endpoint:String,objectEncoding:int,attempts:int=1,timeout:int=10000,limiter:Boolean=false,overwriteIfExists:Boolean=true):void
 		{
-			if(services[id]) return;
+			if(services[id] && !overwriteIfExists) return;
 			var rc:RemotingConnection;
-			if(!rcp[gateway]) rc = rcp[gateway] = new RemotingConnection(gateway,objectEncoding);
+			if(rcp[gateway] && overwriteIfExists) rcp[gateway].dispose();
+			if(!rcp[gateway] || overwriteIfExists) rc = rcp[gateway] = new RemotingConnection(gateway,objectEncoding); 
 			else rc = rcp[gateway];
+			if(services[id] && !overwriteIfExists) return;
 			services[id] = new RemotingService(rc,endpoint,attempts,timeout,limiter);
 		}
 		
@@ -211,6 +213,37 @@ package net.guttershark.managers
 			if(services[id]) return;
 			var s:Service = new Service(url,attempts,timeout,limiter,defaultResponseFormat);
 			services[id] = s;
+		}
+		
+		/**
+		 * Get's a service from the internal dictionary of services.
+		 */
+		public function getService(id:String):*
+		{
+			if(!services[id]) throw new Error("Service {"+id+"} does not exist.");
+			return services[id];
+		}
+		
+		/**
+		 * Check whether or not a service has been created.
+		 * 
+		 * @param	id	The service id to check for.
+		 */
+		public function serviceExist(id:String):Boolean
+		{
+			return !(services[id]==null);
+		}
+		
+		/**
+		 * Dispose of a service.
+		 *
+		 * @param	id	The service id.
+		 */
+		public function disposeService(id:String):void
+		{
+			if(!services[id]) return;
+			services[id].dispose();
+			services[id] = null;
 		}
 				
 		/**

@@ -1,12 +1,10 @@
 package net.guttershark.util.akamai
 {
-
-	import fl.video.*;
 	import flash.events.Event;
 	
-	import net.guttershark.util.Assert;
-	import net.guttershark.util.akamai.Ident;
-    
+	import fl.video.*;
+	
+	import net.guttershark.util.akamai.Ident;	
 	use namespace flvplayback_internal;
     
     /**
@@ -126,7 +124,7 @@ package net.guttershark.util.akamai
 		 */
 		public static function set ConnectOrder(connectAttempts:Array):void
 		{
-			Assert.NotNullOrEmpty(connectAttempts, "Parameter connectAttempts cannot be null or empty.");
+			if(!connectAttempts) throw new ArgumentError("Parameter connectAttempts cannot be null or empty.");
 			//NCManager.flvplayback_internal::RTMP_CONN = connectAttempts;
 		}
 		

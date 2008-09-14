@@ -1,4 +1,4 @@
-package net.guttershark.util 
+package net.guttershark.util.types
 {
 	
 	import flash.utils.ByteArray;	
@@ -10,23 +10,22 @@ package net.guttershark.util
 	{
 		
 		/**
-		 * Clone an object instance. This is not recommended to clone
+		 * Clone an object instance - this is not recommended to clone
 		 * anything other than a native top level object.
 		 * 
 		 * @example Cloning a generic object:
-		 * <listing>
+		 * <listing>	
 		 * var myObj:Object = new Object();
 		 * myObj.message = "hello world";
 		 * var myCopy:Object = ObjectUtils.Clone(myObj);
 		 * trace(myCopy.message);
 		 * </listing>
 		 * 
-		 * @param	object	The object to clone.
-		 * @return	The cloned object
+		 * @param object The object to clone.
 		 */
-		public static function Clone(object:*):*
+		public static function clone(object:*):*
 		{
-			Assert.NotNull(object, "Parameter object cannot be null");
+			if(!object) throw new ArgumentError("Parameter object cannot be null");
 			var byteArray:ByteArray = new ByteArray();
 			byteArray.writeObject(object);
 			byteArray.position = 0;

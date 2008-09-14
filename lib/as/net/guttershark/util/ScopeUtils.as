@@ -27,8 +27,8 @@ package net.guttershark.util
 		 *       public var formfieldwrapper:MovieClip;
 		 *       public function MyView()
 		 *       {
-		 *           //in this call, "this" represents the source, and "forms" represents the new target host.
-		 *           ScopeUtils.ReTargetInstanceVars(["firstname","lastname"],this,formfieldwrapper);
+		 *           //in this call, "formfieldwrapper" represents the source, and "this" represents the new target host.
+		 *           ScopeUtils.retarget(formfieldwrapper,this,"firstname","lastname");
 		 *       }
 		 *   }
 		 * }
@@ -42,8 +42,8 @@ package net.guttershark.util
 		 * @param	source	The source instance where the variables are declared.
 		 * @param	target	The new target.
 		 */
-		public static function ReTargetInstanceVars(vars:Array, source:InteractiveObject, target:InteractiveObject):void
+		public static function retarget(source:InteractiveObject, target:InteractiveObject, ...objs:Array):void
 		{
-			for(var i:int = 0; i < vars.length; i++) source[vars[i]] = target[vars[i]];
+			for(var i:int = 0; i < objs.length; i++) target[objs[i]] = source[objs[i]];
 		}
 	}}

@@ -2,8 +2,8 @@ package net.guttershark.support.eventmanager
 {
 
 	/**
-	 * The EventListenerDelegate class is the base class for all IEventListenerDelegate
-	 * classes. This implements the base functionality needed. Besides actually
+	 * The EventListenerDelegate class is the base class for all event listener delegate
+	 * classes. This implements the base functionality needed - besides actually
 	 * adding any events to the objects.
 	 */
 	public class EventListenerDelegate
@@ -36,9 +36,7 @@ package net.guttershark.support.eventmanager
 		public var cycleAllThroughTracking:Boolean;
 		
 		/**
-		 * Add listeners to the passed obj. Make sure to only add listeners
-		 * to the obj if the (obj is MyClass) && if the target listener callback
-		 * is defined in the object.
+		 * Add listeners to the target object.
 		 */
 		public function addListeners(obj:*):void
 		{
@@ -46,12 +44,11 @@ package net.guttershark.support.eventmanager
 		}
 		
 		/**
-		 * Remove event listeners from the internal reference to obj.
+		 * Remove event listeners from the object that is being listened to.
 		 */
 		protected function removeEventListeners():void{}
 		
 		/**
-		 * @private
 		 * Set's the event handler function which events get passed back
 		 * to in the EventManager.
 		 */
@@ -70,4 +67,5 @@ package net.guttershark.support.eventmanager
 			obj = null;
 			callbackDelegate = null;
 			callbackPrefix = null;
+			cycleAllThroughTracking = false;
 		}	}}

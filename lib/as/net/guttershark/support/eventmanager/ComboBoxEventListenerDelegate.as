@@ -6,12 +6,11 @@ package net.guttershark.support.eventmanager
 	import fl.core.UIComponent;
 	import fl.events.ComponentEvent;
 	import fl.events.ListEvent;
-	import fl.events.ScrollEvent;
-	
+	import fl.events.ScrollEvent;	
+
 	/**
-	 * The ComboBoxEventListenerDelegate class is an IEventListenerDelegate that
-	 * implements event listener logic for ComboBox components. See EventManager
-	 * for a list of supported events.
+	 * The ComboBoxEventListenerDelegate Class implements event listener
+	 * logic for ComboBox components.
 	 */
 	public class ComboBoxEventListenerDelegate extends EventListenerDelegate
 	{
@@ -22,7 +21,7 @@ package net.guttershark.support.eventmanager
 		private var uic:UIComponentEventListenerDelegate;
 		
 		/**
-		 * Add listeners to the object.
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
@@ -85,7 +84,7 @@ package net.guttershark.support.eventmanager
 		}
 
 		/**
-		 * Dispose of this ColorPickerEventListenerDelegate.
+		 * @inheritDoc
 		 */
 		override public function dispose():void
 		{
@@ -95,10 +94,11 @@ package net.guttershark.support.eventmanager
 		}
 		
 		/**
-		 * Removes events that were added to the object.
+		 * @inheritDoc
 		 */
 		override protected function removeEventListeners():void
 		{
+			super.removeEventListeners();
 			obj.removeEventListener(Event.CHANGE, onChange);
 			obj.removeEventListener(Event.CLOSE, onClose);
 			obj.removeEventListener(Event.OPEN, onOpen);

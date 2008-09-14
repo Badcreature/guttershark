@@ -24,7 +24,7 @@ package net.guttershark.display.views
 		}
 		
 		/**
-		 * Show the view. Plays clip forward.
+		 * Show the view - plays clip forward.
 		 */
 		override public function show():void
 		{
@@ -32,7 +32,7 @@ package net.guttershark.display.views
 		}
 		
 		/**
-		 * Hide the view, Plays clip in reverse.
+		 * Hide the view - plays clip in reverse.
 		 */
 		override public function hide():void
 		{
@@ -44,6 +44,7 @@ package net.guttershark.display.views
 		 */
 		override public function dispose():void
 		{
+			super.dispose();
 			watchForLastFrameAndCallComplete = false;
 			autoStopOnLastFrame  = false;
 		}	}}

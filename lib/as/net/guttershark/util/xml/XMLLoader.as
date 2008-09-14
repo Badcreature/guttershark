@@ -1,4 +1,4 @@
-package net.guttershark.util
+package net.guttershark.util.xml
 {	
 
 	import flash.events.*;
@@ -59,8 +59,7 @@ package net.guttershark.util
 		 */
 		public function load(request:URLRequest):void
 		{
-			Assert.NotNull(request, "Parameter request cannot be null.");
-			Assert.NotNull(request.url, "The url property of the request cannot be null");
+			if(!request) throw new ArgumentError("Parameter request cannot be null.");
 			contentLoader.dataFormat = URLLoaderDataFormat.TEXT;
 			contentLoader.load(request);
 		}

@@ -12,9 +12,8 @@ package net.guttershark.control
 	import net.guttershark.support.preloading.events.AssetStatusEvent;
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.support.preloading.workers.WorkerInstances;
-	import net.guttershark.util.ArrayUtils;
-	import net.guttershark.util.Assert;
-	import net.guttershark.util.FrameDelay;		
+	import net.guttershark.util.types.ArrayUtils;
+	import net.guttershark.util.frames.FrameDelay;
 
 	/**
 	 * Dispatched for each asset that has completed downloading.
@@ -208,7 +207,7 @@ package net.guttershark.control
 		 */
 		public function PreloadController(pixelsToFill:int = 100)
 		{
-			Assert.GreaterThan(pixelsToFill, 0, "Pixels to fill must be greater than zero.");
+			if(pixelsToFill<=0) throw new ArgumentError("Pixels to fill must be greater than zero.");
 			WorkerInstances.RegisterDefaultWorkers();
 			totalPixelsToFill = pixelsToFill;
 			bytesTotalPool = [];
@@ -218,7 +217,6 @@ package net.guttershark.control
 			loaded = 0;
 			loadErrors = 0;
 			_working = false;
-			//addItems(items);
 		}
 		
 		/**
@@ -231,9 +229,9 @@ package net.guttershark.control
 		 */
 		public function addItems(items:Array):void
 		{
-			if(!this.loadItems[0]) this.loadItems = ArrayUtils.Clone(items);
+			if(!this.loadItems[0]) this.loadItems = ArrayUtils.clone(items);
 			else this.loadItems.concat(items);
-			loadItemsDuplicate = ArrayUtils.Clone(loadItems);
+			loadItemsDuplicate = ArrayUtils.clone(loadItems);
 		}
 		
 		/**
@@ -244,12 +242,12 @@ package net.guttershark.control
 		 */
 		public function addPrioritizedItems(items:Array):void
 		{
-			if(!this.loadItems[0]) this.loadItems = ArrayUtils.Clone(items);
+			if(!this.loadItems[0]) this.loadItems = ArrayUtils.clone(items);
 			else
 			{
 				for(var i:int = 0; i < items.length; i++) this.loadItems.unshift(items[i]);
 			}
-			loadItemsDuplicate = ArrayUtils.Clone(loadItems);
+			loadItemsDuplicate = ArrayUtils.clone(loadItems);
 		}
 
 		/**

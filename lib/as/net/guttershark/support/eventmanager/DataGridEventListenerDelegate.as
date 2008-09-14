@@ -6,9 +6,8 @@ package net.guttershark.support.eventmanager
 	import fl.events.DataGridEvent;
 	
 	/**
-	 * The DataGridEventlistenerDelegate class is an IEventListenerDelegate that
-	 * implements event listener logic for DataGrid components. See EventManager
-	 * for a list of supported events.
+	 * The DataGridEventlistenerDelegate Class implements event listener
+	 * logic for DataGrid components.
 	 */
 	public class DataGridEventListenerDelegate extends EventListenerDelegate
 	{
@@ -22,9 +21,9 @@ package net.guttershark.support.eventmanager
 		 * Composite object for SelectableList events.
 		 */
 		private var sl:SelectableListEventListenerDelegate;
-
+		
 		/**
-		 * Add listeners to the object.
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
@@ -33,6 +32,9 @@ package net.guttershark.support.eventmanager
 			{
 				uic = new UIComponentEventListenerDelegate();
 				uic.eventHandlerFunction = this.handleEvent;
+				uic.callbackDelegate = callbackDelegate;
+				uic.callbackPrefix = callbackPrefix;
+				uic.cycleAllThroughTracking = cycleAllThroughTracking;
 				uic.addListeners(obj);
 			}
 			
@@ -40,18 +42,21 @@ package net.guttershark.support.eventmanager
 			{
 				sl = new SelectableListEventListenerDelegate();
 				sl.eventHandlerFunction = this.handleEvent;
+				sl.callbackDelegate = callbackDelegate;
+				sl.callbackPrefix = callbackPrefix;
+				sl.cycleAllThroughTracking = cycleAllThroughTracking;
 				sl.addListeners(obj);
 			}
 			
 			if(obj is DataGrid)
 			{
-				obj.addEventListener(DataGridEvent.COLUMN_STRETCH, onColumnStretch);
-				obj.addEventListener(DataGridEvent.HEADER_RELEASE, onHeaderRelease);
-				obj.addEventListener(DataGridEvent.ITEM_EDIT_BEGIN, onItemEditBegin);
-				obj.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, onItemEditBeginning);
-				obj.addEventListener(DataGridEvent.ITEM_EDIT_END, onItemEditEnd);
-				obj.addEventListener(DataGridEvent.ITEM_FOCUS_IN, onItemFocusIn);
-				obj.addEventListener(DataGridEvent.ITEM_FOCUS_OUT, onItemFocusOut);
+				if(callbackPrefix + "ColumnStretch" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataGridEvent.COLUMN_STRETCH, onColumnStretch);
+				if(callbackPrefix + "HeaderRelease" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataGridEvent.HEADER_RELEASE, onHeaderRelease);
+				if(callbackPrefix + "ItemEditBegin" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataGridEvent.ITEM_EDIT_BEGIN, onItemEditBegin);
+				if(callbackPrefix + "ItemEditBeginning" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, onItemEditBeginning);
+				if(callbackPrefix + "ItemEditEnd" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataGridEvent.ITEM_EDIT_END, onItemEditEnd);
+				if(callbackPrefix + "ItemFocusIn" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataGridEvent.ITEM_FOCUS_IN, onItemFocusIn);
+				if(callbackPrefix + "ItemFocusOut" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataGridEvent.ITEM_FOCUS_OUT, onItemFocusOut);
 			}
 		}
 		
@@ -91,7 +96,7 @@ package net.guttershark.support.eventmanager
 		}
 
 		/**
-		 * Dispose of this ColorPickerEventListenerDelegate.
+		 * @inheritDoc
 		 */
 		override public function dispose():void
 		{
@@ -103,10 +108,11 @@ package net.guttershark.support.eventmanager
 		}
 		
 		/**
-		 * Removes events that were added to the object.
+		 * @inheritDoc
 		 */
 		override protected function removeEventListeners():void
 		{
+			super.removeEventListeners();
 			obj.removeEventListener(DataGridEvent.COLUMN_STRETCH, onColumnStretch);
 			obj.removeEventListener(DataGridEvent.HEADER_RELEASE, onHeaderRelease);
 			obj.removeEventListener(DataGridEvent.ITEM_EDIT_BEGIN, onItemEditBegin);

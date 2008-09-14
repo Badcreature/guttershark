@@ -3,13 +3,14 @@ package net.guttershark.model
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.support.preloading.Asset;
-	import net.guttershark.util.Assert;
-	import net.guttershark.util.Singleton;
+	import net.guttershark.util.Assertions;
+	import net.guttershark.util.Singleton;		
 
 	/**
 	 * The Model Class provides shortcuts for parsing a model xml file as
@@ -93,6 +94,11 @@ package net.guttershark.model
 		 * @see net.guttershark.control.DocumentController DocumentController Class
 		 */
 		public var sharedObject:SharedObject;
+		
+		/**
+		 * Assertions.
+		 */
+		private var ast:Assertions;
 
 		/**
 		 * If external interface is not available, all paths are stored here.
@@ -117,6 +123,7 @@ package net.guttershark.model
 		{
 			Singleton.assertSingle(Model);
 			paths = new Dictionary();
+			ast = Assertions.gi();
 		}
 
 		/**
@@ -133,7 +140,7 @@ package net.guttershark.model
 		 */
 		public function set xml(xml:XML):void
 		{
-			Assert.NotNull(xml, "Parameter xml cannot be null");
+			ast.notNil(xml, "Parameter xml cannot be null");
 			_model = xml;
 			if(_model.assets) assets = _model.assets;
 			if(_model.links) links = _model.links;
@@ -158,7 +165,7 @@ package net.guttershark.model
 		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String = null):Asset
 		{
 			checkForXML();
-			Assert.NotNull(libraryName, "Parameter libraryName cannot be null");
+			ast.notNil(libraryName, "Parameter libraryName cannot be null");
 			var node:XMLList = assets..asset.(@libraryName == libraryName);
 			var ft:String = (node.@forceType != undefined && node.@forceType != "") ? node.@forceType : null;
 			var s:String = (prependSourcePath) ? prependSourcePath+node.@source : node.@source;
@@ -259,6 +266,18 @@ package net.guttershark.model
 		}
 		
 		/**
+		 * Navigates to a.
+		 * 
+		 * @param id The link id.
+		 */
+		public function navigateToLink(id:String):void
+		{
+			var req:URLRequest = getLink(id);
+			var w:String = getLinkWindow(id);
+			navigateToURL(req,w);
+		}
+
+		/**
 		 * Get the value from an attribute node.
 		 * 
 		 * @param	attributeID	The id of an attribute node.
@@ -294,7 +313,7 @@ package net.guttershark.model
 		 */
 		protected function checkForXML():void
 		{
-			Assert.NotNull(_model, "The model xml must be set on the model before attempting to read a property from it. Please see documentation in the DocumentController for the flashvars.model and flashvars.autoInitModel property.",Error);
+			ast.notNil(_model, "The model xml must be set on the model before attempting to read a property from it. Please see documentation in the DocumentController for the flashvars.model and flashvars.autoInitModel property.",Error);
 		}
 
 		/**

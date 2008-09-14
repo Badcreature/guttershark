@@ -5,9 +5,8 @@ package net.guttershark.support.eventmanager
 	import fl.core.UIComponent;
 	
 	/**
-	 * The ButtonEventListenerDelegate class is an IEventListenerDelegate that
-	 * implements event listeners for the ButtonComponent. See the EventManager
-	 * for a list of supported events.
+	 * The CheckboxEventListenerDelegate Class implements event handling
+	 * logic for CheckBox components.
 	 */
 	public class CheckboxEventListenerDelegate extends EventListenerDelegate
 	{
@@ -28,8 +27,7 @@ package net.guttershark.support.eventmanager
 		private var bb:BaseButtonEventListenerDelegate;
 
 		/**
-		 * Add listeners to the passed obj. Make sure to only add listeners
-		 * to the obj if the (obj is MyClass).
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
@@ -38,6 +36,9 @@ package net.guttershark.support.eventmanager
 			{
 				uic = new UIComponentEventListenerDelegate();
 				uic.eventHandlerFunction = this.handleEvent;
+				uic.callbackDelegate = callbackDelegate;
+				uic.callbackPrefix = callbackPrefix;
+				uic.cycleAllThroughTracking = cycleAllThroughTracking;
 				uic.addListeners(obj);
 			}
 			
@@ -45,6 +46,9 @@ package net.guttershark.support.eventmanager
 			{
 				bb = new BaseButtonEventListenerDelegate();
 				bb.eventHandlerFunction = this.handleEvent;
+				bb.callbackDelegate = callbackDelegate;
+				bb.callbackPrefix = callbackPrefix;
+				bb.cycleAllThroughTracking = cycleAllThroughTracking;
 				bb.addListeners(obj);
 			}
 			
@@ -59,8 +63,7 @@ package net.guttershark.support.eventmanager
 		}
 		
 		/**
-		 * Dispose of this ButtonEventListenerDelegate instance. This is called
-		 * from the EventManager.
+		 * @inheritDoc
 		 */
 		override public function dispose():void
 		{

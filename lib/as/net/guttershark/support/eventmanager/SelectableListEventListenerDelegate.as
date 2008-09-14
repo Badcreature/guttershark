@@ -6,32 +6,30 @@ package net.guttershark.support.eventmanager
 	import fl.events.ListEvent;
 	
 	/**
-	 * The SelectableListEventListenerDelegate class is an IEventListenerDelgate class
-	 * that implements event listeners for a SelectableList. This is a composite
-	 * class used with other concrete IEventListenerDelegate classes. An example of usage
-	 * would be in the DataGridEventListenerDelegate class.
+	 * The SelectableListEventListenerDelegate Class implements event listener
+	 * logic for SelectableList instances.
 	 */
 	public class SelectableListEventListenerDelegate extends EventListenerDelegate 
 	{
 		
 		/**
-		 * Add listeners to the obj.
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
 			super.addListeners(obj);
 			if(obj is SelectableList)
 			{
-				obj.addEventListener(Event.CHANGE, onChange);
-				obj.addEventListener(ListEvent.ITEM_CLICK, onItemClick);
-				obj.addEventlistener(ListEvent.ITEM_DOUBLE_CLICK, onItemDoubleClick);
-				obj.addEventListener(ListEvent.ITEM_ROLL_OUT, onRollOut);
-				obj.addEventlistener(ListEvent.ITEM_ROLL_OVER, onRollOver);
+				if(callbackPrefix + "Change" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE, onChange,false,0,true);
+				if(callbackPrefix + "Click" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ListEvent.ITEM_CLICK, onItemClick,false,0,true);
+				if(callbackPrefix + "DoubleClick" in callbackDelegate || cycleAllThroughTracking) obj.addEventlistener(ListEvent.ITEM_DOUBLE_CLICK, onItemDoubleClick,false,0,true);
+				if(callbackPrefix + "ItemRollOut" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ListEvent.ITEM_ROLL_OUT, onRollOut,false,0,true);
+				if(callbackPrefix + "ItemRollOver" in callbackDelegate || cycleAllThroughTracking) obj.addEventlistener(ListEvent.ITEM_ROLL_OVER, onRollOver,false,0,true);
 			}
 		}
 		
 		/**
-		 * Remove event listeners added to the object.
+		 * @inheritDoc
 		 */
 		override protected function removeEventListeners():void
 		{

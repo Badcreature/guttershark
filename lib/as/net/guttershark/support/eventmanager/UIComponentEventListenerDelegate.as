@@ -6,17 +6,14 @@ package net.guttershark.support.eventmanager
 	import fl.events.ComponentEvent;
 	
 	/**
-	 * The UIComponentEventListenerDelegate is used for all components
-	 * that are UIComponents. This has four events common to every UIComponent.
-	 * This is used as a composite object in other IEventListenerDelegate classes. See
-	 * the ButtonEventListenerDelegate source for an example of how this is used.
+	 * The UIComponentEventListenerDelegate implements event listener logic
+	 * for UICComponent instances.
 	 */
 	public class UIComponentEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**
-		 * Add listeners to the passed obj. Make sure to only add listeners
-		 * to the obj if the (obj is MyClass).
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
@@ -24,14 +21,14 @@ package net.guttershark.support.eventmanager
 			if(obj is UIComponent)
 			{
 				if(callbackPrefix + "Move" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.MOVE, onMove, false, 0, true);
-				if(callbackPrefix + "Resize" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.RESIZE,onResize);
-				if(callbackPrefix + "Show" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.SHOW,onShow);
-				if(callbackPrefix + "Hide" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.HIDE,onHide);
+				if(callbackPrefix + "Resize" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.RESIZE,onResize,false,0, true);
+				if(callbackPrefix + "Show" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.SHOW,onShow,false,0,true);
+				if(callbackPrefix + "Hide" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.HIDE,onHide,false,0,true);
 			}
 		}
 		
 		/**
-		 * Dispose of this UIComponentEventListenerDelegate instance.
+		 * @inheritDoc
 		 */
 		override public function dispose():void
 		{
@@ -39,7 +36,7 @@ package net.guttershark.support.eventmanager
 		}
 		
 		/**
-		 * Remove event listeners from the obj.
+		 * @inheritDoc
 		 */
 		override protected function removeEventListeners():void
 		{
