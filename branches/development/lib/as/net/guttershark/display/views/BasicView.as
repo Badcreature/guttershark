@@ -2,22 +2,13 @@ package net.guttershark.display.views
 {
 	import flash.events.Event;
 	
-	import net.guttershark.display.CoreClip;
-	import net.guttershark.util.DisplayListUtils;	
+	import net.guttershark.display.CoreClip;	
 
 	/**
 	 * The BasicView Class provides hooks into a number of different
-	 * events that occur from a DisplayObject. There is a particular
+	 * events that occur from a DisplayObject - there is a particular
 	 * order of events that occur, which allows you to override
 	 * certain methods to hook in to specific times.
-	 * 
-	 * <p>Order of events:</p>
-	 * <ul>
-	 * <li>1. Adds listeners to addedToStage, removedFromStage, resize, deactive, activate.</li>
-	 * <li>2. init() - Called from the constructor. (do not reference the <em><code>stage</code></em> property in this method, you will get exceptions as the display object is not on the stage.)</li>
-	 * </ul>
-	 * 
-	 * <p>Override the provided methods to hook into the events being listened too.</p>
 	 */
 	public class BasicView extends CoreClip
 	{
@@ -36,6 +27,11 @@ package net.guttershark.display.views
 			addEventListener(Event.DEACTIVATE, onDeactive);
 			init();
 		}
+
+		/**
+		 * Initialize the BasicView.
+		 */
+		protected function init():void{}
 
 		/**
 		 * on add handler.
@@ -86,6 +82,11 @@ package net.guttershark.display.views
 		}
 		
 		/**
+		 * Override this method to hook into resize events from the stage.
+		 */
+		protected function resized():void{}
+		
+		/**
 		 * Override this method to hook into when the operating system loses focus
 		 * on the flash movie.
 		 */
@@ -111,11 +112,6 @@ package net.guttershark.display.views
 		}
 		
 		/**
-		 * Initialize the BasicView.
-		 */
-		protected function init():void{}
-		
-		/**
 		 * The addListeners method is a stub method you should override 
 		 * and use for adding event listeners onto children objects. This is
 		 * called after the clip has been added to the stage, so the
@@ -129,24 +125,6 @@ package net.guttershark.display.views
 		 * called after the clip has been removed from the stage.
 		 */
 		protected function removeListeners():void{}
-		
-		/**
-		 * Override this method to hook into resize events from the stage.
-		 */
-		protected function resized():void{}
-		
-		/**
-		 * The cleanup method is called after the clip has been removed from
-		 * the display list. This is intended to do temporary cleanup until the clip
-		 * is added back to the display list. Not for final disposing logic. See
-		 * the dispose method for final disposal.
-		 */
-		protected function cleanup():void{}
-		
-		/**
-		 * Override this method and write your own dispose logic.
-		 */
-		override public function dispose():void{}
 		
 		/**
 		 * Stub method for showing this view. It sets the visible property to true.
@@ -165,17 +143,17 @@ package net.guttershark.display.views
 		}
 		
 		/**
-		 * Stub method you should override to re-arrange children on the display
-		 * list. This is in place for naming convention.
+		 * The cleanup method is called after the clip has been removed from
+		 * the display list. This is intended to do temporary cleanup until the clip
+		 * is added back to the display list. Not for final disposing logic. See
+		 * the dispose method for final disposal.
 		 */
-		public function reorderChildren():void{}
+		protected function cleanup():void{}
 		
 		/**
-		 * Remove all children from this instance.
+		 * Override this method and write your own dispose logic.
 		 */
-		public function removeAllChildren():void
-		{
-			DisplayListUtils.RemoveAllChildren(this);
-		}
+		override public function dispose():void{}
+		
 	}
 }

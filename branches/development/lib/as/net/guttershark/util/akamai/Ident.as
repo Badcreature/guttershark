@@ -1,12 +1,10 @@
 package net.guttershark.util.akamai
 {
-	
-	import flash.net.URLLoader;
-	import flash.events.EventDispatcher;	
-	import flash.net.URLRequest;	
 	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	
-	import net.guttershark.util.XMLLoader;
+	import net.guttershark.util.xml.XMLLoader;	
 
 	/**
 	 * The Ident class is used for pinging an Akamai Ident service to determine

@@ -3,9 +3,8 @@ package net.guttershark.display.views
 	import flash.events.Event;
 	
 	import net.guttershark.display.views.BasicView;
-	import net.guttershark.util.Assert;
-	import net.guttershark.util.FrameDelay;
-	import net.guttershark.util.FramePulse;	
+	import net.guttershark.util.frames.FrameDelay;
+	import net.guttershark.util.frames.FramePulse;	
 
 	/**
 	 * The AnimatedView class provides structure to a class
@@ -19,8 +18,19 @@ package net.guttershark.display.views
 	public class AnimatedView extends BasicView
 	{
 		
+		/**
+		 * Watch for last frame and call complete when done.
+		 */
 		private var _watchEndAndComplete:Boolean;
+		
+		/**
+		 * Flog var for listeners added.
+		 */
 		private var listenerAdded:Boolean;
+		
+		/**
+		 * Auto stop on last frame
+		 */
 		private var _autoStop:Boolean;
 		
 		public function AnimatedView()
@@ -29,29 +39,13 @@ package net.guttershark.display.views
 		}
 		
 		/**
-		 * Stub method used for naming convention. Use this method
-		 * as a mechanism for updating children references in the display
-		 * list.
-		 * 
-		 * <p>The reason you would need to update references is when
-		 * there are clips that animate on the timeline, but don't
-		 * always have an instance name associated with it, so on some
-		 * frames you need to update the references so you can control them.</p>
-		 */
-		protected function updateChildrenReferences():void{}
-		
-		/**
 		 * Stub method used for naming convention. Override this method
 		 * when something from the timeline needs to execute something
-		 * on it's animation completion / last frame.
+		 * on it's last frame.
 		 * 
 		 * <p>Overriding this method allows you to place your logic here,
 		 * instead of on the timeline. Then in your timeline, you make a
 		 * call to <code>this.animationComplete();</code></p>
-		 * 
-		 * <p>Extend a movie clip from this class, then on the timeline you
-		 * can place <code>this.animationComplete();</code> method calls
-		 * anywhere in the timeline to execute this method.</p>
 		 */
 		protected function animationComplete():void{}
 		
@@ -70,9 +64,8 @@ package net.guttershark.display.views
 		 * Set this property to true to automatically call the <code>animationComplete</code>
 		 * method when this movie clip hits it's last frame. 
 		 */
-		public function set watchForLastFrameAndCallComplete(value:Boolean):void
+		public function set watchForLastFrameAndCallComplete(value:Boolean=false):void
 		{
-			Assert.NotNull(value, "Value cannot be null");
 			if(!value && listenerAdded)
 			{
 				listenerAdded = false;

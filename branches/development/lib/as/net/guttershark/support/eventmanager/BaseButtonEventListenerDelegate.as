@@ -6,40 +6,29 @@ package net.guttershark.support.eventmanager
 	import fl.events.ComponentEvent;
 
 	/**
-	 * The BaseButtonEventListenerDelegate class is an IEventListenerDelegate that
-	 * implements event listeners for the BaseButton Class. This is a composite
-	 * object used in other IEventListenerDelegate classes. See the EventManager
-	 * for a list of events supported.
+	 * The BaseButtonEventListenerDelegate Class implements
+	 * event listener logic for BaseButton events. This class
+	 * is only used as a composite object for Classes that
+	 * extend BaseButton, like the Button component.
 	 */
 	public class BaseButtonEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**
-		 * @private
-		 * Add listeners to the passed obj. Make sure to only add listeners
-		 * to the obj if the (obj is MyClass).
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
 			super.addListeners(obj);
 			if(obj is BaseButton)
 			{
-				obj.addEventListener(Event.CHANGE, onChange);
-				obj.addEventListener(ComponentEvent.BUTTON_DOWN, onButtonDown);
+				if(callbackPrefix + "Change" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE, onChange,false,0,true);
+				if(callbackPrefix + "ButtonDown" in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ComponentEvent.BUTTON_DOWN,onButtonDown,false,0,true);
 			}
 		}
 		
 		/**
-		 * Dispose of this ButtonEventListenerDelegate instance. This is called
-		 * from the EventManager.
-		 */
-		override public function dispose():void
-		{
-			super.dispose();
-		}
-		
-		/**
-		 * Remove event listeners addd to the object.
+		 * @inheritDoc
 		 */
 		override protected function removeEventListeners():void
 		{

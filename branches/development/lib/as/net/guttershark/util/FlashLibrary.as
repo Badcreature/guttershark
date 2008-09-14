@@ -168,7 +168,7 @@ package net.guttershark.util
 		 */
 		flash_proxy override function getProperty(name:*):* 
 		{
-			Assert.True(ApplicationDomain.currentDomain.hasDefinition(name),"Class {"+name+"} is not defined in this swf.",Error);
+			if(!ApplicationDomain.currentDomain.hasDefinition(name)) throw new Error("Class {"+name+"} is not defined in this swf.",Error);
 			var klass:Class = flash.utils.getDefinitionByName(name) as Class;
 			var i:* = new klass();
 			return i;

@@ -4,9 +4,9 @@
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.display.lang.ILocalizableClip;
+	import net.guttershark.display.text.LocalizableClip;
 	import net.guttershark.util.Singleton;
-	import net.guttershark.util.XMLLoader;	
+	import net.guttershark.util.xml.XMLLoader;	
 
 	/**
 	 * The LanguageManager manages loading different language
@@ -123,7 +123,7 @@
 		 * 
 		 * @see net.guttershark.lang.ILocalizableClip ILocalizableClip Class
 		 */
-		public function addLocalizableClip(clip:ILocalizableClip,textID:String,updateOnAdd:Boolean=false):void
+		public function addLocalizableClip(clip:LocalizableClip,textID:String,updateOnAdd:Boolean=false):void
 		{
 			clip.localizedID = textID;
 			clips[textID] = clip;
@@ -136,7 +136,7 @@
 		 * 
 		 * @param	clip	The ILocalizableClip to remove.
 		 */
-		public function removeLocalizableClip(clip:ILocalizableClip):void
+		public function removeLocalizableClip(clip:LocalizableClip):void
 		{
 			if(clips[clip]) clips[clip] = null;
 		}

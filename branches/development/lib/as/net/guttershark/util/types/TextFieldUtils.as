@@ -1,6 +1,6 @@
-package net.guttershark.util 
-{	import flash.text.TextFormat;		import flash.text.TextField;
-	
+package net.guttershark.util.types
+{	import flash.text.TextField;
+	import flash.text.TextFormat;		
 	/**
 	 * The TextFieldUtils Class has utility methods for
 	 * common operations with TextFields.
@@ -52,46 +52,13 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Set the cacheAsBitmap property on multiple textfields.
+		 * Restrict a text field to only email valid characters.
 		 * 
-		 * @param	value	The cacheAsBitmap value.
-		 * @param	...fields	The textfields to set cacheAsBitmap on.
+		 * @param tf The text field that should be restricted.
 		 */
-		public static function SetCacheAsBitmap(value:Boolean, ...fields:Array):void
-		{
-			var i:int = 0;
-			while(fields[i]!=null){fields[i].cacheAsBitmap=value;i++;};
-		}
-		
-		/**
-		 * Set tab index's on multiple textfields.
-		 * 
-		 * @param	...fields	The textfields to set tabIndex on, it will be defined as 0->N.
-		 */
-		public static function SetTabIndexes(...fields:Array):void
-		{
-			var i:int = 0;
-			while(fields[i]!=null){fields[i].tabIndex=i;i++;};
-		}
-		
-		/**
-		 * Restric a textfield to only email valid characters. 
-		 */
-		public static function RestrictEmail(tf:TextField):void
+		public static function restrictEmail(tf:TextField):void
 		{
 			tf.restrict = "a-zA-Z0-9@._-";
-		}
-		
-		/**
-		 * Set the autoSize property on multiple textfields.
-		 * 
-		 * @param	value	The autoSize value.
-		 * @param	...fields	The textfields to set the autoSize property on.
-		 */
-		public static function SetAutoSize(value:String, ...fields:Array):void
-		{
-			var i:int = 0;
-			while(fields[i]!=null){fields[i].autoSize=value;i++;};
 		}
 		
 		/**

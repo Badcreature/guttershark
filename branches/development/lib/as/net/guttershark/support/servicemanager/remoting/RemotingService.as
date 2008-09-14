@@ -26,6 +26,48 @@ package net.guttershark.support.servicemanager.remoting
 		}
 		
 		/**
+		 * This is not the recommended way of using the remoting service, but is available
+		 * so you can call service methods where the methd name comes from a string variable.
+		 * 
+		 * @example Calling a service with the call method:
+		 * <listing>	
+		 * var sm:ServiceManager = ServiceManager.gi();
+		 * 
+		 * var tf:TextField = new TextField();
+		 * tf.text = "helloWorld";
+		 * 
+		 * sm.helloWorldService.call(tf.text,{...});
+		 * 
+		 * //the normal way:
+		 * sm.helloWorldService.helloWorld({...});
+		 * </listing>
+		 */
+		public function call(methodName:String, ...args):*
+		{
+			var callProps:Object = args[0];
+			if(!callProps.timeout) callProps.timeout=timeout;
+			if(!callProps.attempts) callProps.attempts=attempts;
+			if(!callProps.params) callProps.params=[];
+			callProps.endpoint=endpoint;
+			callProps.method=methodName;
+			var rcall:RemotingCall = new RemotingCall(this,callProps);
+			if(callProps.onCreate) callProps.onCreate();
+			var unique:String=(rc.gateway+endpoint+methodName+callProps.params.toString());
+			rcall.id = unique;
+			if(limiter)
+			{
+				if(!limiter.canExecute(unique))
+				{
+					if(callProps.onLimited) callProps.onLimited();
+					return;
+				}
+				rcall.limiter = limiter;
+			}
+			rcall.execute();
+			return null;
+		}
+		
+		/**
 		 * @private
 		 * 
 		 * sm.user // returns user RemotingService
@@ -63,7 +105,7 @@ package net.guttershark.support.servicemanager.remoting
 		 */
 		public function dispose():void
 		{
-			limiter.dispose();
+			if(limiter) limiter.dispose();
 			limiter = null;
 			timeout = 0;
 			attempts = 0;

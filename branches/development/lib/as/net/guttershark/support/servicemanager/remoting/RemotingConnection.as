@@ -85,7 +85,7 @@ package net.guttershark.support.servicemanager.remoting
 		 */
 		public function dispose():void
 		{
-			connection.close();
+			if(connection.connected) connection.close();
 			connection = null;
 			gateway = null;
 		}

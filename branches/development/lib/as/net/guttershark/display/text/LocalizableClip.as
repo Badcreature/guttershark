@@ -1,4 +1,4 @@
-﻿package net.guttershark.display.lang
+﻿package net.guttershark.display.text
 {
 	
 	import flash.text.TextField;	
@@ -10,7 +10,7 @@
 	 * conform to putting a textfield on the stage with an
 	 * instance name of "tfield."
 	 */
-	public class LocalizableClip extends MovieClip implements ILocalizableClip
+	public class LocalizableClip extends MovieClip
 	{
 
 		/**

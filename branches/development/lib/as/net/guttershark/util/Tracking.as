@@ -4,7 +4,7 @@ package net.guttershark.util
 	import flash.external.ExternalInterface;
 	import flash.net.LocalConnection;
 	
-	import net.guttershark.managers.PlayerManager;		
+	import net.guttershark.managers.PlayerManager;	
 
 	/**
 	 * The Tracking Class sends tracking calls through
@@ -37,7 +37,7 @@ package net.guttershark.util
 		 */
 		public static function Track(xmlid:String, appendData:Array = null):void
 		{
-			Assert.NotNull(xmlid, "Parameter xmlid cannot be null.");
+			if(!xmlid) throw new ArgumentError("Parameter xmlid cannot be null.");
 			if(SimulationTrackingXML)
 			{
 				SimulateCall(xmlid,appendData);

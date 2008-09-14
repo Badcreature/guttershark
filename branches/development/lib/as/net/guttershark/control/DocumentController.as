@@ -41,8 +41,8 @@ package net.guttershark.control
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.FlashLibrary;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;		
+	import net.guttershark.util.akamai.Ident;
+	import net.guttershark.util.xml.XMLLoader;
 
 	/**
 	 * The DocumentController Class is the document class for an FLA, it contains

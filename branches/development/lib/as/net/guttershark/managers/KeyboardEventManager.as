@@ -155,6 +155,20 @@ package net.guttershark.managers
 		}
 		
 		/**
+		 * Add the same mapping and callback to multiple objects.
+		 * 
+		 * @param	objects	An array of objects to add mappings to.
+		 * @param	mapping	The mapping to listen for.
+		 * @param	callback	The callback function.
+		 */
+		public function addMappings(objects:Array, mapping:String,callback:Function):void
+		{
+			var l:int = objects.length;
+			var i:int = 0;
+			for(i; i < l; i++) addMapping(objects[i],mapping,callback);
+		}
+		
+		/**
 		 * Remove a keyboard event mapping.
 		 * 
 		 * @example Removing a keyboard event mapping.
@@ -173,6 +187,19 @@ package net.guttershark.managers
 			else if(mapping.indexOf("+") > -1) removeSequenceMapping(scope, mapping);
 			else if(isShortcutForKeycode(mapping)) removeSequenceMapping(scope,mapping);
 			else removeWordMapping(scope, mapping);
+		}
+		
+		/**
+		 * Remove the same mapping from multiple objects.
+		 * 
+		 * @param	objects	An array of objects to remove the mapping from.
+		 * @param	mapping	The key mapping to remove.
+		 */
+		public function removeMappings(objects:Array, mapping:String):void
+		{
+			var i:int = 0;
+			var l:int = objects.length;
+			for(i;i<l;i++) removeMapping(objects[i],mapping);
 		}
 		
 		/**

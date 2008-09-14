@@ -11,7 +11,8 @@ package net.guttershark.display
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
-	import net.guttershark.util.FlashLibrary;		
+	import net.guttershark.util.Assertions;
+	import net.guttershark.util.FlashLibrary;
 
 	/**
 	 * The CoreSprite Class is a base class that provides
@@ -68,6 +69,11 @@ package net.guttershark.display
 		protected var snm:SoundManager;
 
 		/**
+		 * The Assertions singleton instance.
+		 */
+		protected var ast:Assertions;
+
+		/**
 		 * An instance of a layout manager.
 		 */
 		public var lm:LayoutManager;
@@ -87,12 +93,13 @@ package net.guttershark.display
 			sm = ServiceManager.gi();
 			fb = FlashLibrary.gi();
 			snm = SoundManager.gi();
+			ast = Assertions.gi();
 		}
 
 		/**
 		 * Dispose of references to pre-defined properties. The only thing
 		 * this method does is set references to null. If you have custom
-		 * key mappings, or custom event handling with an instance, you should
+		 * key mappings, or custom event handling with a singleton instance, you should
 		 * override dispose, clear up your own custom stuff, then call super.dispose();
 		 * 
 		 * @example Cleaning up a subclassed CoreSprite
@@ -130,6 +137,7 @@ package net.guttershark.display
 			sm = null;
 			fb = null;
 			snm = null;
+			ast = null;
 		}
 	}
 }

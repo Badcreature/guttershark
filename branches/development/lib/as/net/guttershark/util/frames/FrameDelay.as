@@ -1,4 +1,4 @@
-package net.guttershark.util 
+package net.guttershark.util.frames
 {
 
 	import flash.events.Event;

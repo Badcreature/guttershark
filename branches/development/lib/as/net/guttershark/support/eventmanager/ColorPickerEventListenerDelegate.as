@@ -7,9 +7,8 @@ package net.guttershark.support.eventmanager
 	import fl.events.ColorPickerEvent;
 	
 	/**
-	 * The ColorPickerEventListenerDelegate class is an IEventListenerDelegate that
-	 * implements event listener logic for ColorPicker components. See EventManager
-	 * for a list of supported events.
+	 * The ColorPickerEventListenerDelegate Class implements event handling
+	 * logic for ColorPicker components.
 	 */
 	public class ColorPickerEventListenerDelegate extends EventListenerDelegate
 	{
@@ -20,7 +19,7 @@ package net.guttershark.support.eventmanager
 		private var uic:UIComponentEventListenerDelegate;
 		
 		/**
-		 * Add listeners to the object.
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
@@ -29,16 +28,19 @@ package net.guttershark.support.eventmanager
 			{
 				uic = new UIComponentEventListenerDelegate();
 				uic.eventHandlerFunction = this.handleEvent;
+				uic.callbackDelegate = callbackDelegate;
+				uic.callbackPrefix = callbackPrefix;
+				uic.cycleAllThroughTracking = cycleAllThroughTracking;
 				uic.addListeners(obj);
 			}
 			
 			if(obj is ColorPicker)
 			{
-				obj.addEventListener(ColorPickerEvent.CHANGE, onChange);
-				obj.addEventListener(ColorPickerEvent.ENTER, onEnter);
-				obj.addEventListener(ColorPickerEvent.ITEM_ROLL_OUT, onItemRollOut);
-				obj.addEventListener(ColorPickerEvent.ITEM_ROLL_OVER, onItemRollOver);
-				obj.addEventListener(Event.OPEN, onOpen);
+				obj.addEventListener(ColorPickerEvent.CHANGE, onChange,false,0,true);
+				obj.addEventListener(ColorPickerEvent.ENTER, onEnter,false,0,true);
+				obj.addEventListener(ColorPickerEvent.ITEM_ROLL_OUT, onItemRollOut,false,0,true);
+				obj.addEventListener(ColorPickerEvent.ITEM_ROLL_OVER, onItemRollOver,false,0,true);
+				obj.addEventListener(Event.OPEN, onOpen,false,0,true);
 			}
 		}
 		
@@ -68,7 +70,7 @@ package net.guttershark.support.eventmanager
 		}
 
 		/**
-		 * Dispose of this ColorPickerEventListenerDelegate.
+		 * @inheritDoc
 		 */
 		override public function dispose():void
 		{
@@ -78,10 +80,11 @@ package net.guttershark.support.eventmanager
 		}
 		
 		/**
-		 * Removes events that were added to the object.
+		 * @inheritDoc
 		 */
 		override protected function removeEventListeners():void
 		{
+			super.removeEventListeners();
 			obj.removeEventListener(ColorPickerEvent.CHANGE, onChange);
 			obj.removeEventListener(ColorPickerEvent.ENTER, onEnter);
 			obj.removeEventListener(ColorPickerEvent.ITEM_ROLL_OUT, onItemRollOut);

@@ -4,28 +4,26 @@ package net.guttershark.support.eventmanager
 	import fl.events.ComponentEvent;
 	
 	/**
-	 * The LabelButtonEventListenerDelegate is a composite object used
-	 * when a Component inherits events from the LabelButton class. An example
-	 * of it's use is in ButtonEventListenerDelegate.
+	 * The LabelButtonEventListenerDelegate implements event listener logic
+	 * for LabelButton instances.
 	 */
 	public class LabelButtonEventListenerDelegate extends EventListenerDelegate 
 	{
 
 		/**
-		 * Add listeners to the passed obj. Make sure to only add listeners
-		 * to the obj if the (obj is MyClass).
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
 			super.addListeners(obj);
 			if(obj is LabelButton)
 			{
-				obj.addEventListener(ComponentEvent.LABEL_CHANGE, onLabelChange);
+				if(callbackPrefix + "LabelChange" in callbackDelegate || cycleAllThroughTracking)  obj.addEventListener(ComponentEvent.LABEL_CHANGE, onLabelChange);
 			}
 		}
 		
 		/**
-		 * Dispose of this LabelButtonEventListenerDelegate;
+		 * @inheritDoc
 		 */
 		override public function dispose():void
 		{
@@ -33,10 +31,11 @@ package net.guttershark.support.eventmanager
 		}
 		
 		/**
-		 * Remove event listeners from the object.
+		 * @inheritDoc
 		 */
 		override protected function removeEventListeners():void
 		{
+			super.removeEventListeners();
 			obj.removeEventListener(ComponentEvent.LABEL_CHANGE,onLabelChange);
 		}
 

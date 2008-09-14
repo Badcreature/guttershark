@@ -23,9 +23,7 @@ package net.guttershark.support.eventmanager
 	{
 
 		/**
-		 * Add listeners to the passed obj. Make sure to only add listeners
-		 * to the obj if the (obj is MyClass) && the callback methods for the
-		 * target listener are defined.
+		 * @inheritDoc
 		 */
 		override public function addListeners(obj:*):void
 		{
@@ -52,10 +50,11 @@ package net.guttershark.support.eventmanager
 		}
 		
 		/**
-		 * Remove listeners on the flv playback component.
+		 * @inheritDoc
 		 */
 		override protected function removeEventListeners():void
 		{
+			super.removeEventListeners();
 			obj.removeEventListener(VideoEvent.PAUSED_STATE_ENTERED,onFLVPause);
 			obj.removeEventListener(VideoEvent.PLAYING_STATE_ENTERED, onFLVPlay);
 			obj.removeEventListener(VideoEvent.STOPPED_STATE_ENTERED, onFLVStopped);
