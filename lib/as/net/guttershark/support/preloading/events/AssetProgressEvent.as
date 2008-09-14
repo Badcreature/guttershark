@@ -32,5 +32,21 @@ package net.guttershark.support.preloading.events
 			super(type,false,false);
 			this.asset = asset;
 		}
+		
+		/**
+		 * Clone this AssetProgressEvent.
+		 */
+		override public function clone():Event
+		{
+			return new AssetProgressEvent(type,asset);
+		}
+		
+		/**
+		 * To string override for descriptions.
+		 */
+		override public function toString():String
+		{
+			return "[AssetProgressEvent asset:"+asset.source+"]";
+		}
 	}
 }

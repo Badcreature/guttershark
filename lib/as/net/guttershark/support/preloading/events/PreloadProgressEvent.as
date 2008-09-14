@@ -39,5 +39,21 @@ package net.guttershark.support.preloading.events
 			this.pixels = pixels;
 			this.percent = percent;	
 		}
+		
+		/**
+		 * Clone this PreloadProgressEvent.
+		 */
+		override public function clone():Event
+		{
+			return new PreloadProgressEvent(type,pixels,percent);
+		}
+		
+		/**
+		 * To string override for descriptions.
+		 */
+		override public function toString():String
+		{
+			return "[PreloadProgressEvent pixels: "+pixels+" percent: "+percent+"]";
+		}
 	}
 }

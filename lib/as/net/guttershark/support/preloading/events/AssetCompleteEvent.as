@@ -23,14 +23,30 @@ package net.guttershark.support.preloading.events
 		/**
 		 * Constructor for AssetCompleteEvent instances.
 		 * 
-		 * @param	type	The event type.
-		 * @param	asset	The Asset that has completely downloaded.
+		 * @param type The event type.
+		 * @param asset The Asset that has completely downloaded.
 		 * @see	net.guttershark.preloading.Asset Asset class
 		 */
 		public function AssetCompleteEvent(type:String, asset:Asset)
 		{
 			super(type,false,false);
 			this.asset = asset;
+		}
+		
+		/**
+		 * Clone this AssetCompleteEvent.
+		 */
+		override public function clone():Event
+		{
+			return new AssetCompleteEvent(type,asset);
+		}
+		
+		/**
+		 * To string override for descriptions.
+		 */
+		override public function toString():String
+		{
+			return "[AssetCompleteEvent asset:"+asset.source+"]";
 		}
 	}
 }
