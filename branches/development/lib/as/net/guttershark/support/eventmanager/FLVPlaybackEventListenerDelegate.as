@@ -4,15 +4,11 @@ package net.guttershark.support.eventmanager
 	import fl.video.VideoEvent;
 	
 	/**
-	 * The FLVPlaybackEventListenerDelegate Class is an IEventListenerDelegate that implements
-	 * adding event listeners to an FLVPlayback component, as well as handling
-	 * an event when dispatched, and passing back to your handler delegate.
-	 * 
-	 * <p>This can be used with the EventManager singleton to delegate event listener
-	 * logic over to this class.</p>
+	 * The FLVPlaybackEventListenerDelegate class implements
+	 * listener logic for FLVPlayback components.
 	 * 
 	 * @example Setting up the FLVPlaybackEventListenersDelegate on EventManager:
-	 * <listing>
+	 * <listing>	
 	 * import net.guttershark.support.eventmanager.FLVPlaybackEventListenerDelegate.
 	 * EventManager.gi().addEventListenerDelegate(FLVPlayback,FLVPlaybackEventListenerDelegate);
 	 * </listing>

@@ -15,8 +15,8 @@ package net.guttershark.support.preloading
 	/**
 	 * The Asset class defines an asset to preload with a PreloadController.
 	 * 
-	 * @see net.guttershark.preloading.PreloadController PreloadController class
-	 * @see net.guttershark.preloading.AssetLibrary AssetLibrary class
+	 * @see net.guttershark.control.PreloadController PreloadController class
+	 * @see net.guttershark.managers.AssetManager AssetManager class
 	 */
 	final public class Asset
 	{
@@ -37,22 +37,14 @@ package net.guttershark.support.preloading
 		public var fileType:String;
 		
 		/**
-		 * An asset type indicator - value is an enumeration
-		 * from the AssetTypes class.
-		 * 
-		 * @see net.guttershark.preloading.AssetTypes AssetTypes Class
-		 */
-		public var assetType:String;
-		
-		/**
 		 * The URI to the file to load.
 		 */
 		public var source:String;
 		
 		/**
-		 * The identifier to use in an AssetLibrary.
+		 * The identifier of this item in the AssetManager
 		 * 
-		 * @see net.guttershark.preloading.AssetLibrary
+		 * @see net.guttershark.managers.AssetManager AssetManager class.
 		 */
 		public var libraryName:String;
 		
@@ -70,7 +62,6 @@ package net.guttershark.support.preloading
 		 * @param source The source URL to the asset
 		 * @param libraryName The name to be used in an AssetLibrary
 		 * @param forceFileType	Force the asset's file type (file extension without the ".", EX: xml);
-		 * @param forceAssetType Force the asset's type identifier
 		 */
 		public function Asset(source:String, libraryName:String = null, forceFileType:String = null)
 		{
@@ -211,7 +202,7 @@ package net.guttershark.support.preloading
 		
 		/**
 		 * Disposes of the Asset entirely and disposes it out of
-		 * the Asset library as well.
+		 * the AssetManager as well.
 		 */
 		public function disposeFinal():void
 		{

@@ -6,7 +6,7 @@ package net.guttershark.util
 	import flash.utils.getTimer;	
 	
 	/**
-	 * The CPU Class benchmarks the clients computer
+	 * The CPU class benchmarks the clients computer
 	 * and provide a number you can use to decide if their cpu
 	 * is fast / med / slow, etc.
 	 * 

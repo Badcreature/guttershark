@@ -14,7 +14,7 @@ package net.guttershark.util
 	/**
 	 * The Utilities class is a singleton that holds references
 	 * to other utility singletons; this is used for inheritance
-	 * chains on CoreClip and CoreSprite, which ultimately get's
+	 * chains on CoreClip and CoreSprite, which ultimately gets
 	 * rid of static functions which are on an average 50% slower than
 	 * having a property defined. Each type of utility is a singleton,
 	 * so you can use them freely anywhere you whish, this is just

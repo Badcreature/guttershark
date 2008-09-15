@@ -3,13 +3,8 @@ package net.guttershark.support.servicemanager.shared
 	import flash.utils.Dictionary;		
 
 	/**
-	 * Used in a RemotingService to stop duplicate calls 
-	 * to a call that that hasn't responded yet.
-	 * 
-	 * Each RemotingCall made from a RemotingService
-	 * manages retries and max attempts so dupliacate
-	 * calls being made that haven't responded is
-	 * not a good thing. This stops that.
+	 * The Limiter class stops duplicate calls in RemotingServices
+	 * when a call has been made, but no response has happened yet.
 	 */
 	final public class Limiter
 	{
@@ -31,8 +26,7 @@ package net.guttershark.support.servicemanager.shared
 		 * Locks a call so that no further calls can be made to it
 		 * until it's unlocked.
 		 * 
-		 * @param		String		A unique identifier for a remoting call.
-		 * @return		void
+		 * @param uniquePath A unique identifier for a remoting call.
 		 */
 		public function lockCall(uniquePath:String):void
 		{
@@ -42,8 +36,7 @@ package net.guttershark.support.servicemanager.shared
 		/**
 		 * Releases a call from the call pool.
 		 * 
-		 * @param		String		The unique identifier for a remoting call.
-		 * @return		void
+		 * @param uniquePath The unique identifier for a remoting call.
 		 */
 		public function releaseCall(uniquePath:String):void
 		{
@@ -54,8 +47,7 @@ package net.guttershark.support.servicemanager.shared
 		/**
 		 * Test whether or not a call can be executed.
 		 * 
-		 * @param		String		The unique identifier for a remoting call.
-		 * @return		Boolean
+		 * @param uniquePath The unique identifier for a remoting call.
 		 */
 		public function canExecute(uniquePath:String):Boolean
 		{
@@ -64,8 +56,6 @@ package net.guttershark.support.servicemanager.shared
 		
 		/**
 		 * Clears all currently locked calls.
-		 * 
-		 * @return		void
 		 */
 		public function releaseAllCalls():void
 		{

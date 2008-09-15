@@ -14,15 +14,25 @@ package net.guttershark.support.servicemanager.http
 	import net.guttershark.support.servicemanager.shared.CallResult;		
 
 	/**
-	 * The ServiceCall class is an abstract http service caller and uses callbacks
-	 * for result and fault events - this class is not used directly, but used
-	 * by a Service which is managed by the ServiceManager.
+	 * The ServiceCall class is an abstract http service call and uses callbacks
+	 * for result and fault events - this class is generally not used directly.
 	 */
 	final public class ServiceCall extends BaseCall
 	{
-
+		
+		/**
+		 * The url
+		 */
 		private var url:String;
+		
+		/**
+		 * The loader.
+		 */
 		private var loader:URLLoader;
+		
+		/**
+		 * A request.
+		 */
 		private var request:URLRequest;
 		
 		/**
@@ -37,11 +47,12 @@ package net.guttershark.support.servicemanager.http
 		
 		/**
 		 * Executes the service call.
-		 * @param	urlRequest	The urlRequest to use as the endpoint.
-		 * @param	service	The service to call.
-		 * @param	args	Any arguments to send to the service. Must be an array for url routed services, or an object for querystring get/post services.
-		 * @param	rc	The result callback.
-		 * @param	fc	The fault callback.
+		 * 
+		 * @param urlRequest The urlRequest to use as the endpoint.
+		 * @param service The service to call.
+		 * @param args Any arguments to send to the service. Must be an array for url routed services, or an object for querystring get/post services.
+		 * @param rc The result callback.
+		 * @param fc The fault callback.
 		 */
 		override public function execute():void
 		{
@@ -119,13 +130,11 @@ package net.guttershark.support.servicemanager.http
 					res = new CallResult(loader.data.result);
 					if(loader.data.result.toLowerCase() == "true") res.result = true;
 					else if(loader.data.result.toLowerCase() == "false") res.result = false;
-					fal = null;
 					if(!checkForOnResultCallback()) return;
 					props.onResult(res);
 				}
 				else if(loader.data.fault != null)
 				{
-					res = null;
 					fal = new CallFault(loader.data.fault);
 					fal.fault = loader.data.fault;
 					if(!checkForOnFaultCallback()) return;
@@ -133,8 +142,6 @@ package net.guttershark.support.servicemanager.http
 				}
 				else
 				{
-					trace("Response format was variables, but {result} and {fault} variables were not defined, use the {data} property on the ServiceResult instance.");
-					fal = null;
 					res = new CallResult(loader.data);
 					props.onResult(res);
 				}
@@ -144,14 +151,12 @@ package net.guttershark.support.servicemanager.http
 				var x:XML = new XML(loader.data);
 				if(x.fault != undefined)
 				{
-					res = null;
 					fal = new CallFault(x.fault.toString());
 					if(!checkForOnFaultCallback()) return;
 					props.onFault(fal);
 				}
 				else
 				{
-					fal = null;
 					res = new CallResult(x);
 					if(!checkForOnResultCallback()) return;
 					props.onResult(res);
@@ -159,14 +164,12 @@ package net.guttershark.support.servicemanager.http
 			}
 			else if(props.responseFormat == ResponseFormat.TEXT)
 			{
-				fal = null;
 				res = new CallResult(loader.data);
 				if(!checkForOnResultCallback()) return;
 				props.onResult(res);
 			}
 			else if(props.responseFormat == ResponseFormat.BINARY)
 			{
-				fal = null;
 				res = new CallResult(loader.data as ByteArray);
 				if(!checkForOnResultCallback()) return;
 				props.onResult(res);
@@ -174,6 +177,9 @@ package net.guttershark.support.servicemanager.http
 			dispose();
 		}
 		
+		/**
+		 * Dispose of this call.
+		 */
 		override public function dispose():void
 		{
 			super.dispose();

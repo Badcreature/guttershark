@@ -6,16 +6,49 @@ package net.guttershark.support.servicemanager.remoting
 	import net.guttershark.support.servicemanager.remoting.RemotingCall;
 	import net.guttershark.support.servicemanager.remoting.RemotingConnection;
 	import net.guttershark.support.servicemanager.shared.Limiter;	
-
+	
+	/**
+	 * The RemotingService class implements a Remoting endpoint
+	 * where RemotingCalls get sent to.
+	 */
 	dynamic public class RemotingService extends Proxy
 	{
 		
+		/**
+		 * @private
+		 * The RemotingConnection.
+		 */
 		public var rc:RemotingConnection;
+		
+		/**
+		 * @private
+		 * A limiter, which get's passed to call instances.
+		 */
 		public var limiter:Limiter;
+		
+		/**
+		 * The endpoint.
+		 */
 		private var endpoint:String;
+		
+		/**
+		 * how many attempts.
+		 */
 		private var attempts:int;
+		
+		/**
+		 * timeout.
+		 */
 		private var timeout:int;
 		
+		/**
+		 * Constructor for RemotingService instances.
+		 * 
+		 * @param rc A RemotingConnection that this service will use.
+		 * @param endpoint The service endpoint.
+		 * @param attempts How many attempts can be made before a timeout occures.
+		 * @param timeout The time to allow each request, before retrying.
+		 */
 		public function RemotingService(rc:RemotingConnection,endpoint:String,attempts:int,timeout:int,limiter:Boolean)
 		{
 			this.rc=rc;
@@ -113,7 +146,7 @@ package net.guttershark.support.servicemanager.remoting
 		} 
 		
 		/**
-		 * To string.
+		 * Friendly description.
 		 */
 		public function toString():String
 		{

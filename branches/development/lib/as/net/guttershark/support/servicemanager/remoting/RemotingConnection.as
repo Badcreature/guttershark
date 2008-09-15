@@ -6,11 +6,6 @@ package net.guttershark.support.servicemanager.remoting
 	/**
 	 * The RemotingConnection class simplifies connecting a net connection to 
 	 * a Flash Remoting gateway.
-	 * 
-	 * <p>The RemotingConnection class must be used to connect to the
-	 * gateway, and then given to a RemotingService instance.</p>
-	 * 
-	 * @see net.guttershark.remoting.RemotingService
 	 */
 	final public class RemotingConnection extends EventDispatcher
 	{	

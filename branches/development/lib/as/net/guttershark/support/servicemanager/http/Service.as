@@ -5,8 +5,8 @@ package net.guttershark.support.servicemanager.http
 	import net.guttershark.support.servicemanager.shared.Limiter;	
 
 	/**
-	 * The Service class represents a unique URL that acts as an HTTP service and is managed
-	 * by the ServiceManager class. This class is generally not used directly.
+	 * The Service class represents an HTTP service and is managed
+	 * by the ServiceManager class - this class is generally not used directly.
 	 */
 	final public class Service extends Proxy
 	{
@@ -19,10 +19,10 @@ package net.guttershark.support.servicemanager.http
 		
 		/**
 		 * Constructor for Service instances.
-		 * @param	id	The id of this service.
-		 * @param	href	The endpoing URL.
-		 * @param	method	The HTTP method. GET/POST.
-		 * @param	defaultResultFormat	The default responses data format.
+		 * @param id The id of this service.
+		 * @param href The endpoing URL.
+		 * @param method The HTTP method. GET/POST.
+		 * @param defaultResultFormat The default responses data format.
 		 */
 		public function Service(url:String,attempts:int=3,timeout:int=1000,limiter:Boolean=false,defaultResponseFormat:String="variables")
 		{
@@ -33,6 +33,11 @@ package net.guttershark.support.servicemanager.http
 			if(limiter) this.limiter = new Limiter();
 		}
 		
+		/**
+		 * Sends a service call, from parameters in the callProps object.
+		 * 
+		 * @param callProps An Object with keys that control the service call, result handling, timeouts, etc.
+		 */
 		public function send(callProps:Object):void
 		{
 			//p.attempts
@@ -54,9 +59,21 @@ package net.guttershark.support.servicemanager.http
 			if(callProps.onCreate) callProps.onCreate();
 			sc.execute();
 		}
+		
+		/**
+		 * Dispose of this service.
+		 */
+		public function dispose():void
+		{
+			limiter = null;
+			url = null;
+			attempts = 0;
+			timeout = 0;
+			drf = null;
+		}
 
 		/**
-		 * toString representation.
+		 * Friendly description.
 		 */
 		public function toString():String
 		{

@@ -3,7 +3,7 @@ package net.guttershark.util
 	import flash.net.FileFilter;
 	
 	/**
-	 * The FileFilterUtils Class provides static variables that has predefined
+	 * The FileFilterUtils class provides static variables that has predefined
 	 * FileFilter instances, to save time.
 	 */
 	final public class FileFilterUtils 

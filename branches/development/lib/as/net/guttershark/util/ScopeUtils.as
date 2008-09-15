@@ -11,10 +11,7 @@ package net.guttershark.util
 	{
 		
 		/**
-		 * Re-target instance variables to either a nested or parent
-		 * movie clip. This is generally used when you have
-		 * instance variables on a class, but need to change what clip they
-		 * point to inside of another movie clip.
+		 * Re-target instance variables to a different scope.
 		 * 
 		 * @example Re-targetting a class' instance variables to inside of a movie clip.
 		 * <listing>	

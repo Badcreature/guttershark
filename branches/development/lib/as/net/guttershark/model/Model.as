@@ -54,7 +54,7 @@ package net.guttershark.model
 		/**
 		 * Reference to the entire model XML.
 		 */
-		protected var _model:XML;
+		private var _model:XML;
 		
 		/**
 		 * Stores a reference to the &lt;assets&gt;&lt;/assets&gt;

@@ -9,17 +9,32 @@ package net.guttershark.support.servicemanager.remoting
 	import net.guttershark.support.servicemanager.shared.CallFault;
 	import net.guttershark.support.servicemanager.shared.CallResult;		
 
+	/**
+	 * The RemotingCall class executes remoting calls.
+	 */
 	final public class RemotingCall extends BaseCall
 	{
 		
+		/**
+		 * The remoting service to make calls to.
+		 */	
 		private var rs:RemotingService;
 		
+		/**
+		 * Constructor for RemotingCall instances.
+		 * 
+		 * @param rs The RemotingService this call is going to.
+		 * @param callProps The callproperties to use for this call.
+		 */
 		public function RemotingCall(rs:RemotingService, callProps:Object)
 		{
 			super(callProps);
 			this.rs=rs;
 		}
 		
+		/**
+		 * Execute this call.
+		 */
 		override public function execute():void
 		{
 			if(!completed)
@@ -64,6 +79,9 @@ package net.guttershark.support.servicemanager.remoting
 			}
 		}
 		
+		/**
+		 * Dispose of this RemotingCall.
+		 */
 		override public function dispose():void
 		{
 			super.dispose();

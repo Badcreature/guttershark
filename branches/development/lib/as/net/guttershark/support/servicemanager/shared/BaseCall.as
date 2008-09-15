@@ -3,17 +3,54 @@ package net.guttershark.support.servicemanager.shared
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;	
 
+	/**
+	 * The BaseCall class is the base for any service call,
+	 * and implements the base logic for attempts and timeout
+	 * handling.
+	 */
 	public class BaseCall 
 	{
 		
+		/**
+		 * The id of this call.
+		 */
 		public var id:String;
+		
+		/**
+		 * Limiter
+		 */
 		public var limiter:Limiter;
+		
+		/**
+		 * Whether or not this call is complete.
+		 */
 		protected var completed:Boolean;
+		
+		/**
+		 * How many tries have occured.
+		 */
 		protected var tries:int;
+		
+		/**
+		 * How many attempts to allows.
+		 */
 		protected var attempts:int;
+		
+		/**
+		 * The call timer.
+		 */
 		protected var callTimer:Timer;
+		
+		/**
+		 * Call properties for this call.
+		 */
 		protected var props:Object;
 		
+		/**
+		 * Constructor for BaseCall instances.
+		 * 
+		 * @param callProps An object with call properties.
+		 */
 		public function BaseCall(callProps:Object)
 		{
 			props = callProps;
@@ -21,11 +58,16 @@ package net.guttershark.support.servicemanager.shared
 			attempts = 1;
 		}
 		
+		/**
+		 * Stub method for executing this service call.
+		 */
 		public function execute():void{}
 		
+		/**
+		 * On timer tick.
+		 */
 		protected function onTick(e:TimerEvent):void
 		{
-			trace(tries,attempts);
 			if(!completed)
 			{
 				if(tries >= attempts)
@@ -45,6 +87,9 @@ package net.guttershark.support.servicemanager.shared
 			}
 		}
 		
+		/**
+		 * On service call complete.
+		 */
 		protected function callComplete():void
 		{
 			completed=true;
@@ -52,6 +97,9 @@ package net.guttershark.support.servicemanager.shared
 			if(limiter) limiter.releaseCall(id);
 		}
 		
+		/**
+		 * Checks if an onResult function was defined in the callProps object.
+		 */
 		protected function checkForOnResultCallback():Boolean
 		{
 			if(!props.onResult)
@@ -63,6 +111,9 @@ package net.guttershark.support.servicemanager.shared
 			return true;
 		}
 		
+		/**
+		 * Checks if an onFault functionw as defined in the callProps object.
+		 */
 		protected function checkForOnFaultCallback():Boolean
 		{
 			if(!props.onFault)
@@ -74,6 +125,9 @@ package net.guttershark.support.servicemanager.shared
 			return true;
 		}
 		
+		/**
+		 * Dispose of this service.
+		 */
 		public function dispose():void
 		{
 			tries = 0;

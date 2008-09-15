@@ -39,7 +39,7 @@ package net.guttershark.util
 	 * }
 	 * </listing>
 	 * 
-	 * @example	Using the Assertions class:
+	 * @example	Extended example:
 	 * <listing>	
 	 * public class MyMC extends CoreClip
 	 * {
@@ -287,34 +287,6 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Assert if a string is an email address.
-		 * 
-		 * @param str The string to evaluate.
-		 * @param message A message to throw if the assertion evaluates to false.
-		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
-		 */
-		public function email(str:String,message:String=null,exceptionType:Class=null):Boolean
-		{
-			var emailExpression:RegExp = /^[a-z][\w.-]+@\w[\w.-]+\.[\w.-]*[a-z][a-z]$/i;
-			if(message) if(!emailExpression.test(str)) throwError(message,exceptionType);
-			return emailExpression.test(str);
-		}
-		
-		/**
-		 * Assert if a string is a phone number.
-		 * 
-		 * @param str The string to evaluate.
-		 * @param message A message to throw if the assertion evaluates to false.
-		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
-		 */
-		public function phone(str:String,message:String=null,exceptionType:Class=null):Boolean
-		{
-			var phoneExpression:RegExp = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/i;
-			if(message) if(!phoneExpression.test(str)) throwError(message,exceptionType);
-			return phoneExpression.test(str);
-		}
-		
-		/**
 		 * Assert a string as being empty (zero characters or all spaces).
 		 * 
 		 * @param str The string to evaluate.
@@ -370,90 +342,6 @@ package net.guttershark.util
 			if(message) if(notNil(str) && (regx.test(str))) throwError(message,exceptionType);
 			if(nil(str)) return true;
 			return !regx.test(str);
-		}
-		
-		/**
-		 * Assert that a string is a po box. (PO ,P O,P.O,P. O,p o,p.o,p. o,Box,Post Office,post office).
-		 * 
-		 * @param address The string to evaluate.
-		 * @param message A message to throw if the assertion evaluates to false.
-		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
-		 */
-		public function pobox(address:String,message:String=null,exceptionType:Class=null):Boolean
-		{
-			var look:Array = ["PO ","P O","P.O","P. O", "p o","p.o","p. o","Box","Post Office","post office"];
-			var len:Number = look.length;
-			var i:int;
-			if(message)
-			{
-				for(i = 0;i < len; i++) if(address.indexOf(look[i]) != -1) return true;
-				throwError(message,exceptionType);
-			}
-			for(i = 0;i < len; i++) if(address.indexOf(look[i]) != -1) return true; 
-			return false;
-		}
-		
-		/**
-		 * Assert that a given state abbreviation is a valid state, according to the 
-		 * usps list of abbreviations (http://www.usps.com/ncsc/lookups/abbr_state.txt) - including
-		 * military state abbreviations.
-		 * 
-		 * @param state A state abbreviation to evaluate.
-		 * @param message A message to throw if the assertion evaluates to false.
-		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
-		 */
-		public function stateAbbrev(state:String,message:String=null,exceptionType:Class=null):Boolean
-		{
-			var states:Array = [
-				"AL","AK","AS","AZ",
-				"AR","CA","CO","CT","DE","DC",
-				"FM","FL","GA","GU","HI","ID",
-				"IL","IN","IA","KS","KY","LA",
-				"ME","MH","MD","MA","MI","MN",
-				"MS","MO","MT","NE","NV","NH",
-				"NJ","NM","NY","NC","ND","MP",
-				"OH","OK","OR","PW","PA","PR",
-				"RI","SC","SD","TN","TX","UT",
-				"VT","VI","VA","WA","WV","WI","WY",
-				"AE","AA","AP"
-			];
-			var i:int = 0;
-			var l:int = 62;
-			if(message)
-			{
-				for(i;i<l;i++) if(state.toUpperCase()==states[i]) return true;
-				throwError(message,exceptionType);
-			}
-			for(i;i<l;i++) if(state.toUpperCase()==states[i]) return true;
-			return false;
-		}
-		
-		/**
-		 * Assert that a string is a web URL.
-		 * 
-		 * @param str The string to evaluate.
-		 * @param message A message to throw if the assertion evaluates to false.
-		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
-		 */
-		public function url(str:String,message:String=null,exceptionType:Class=null):Boolean
-		{
-			var v:Boolean = (str.substring(0,7) == "http://" || str.substring(0,8) == "https://");
-			if(message) if(!v) throwError(message,exceptionType);
-			return v;
-		}
-		
-		/**
-		 * Assert that a string is not a web URL.
-		 * 
-		 * @param str The string to evaluate.
-		 * @param message A message to throw if the assertion evaluates to false.
-		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
-		 */
-		public function noturl(str:String,message:String=null,exceptionType:Class=null):Boolean
-		{
-			var v:Boolean = (str.substring(0,7) == "http://" || str.substring(0,8) == "https://");
-			if(message) if(v) throwError(message,exceptionType);
-			return !v;
 		}
 	}
 }
