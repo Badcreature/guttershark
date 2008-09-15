@@ -1,5 +1,6 @@
 package net.guttershark.util.types
 {
+	import net.guttershark.util.crypt.Luhn;	
 	import net.guttershark.util.Singleton;				
 
 	/**
@@ -9,9 +10,16 @@ package net.guttershark.util.types
 	final public class StringUtils 
 	{
 
+		/**
+		 * Singleton instance.
+		 */
 		private static var inst:StringUtils;
 		private const LTRIM_EXP:RegExp = /(\s|\n|\r|\t|\v)*$/;
 		private const RTRIM_EXP:RegExp = /^(\s|\n|\r|\t|\v)*/m;
+		private const DEFAULT_ENCODE_DIGITS_SHOWN:int = 4;
+		private const DEFAULT_ENCODE_CHARACTER:String = '*';
+		private const MINIMUM_CARD_LENGTH:int = 13;
+		private const MAXIMUM_CARD_LENGTH:int = 16;
 		
 		/**
 		 * Singleton access.
@@ -28,6 +36,82 @@ package net.guttershark.util.types
 		public function StringUtils()
 		{
 			Singleton.assertSingle(StringUtils);
+		}
+		
+		/**
+		 * Check whether a string is a valid email.
+		 * 
+		 * @param str The email to evaluate.
+		 */
+		public function isEemail(str:String):Boolean
+		{
+			var emailExpression:RegExp = /^[a-z][\w.-]+@\w[\w.-]+\.[\w.-]*[a-z][a-z]$/i;
+			return emailExpression.test(str);
+		}
+		
+		/**
+		 * Check whether a string is a valid po box. (PO ,P O,P.O,P. O,p o,p.o,p. o,Box,Post Office,post office).
+		 * 
+		 * @param address The string to evaluate.
+		 */
+		public function ispobox(address:String,message:String=null,exceptionType:Class=null):Boolean
+		{
+			var look:Array = ["PO ","P O","P.O","P. O", "p o","p.o","p. o","Box","Post Office","post office"];
+			var len:Number = look.length;
+			var i:int;
+			for(i = 0;i < len; i++) if(address.indexOf(look[i]) != -1) return true; 
+			return false;
+		}
+		
+		/**
+		 * Check whether a state abbreviation is a valid state, according to the 
+		 * usps list of abbreviations (http://www.usps.com/ncsc/lookups/abbr_state.txt) - including
+		 * military state abbreviations.
+		 * 
+		 * @param state A state abbreviation to evaluate.
+		 * @param message A message to throw if the assertion evaluates to false.
+		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
+		 */
+		public function stateAbbrev(state:String,message:String=null,exceptionType:Class=null):Boolean
+		{
+			var states:Array = [
+				"AL","AK","AS","AZ",
+				"AR","CA","CO","CT","DE","DC",
+				"FM","FL","GA","GU","HI","ID",
+				"IL","IN","IA","KS","KY","LA",
+				"ME","MH","MD","MA","MI","MN",
+				"MS","MO","MT","NE","NV","NH",
+				"NJ","NM","NY","NC","ND","MP",
+				"OH","OK","OR","PW","PA","PR",
+				"RI","SC","SD","TN","TX","UT",
+				"VT","VI","VA","WA","WV","WI","WY",
+				"AE","AA","AP"
+			];
+			var i:int = 0;
+			var l:int = 62;
+			for(i;i<l;i++) if(state.toUpperCase()==states[i]) return true;
+			return false;
+		}
+		
+		/**
+		 * Check that a string is a valid http URL.
+		 * 
+		 * @param str The string to evaluate.
+		 */
+		public function url(str:String,message:String=null,exceptionType:Class=null):Boolean
+		{
+			return (str.substring(0,7) == "http://" || str.substring(0,8) == "https://");
+		}
+		
+		/**
+		 * Check whether or not a string is a valid phone number.
+		 * 
+		 * @param str The string to evaluate.
+		 */
+		public function isPhone(str:String):Boolean
+		{
+			var phoneExpression:RegExp = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/i;
+			return phoneExpression.test(str);
 		}
 
 		/**
@@ -351,7 +435,7 @@ package net.guttershark.util.types
 		 *
 		 * @param str The string.
 		 */
-		public function wordCount(str:String):uint 
+		public function wordCount(str:String):uint
 		{
 			if(str == null) return 0;
 			return str.match(/\b\w+\b/g).length;
@@ -839,6 +923,48 @@ package net.guttershark.util.types
 			if(!fileType) return null;
 			else return fileType;
 		}
+		
+		/**
+		 * Validate a credit card's expiration date.
+		 * 
+		 * @param month The month.
+		 * @param year The year.
+		 */
+		public function isValidCCExDate(month:int, year:int):Boolean 
+		{
+			var d:Date = new Date();
+			var currentMonth:int = d.getMonth() + 1;
+			var currentYear:int = d.getFullYear();
+			if((year > currentYear) || (year == currentYear && month >= currentMonth)) return true;
+			return false;
+		}
+
+		/**
+		 * Validate a credit card number.
+		 * 
+		 * @param strNumber Credit card number as string.
+		 */
+		public function isValidCCNumber(strNumber:String):Boolean
+		{
+			var ccNumber:String = StringUtils.gi().toNumeric(strNumber);
+			if(ccNumber.length > 0 && !isNaN(ccNumber as Number) && (ccNumber.length >= MINIMUM_CARD_LENGTH && ccNumber.length <= MAXIMUM_CARD_LENGTH)) return Luhn.mod10(ccNumber); 
+			return false;
+		}
+
+		/**
+		 * Encode a credit card number as a string and encode all digits except the last <em></code>digitsShown</code></em>.
+		 * 
+		 * @param strNumber	credit card number as string
+		 * @param digitsShown display this many digits at the end of the card number for security purposes
+		 * @param encodeChar optional encoding character to use instead of default '*'
+		 */
+		public function encodeNumber(strNumber:String, digitsShown:uint = DEFAULT_ENCODE_DIGITS_SHOWN, encodeChar:String = DEFAULT_ENCODE_CHARACTER):String 
+		{
+			var encoded:String = "";
+			for(var i:Number = 0;i < strNumber.length - digitsShown; i++) encoded += encodeChar;
+			encoded += strNumber.slice(-digitsShown);
+			return encoded;
+		}		
 				
 		/**
 		 * @private

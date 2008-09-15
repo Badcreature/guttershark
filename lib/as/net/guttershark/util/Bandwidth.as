@@ -9,7 +9,7 @@ package net.guttershark.util
 	import flash.utils.getTimer;
 	
 	/**
-	 * The Bandwidth Class downloads a bitmap file, and benchmarks the client's
+	 * The Bandwidth class downloads a bitmap file, and benchmarks the client's
 	 * bandwidth.
 	 *  
 	 * @example Sniffing the users bandwidth.
