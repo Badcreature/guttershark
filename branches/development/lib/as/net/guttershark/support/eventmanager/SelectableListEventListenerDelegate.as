@@ -9,7 +9,7 @@ package net.guttershark.support.eventmanager
 	 * The SelectableListEventListenerDelegate Class implements event listener
 	 * logic for SelectableList instances.
 	 */
-	public class SelectableListEventListenerDelegate extends EventListenerDelegate 
+	final public class SelectableListEventListenerDelegate extends EventListenerDelegate 
 	{
 		
 		/**

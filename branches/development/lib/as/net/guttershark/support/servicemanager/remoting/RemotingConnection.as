@@ -12,7 +12,7 @@ package net.guttershark.support.servicemanager.remoting
 	 * 
 	 * @see net.guttershark.remoting.RemotingService
 	 */
-	public class RemotingConnection extends EventDispatcher
+	final public class RemotingConnection extends EventDispatcher
 	{	
 
 		/**

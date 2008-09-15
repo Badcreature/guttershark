@@ -10,7 +10,7 @@ package net.guttershark.support.eventmanager
 	 * The ColorPickerEventListenerDelegate Class implements event handling
 	 * logic for ColorPicker components.
 	 */
-	public class ColorPickerEventListenerDelegate extends EventListenerDelegate
+	final public class ColorPickerEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**

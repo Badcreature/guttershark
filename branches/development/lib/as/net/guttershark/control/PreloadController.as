@@ -65,7 +65,7 @@ package net.guttershark.control
 	[Event("complete", type="flash.events.Event")]
 
 	/**
-	 * The PreloadController Class is a controller you use for loading Assets; it provides you
+	 * The PreloadController class is a controller you use for loading Assets - it provides you
 	 * with methods for starting, stopping, pausing, resuming and prioritizing of assets, 
 	 * and registers all loaded assets with the AssetManager.
 	 * 
@@ -79,8 +79,6 @@ package net.guttershark.control
 	 * public class PreloaderTest extends DocumentController 
 	 * {
 	 *    
-	 *    private var pc:PreloadController;
-	 *    private var em:EventManager;
 	 *    public var preloader:MovieClip;
 	 *    
 	 *    public function PreloaderTest()
@@ -90,7 +88,6 @@ package net.guttershark.control
 	 *    
 	 *    private function setupComplete():void
 	 *    {
-	 *        em = EventManager.gi();
 	 *        pc = new PreloadController(400);
 	 *        var assets:Array = [
 	 *           new Asset("assets/jpg1.jpg","jpg1"),
@@ -102,7 +99,7 @@ package net.guttershark.control
 	 *           new Asset("assets/Pizza_Song.flv","pizza")
 	 *       ];
 	 *       pc.addItems(assets);
-	 *       em.handleEvents(pc,this,"onPC");
+	 *       em.handleEvents(pc,this,"onPC",true);
 	 *       pc.prioritize(assets[4]); //prioritize the swf.
 	 *       pc.start(); //start it;
 	 *       pc.stop(); //pause it
@@ -111,19 +108,19 @@ package net.guttershark.control
 	 *    
 	 *    private function onPCProgress(pe:PreloadProgressEvent):void
 	 *    {
-	 *        trace("progress: ","pixels: "+pe.pixels,"percent: "+pe.percent);
+	 *        trace(pe.toString());
 	 *        preloader.width = pe.pixels
 	 *    }
 	 *    
 	 *    private function onPCAssetComplete(e:AssetCompleteEvent):void
 	 *    {
-	 *        trace("asset complete",e.asset.libraryName,e.asset.source);
+	 *        trace(e.toString());
 	 *    }
 	 *    
 	 *    private function onPCComplete(e:Event):void
 	 *    {
-	 *        addChild(AssetManager.gi().getMovieClipFromSWFLibrary("swf1", "Test"));
-	 *        addChild(AssetManager.gi().getBitmap("jpg1"));
+	 *        addChild(am.getMovieClipFromSWFLibrary("swf1", "Test"));
+	 *        addChild(am.getBitmap("jpg1"));
 	 *    }
 	 * }
 	 * </listing>

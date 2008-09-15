@@ -7,7 +7,7 @@ package net.guttershark.support.preloading.events
 	/**
 	 * The AssetOpenEvent dispatches when an Asset has started downloading.
 	 */
-	public class AssetOpenEvent extends Event
+	final public class AssetOpenEvent extends Event
 	{ 
 		
 		/**

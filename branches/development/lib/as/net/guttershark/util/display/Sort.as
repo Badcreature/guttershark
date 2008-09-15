@@ -1,5 +1,5 @@
-package net.guttershark.util{	import flash.display.Stage;		import flash.display.DisplayObject;	import flash.geom.Point;		import net.guttershark.util.math.MathBase;	
-	/**	 * Sort provides various visual sorting arrangements for arrays of <code>DisplayObject</code>'s.	 */	public class Sort 
+package net.guttershark.util.display{	import flash.display.Stage;		import flash.display.DisplayObject;	import flash.geom.Point;		import net.guttershark.util.math.MathBase;	
+		/**	 * Sort provides various visual sorting arrangements for arrays of <code>DisplayObject</code>'s.	 */	public class Sort 
 	{		
 		protected var _items:Array;
 		protected var _sort:Array;

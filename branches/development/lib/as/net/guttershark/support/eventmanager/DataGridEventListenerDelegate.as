@@ -9,7 +9,7 @@ package net.guttershark.support.eventmanager
 	 * The DataGridEventlistenerDelegate Class implements event listener
 	 * logic for DataGrid components.
 	 */
-	public class DataGridEventListenerDelegate extends EventListenerDelegate
+	final public class DataGridEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**

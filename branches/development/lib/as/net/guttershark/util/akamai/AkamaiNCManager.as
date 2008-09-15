@@ -30,7 +30,7 @@ package net.guttershark.util.akamai
      * @see fl.video.NCManager NCManager class in the Flash API.
      * @see fl.video.VideoPlayer#iNCManagerClass iNCManagerClass interface in the Flash API.
      */
-    public class AkamaiNCManager extends NCManager implements INCManager
+   final public class AkamaiNCManager extends NCManager implements INCManager
     {
 	    
 	    /**

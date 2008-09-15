@@ -719,11 +719,11 @@ package net.guttershark.managers
 			if(!edinfo[obj]) return;
 			var info:Object = Object(edinfo[obj]);
 			var f:String = info.callbackPrefix + func;
-			if(info.passThroughTracking && !info.trackingID) Tracking.Track(f);
+			if(info.passThroughTracking && !info.trackingID) Tracking.track(f);
 			else if(info.passThroughTracking && info.trackingID)
 			{
 				f = info.trackingID + func;
-				Tracking.Track(f);
+				Tracking.track(f);
 			}
 			if(!(f in info.callbackDelegate)) return;
 			if(info.passEventObjects || forceEventObjectPass) info.callbackDelegate[f](e);

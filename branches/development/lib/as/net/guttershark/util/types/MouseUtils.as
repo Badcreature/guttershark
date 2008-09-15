@@ -6,7 +6,7 @@ package net.guttershark.util.types
 	/**
 	 * The MouseUtils class has utility methods for working with mouse positions.
 	 */
-	public class MouseUtils
+	final public class MouseUtils
 	{
 		
 		/**

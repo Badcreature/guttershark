@@ -7,7 +7,7 @@ package net.guttershark.support.preloading.events
 	/**
 	 * The AssetProgressEvent dispatches for an Asset that is downloading.
 	 */
-	public class AssetProgressEvent extends Event
+	final public class AssetProgressEvent extends Event
 	{ 
 		
 		/**

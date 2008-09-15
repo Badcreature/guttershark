@@ -5,7 +5,7 @@ package net.guttershark.display.views
 	import net.guttershark.display.CoreClip;	
 
 	/**
-	 * The BasicView Class provides hooks into a number of different
+	 * The BasicView class provides hooks into a number of different
 	 * events that occur from a DisplayObject - there is a particular
 	 * order of events that occur, which allows you to override
 	 * certain methods to hook in to specific times.
@@ -43,8 +43,6 @@ package net.guttershark.display.views
 				stage.addEventListener(Event.RESIZE, onResize);
 				addr = true;
 			}
-			addListeners();
-			resized();
 			addedToStage();
 		}
 		
@@ -54,7 +52,6 @@ package net.guttershark.display.views
 		private function onRemoved(e:Event):void
 		{
 			removedFromStage();
-			removeListeners();
 		}
 		
 		/**
@@ -101,13 +98,18 @@ package net.guttershark.display.views
 		/**
 		 * Override this method to hook into the added to stage event.
 		 */
-		protected function addedToStage():void{}
+		protected function addedToStage():void
+		{
+			addListeners();
+			resized();
+		}
 		
 		/**
 		 * Override this method to hook into the removed from stage event.
 		 */
 		protected function removedFromStage():void
 		{
+			removeListeners();
 			cleanup();
 		}
 		
@@ -127,7 +129,7 @@ package net.guttershark.display.views
 		protected function removeListeners():void{}
 		
 		/**
-		 * Stub method for showing this view. It sets the visible property to true.
+		 * Stub method for showing this view - it sets the visible property to true.
 		 */
 		public function show():void
 		{
@@ -135,7 +137,7 @@ package net.guttershark.display.views
 		}
 		
 		/**
-		 * Stub method for hiding this view. It sets the visible property to false.
+		 * Stub method for hiding this view - it sets the visible property to false.
 		 */
 		public function hide():void
 		{
@@ -145,7 +147,7 @@ package net.guttershark.display.views
 		/**
 		 * The cleanup method is called after the clip has been removed from
 		 * the display list. This is intended to do temporary cleanup until the clip
-		 * is added back to the display list. Not for final disposing logic. See
+		 * is added back to the display list. Not for final disposing logic - see
 		 * the dispose method for final disposal.
 		 */
 		protected function cleanup():void{}
@@ -154,6 +156,5 @@ package net.guttershark.display.views
 		 * Override this method and write your own dispose logic.
 		 */
 		override public function dispose():void{}
-		
 	}
 }

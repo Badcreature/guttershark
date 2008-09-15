@@ -9,7 +9,7 @@ package net.guttershark.support.eventmanager
 	 * The UIComponentEventListenerDelegate implements event listener logic
 	 * for UICComponent instances.
 	 */
-	public class UIComponentEventListenerDelegate extends EventListenerDelegate
+	final public class UIComponentEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**

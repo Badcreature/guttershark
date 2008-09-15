@@ -6,7 +6,7 @@ package net.guttershark.managers
 	import net.guttershark.display.controls.buttons.IToggleable;	
 
 	/**
-	 * The FormManager Class simplifies managing InteractiveObjects
+	 * The FormManager class simplifies managing InteractiveObjects
 	 * that compose a form - THIS IS STILL IN DEVELOPMENT, BUT EVERYTHING
 	 * HERE WORKS, IT'S JUST NOT FEATURE COMPLETE.
 	 */

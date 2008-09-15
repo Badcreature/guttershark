@@ -5,24 +5,27 @@
 	import flash.display.MovieClip;	
 	
 	/**
-	 * The LocalizableClip is a super implementation of the
-	 * ILocalizableClip interface. This is in place to make you
-	 * conform to putting a textfield on the stage with an
-	 * instance name of "tfield."
+	 * The LocalizableClip class can be used with the LanguageManager
+	 * to add localization support.
 	 */
 	public class LocalizableClip extends MovieClip
 	{
 
 		/**
-		 * The instance of the text field we're using for localized content.
-		 * This is set as a public var because flash requires it to be public.
+		 * The instance of the text field we're using for
+		 * localized content - this is set as a public var
+		 * because flash requires it to be public.
 		 */
 		public var tfield:TextField;
 		
+		/**
+		 * The text id.
+		 */
 		private var textID:String;
 		
 		/**
-		 * Constructor for LocalizableClip instances.
+		 * Constructor for LocalizableClip instances - you should
+		 * bind this class to a movie clip in the library.
 		 */
 		public function LocalizableClip()
 		{

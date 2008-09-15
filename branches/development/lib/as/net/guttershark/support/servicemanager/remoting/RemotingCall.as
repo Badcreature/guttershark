@@ -9,7 +9,7 @@ package net.guttershark.support.servicemanager.remoting
 	import net.guttershark.support.servicemanager.shared.CallFault;
 	import net.guttershark.support.servicemanager.shared.CallResult;		
 
-	public class RemotingCall extends BaseCall
+	final public class RemotingCall extends BaseCall
 	{
 		
 		private var rs:RemotingService;

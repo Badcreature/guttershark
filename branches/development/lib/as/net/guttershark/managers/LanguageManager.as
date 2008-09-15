@@ -9,12 +9,9 @@
 	import net.guttershark.util.xml.XMLLoader;	
 
 	/**
-	 * The LanguageManager manages loading different language
-	 * xml files, and handling updating your text fields with
+	 * The LanguageManager class manages loading different language
+	 * xml files, and handles updating your text fields with
 	 * different text for a different language.
-	 * 
-	 * <p>There is a Locale class in the default Flash API. But
-	 * this class is implemented to simplify things even further.</p>
 	 */
 	public class LanguageManager
 	{

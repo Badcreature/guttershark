@@ -15,7 +15,7 @@ package net.guttershark.display
 	import net.guttershark.util.FlashLibrary;	
 
 	/**
-	 * The CoreClip Class is a base class that provides
+	 * The CoreClip class is a base class that provides
 	 * common properties and methods that are used over
 	 * and over in movie clips; this class is relief
 	 * from having to type the same code over and over.

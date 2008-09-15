@@ -36,7 +36,8 @@ var missed = false;
 for(i;i<l;i++)
 {
 	var item = items[i];
-	if(item.name.indexOf("Component Assets") > -1) continue;
+	if(item.name.indexOf("Component Assets")>-1) continue;
+	if(item.name.indexOf("FLV Playback Skins")>-1) continue;
 	switch(items[i].itemType)
 	{
 		case "undefined":

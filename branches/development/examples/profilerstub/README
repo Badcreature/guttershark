@@ -1,0 +1,12 @@
+The profilerstub is a stub FLEX SWF that makes an attempt to load ./main.swf.
+When this happens successfully, the swf is added to the stage. You can then use 
+FlexBuilder to launch and external application for profiling. In this example, 
+you can target deploy/profilerstub.swf
+
+howto:
+In Flex Builder, switch to the flex profiling perspective. Then go to
+Profile>Profile External Application>New...>Browse... (select the swf deploy/profilerstub.swf).
+
+Then you can select if from the list and select "Launch"
+
+Note that you need Flex Builder Pro to do any of this.

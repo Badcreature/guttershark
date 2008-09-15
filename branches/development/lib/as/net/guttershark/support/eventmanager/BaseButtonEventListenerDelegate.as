@@ -11,7 +11,7 @@ package net.guttershark.support.eventmanager
 	 * is only used as a composite object for Classes that
 	 * extend BaseButton, like the Button component.
 	 */
-	public class BaseButtonEventListenerDelegate extends EventListenerDelegate
+	final public class BaseButtonEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**

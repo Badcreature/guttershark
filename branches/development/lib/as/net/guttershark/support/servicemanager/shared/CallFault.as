@@ -1,6 +1,6 @@
 package net.guttershark.support.servicemanager.shared 
 {
-	public class CallFault 
+	final public class CallFault 
 	{
 		public var fault:*;
 		public function CallFault(fal:*)

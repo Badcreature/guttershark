@@ -11,7 +11,7 @@ package net.guttershark.support.servicemanager.shared
 	 * calls being made that haven't responded is
 	 * not a good thing. This stops that.
 	 */
-	public class Limiter
+	final public class Limiter
 	{
 
 		/**

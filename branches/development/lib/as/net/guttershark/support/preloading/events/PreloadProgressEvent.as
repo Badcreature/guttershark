@@ -8,7 +8,7 @@ package net.guttershark.support.preloading.events
 	 * 
 	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 */
-	public class PreloadProgressEvent extends Event
+	final public class PreloadProgressEvent extends Event
 	{
 		
 		/**

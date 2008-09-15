@@ -8,7 +8,7 @@ package net.guttershark.support.eventmanager
 	 * The ButtonEventListenerDelegate Class implements event handling
 	 * logic for Button components.
 	 */
-	public class ButtonEventListenerDelegate extends EventListenerDelegate
+	final public class ButtonEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**

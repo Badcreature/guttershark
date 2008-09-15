@@ -15,7 +15,7 @@ package net.guttershark.util.akamai
 	 * 
 	 * @see	#findBestIPForAkamaiApplication()
 	 */
-	public class Ident
+	final public class Ident
 	{
 
 		/**

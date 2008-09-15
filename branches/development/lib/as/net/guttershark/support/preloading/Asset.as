@@ -18,7 +18,7 @@ package net.guttershark.support.preloading
 	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 * @see net.guttershark.preloading.AssetLibrary AssetLibrary class
 	 */
-	public class Asset
+	final public class Asset
 	{
 
 		/**
