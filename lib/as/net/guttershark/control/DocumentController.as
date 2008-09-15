@@ -42,6 +42,7 @@ package net.guttershark.control
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.FlashLibrary;
 	import net.guttershark.util.Tracking;
+	import net.guttershark.util.Utilities;
 	import net.guttershark.util.akamai.Ident;
 	import net.guttershark.util.xml.XMLLoader;		
 
@@ -186,7 +187,7 @@ package net.guttershark.control
 		protected var sm:ServiceManager;
 
 		/**
-		 * The singleton instance of the FlashLibrary.
+		 * The FlashLibrary singleton instance.
 		 */
 		protected var fb:FlashLibrary;
 
@@ -204,6 +205,11 @@ package net.guttershark.control
 		 * The Assertions singleton instance.
 		 */
 		protected var ast:Assertions;
+		
+		/**
+		 * The Utilities singleton instance.
+		 */
+		protected var utils:Utilities;
 
 		/**
 		 * Constructor for DocumentController instances. This should not
@@ -220,6 +226,7 @@ package net.guttershark.control
 			km = KeyboardEventManager.gi();
 			em = EventManager.gi();
 			ast = Assertions.gi();
+			utils = Utilities.gi();
 			online = true;
 			setupFlashvars();
 			if(flashvars.macMouseWheel) MacMouseWheel.setup(stage);

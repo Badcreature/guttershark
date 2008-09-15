@@ -1,6 +1,7 @@
 package net.guttershark.util.types
 {
-	
+	import net.guttershark.util.Singleton;	
+
 	import flash.utils.ByteArray;	
 	
 	/**
@@ -10,8 +11,30 @@ package net.guttershark.util.types
 	{
 		
 		/**
+		 * Singleton instance.
+		 */
+		private static var inst:ObjectUtils;
+		
+		/**
+		 * Singleton access.
+		 */
+		public static function gi():ObjectUtils
+		{
+			if(!inst) inst = Singleton.gi(ObjectUtils);
+			return inst;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function ObjectUtils()
+		{
+			Singleton.assertSingle(ObjectUtils);
+		}
+
+		/**
 		 * Clone an object instance - this is not recommended to clone
-		 * anything other than a native top level object.
+		 * anything other than a native top level Object.
 		 * 
 		 * @example Cloning a generic object:
 		 * <listing>	
@@ -23,7 +46,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param object The object to clone.
 		 */
-		public static function clone(object:*):*
+		public function clone(object:*):*
 		{
 			if(!object) throw new ArgumentError("Parameter object cannot be null");
 			var byteArray:ByteArray = new ByteArray();

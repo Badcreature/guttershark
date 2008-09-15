@@ -1,22 +1,42 @@
 package net.guttershark.util.types
 {
+	import net.guttershark.util.Singleton;				
 
 	/**
-	 * The StringUtils class contains utility methods for strings.
+	 * The StringUtils class is a singleton that
+	 * contains utility methods for strings.
 	 */
 	final public class StringUtils 
 	{
 
-		private static const LTRIM_EXP:RegExp = /(\s|\n|\r|\t|\v)*$/;
-		private static const RTRIM_EXP:RegExp = /^(\s|\n|\r|\t|\v)*/m;
+		private static var inst:StringUtils;
+		private const LTRIM_EXP:RegExp = /(\s|\n|\r|\t|\v)*$/;
+		private const RTRIM_EXP:RegExp = /^(\s|\n|\r|\t|\v)*/m;
 		
+		/**
+		 * Singleton access.
+		 */
+		public static function gi():StringUtils
+		{
+			if(!inst) inst = Singleton.gi(StringUtils);
+			return inst;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function StringUtils()
+		{
+			Singleton.assertSingle(StringUtils);
+		}
+
 		/**
 		 * Returns everything after the first occurrence of the provided character in the string.
 		 *
 		 * @param search The string to search in.
 		 * @param returnAfter The string in which everything after the first occurance will be returned.
 		 */
-		public static function afterFirst(search:String, returnAfter:String):String
+		public function afterFirst(search:String, returnAfter:String):String
 		{
 			if(search == null) return null;
 			var idx:int = search.indexOf(returnAfter);
@@ -31,7 +51,7 @@ package net.guttershark.util.types
 		 * @param search The string to search in.
 		 * @param returnAfter The string in which everything after the last occurance will be returned.
 		 */
-		public static function afterLast(search:String, returnAfter:String):String 
+		public function afterLast(search:String, returnAfter:String):String 
 		{
 			if(search == null) return null; 
 			var idx:int = search.lastIndexOf(returnAfter);
@@ -46,7 +66,7 @@ package net.guttershark.util.types
 		 * @param search The string to search in.
 		 * @param returnBefore The string in which everything before the first occurance will be returned.
 		 */
-		public static function beforeFirst(search:String, returnBefore:String):String 
+		public function beforeFirst(search:String, returnBefore:String):String 
 		{
 			if(search == null) return null;
 			var idx:int = search.indexOf(returnBefore);
@@ -60,7 +80,7 @@ package net.guttershark.util.types
 		 * @param search The string.
 		 * @param returnBefore The string in which everything before the last occurance will be returned.
 		 */
-		public static function beforeLast(search:String, returnBefore:String):String
+		public function beforeLast(search:String, returnBefore:String):String
 		{
 			if(search == null) return null;
 			var idx:int = search.lastIndexOf(returnBefore);
@@ -75,7 +95,7 @@ package net.guttershark.util.types
 		 * @param start The string to use as the start index.
 		 * @param end The string to use as the end index.
 		 */
-		public static function between(search:String, start:String, end:String):String 
+		public function between(search:String, start:String, end:String):String 
 		{
 			if(search == null) return null;
 			var str:String = '';
@@ -95,7 +115,7 @@ package net.guttershark.util.types
 		 * @param str The string.
 		 * @param allWords Whether or not all words will be capitalized.
 		 */
-		public static function capitalize(p_string:String, allWords:Boolean=false):String 
+		public function capitalize(p_string:String, allWords:Boolean=false):String 
 		{
 			var str:String = trimLeft(p_string);
 			if(allWords) return str.replace(/^.|\b./g,_upperCase);
@@ -116,7 +136,7 @@ package net.guttershark.util.types
 		 * 
 		 * @return Array
 		 */
-		public static function block(p_string:String, p_len:uint, p_delim:String = "."):Array 
+		public function block(p_string:String, p_len:uint, p_delim:String = "."):Array 
 		{
 			var arr:Array = new Array();
 			if(p_string == null || !contains(p_string,p_delim)) return arr;
@@ -143,7 +163,7 @@ package net.guttershark.util.types
 		 *
 		 * @param str The String whose beginning whitespace will be removed.
 		 */
-		public static function trimLeft(str:String):String 
+		public function trimLeft(str:String):String 
 		{
 			if(str == null) return '';
 			return str.replace(/^\s+/,'');
@@ -154,7 +174,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The String whose ending whitespace will be removed.
 		 */
-		public static function trimRight(str:String):String 
+		public function trimRight(str:String):String 
 		{
 			if(str == null) return '';
 			return str.replace(/\s+$/,'');
@@ -167,7 +187,7 @@ package net.guttershark.util.types
 		 * @param pattern The character or sub-string to count.
 		 * @param caseSensitive Whether or not the search is case sensitive.
 		 */
-		public static function countOf(search:String, pattern:String, caseSensitive:Boolean = true):uint 
+		public function countOf(search:String, pattern:String, caseSensitive:Boolean = true):uint 
 		{
 			if(search == null) return 0;
 			var char:String = escapePattern(pattern);
@@ -182,7 +202,7 @@ package net.guttershark.util.types
 		 * @param char Character for pad.
 		 * @param length Length to pad to.
 		 */
-		public static function padLeft(str:String, char:String, length:uint):String 
+		public function padLeft(str:String, char:String, length:uint):String 
 		{
 			var s:String = str;
 			while(s.length<length) s = char+s;
@@ -196,7 +216,7 @@ package net.guttershark.util.types
 		 * @param char Character for pad.
 		 * @param length Length to pad to.
 		 */
-		public static function padRight(str:String, char:String, length:uint):String 
+		public function padRight(str:String, char:String, length:uint):String 
 		{
 			var s:String = str;
 			while (s.length<length) s += char;
@@ -208,11 +228,11 @@ package net.guttershark.util.types
 		 *
 		 * @param str The string to proper case.
 		 */
-		public static function properCase(str:String):String 
+		public function properCase(str:String):String 
 		{
 			if(str == null) return null;
-			var str:String = str.toLowerCase().replace(/\b([^.?;!]+)/,capitalize);
-			return str.replace(/\b[i]\b/,"I");
+			var st:String = str.toLowerCase().replace(/\b([^.?;!]+)/,capitalize);
+			return st.replace(/\b[i]\b/,"I");
 		}
 
 		/**
@@ -222,7 +242,7 @@ package net.guttershark.util.types
 		 * @param pattern The string that will be removed from the input string.
 		 * @param caseSensitive Whether or not the replace is case sensitive.
 		 */
-		public static function remove(search:String, pattern:String, caseSensitive:Boolean = true):String 
+		public function remove(search:String, pattern:String, caseSensitive:Boolean = true):String 
 		{
 			if(search == null) return null;
 			var rem:String = escapePattern(pattern);
@@ -235,7 +255,7 @@ package net.guttershark.util.types
 		 *
 		 * @param str The String that will be reversed.
 		 */
-		public static function reverse(str:String):String 
+		public function reverse(str:String):String 
 		{
 			if(str == null) return null;
 			return str.split('').reverse().join('');
@@ -246,7 +266,7 @@ package net.guttershark.util.types
 		 *
 		 * @param str The String that will be reversed.
 		 */
-		public static function reverseWords(str:String):String 
+		public function reverseWords(str:String):String 
 		{
 			if(str == null) return '';
 			return str.split(/\s+/).reverse().join('');
@@ -258,7 +278,7 @@ package net.guttershark.util.types
 		 * @param source The source string.
 		 * @param target The target string.
 		 */
-		public static function similarity(source:String, target:String):Number 
+		public function similarity(source:String, target:String):Number 
 		{
 			var ed:uint = editDistance(source,target);
 			var maxLen:uint = Math.max(source.length,target.length);
@@ -274,7 +294,7 @@ package net.guttershark.util.types
 		 * @param source The source string.
 		 * @param target The target string.
 		 */
-		public static function editDistance(source:String, target:String):uint 
+		public function editDistance(source:String, target:String):uint 
 		{
 			var i:Number;
 			var j:Number;
@@ -309,7 +329,7 @@ package net.guttershark.util.types
 		 *
 		 * @param str The source string.
 		 */
-		public static function swapCase(str:String):String 
+		public function swapCase(str:String):String 
 		{
 			if(str == null) return null;
 			return str.replace(/(\w)/,_swapCase);
@@ -320,7 +340,7 @@ package net.guttershark.util.types
 		 *
 		 * @param str The source string.
 		 */
-		public static function stripTags(str:String):String 
+		public function stripTags(str:String):String 
 		{
 			if(str == null) return null;
 			return str.replace(/<\/?[^>]+>/igm,'');
@@ -331,7 +351,7 @@ package net.guttershark.util.types
 		 *
 		 * @param str The string.
 		 */
-		public static function wordCount(str:String):uint 
+		public function wordCount(str:String):uint 
 		{
 			if(str == null) return 0;
 			return str.match(/\b\w+\b/g).length;
@@ -344,7 +364,7 @@ package net.guttershark.util.types
 		 * @param len The length the string should be shortend to.
 		 * @param suffix The string to append to the end of the truncated string.
 		 */
-		public static function truncate(str:String, len:uint, suffix:String = "..."):String 
+		public function truncate(str:String, len:uint, suffix:String = "..."):String 
 		{
 			if(str == null) return '';
 			if(!len) len = str.length;
@@ -366,7 +386,7 @@ package net.guttershark.util.types
 		 * @param key The key to search for.
 		 * @param caseSensitive Whether or not the search is case sensitive.
 		 */
-		public static function search(str:String,key:String,caseSensitive:Boolean = true):Boolean
+		public function search(str:String,key:String,caseSensitive:Boolean = true):Boolean
 		{
 			if(!caseSensitive)
 			{
@@ -383,7 +403,7 @@ package net.guttershark.util.types
 		 * @param s2 The second string.
 		 * @param caseSensitive Whether or not the comparison is case sensitive.
 		 */
-		public static function equals(s1:String, s2:String, caseSensitive:Boolean = false):Boolean
+		public function equals(s1:String, s2:String, caseSensitive:Boolean = false):Boolean
 		{
 			return (caseSensitive) ? (s1 == s2) : (s1.toUpperCase() == s2.toUpperCase());
 		}
@@ -395,7 +415,7 @@ package net.guttershark.util.types
 		 * @param oldChar The pattern to be removed.
 		 * @param newChar The new string to instert.
 		 */
-		public static function replace(str:String, oldChar:String, newChar:String):String
+		public function replace(str:String, oldChar:String, newChar:String):String
 		{
 			return str.split(oldChar).join(newChar);
 		}		
@@ -405,7 +425,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function removeSpaces(str:String):String
+		public function removeSpaces(str:String):String
 		{
 			return replace(str," ","");
 		}
@@ -415,7 +435,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function removeTabs(str:String):String
+		public function removeTabs(str:String):String
 		{
 			return replace(str,"	","");	
 		}
@@ -425,7 +445,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function trim(str:String):String
+		public function trim(str:String):String
 		{
 			return ltrim(rtrim(str));
 		}
@@ -435,7 +455,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */	
-		public static function ltrim(str:String):String
+		public function ltrim(str:String):String
 		{
 			return str.replace(LTRIM_EXP,"");
 		}
@@ -445,7 +465,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function rtrim(str:String):String
+		public function rtrim(str:String):String
 		{
 			return str.replace(RTRIM_EXP,"");
 		}
@@ -455,7 +475,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function trimall(str:String):String
+		public function trimall(str:String):String
 		{
 			var o:String = "";
 			var tab:Number = 9;
@@ -479,7 +499,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function toLowerCamel(str:String):String
+		public function toLowerCamel(str:String):String
 		{
 			var o:String = new String();
 			for(var i:int = 0;i < str.length;i++)
@@ -504,7 +524,7 @@ package net.guttershark.util.types
 		 * @param input The string to search.
 		 * @param prefix The prefix that will be tested against the string.
 		 */
-		public static function beginsWith(input:String, prefix:String):Boolean
+		public function beginsWith(input:String, prefix:String):Boolean
 		{			
 			return (prefix == input.substring(0,prefix.length));
 		}
@@ -515,7 +535,7 @@ package net.guttershark.util.types
 		 * @param input The string to search.
 		 * @param prefix The suffic that will be tested against the string.
 		 */
-		public static function endsWith(input:String, suffix:String):Boolean
+		public function endsWith(input:String, suffix:String):Boolean
 		{
 			return (suffix == input.substring(input.length - suffix.length));
 		}			
@@ -525,7 +545,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param nm A Number or a String that will cast to a Number.
 		 */
-		public static function commaFormatNumber(nm:Object):String
+		public function commaFormatNumber(nm:Object):String
 		{
 			var tmp:String = String(nm);
 			var outString:String = "";
@@ -543,7 +563,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The string.
 		 */
-		public static function firstToUpper(str:String):String
+		public function firstToUpper(str:String):String
 		{
 			return str.charAt(0).toUpperCase() + str.substr(1);
 		}	
@@ -553,7 +573,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function toTitleCase(str:String):String
+		public function toTitleCase(str:String):String
 		{
 			var lstr:String = str.toLowerCase();
 			return lstr.replace(/\b([a-z])/g,function($0:*):*{return $0.toUpperCase();});
@@ -564,7 +584,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param s The target string that has HTML in it.
 		 */
-		public static function htmlEncode(s:String):String
+		public function htmlEncode(s:String):String
 		{
 			s = replace(s," ","&nbsp;");
 			s = replace(s,"&","&amp;");
@@ -594,7 +614,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param s The target string that has HTML in it.
 		 */
-		public static function htmlDecode(s:String):String
+		public function htmlDecode(s:String):String
 		{
 			s = replace(s,"&nbsp;"," ");
 			s = replace(s,"&amp;","&");
@@ -627,7 +647,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The string.
 		 */
-		public static function sanitizeNull(str:String):String
+		public function sanitizeNull(str:String):String
 		{
 			return (str == null || str == "null") ? "" : str;
 		}
@@ -637,7 +657,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param n The target number.
 		 */	
-		public static function stripZeroOnFloat(n:Number):String
+		public function stripZeroOnFloat(n:Number):String
 		{
 			var str:String = "";
 			var a:Array = String(n).split(".");
@@ -651,7 +671,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param n The target number.
 		 */
-		public static function padZeroOnFloat(n:Number):String
+		public function padZeroOnFloat(n:Number):String
 		{
 			return (n > 1 || n < 0) ? String(n) : ("0." + String(n).split(".")[1]);
 		}
@@ -667,7 +687,7 @@ package net.guttershark.util.types
 		 * trace(StringUtils.floatToString(0.0000001)); //returns .00000001
 		 * </listing>
 		 */
-		public static function floatToString(n:Number):String
+		public function floatToString(n:Number):String
 		{
 			var s:String = String(n);
 			return (n < 1 && (s.indexOf(".") <= -1 || s.indexOf("e") <= -1)) ? "0." + String(n + 1).split(".")[1] : s;
@@ -678,7 +698,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param n The target number.
 		 */
-		public static function stripZeroAndRepairFloat(n:Number):String
+		public function stripZeroAndRepairFloat(n:Number):String
 		{
 			var str:String;
 			var tmp:String;
@@ -706,7 +726,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param amount The number of characters to generate.
 		 */
-		public static function randChar(amount:Number):String
+		public function randChar(amount:Number):String
 		{
 			var str:String = "";
 			for(var i:int = 0;i < amount;i++) str += String.fromCharCode(Math.round(Math.random() * (126 - 33)) + 33);
@@ -718,7 +738,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param amount The number of characters to generate.
 		 */	
-		public static function randLowerChar(amount:Number):String
+		public function randLowerChar(amount:Number):String
 		{
 			var str:String = "";
 			for(var i:int = 0;i < amount;i++) str += String.fromCharCode(Math.round(Math.random() * (122 - 97)) + 97);
@@ -730,7 +750,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param amount The amount of numbers to generate.
 		 */		
-		public static function randNum(amount:Number):String
+		public function randNum(amount:Number):String
 		{
 			var str:String = "";
 			for(var i:int = 0;i < amount;i++) str += String.fromCharCode(Math.round(Math.random() * (57 - 48)) + 48);
@@ -742,7 +762,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param amount The number of characters to generate.
 		 */		
-		public static function randSpecialChar(amount:Number):String
+		public function randSpecialChar(amount:Number):String
 		{
 			var str:String = "";
 			for(var i:int = 0;i < amount;i++) str += String.fromCharCode(Math.round(Math.random() * (64 - 33)) + 33);
@@ -754,7 +774,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function detectBr(str:String):Boolean
+		public function detectBr(str:String):Boolean
 		{
 			return (str.split("<br").length > 1) ? true : false;
 		}
@@ -764,7 +784,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function toDoubleQuote(str:String):String
+		public function toDoubleQuote(str:String):String
 		{
 			var sq:String = "'";
 			var dq:String = String.fromCharCode(34);
@@ -776,7 +796,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The target string.
 		 */
-		public static function toSingleQuote(str:String):String
+		public function toSingleQuote(str:String):String
 		{
 			var sq:String = "'";
 			var dq:String = String.fromCharCode(34);
@@ -793,7 +813,7 @@ package net.guttershark.util.types
 		 * StringUtils.toNumeric("123-123-1234"); //returns 1221231234 
 		 * </listing>
 		 */
-		public static function toNumeric(str:String):String
+		public function toNumeric(str:String):String
 		{
 			var len:Number = str.length;
 			var result:String = "";
@@ -810,7 +830,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param source A full file url or path.
 		 */
-		public static function FindFileType(source:String):String
+		public function findFileType(source:String):String
 		{
 			var fileType:String;
 			var filenameRegEx:RegExp = new RegExp("\.([a-zA-Z0-9]{1,4}$)","i");
@@ -824,7 +844,7 @@ package net.guttershark.util.types
 		 * @private
 		 * only used internally, see net.guttershark.util.Assertions for a public version.
 		 */
-		private static function contains(p_string:String, p_char:String):Boolean 
+		private function contains(p_string:String, p_char:String):Boolean 
 		{
 			if(p_string == null) return false;
 			return p_string.indexOf(p_char) != -1;
@@ -833,7 +853,7 @@ package net.guttershark.util.types
 		/**
 		 * @private
 		 */
-		private static function escapePattern(p_pattern:String):String 
+		private function escapePattern(p_pattern:String):String 
 		{
 			// RM: might expose this one, I've used it a few times already.
 			return p_pattern.replace(/(\]|\[|\{|\}|\(|\)|\*|\+|\?|\.|\\)/g,'\\$1');
@@ -842,7 +862,7 @@ package net.guttershark.util.types
 		/**
 		 * @private
 		 */
-		private static function _minimum(a:uint, b:uint, c:uint):uint 
+		private function _minimum(a:uint, b:uint, c:uint):uint 
 		{
 			return Math.min(a,Math.min(b,Math.min(c,a)));
 		}
@@ -850,9 +870,9 @@ package net.guttershark.util.types
 		/**
 		 * @private
 		 */
-		private static function _quote(p_string:String, ...args):String
+		private function _quote(p_string:String, ...args):String
 		{
-			switch (p_string) 
+			switch (p_string)
 			{
 				case "\\":
 					return "\\\\";
@@ -870,7 +890,7 @@ package net.guttershark.util.types
 		/**
 		 * @private
 		 */
-		private static function _upperCase(p_char:String, ...args):String 
+		private function _upperCase(p_char:String, ...args):String 
 		{
 			return p_char.toUpperCase();
 		}
@@ -878,7 +898,7 @@ package net.guttershark.util.types
 		/**
 		 * @private
 		 */
-		private static function _swapCase(p_char:String, ...args):String 
+		private function _swapCase(p_char:String, ...args):String 
 		{
 			var lowChar:String = p_char.toLowerCase();
 			var upChar:String = p_char.toUpperCase();

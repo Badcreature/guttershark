@@ -76,7 +76,7 @@ package net.guttershark.support.preloading
 		{
 			if(!forceFileType)
 			{
-				var fileType:String = StringUtils.FindFileType(source);
+				var fileType:String = StringUtils.gi().findFileType(source);
 				if(!fileType) throw new Error("The filetype could not be found for this item: " + source);
 				this.fileType = fileType;
 			}

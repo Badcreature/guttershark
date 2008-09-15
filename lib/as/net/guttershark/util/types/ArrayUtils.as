@@ -1,6 +1,7 @@
 package net.guttershark.util.types
 {
-
+	import net.guttershark.util.Singleton;	
+	
 	/**
 	 * The ArrayUtils class contains utility methods for arrays.
 	 */
@@ -8,13 +9,45 @@ package net.guttershark.util.types
 	{
 
 		/**
+		 * Singleton instance.
+		 */
+		private static var inst:ArrayUtils;
+		
+		/**
+		 * Singleton access.
+		 */
+		public static function gi():ArrayUtils
+		{
+			if(!inst) inst = Singleton.gi(ArrayUtils);
+			return inst;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function ArrayUtils()
+		{
+			Singleton.assertSingle(ArrayUtils);
+		}
+
+		public function search():void
+		{
+			var a:int = 0;
+		}
+
+		public static function Search():void
+		{
+			var a:int = 0;
+		}
+
+		/**
 		 * Clones an array.
 		 * 
 		 * @param array The array to clone.
 		 */
-		public static function clone(array:Array):Array
+		public function clone(array:Array):Array
 		{
-			//!fast - http://agit8.turbulent.ca/bwp/2008/08/04/flash-as3-optimization-fastest-way-to-copy-an-array/
+			//fast! - http://agit8.turbulent.ca/bwp/2008/08/04/flash-as3-optimization-fastest-way-to-copy-an-array/
 			if(!array) throw new ArgumentError("The array cannot be null");
 			return array.concat();
 		}
@@ -26,12 +59,12 @@ package net.guttershark.util.types
 		 * @param element The object to insert.
 		 * @param index The index the object will be inserted into.
 		 */
-		public static function insert(a:Array, element:Object, index:int):Array 
+		public function insert(a:Array, element:Object, index:int):Array 
 		{
 			var aA:Array = a.slice(0,index - 1);
 			var aB:Array = a.slice(index,a.length - 1);
 			aA.push(element);
-			return ArrayUtils.merge(aA,aB);
+			return merge(aA,aB);
 		}
 
 		/**
@@ -40,7 +73,7 @@ package net.guttershark.util.types
 		 * @param a The array to search and remove from.
 		 * @param element The element to remove from the array.
 		 */
-		public static function remove(a:Array, element:Object):Array 
+		public function remove(a:Array, element:Object):Array 
 		{
 			for(var i:int = 0;i < a.length; i++) if(a[i]===element) a.splice(i,1);
 			return a;
@@ -52,7 +85,7 @@ package net.guttershark.util.types
 		 * @param a The array to search.
 		 * @param val The element to search for.
 		 */			
-		public static function contains(a:Array, element:Object):Boolean 
+		public function contains(a:Array, element:Object):Boolean 
 		{
 			return(a.indexOf(element) != -1);
 		}
@@ -75,7 +108,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param a The array to shuffle.
 		 */
-		public static function shuffle(a:Array):void 
+		public function shuffle(a:Array):void 
 		{
 			var l:int = a.length;
 			var i:int = 0;
@@ -94,7 +127,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param a The array to uniquely copy.
 		 */
-		public static function uniqueCopy(a:Array):Array 
+		public function uniqueCopy(a:Array):Array 
 		{
 			var newArray:Array = new Array();
 			var len:int = a.length;
@@ -115,7 +148,7 @@ package net.guttershark.util.types
 		 * @param arr1 The first array.
 		 * @param arr2 The second array.
 		 */
-		public static function equals(arr1:Array, arr2:Array):Boolean 
+		public function equals(arr1:Array, arr2:Array):Boolean 
 		{
 			if(arr1.length!=arr2.length) return false;
 			var len:int = arr1.length;
@@ -129,9 +162,9 @@ package net.guttershark.util.types
 		 * @param a The first array.
 		 * @param b The second array. 
 		 */
-		public static function merge(a:Array, b:Array):Array 
+		public function merge(a:Array, b:Array):Array 
 		{
-			var c:Array = ArrayUtils.clone(b);
+			var c:Array = clone(b);
 			for(var i:int = a.length - 1;i > -1; i--) c.unshift(a[i]);
 			return c;
 		}	
@@ -140,10 +173,10 @@ package net.guttershark.util.types
 		 * Swap two element's positions in an array.
 		 * 
 		 * @param a The target array in which the swap will occur.
-		 * @param nA The first index.
-		 * @param nB THe second index.
+		 * @param index1 The first index.
+		 * @param index2 The second index.
 		 */
-		public static function swap(a:Array, index1:int, index2:int):Array
+		public function swap(a:Array, index1:int, index2:int):Array
 		{
 			if(index1>=a.length||index1<0) 
 			{
@@ -166,7 +199,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param a The array to remove duplicates from.
 		 */
-		public static function removeDuplicate(a:Array):Array 
+		public function removeDuplicate(a:Array):Array 
 		{
 			a.sort();
 			var o:Array = new Array();
@@ -181,7 +214,7 @@ package net.guttershark.util.types
 		 * @param a The first array.
 		 * @param b The second array.
 		 */	
-		public static function matchValues(a:Array, b:Array):Boolean 
+		public function matchValues(a:Array, b:Array):Boolean 
 		{
 			var f:int = 0;
 			var l:int = 0;
@@ -204,7 +237,7 @@ package net.guttershark.util.types
 		 * trace("arrays (ordered) compare: " + ArrayUtil.compare(a,b,true)); //false
 		 * </listing>
 		 */
-		public static function compare(a:Array, b:Array, ordered:Boolean = false):Boolean
+		public function compare(a:Array, b:Array, ordered:Boolean = false):Boolean
 		{
 			var c:Array = (ordered) ? a : a.concat().sort(Array.DESCENDING);
 			var d:Array = (ordered) ? b : b.concat().sort(Array.DESCENDING);
@@ -223,7 +256,7 @@ package net.guttershark.util.types
 		 * @param val The value to match.
 		 * @param caseInsensitive Whether or not <em><code>prop</code></em> and <code>val</code> should be case-insensitive (only if search <em><code>val</code></em> is a <code>String</code>).
 		 */
-		public static function locatePropVal(a:Array, prop:String, val:Object, caseInsensitive:Boolean = false):Object 
+		public function locatePropVal(a:Array, prop:String, val:Object, caseInsensitive:Boolean = false):Object 
 		{
 			for(var o:String in a)
 			{
@@ -242,7 +275,7 @@ package net.guttershark.util.types
 		 * @param val The value to match.
 		 * @param caseInsensitive Whether or not <em><code>prop</code></em> and <code>val</code> should be case-insensitive (only if search <em><code>val</code></em> is a <code>String</code>).
 		 */
-		public static function locatePropValIndex(a:Array, prop:String, val:Object, caseInsensitive:Boolean = false):int 
+		public function locatePropValIndex(a:Array, prop:String, val:Object, caseInsensitive:Boolean = false):int 
 		{
 			for(var i:int = 0;i < a.length; i++)
 			{
@@ -261,7 +294,7 @@ package net.guttershark.util.types
 		 * @param val The value to match.
 		 * @param caseInsensitive Whether or not <em><code>prop</code></em> and <code>val</code> should be case-insensitive (only if search <em><code>val</code></em> is a <code>String</code>).
 		 */
-		public static function sliceByPropVal(a:Array, prop:String, val:Object, caseInsensitive:Boolean = false):Array 
+		public function sliceByPropVal(a:Array, prop:String, val:Object, caseInsensitive:Boolean = false):Array 
 		{
 			var ma:Array = new Array();
 			for(var o :String in a) 
@@ -286,7 +319,7 @@ package net.guttershark.util.types
 		 * var nearestHigh:Number = ArrayUtil.nearestNeighbor(4,a,true); //returns 1 (index)
 		 * </listing>
 		 */
-		public static function nearestNeighbor(val:Number,range:Array,returnIndex:Boolean = false):Number
+		public function nearestNeighbor(val:Number,range:Array,returnIndex:Boolean = false):Number
 		{
 			var nearest:Number = range[0];
 			var index:uint = 0;
@@ -306,7 +339,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param a The array to search.
 		 */
-		public static function minIndex(a:Array):int 
+		public function minIndex(a:Array):int 
 		{
 			var i:int = a.length;
 			var min:Number = a[0];
@@ -320,7 +353,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param a The array to search.
 		 */	
-		public static function maxIndex(a:Array):int 
+		public function maxIndex(a:Array):int 
 		{
 			var i:int = a.length;
 			var max:Number = a[0];
@@ -334,10 +367,10 @@ package net.guttershark.util.types
 		 * 
 		 * @param a The array to search.
 		 */	
-		public static function minValue(a:Array):Number 
+		public function minValue(a:Array):Number 
 		{
 			if(a.length==0) return 0;
-			return a[ArrayUtils.minIndex(a)];
+			return a[minIndex(a)];
 		}
 
 		/**
@@ -345,10 +378,10 @@ package net.guttershark.util.types
 		 * 
 		 * @param a The array to search.
 		 */	
-		public static function maxVal(a:Array):Number
+		public function maxVal(a:Array):Number
 		{
 			if(a.length==0) return 0;
-			return a[ArrayUtils.maxIndex(a)];
+			return a[maxIndex(a)];
 		}
 	}
 }
