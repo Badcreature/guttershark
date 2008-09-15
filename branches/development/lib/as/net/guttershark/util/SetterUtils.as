@@ -2,20 +2,42 @@ package net.guttershark.util
 {
 
 	/**
-	 * The SetterUtils class has utility methods that decrease
-	 * amount of code you have to write for setting the same
+	 * The SetterUtils class is a singleton that has utility methods
+	 * that decrease amount of code you have to write for setting the same
 	 * properties on multiple objects.
 	 */
 	final public class SetterUtils 
 	{
 		
 		/**
+		 * Singleton instance.
+		 */
+		private static var inst:SetterUtils;
+		
+		/**
+		 * Singleton access.
+		 */
+		public static function gi():SetterUtils
+		{
+			if(!inst) inst = Singleton.gi(SetterUtils);
+			return inst;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function SetterUtils()
+		{
+			Singleton.assertSingle(SetterUtils);
+		}
+
+		/**
 		 * Set the buttonMode property on all objects provided.
 		 * 
 		 * @param value The value to set the buttonMode property to.
 		 * @param ...objs An array of objects that have the buttonMode property.
 		 */
-		public static function buttonMode(value:Boolean, ...objs:Array):void
+		public function buttonMode(value:Boolean, ...objs:Array):void
 		{
 			for each(var obj:* in objs) obj.buttonMode = value;
 		}
@@ -26,7 +48,7 @@ package net.guttershark.util
 		 * @param value The value to set the visible property to.
 		 * @param ...objs An array of objects with the visible property.
 		 */
-		public static function visible(value:Boolean, ...objs:Array):void
+		public function visible(value:Boolean, ...objs:Array):void
 		{
 			for each(var clip:* in objs) clip.visible = value;
 		}
@@ -37,7 +59,7 @@ package net.guttershark.util
 		 * @param value The value to set the alpha to.
 		 * @param ...objs An array of objects with an alpha property.
 		 */
-		public static function alpha(value:Number, ...objs:Array):void
+		public function alpha(value:Number, ...objs:Array):void
 		{
 			for each(var clip:* in objs) clip.alpha = value;
 		}
@@ -59,7 +81,7 @@ package net.guttershark.util
 		 * @param value The value to set the useHandCursor property to.
 		 * @param ...objs An array of objects with the useHandCursor property.
 		 */
-		public function useHandCursor(value:Boolean, ...objs:Array):void
+		public function seHandCursor(value:Boolean, ...objs:Array):void
 		{
 			for each(var clip:* in objs) clip.useHandCursor = value;
 		}	
@@ -70,7 +92,7 @@ package net.guttershark.util
 		 * @param value The value to set the mouseChildren property to on all objects.
 		 * @param ...objs An array of objects with the mouseChildren property.
 		 */
-		public static function mouseChildren(value:Boolean,...objs:Array):void
+		public function mouseChildren(value:Boolean,...objs:Array):void
 		{
 			for each(var clip:* in objs) clip.mouseChildren = value;
 		}
@@ -81,7 +103,7 @@ package net.guttershark.util
 		 * @param value The value to set the mouseEnabled property to on all objects.
 		 * @param ..objs An array of objects with the mouseEnabled property.
 		 */
-		public static function mouseEnabled(value:Boolean,...objs:Array):void
+		public function mouseEnabled(value:Boolean,...objs:Array):void
 		{
 			for each(var clip:* in objs) clip.mouseEnabled = value;
 		}
@@ -91,7 +113,7 @@ package net.guttershark.util
 		 * 
 		 * @param ...fields The textfields to set tabIndex on.
 		 */
-		public static function tabIndex(...fields:Array):void
+		public function tabIndex(...fields:Array):void
 		{
 			var i:int = 0;
 			while(fields[i]!=null){fields[i].tabIndex=(i+1);i++;};
@@ -103,7 +125,7 @@ package net.guttershark.util
 		 * @param The value to set the tabChildren property to on all objects.
 		 * @param ..objs An array of objects with the tabChildren property.
 		 */
-		public static function tabChildren(value:Boolean,...objs:Array):void
+		public function tabChildren(value:Boolean,...objs:Array):void
 		{
 			for each(var clip:* in objs) clip.tabChildren = value;
 		}
@@ -114,7 +136,7 @@ package net.guttershark.util
 		 * @param The value to set the tabChildren property to on all objects.
 		 * @param ..objs An array of objects with the tabEnabled property.
 		 */
-		public static function tabEnabled(value:Boolean,...objs:Array):void
+		public function tabEnabled(value:Boolean,...objs:Array):void
 		{
 			for each(var clip:* in objs) clip.tabChildren = value;
 		}
@@ -125,7 +147,7 @@ package net.guttershark.util
 		 * @param value The autoSize value.
 		 * @param ...fields The textfields to set the autoSize property on.
 		 */
-		public static function autoSize(value:String, ...fields:Array):void
+		public function autoSize(value:String, ...fields:Array):void
 		{
 			var i:int = 0;
 			while(fields[i]!=null){fields[i].autoSize=value;i++;};

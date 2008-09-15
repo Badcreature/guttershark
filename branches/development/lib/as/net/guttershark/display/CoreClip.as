@@ -12,7 +12,8 @@ package net.guttershark.display
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.util.Assertions;
-	import net.guttershark.util.FlashLibrary;	
+	import net.guttershark.util.FlashLibrary;
+	import net.guttershark.util.Utilities;	
 
 	/**
 	 * The CoreClip class is a base class that provides
@@ -76,7 +77,12 @@ package net.guttershark.display
 		/**
 		 * An instance of a layout manager.
 		 */
-		public var lm:LayoutManager;
+		protected var lm:LayoutManager;
+		
+		/**
+		 * The Utilities singleton instance.
+		 */
+		protected var utils:Utilities;
 
 		/**
 		 * Constructor for CoreClips instances.
@@ -94,6 +100,7 @@ package net.guttershark.display
 			fb = FlashLibrary.gi();
 			snm = SoundManager.gi();
 			ast = Assertions.gi();
+			utils = Utilities.gi();
 		}
 
 		/**
@@ -138,6 +145,7 @@ package net.guttershark.display
 			fb = null;
 			snm = null;
 			ast = null;
+			utils = null;
 		}
 	}
 }

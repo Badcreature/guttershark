@@ -1,14 +1,37 @@
 package net.guttershark.util.types 
 {
-	
+	import net.guttershark.util.Singleton;	
+
 	import flash.display.Bitmap;
 	
 	/**
 	 * The BitmapUtils class has utility methods for easy access to common Bitmap operations.
 	 */
-	final public class BitmapUtils 
+	final public class BitmapUtils
 	{
 	
+		/**
+		 * Singleton instance.
+		 */
+		private static var inst:BitmapUtils;
+		
+		/**
+		 * Singleton access.
+		 */
+		public static function gi():BitmapUtils
+		{
+			if(!inst) inst = Singleton.gi(BitmapUtils);
+			return inst;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function BitmapUtils()
+		{
+			Singleton.assertSingle(BitmapUtils);
+		}
+
 		/**
 		 * Copy a Bitmap.
 		 * 
@@ -24,9 +47,9 @@ package net.guttershark.util.types
 		 * addChild(bitmap2);
 		 * </listing>
 		 * 
-		 * @param Bitmap The bitmap to copy.
+		 * @param bitmapToCopy The bitmap to copy.
 		 */
-		public static function copyBitmap(bitmapToCopy:Bitmap):Bitmap
+		public function copyBitmap(bitmapToCopy:Bitmap):Bitmap
 		{
 			if(!bitmapToCopy) throw new ArgumentError("Parameter bitmapToCopy cannot be null");
 			var b:Bitmap = new Bitmap(bitmapToCopy.bitmapData);

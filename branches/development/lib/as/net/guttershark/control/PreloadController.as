@@ -196,6 +196,11 @@ package net.guttershark.control
 		private var lastCompleteAsset:Asset;
 		
 		/**
+		 * ArrayUtils singleton.
+		 */
+		private var art:ArrayUtils;
+
+		/**
 		 * Constructor for PreloadController instances.
 		 * 
 		 * @param 	pixelsToFill	The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
@@ -206,6 +211,7 @@ package net.guttershark.control
 		{
 			if(pixelsToFill<=0) throw new ArgumentError("Pixels to fill must be greater than zero.");
 			WorkerInstances.RegisterDefaultWorkers();
+			art = ArrayUtils.gi();
 			totalPixelsToFill = pixelsToFill;
 			bytesTotalPool = [];
 			bytesLoadedPool = [];
@@ -226,9 +232,9 @@ package net.guttershark.control
 		 */
 		public function addItems(items:Array):void
 		{
-			if(!this.loadItems[0]) this.loadItems = ArrayUtils.clone(items);
+			if(!this.loadItems[0]) this.loadItems = art.clone(items);
 			else this.loadItems.concat(items);
-			loadItemsDuplicate = ArrayUtils.clone(loadItems);
+			loadItemsDuplicate = art.clone(loadItems);
 		}
 		
 		/**
@@ -239,12 +245,9 @@ package net.guttershark.control
 		 */
 		public function addPrioritizedItems(items:Array):void
 		{
-			if(!this.loadItems[0]) this.loadItems = ArrayUtils.clone(items);
-			else
-			{
-				for(var i:int = 0; i < items.length; i++) this.loadItems.unshift(items[i]);
-			}
-			loadItemsDuplicate = ArrayUtils.clone(loadItems);
+			if(!this.loadItems[0]) this.loadItems = art.clone(items);
+			else for(var i:int = 0; i < items.length; i++) this.loadItems.unshift(items[i]);
+			loadItemsDuplicate = art.clone(loadItems);
 		}
 
 		/**
