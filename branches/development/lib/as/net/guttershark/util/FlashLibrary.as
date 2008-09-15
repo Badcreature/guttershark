@@ -58,7 +58,7 @@ package net.guttershark.util
 		 * 
 		 * @param classIdentifier The name of the item in the library.
 		 */
-		public static function movieclip(classIdentifier:String):MovieClip
+		public function movieclip(classIdentifier:String):MovieClip
 		{
 			var instance:Class = flash.utils.getDefinitionByName(classIdentifier) as Class;
 			var s:MovieClip = new instance() as MovieClip;
@@ -70,7 +70,7 @@ package net.guttershark.util
 		 * 
 		 * @param classIdentifier The name of the item in the library.
 		 */
-		public static function sound(classIdentifier:String):Sound
+		public function sound(classIdentifier:String):Sound
 		{
 			var instance:Class = flash.utils.getDefinitionByName(classIdentifier) as Class;
 			var s:Sound = new instance() as Sound;
@@ -82,7 +82,7 @@ package net.guttershark.util
 		 * 
 		 * @param classIdentifier The name of the item in the library.
 		 */
-		public static function bitmap(classIdentifier:String):Bitmap
+		public function bitmap(classIdentifier:String):Bitmap
 		{
 			var instance:Class = flash.utils.getDefinitionByName(classIdentifier) as Class;
 			var b:Bitmap = new instance() as Bitmap;
@@ -94,7 +94,7 @@ package net.guttershark.util
 		 * 
 		 * @param classIdentifier The name of the item in the library.
 		 */
-		public static function font(classIdentifier:String):Font
+		public function font(classIdentifier:String):Font
 		{
 			var instance:Class = flash.utils.getDefinitionByName(classIdentifier) as Class;
 			var f:Font = new instance() as Font;
