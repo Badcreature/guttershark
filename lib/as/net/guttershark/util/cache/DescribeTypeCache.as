@@ -7,7 +7,7 @@ package net.guttershark.util.cache
 	 * function and caches all object descriptions so that
 	 * describeType will only be called once for any object.
 	 */
-	public class DescribeTypeCache 
+	final public class DescribeTypeCache 
 	{
 		
 		/**

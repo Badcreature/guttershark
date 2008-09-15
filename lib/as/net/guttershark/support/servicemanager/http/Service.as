@@ -5,10 +5,10 @@ package net.guttershark.support.servicemanager.http
 	import net.guttershark.support.servicemanager.shared.Limiter;	
 
 	/**
-	 * The Service Class represents a unique URL that acts as an HTTP service and is managed
+	 * The Service class represents a unique URL that acts as an HTTP service and is managed
 	 * by the ServiceManager class. This class is generally not used directly.
 	 */
-	public class Service extends Proxy
+	final public class Service extends Proxy
 	{
 		
 		private var limiter:Limiter;

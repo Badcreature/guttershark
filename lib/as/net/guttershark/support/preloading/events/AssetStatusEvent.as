@@ -7,7 +7,7 @@ package net.guttershark.support.preloading.events
 	/**
 	 * The AssetStatusEvent dispatches for an Asset that had an HTTP status other than 0 or 200.
 	 */
-	public class AssetStatusEvent extends Event
+	final public class AssetStatusEvent extends Event
 	{ 
 		/**
 		 * Defines the value of the type property of the assetStatus event type.

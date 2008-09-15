@@ -18,7 +18,7 @@ package net.guttershark.support.servicemanager.http
 	 * for result and fault events - this class is not used directly, but used
 	 * by a Service which is managed by the ServiceManager.
 	 */
-	public class ServiceCall extends BaseCall
+	final public class ServiceCall extends BaseCall
 	{
 
 		private var url:String;

@@ -12,15 +12,15 @@ package net.guttershark.support.preloading.workers
 	import net.guttershark.util.xml.XMLLoader;	
 
 	/**
-	 *	The XMLWorker class is the worker that loads all
-	 *	xml files.
+	 * The XMLWorker class is the worker that loads all
+	 * xml files.
 	 *	
-	 *	<p>This class is not used directly. It is used internally to an
-	 *	Asset instance.</p>
+	 * <p>This class is not used directly. It is used internally to an
+	 * Asset instance.</p>
 	 *	
-	 *	@see net.guttershark.preloading.PreloadController PreloadController class
+	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 */
-	public class XMLWorker extends Worker
+	final public class XMLWorker extends Worker
 	{	
 		
 		/**

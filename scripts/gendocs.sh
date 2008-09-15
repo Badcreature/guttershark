@@ -91,25 +91,40 @@ ${ASDOC}asdoc \
 -exclude-classes fl.video.VideoState \
 -left-frameset-width 350 \
 -package net.guttershark "The net.guttershark package contains all Actionscript 3 classes, namespaces, and meta data for the net.guttershark package." \
--package net.guttershark.control "The net.guttershark.control package contains classes for working with Flash sites and Document classes." \
--package net.guttershark.display "The net.guttershark.ui package contains classes and packages that are for working with user interface controls." \
--package net.guttershark.display.controls "The net.guttershark.ui.controls package contains base classes for generic user interface elements." \
--package net.guttershark.display.controls.buttons "The net.guttershark.ui.controls.buttons package contains base classes for generic button user interface elements." \
--package net.guttershark.display.controls.scrolling "The net.guttershark.ui.controls.scrolling package contains base classes for generic scrolling elements." \
--package net.guttershark.display.views "The net.guttershark.ui.controls.views package contains base classes for generic views." \
--package net.guttershark.display.lang "The net.guttershark.lang package contains classes used for localizing content." \
--package net.guttershark.display.video "The net.guttershark.video package contains classes use for video implementations." \
--package net.guttershark.managers "The net.guttershark.managers package contains classes for managing player wide functionality." \
--package net.guttershark.model "The net.guttershark.model package contains classes for working with model classes and site xml files." \
--package net.guttershark.support.preloading "The net.guttershark.preloading package contains classes for preloading assets." \
--package net.guttershark.support.preloading.events "The net.guttershark.preloading.events package contains event classes used within the preloading package." \
--package net.guttershark.support.preloading.workers "The net.guttershark.preloading.worker package contains worker classes that implement loading of different types of assets. These classes are base classes used with a PreloadingController." \
--package net.guttershark.support.servicemanager.remoting "The net.guttershark.service.remoting package contains classes for working with Flash Remoting." \
--package net.guttershark.support.servicemanager.remoting.events "The net.guttershark.service.remoting.events package contains event classes used throughout the remoting package." \
--package net.guttershark.support.servicemanager.remoting.errors "The net.guttershark.service.remoting.errors package contains error classes used throughout the remoting package." \
--package net.guttershark.support.servicemanager.remoting.limiting "The net.guttershark.service.remoting.limiting package contains classes that implement limiting logic for remoting service calls." \
--package net.guttershark.support.servicemanager.remoting.paging "The net.guttershark.service.remoting.paging package contains classes for implementing paging with a remoting service." \
--package net.guttershark.util "The net.guttershark.util package contains utility classes, such as AutoSuggest." \
--package net.guttershark.util.akamai "The net.guttershark.akamai package contains classes for Akamai services." \
--package net.guttershark.util.autosuggest "The net.guttershark.util.autosuggest package contains classes that implement an auto suggest." \
--package net.guttershark.util.cache "The net.guttershark.util.cache package contains classes that implement caching of objects into cache stores." \
+-package net.guttershark.control "The net.guttershark.control package contains controller classes for an FLA, and preloading." \
+-package net.guttershark.display "The net.guttershark.display package contains all classes that are display objects, and are used in the display list." \
+-package net.guttershark.display.controls "The net.guttershark.display.controls package contains base classes for generic user interface elements." \
+-package net.guttershark.display.controls.buttons "The net.guttershark.display.controls.buttons package contains base classes for generic buttons." \
+-package net.guttershark.display.draw "The net.guttershark.display.draw package contains display objects that are drawn with vectors." \
+-package net.guttershark.display.geom "The net.guttershark.display.geom package contains classes that define basic geomitry." \
+-package net.guttershark.display.lang "The net.guttershark.display.lang package contains classes used for localizing content." \
+-package net.guttershark.display.text "The net.guttershark.display.text package contains generic text display objects." \
+-package net.guttershark.display.video "The net.guttershark.video package contains classes use for video objects." \
+-package net.guttershark.display.views "The net.guttershark.display.controls.views package contains base classes for generic views." \
+-package net.guttershark.managers "The net.guttershark.managers package contains manager classes that simplify many mundane programming tasks.." \
+-package net.guttershark.model "The net.guttershark.model package contains classes for working with model classes and model xml." \
+-package net.guttershark.support "The net.guttershark.support package contains all classes that support, managers,controllers and events and generally aren't used directly, with the exception of a couple classes." \
+-package net.guttershark.support.eventmanager "The net.guttershark.support.eventmanager contains all support classes for the EventManager, and other event listener delegates you can opt into for components." \
+-package net.guttershark.support.events "The net.guttershark.support.events package contains supporting events for guttershark controllers, models, and display objects." \
+-package net.guttershark.support.layoutmanager "The net.guttershark.support.layoutmanager package contains classes that support the LayoutManager." \
+-package net.guttershark.support.preloading "The net.guttershark.support.preloading package contains classes that support a PreloadController" \
+-package net.guttershark.support.preloading.events "The net.guttershark.support.preloading.events package contains event classes used with a PreloadController." \
+-package net.guttershark.support.preloading.workers "The net.guttershark.support.preloading.worker package contains worker classes that implement loading of different types of assets from a PreloadingController." \
+-package net.guttershark.support.servicemanager.http "The net.guttershark.support.servicemanager.http package contains classes that implement HTTP service calls with the ServiceManager." \
+-package net.guttershark.support.servicemanager.remoting "The net.guttershark.support.servicemanager.remoting package contains classes that implement Flash Remoting calls with the ServiceManager." \
+-package net.guttershark.support.servicemanager.shared "The net.guttershark.support.servicemanager.shared package contains classes that are shared between different service call implementations with the ServiceManager." \
+-package net.guttershark.util "The net.guttershark.util package contains all utility classes and sub packages." \
+-package net.guttershark.util.akamai "The net.guttershark.akamai package contains utility classes for Akamai services." \
+-package net.guttershark.util.autosuggest "The net.guttershark.util.autosuggest package contains utility classes that help create an auto suggest." \
+-package net.guttershark.util.cache "The net.guttershark.util.cache package contains utility classes that cache objects in memory." \
+-package net.guttershark.util.collections "The net.guttershark.util.collections package contains utility classes that define abstract data structures." \
+-package net.guttershark.util.converters "The net.guttershark.util.converters package contains utility classes that help convert one format, to another." \
+-package net.guttershark.util.crypt "The net.guttershark.util.crypt package contains classes utility classes used for cryptography." \
+-package net.guttershark.util.display "The net.guttershark.util.display package contains utility classes that operate on display objects." \
+-package net.guttershark.util.event "The net.guttershark.util.event package contains utility classes for events." \
+-package net.guttershark.util.filters "The net.guttershark.util.filters package contains utility classes that simplify working with filters." \
+-package net.guttershark.util.frames "The net.guttershark.util.frames package contains utility classes for enter frame." \
+-package net.guttershark.util.math "The net.guttershark.util.math package contains utility classes for math." \
+-package net.guttershark.util.types "The net.guttershark.util.types package contains utility classes for top level flash player objects." \
+-package net.guttershark.util.validators "The net.guttershark.util.validators package contains utility classes that validate input." \
+-package net.guttershark.util.xml "The net.guttershark.util.xml package contains utility classes for xml."

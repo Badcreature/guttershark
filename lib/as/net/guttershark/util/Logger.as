@@ -29,7 +29,7 @@ package net.guttershark.util
 	 * filters will get traced. Others will be suppressed. So the "This is my message3" 
 	 * will not  be shown because it's not an allowable filter.</p>
 	 */
-	public class Logger
+	final public class Logger
 	{
 		
 		/**

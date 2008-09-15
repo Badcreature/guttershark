@@ -32,7 +32,7 @@ package net.guttershark.util
 	 * 
 	 * @see net.guttershark.control.DocumentController DocumentController class
 	 */
-	public class Bandwidth extends EventDispatcher
+	final public class Bandwidth extends EventDispatcher
 	{
 
 		/**

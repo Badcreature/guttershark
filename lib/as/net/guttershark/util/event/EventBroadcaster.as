@@ -13,7 +13,7 @@ package net.guttershark.util.event
 	 * {
 	 *   trace("event received");
 	 * }
-	 * EventBroadcaster.addEventListener("test",onTest); 
+	 * EventBroadcaster.addEventListener("test",onTest);
 	 * EventBroadcaster.broadcastEvent(new Event("test"));
 	 * </listing>
 	 */

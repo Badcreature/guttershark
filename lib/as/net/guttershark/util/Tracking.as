@@ -7,21 +7,22 @@ package net.guttershark.util
 	import net.guttershark.managers.PlayerManager;	
 
 	/**
-	 * The Tracking Class sends tracking calls through
-	 * ExternalInterface to the tracking framework.
+	 * The Tracking class sends tracking calls through 
+	 * ExternalInterface to the javascript tracking framework.
 	 * 
-	 * @see external: guttershark/lib/js/tracking.
+	 * @see external (external: guttershark/lib/js/tracking/)
 	 */
-	public class Tracking
+	final public class Tracking
 	{
 		
 		/**
+		 * @private (in development)
 		 * A tracking xml file used for sending simulated tracking
 		 * messages to the tracking monitor. This is specifically
 		 * useful for when you're in the Flash IDE and need to
 		 * verify tracking.
 		 */
-		public static var SimulationTrackingXML:XML;
+		public static var simulationTrackingXML:XML;
 		
 		/**
 		 * Local connection for the tracking monitor.
@@ -35,12 +36,12 @@ package net.guttershark.util
 		 * @param	xmlid	The id in tracking.xml to make tracking calls for.
 		 * @param	appendData	Any dynamic data to be sent to the tracking framework.
 		 */
-		public static function Track(xmlid:String, appendData:Array = null):void
+		public static function track(xmlid:String, appendData:Array = null):void
 		{
 			if(!xmlid) throw new ArgumentError("Parameter xmlid cannot be null.");
-			if(SimulationTrackingXML)
+			if(simulationTrackingXML)
 			{
-				SimulateCall(xmlid,appendData);
+				simulateCall(xmlid,appendData);
 				return;
 			}
 			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) return;
@@ -50,14 +51,14 @@ package net.guttershark.util
 		/**
 		 * Send a simulated message to the tracking monitor.
 		 */
-		private static function SimulateCall(id:String, webAppendData:Array = null):void
+		private static function simulateCall(id:String, webAppendData:Array = null):void
 		{
 			if(!lc) lc = new LocalConnection();
 			lc.addEventListener(StatusEvent.STATUS, ons);
-			var n:XMLList = SimulationTrackingXML.track.(@id == id);
-			if(n.webtrends != undefined) SimulateWebtrends(n.webtrends.toString());
-			if(n.atlas != undefined) SimulateAtlas(n.atlas.toString());
-			if(n.ganalytics != undefined) SimulateGoogle(n.ganalytics.toString());
+			var n:XMLList = simulationTrackingXML.track.(@id == id);
+			if(n.webtrends != undefined) simulateWebtrends(n.webtrends.toString());
+			if(n.atlas != undefined) simulateAtlas(n.atlas.toString());
+			if(n.ganalytics != undefined) simulateGoogle(n.ganalytics.toString());
 		}
 		
 		private static function ons(se:StatusEvent):void{}
@@ -65,7 +66,7 @@ package net.guttershark.util
 		/**
 		 * Simulate a webtrends call.
 		 */
-		private static function SimulateWebtrends(node:String,appendArr:Array = null):void
+		private static function simulateWebtrends(node:String,appendArr:Array = null):void
 		{
 			var parts:Array = node.toString().split(",");
 			var dscuri:String = parts[0];
@@ -81,7 +82,7 @@ package net.guttershark.util
 		/**
 		 * Simulate an Atlas track.
 		 */
-		private static function SimulateAtlas(str:String):void
+		private static function simulateAtlas(str:String):void
 		{
 			lc.send("TrackingMonitor","tracked","al::"+str);
 		}
@@ -89,7 +90,7 @@ package net.guttershark.util
 		/**
 		 * Simulate a google analytics track.
 		 */
-		private static function SimulateGoogle(str:String):void
+		private static function simulateGoogle(str:String):void
 		{
 			lc.send("TrackingMonitor","tracked","ga::"+str);
 		}

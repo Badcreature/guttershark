@@ -1,12 +1,11 @@
 package net.guttershark.util
 {
-
-	import flash.utils.Proxy;	
-	import flash.utils.Dictionary;	
 	import flash.external.*;
 	import flash.system.Capabilities;
-	import flash.utils.flash_proxy;
-	
+	import flash.utils.Dictionary;
+	import flash.utils.Proxy;
+	import flash.utils.flash_proxy;		
+
 	/**
 	 * The QueryString class is used for reading query string parameters
 	 * in the web browsers address bar. This class will only work when flash
@@ -86,7 +85,7 @@ package net.guttershark.util
 		 */
 		public function set querystringData(data:Dictionary):void
 		{
-			Assert.NotNull(data, "Parameter data cannot be null");
+			if(!data) throw new ArgumentError("Parameter data cannot be null");
 			paramsCache = data;
 		}
 		

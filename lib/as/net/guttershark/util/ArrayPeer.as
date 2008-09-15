@@ -19,7 +19,7 @@ package net.guttershark.util
 		 * <p>All other expected value are compared with ===</p>
 		 * 
 		 * @example Some example uses
-		 * <listing version="3.0">
+		 * <listing>	
 		 * var movies:Array = []; // retrieve from some datasource
 		 * // find with simple property value condition
 		 * var moviesByMichaelBay:Array = ArrayPeer.find( movies, { director: 'Michael Bay' } );

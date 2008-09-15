@@ -2,8 +2,8 @@ package net.guttershark.util.types
 {	import net.guttershark.util.converters.TimeConverter;
 	import net.guttershark.util.math.Range;	
 
-		/**	 * Static class for handling dates & converting them into readable strings.
-	 * Note that all day & month collections are 0-indexed.	 */	public class DateUtil 
+	/**	 * Static class for handling dates & converting them into readable strings.
+	 * Note that all day & month collections are 0-indexed.	 */	final public class DateUtil 
 	{
 		/**		 * Gets 0 indexed array of months for use with <code>DateUtils.getMonth()</code>.		 */		public static function get months():Array 
 		{			return new Array("January","February","March","April","May","June","July","August","September","October","November","December");		}

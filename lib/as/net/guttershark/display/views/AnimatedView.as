@@ -9,11 +9,7 @@ package net.guttershark.display.views
 	/**
 	 * The AnimatedView class provides structure to a class
 	 * where views need to have animated timelines, rather
-	 * than all code tweened timelines.
-	 * 
-	 * <p>You would extend your movie clip with this class, and on
-	 * the timeline in flash, make simple method calls that have 
-	 * the code implemented in this class.</p>
+	 * than all code tweens.
 	 */
 	public class AnimatedView extends BasicView
 	{
@@ -33,30 +29,25 @@ package net.guttershark.display.views
 		 */
 		private var _autoStop:Boolean;
 		
+		/**
+		 * Constructor for AnimatedView instances.
+		 */
 		public function AnimatedView()
 		{
 			super();
 		}
 		
 		/**
-		 * Stub method used for naming convention. Override this method
-		 * when something from the timeline needs to execute something
-		 * on it's last frame.
-		 * 
-		 * <p>Overriding this method allows you to place your logic here,
-		 * instead of on the timeline. Then in your timeline, you make a
-		 * call to <code>this.animationComplete();</code></p>
+		 * This is a stub method that get's called on the last
+		 * frame of a movie clip, you can override this as
+		 * a hook.
 		 */
 		protected function animationComplete():void{}
 		
 		/**
-		 * Stub method used for naming convention. Override this method
-		 * when something from the timeline needs to happen right when
-		 * the timeline starts playing.
-		 * 
-		 * <p>Extend a movie clip from this class, then on the timeline you
-		 * can place <code>this.animationStart();</code> method calls
-		 * anywhere in the timeline to execute this method.</p>
+		 * This is a stub method that get's called when the
+		 * timeline starts playing from the first frame, you
+		 * can override this as a hook.
 		 */
 		protected function animationStart():void{}
 		
@@ -64,7 +55,7 @@ package net.guttershark.display.views
 		 * Set this property to true to automatically call the <code>animationComplete</code>
 		 * method when this movie clip hits it's last frame. 
 		 */
-		public function set watchForLastFrameAndCallComplete(value:Boolean=false):void
+		public function set watchForLastFrameAndCallComplete(value:Boolean):void
 		{
 			if(!value && listenerAdded)
 			{
@@ -105,9 +96,17 @@ package net.guttershark.display.views
 				FramePulse.AddEnterFrameListener(__onEnterFrame);
 				listenerAdded = true;
 			}
-			var f:FrameDelay = new FrameDelay(animationStart,2);
+			var f:FrameDelay = new FrameDelay(animationStart,1);
 			super.play();
 			f.dispose();
+		}
+		
+		/**
+		 * Play this clip in reverse.
+		 */
+		public function playReverse():void
+		{
+			FramePulse.AddEnterFrameListener(eventForReverse);
 		}
 		
 		/**
@@ -123,14 +122,6 @@ package net.guttershark.display.views
 				var f:FrameDelay = new FrameDelay(animationComplete,1);
 				f.dispose();
 			}
-		}
-		
-		/**
-		 * Play this clip in reverse.
-		 */
-		public function playReverse():void
-		{
-			FramePulse.AddEnterFrameListener(eventForReverse);
 		}
 		
 		/**

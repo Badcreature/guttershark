@@ -7,7 +7,7 @@ package net.guttershark.support.servicemanager.remoting
 	import net.guttershark.support.servicemanager.remoting.RemotingConnection;
 	import net.guttershark.support.servicemanager.shared.Limiter;	
 
-	public dynamic class RemotingService extends Proxy
+	dynamic public class RemotingService extends Proxy
 	{
 		
 		public var rc:RemotingConnection;

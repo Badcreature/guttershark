@@ -12,7 +12,7 @@ package net.guttershark.util.cache
 	 * 
 	 * @see net.guttershark.util.cache.Cache
 	 */
-	public class CacheItem
+	final public class CacheItem
 	{
 		
 		/**

@@ -18,7 +18,7 @@ package net.guttershark.managers
 	[Event("change", type="flash.events.Event")]
 
 	/**
-	 * The SoundManager Class is used to control sounds document wide.
+	 * The SoundManager class is used to control sounds globally.
 	 */
 	public class SoundManager extends EventDispatcher
 	{

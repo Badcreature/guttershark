@@ -19,7 +19,7 @@ package net.guttershark.support.eventmanager
 	 * 
 	 * <p>See the EventManager class for a list of supported events.</p>
 	 */
-	public class FLVPlaybackEventListenerDelegate extends EventListenerDelegate
+	final public class FLVPlaybackEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**

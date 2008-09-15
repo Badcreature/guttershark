@@ -7,13 +7,11 @@ package net.guttershark.util.xml
 	import flash.net.URLRequest;
 	
 	/**
-	 * The XMLLoader Class is used to load xml. It wraps common logic
-	 * that must be in place to load XML, and shortens the amount of code
-	 * you need to write to load XML.
+	 * The XMLLoader class simplifies loading XML.
 	 * 
 	 * @see #load()
 	 */
-	public class XMLLoader extends EventDispatcher
+	final public class XMLLoader extends EventDispatcher
 	{	
 
 		/**

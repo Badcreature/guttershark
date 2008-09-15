@@ -18,7 +18,7 @@ package net.guttershark.util
 	 * <p>This class really should only be used when you know that the garbage
 	 * collector just isn't running all that often, and you need to force it.</p>
 	 */
-	public class GarbageCollector
+	final public class GarbageCollector
 	{
 		
 		/**

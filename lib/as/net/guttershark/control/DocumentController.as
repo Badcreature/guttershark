@@ -37,15 +37,16 @@ package net.guttershark.control
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
+	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.FlashLibrary;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.akamai.Ident;
-	import net.guttershark.util.xml.XMLLoader;
+	import net.guttershark.util.xml.XMLLoader;		
 
 	/**
-	 * The DocumentController Class is the document class for an FLA, it contains
+	 * The DocumentController class is the document class for an FLA, it contains
 	 * default startup functionality that you can hook into, and all logic
 	 * is controllable through flashvars.
 	 * 
@@ -53,6 +54,7 @@ package net.guttershark.control
 	 * <ul>
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
 	 * <li><strong>initServices</strong> (Boolean) - Initialize the <code><em>ServiceManager</em></code>, with all of the service declarations defined in a model.xml file.</li>
+	 * <li><strong>macMouseWheel</strong> (Boolean) - Initialize MacMouseWheel.</li>
 	 * <li><strong>model</strong> (String) - Specify an XML file to load as the site's model file. Specify a file name like "model.xml".</li>
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000 (1 minute).</li>
@@ -197,6 +199,11 @@ package net.guttershark.control
 		 * An instance of a layout manager.
 		 */
 		public var lm:LayoutManager;
+		
+		/**
+		 * The Assertions singleton instance.
+		 */
+		protected var ast:Assertions;
 
 		/**
 		 * Constructor for DocumentController instances. This should not
@@ -212,9 +219,10 @@ package net.guttershark.control
 			lgm = LanguageManager.gi();
 			km = KeyboardEventManager.gi();
 			em = EventManager.gi();
+			ast = Assertions.gi();
 			online = true;
-			MacMouseWheel.setup(stage);
 			setupFlashvars();
+			if(flashvars.macMouseWheel) MacMouseWheel.setup(stage);
 			if(flashvars.swfAddress && !PlayerManager.IsStandAlonePlayer() && !PlayerManager.IsIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
@@ -389,7 +397,7 @@ package net.guttershark.control
 		 */
 		private function ontc(e:Event):void
 		{
-			Tracking.SimulationTrackingXML = trackingXMLLoader.data;
+			Tracking.simulationTrackingXML = trackingXMLLoader.data;
 		}
 				
 		/**

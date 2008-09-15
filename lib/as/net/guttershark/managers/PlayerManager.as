@@ -3,7 +3,7 @@ package net.guttershark.managers
 	import flash.system.System;		import flash.system.Capabilities;
 
 	/**
-	 * The PlayerManager Class provides static shortcut methods for finding
+	 * The PlayerManager class provides static shortcut methods for finding
 	 * things about the currently running player.
 	 */
 	public final class PlayerManager

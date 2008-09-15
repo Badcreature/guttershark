@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+	backgroundColor="#FFFFFF"
+	backgroundGradientAlphas="[0,0]"
+	verticalScrollPolicy="off"
+	horizontalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			private function onSWF(e:*):void
+			{
+				try{addChild(main.content)}catch(e:*){};
+				removeChild(des);
+				des = null;
+			}
+		]]>
+	</mx:Script>
+	<mx:SWFLoader id="main" source="./main.swf" complete="onSWF(event)" />
+	<mx:Text id="des" width="200" paddingLeft="40" text="THIS STUB SWF IS FOR THE FLEX PROFILER, IT MAKES AN ATTEMPT TO LOAD ./main.swf AND ADD IT TO THE STAGE" />
+</mx:Application>

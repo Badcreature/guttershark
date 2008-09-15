@@ -4,7 +4,7 @@ package net.guttershark.util.types
 	/**
 	 * The ArrayUtils class contains utility methods for arrays.
 	 */
-	public class ArrayUtils 
+	final public class ArrayUtils 
 	{
 
 		/**
@@ -14,6 +14,7 @@ package net.guttershark.util.types
 		 */
 		public static function clone(array:Array):Array
 		{
+			//!fast - http://agit8.turbulent.ca/bwp/2008/08/04/flash-as3-optimization-fastest-way-to-copy-an-array/
 			if(!array) throw new ArgumentError("The array cannot be null");
 			return array.concat();
 		}
@@ -57,6 +58,7 @@ package net.guttershark.util.types
 		}
 
 		/**
+		 *
 		 * Search an array for a given element and return its index or <code>-1</code>.
 		 * 
 		 * @param a The array to search.
@@ -204,8 +206,8 @@ package net.guttershark.util.types
 		 */
 		public static function compare(a:Array, b:Array, ordered:Boolean = false):Boolean
 		{
-			var c:Array = (ordered) ? a : a.slice().sort(Array.DESCENDING);
-			var d:Array = (ordered) ? b : b.slice().sort(Array.DESCENDING);
+			var c:Array = (ordered) ? a : a.concat().sort(Array.DESCENDING);
+			var d:Array = (ordered) ? b : b.concat().sort(Array.DESCENDING);
 			if(c.length != d.length) return false;
 			var l:int = c.length;
 			var i:int = 0;

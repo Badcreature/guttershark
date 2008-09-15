@@ -43,7 +43,7 @@ package net.guttershark.model
 	 * &lt;/model&gt;
 	 * </listing>
 	 */
-	public dynamic class Model
+	final public class Model
 	{
 		
 		/**
@@ -266,7 +266,7 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Navigates to a.
+		 * Navigates to a link.
 		 * 
 		 * @param id The link id.
 		 */

@@ -2,8 +2,8 @@ package net.guttershark.util
 {
 
 	/**
-	 * The Assertions Class is a singleton that provides assertions for conditionals,
-	 * and can relieve defense programming for methods that require arguments.
+	 * The Assertions class is a singleton that provides assertions for conditionals,
+	 * and relieve's defensive programming for methods that require arguments.
 	 * 
 	 * <p>All of the methods can be used for conditional assertions.</p>
 	 * @example Using assertions for conditionals:
@@ -33,7 +33,7 @@ package net.guttershark.util
 	 * @example Changing the exception type:
 	 * <listing>	
 	 * var ast:Assertions = Assertions.gi();
-	 * function setSomething(mc:*):void
+	 * function setSomething(mc:MovieClip):void
 	 * {
 	 *    ast.compatible(mc,MovieClip,"Parameter val must be a MovieClip",TypeError);
 	 * }
@@ -77,10 +77,31 @@ package net.guttershark.util
 	 * }
 	 * </listing>
 	 */
-	public class Assertions
+	final public class Assertions
 	{
 		
+		/**
+		 * Singleton instance.
+		 */	
 		private static var inst:Assertions;
+		
+		/**
+		 * A function delegate you can define, which will
+		 * be called when an assertion fails - this is intended
+		 * to be used if you wanted to post the assertion
+		 * to an http service for logging errors.
+		 * 
+		 * @example Using the onAssertionFail delegate:
+		 * <listing>	
+		 * var ast:Assertions = Assertions.gi();
+		 * ast.onAssertionFail = onAssertionFail;
+		 * private function onAssertionFail(msg:String):void
+		 * {
+		 *     trace(msg);
+		 * }
+		 * </listing>
+		 */
+		public var onAssertionFail:Function;
 		
 		/**
 		 * @private
@@ -104,6 +125,8 @@ package net.guttershark.util
 		 */
 		private function throwError(message:String, exceptionType:Class):void
 		{
+			try{if(onAssertionFail!==null) onAssertionFail(message);}
+			catch(e:ArgumentError){trace("WARNING: Your onAssertionFail function must accept one parameter - a message string.");}
 			switch(exceptionType)
 			{
 				case null:
@@ -147,14 +170,28 @@ package net.guttershark.util
 		 * Assert that a value is equal to another value.
 		 * 
 		 * @param value The value to test.
-		 * @param otherValue The other value to compare with value.
+		 * @param otherValue The other value to compare with value (this is actually typed as &#42;, but asdocs changes it to String for some reason).
 		 * @param message A message to throw if the assertion evaluates to false.
 		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
 		 */
-		public function equal(value:*,otherValue:*=0,message:String=null,exceptionType:Class=null):Boolean
+		public function equal(value:*,otherValue:*,message:String=null,exceptionType:Class=null):Boolean
 		{
 			if(message) if(value!==otherValue) throwError(message,exceptionType);
 			return (value===otherValue);
+		}
+		
+		/**
+		 * Assert that a value is defferent from another value.
+		 * 
+		 * @param value The value to test.
+		 * @param otherValue The other value to compare with value (this is actually typed as &#42, but asdocs changes it to String for some reason).
+		 * @param message A message to throw if the assertion evaluates to false.
+		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
+		 */
+		public function different(value:*,otherValue:*,message:String=null,exceptionType:Class=null):Boolean
+		{
+			if(message) if(value===otherValue) throwError(message,exceptionType);
+			return (value!==otherValue);
 		}
 		
 		/**
@@ -171,7 +208,7 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Assert if an Array is NOT nil or empty.
+		 * Assert if an Array is not nil or empty.
 		 * 
 		 * @param array The array to evaluate.
 		 * @param message A message to throw if the assertion evaluates to false.
@@ -198,7 +235,7 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Assert if an object is NOT nil.
+		 * Assert if an object is not nil.
 		 * 
 		 * @param object The object to evaluate.
 		 * @param message A message to throw if the assertion evaluates to false.
@@ -224,7 +261,7 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Assert if an object is NOT compatible with another type.
+		 * Assert if an object is not compatible with another type.
 		 * 
 		 * @param obj The object to evaluate.
 		 * @param message A message to throw if the assertion evaluates to false.
@@ -292,7 +329,7 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Assert a string as being NOT empty (zero characters or all spaces).
+		 * Assert a string as being not empty (zero characters or all spaces).
 		 * 
 		 * @param str The string to evaluate.
 		 * @param message A message to throw if the assertion evaluates to false.
@@ -321,7 +358,7 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Assert that a string does NOT have all number characters.
+		 * Assert that a string does not have all number characters.
 		 * 
 		 * @param str The string to evaluate.
 		 * @param message A message to throw if the assertion evaluates to false.
@@ -406,7 +443,7 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Assert that a string is NOT a web URL.
+		 * Assert that a string is not a web URL.
 		 * 
 		 * @param str The string to evaluate.
 		 * @param message A message to throw if the assertion evaluates to false.

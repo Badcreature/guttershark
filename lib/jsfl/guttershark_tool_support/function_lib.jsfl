@@ -33,6 +33,18 @@ function isDocumentOpen()
 }
 
 /**
+ * Opens the "open" dialog box, and returns the contents
+ * of the selected file.
+ */
+function browseForFileContents(windowTitle)
+{
+	var file = fl.browseForFileURL('open',windowTitle);
+	if(!FLfile.exists(file)) return null;
+	var c = FLfile.read(file);
+	return escape(c);
+}
+
+/**
  * Writes an XML file - this is a proxy way of doing it,
  * as it is retarded trying to mess with quotes / double quotes
  * with MMExecute from AS. So a full file URI is required,
@@ -55,4 +67,34 @@ function getFileContents(fileURI)
 	if(!FLfile.exists(f)) return null;
 	var c = FLfile.read(f);
 	return escape(c);
+}
+
+/**
+ * Opens the browseForFolderURL dialog, and returns a
+ * list of files in the selected directory as a comma
+ * separated value.
+ *
+ * @param	windowTitle What to display as the window title.
+ * @param	fileMask	A file type mask to search for in the file list, EX: *.flv - see JSFL documentation for FLfile.listFolder.
+ */
+function promptForListOfFilesInFolder(windowTitle,fileMask)
+{
+	var folder = fl.browseForFolderURL(windowTitle);
+	var list = FLfile.listFolder(folder + "/" + fileMask,"files");
+	if(!list) return null;
+	for(var i =0;i < list.length; i++) list[i] = folder + "/" + list[i];
+	var l = list.join(",");
+	if(l.substr(0,4) == "null") return null;
+	return list;
+}
+
+/**
+ * Opens the "open" dialog to select a file, and returns the filename.
+ * 
+ * @param windowTitle The title to display in the open window.
+ */
+function browseForFileName(windowTitle)
+{
+	var file = fl.browseForFileURL("open",windowTitle);
+	return file;
 }

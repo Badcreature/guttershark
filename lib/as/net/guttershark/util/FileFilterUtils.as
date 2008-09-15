@@ -6,7 +6,7 @@ package net.guttershark.util
 	 * The FileFilterUtils Class provides static variables that has predefined
 	 * FileFilter instances, to save time.
 	 */
-	public class FileFilterUtils 
+	final public class FileFilterUtils 
 	{
 		
 		/**

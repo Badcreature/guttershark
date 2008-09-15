@@ -7,7 +7,7 @@ package net.guttershark.support.preloading.events
 	/**
 	 * The AssetCompleteEvent dispatches when an asset has completed downloading.
 	 */
-	public class AssetCompleteEvent extends Event
+	final public class AssetCompleteEvent extends Event
 	{
 		
 		/**

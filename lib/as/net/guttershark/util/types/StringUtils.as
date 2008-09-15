@@ -4,7 +4,7 @@ package net.guttershark.util.types
 	/**
 	 * The StringUtils class contains utility methods for strings.
 	 */
-	public class StringUtils 
+	final public class StringUtils 
 	{
 
 		private static const LTRIM_EXP:RegExp = /(\s|\n|\r|\t|\v)*$/;

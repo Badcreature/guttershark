@@ -7,7 +7,7 @@ package net.guttershark.support.eventmanager
 	 * The LabelButtonEventListenerDelegate implements event listener logic
 	 * for LabelButton instances.
 	 */
-	public class LabelButtonEventListenerDelegate extends EventListenerDelegate 
+	final public class LabelButtonEventListenerDelegate extends EventListenerDelegate 
 	{
 
 		/**

@@ -6,7 +6,7 @@ package net.guttershark.util.types
 	/**
 	 * The ObjectUtils class has utility methods for working with objects.
 	 */
-	public class ObjectUtils
+	final public class ObjectUtils
 	{
 		
 		/**

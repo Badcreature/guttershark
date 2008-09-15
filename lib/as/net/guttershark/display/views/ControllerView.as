@@ -9,6 +9,14 @@ package net.guttershark.display.views
 	{
 		
 		/**
-		 * This ControllerViews' controller (parent/child controller view).
+		 * A controller for this view.
 		 */
-		public var controller:ControllerView;	}}
+		public var controller:ControllerView;
+		
+		/**
+		 * Constructor for ControllerView instances.
+		 */
+		public function ControllerView()
+		{
+			super();
+		}	}}

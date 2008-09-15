@@ -1,11 +1,12 @@
 package net.guttershark.util.types
 {	import flash.text.TextField;
 	import flash.text.TextFormat;		
+	
 	/**
 	 * The TextFieldUtils Class has utility methods for
 	 * common operations with TextFields.
 	 */
-	public class TextFieldUtils
+	final public class TextFieldUtils
 	{
 		
 		/**

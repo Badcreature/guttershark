@@ -11,13 +11,17 @@ package net.guttershark.support.preloading.workers
 	import net.guttershark.support.preloading.events.AssetCompleteEvent;
 	import net.guttershark.support.preloading.workers.Worker;
 
-	public class StyleSheetWorker extends Worker
+	/**
+	 * The StyleSheetWorker class is the worker that loads all
+	 * css files.
+	 */
+	final public class StyleSheetWorker extends Worker
 	{
 		
 		/**
 		 * Load an asset of type css.
 		 * 
-		 * @param	asset	The Asset instance that needs to be loaded.
+		 * @param asset The Asset instance that needs to be loaded.
 		 * @see net.guttershark.preloading.PreloadController PreloadController class
 		 */
 		public override function load(asset:Asset):void
@@ -38,7 +42,7 @@ package net.guttershark.support.preloading.workers
 		/**
 		 * Event handler for the style sheet loading complete event.
 		 * 
-		 * @param	e	The event from url loaders complete event
+		 * @param e The event from url loaders complete event
 		 */
 		override protected function onComplete(e:Event):void
 		{

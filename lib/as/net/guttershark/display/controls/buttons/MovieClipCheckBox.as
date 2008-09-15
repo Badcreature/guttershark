@@ -4,7 +4,7 @@ package net.guttershark.display.controls.buttons
 	import net.guttershark.managers.SoundManager;	
 	
 	/**
-	 * The MovieClipCheckBox Class inherits from MovieClipToggleButton
+	 * The MovieClipCheckBox class inherits from MovieClipToggleButton
 	 * mostly for cosmetics purposes - a getter and setter for "checked." 
 	 * As well as 2 sound property additions.
 	 */

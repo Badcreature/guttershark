@@ -8,7 +8,7 @@ package net.guttershark.support.eventmanager
 	 * The CheckboxEventListenerDelegate Class implements event handling
 	 * logic for CheckBox components.
 	 */
-	public class CheckboxEventListenerDelegate extends EventListenerDelegate
+	final public class CheckboxEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**

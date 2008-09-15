@@ -6,7 +6,7 @@ package net.guttershark.util.types
 	/**
 	 * The BitmapUtils class has utility methods for easy access to common Bitmap operations.
 	 */
-	public class BitmapUtils 
+	final public class BitmapUtils 
 	{
 	
 		/**

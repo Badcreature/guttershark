@@ -12,7 +12,7 @@ package net.guttershark.support.eventmanager
 	 * The ComboBoxEventListenerDelegate Class implements event listener
 	 * logic for ComboBox components.
 	 */
-	public class ComboBoxEventListenerDelegate extends EventListenerDelegate
+	final public class ComboBoxEventListenerDelegate extends EventListenerDelegate
 	{
 
 		/**

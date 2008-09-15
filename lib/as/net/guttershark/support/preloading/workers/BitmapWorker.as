@@ -25,7 +25,7 @@ package net.guttershark.support.preloading.workers
 		/**
 		 * Load an asset of type bitmap.
 		 * 
-		 * @param	asset	The Asset instance that needs to be loaded.
+		 * @param asset The Asset instance that needs to be loaded.
 		 */
 		override public function load(asset:Asset):void
 		{

@@ -25,7 +25,7 @@ package net.guttershark.util
 	 * 
 	 * @see net.guttershark.control.DocumentController
 	 */
-	public class CPU 
+	final public class CPU 
 	{
 		
 		/**

@@ -4,20 +4,20 @@ package net.guttershark.util
 	import flash.display.InteractiveObject;	
 	
 	/**
-	 * The ScopeUtils Class provides utilities for working with scope problems,
+	 * The ScopeUtils class provides utilities for working with scope problems,
 	 * or simplifying something that is usually done over and over to alter scope.
 	 */
 	public class ScopeUtils
 	{
 		
 		/**
-		 * Re-target class instance variables to either a nested or parent
-		 * movie clip or class. This is generally used when you have
+		 * Re-target instance variables to either a nested or parent
+		 * movie clip. This is generally used when you have
 		 * instance variables on a class, but need to change what clip they
 		 * point to inside of another movie clip.
 		 * 
 		 * @example Re-targetting a class' instance variables to inside of a movie clip.
-		 * <listing>
+		 * <listing>	
 		 * package
 		 * {
 		 *   class MyView
@@ -36,11 +36,11 @@ package net.guttershark.util
 		 * 
 		 * <p>In that example. <code><em>firstname</em></code> and <code><em>lastname</em></code> are defined in
 		 * "MyView" but the actual movie clips are inside of formfieldwrapper. So this "re-targetting" of scope re-assigns
-		 * firstname to point to <code><em>formfieldwrapper.firstname</em></code>.</p>
+		 * formfieldwrapper.firstname to point to <code><em>this.firstname</em></code> and so on.</p>
 		 * 
-		 * @param	vars	The instance variables in which the pointer is changing.
-		 * @param	source	The source instance where the variables are declared.
-		 * @param	target	The new target.
+		 * @param source The source instance where the variables are declared.
+		 * @param target The new target.
+		 * @param objs The instance variables in which the pointer is changing.
 		 */
 		public static function retarget(source:InteractiveObject, target:InteractiveObject, ...objs:Array):void
 		{

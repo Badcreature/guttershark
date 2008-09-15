@@ -18,7 +18,7 @@ package net.guttershark.support.preloading.workers
 	 * 
 	 * <p>Default workers: bmp,jpg,jpeg,png,gif,swf,mp3,zip,xml,flv</p>
 	 */
-	public class WorkerInstances
+	final public class WorkerInstances
 	{
 		
 		/**

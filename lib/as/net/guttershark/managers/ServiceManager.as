@@ -10,7 +10,7 @@ package net.guttershark.managers
 	import net.guttershark.util.Singleton;
 	
 	/**
-	 * The ServiceManager Class supports making Remoting
+	 * The ServiceManager class supports making Remoting
 	 * requests, and normal HTTP service requests, with
 	 * support for retries, timeouts, and some features that
 	 * are specific to one or the other.
@@ -101,7 +101,7 @@ package net.guttershark.managers
 	 * <li>routes (Array) - An array of "route" paths that get concatenated together.</li>
 	 * <li>method (String) - post or get</li>
 	 * <li>responseFormat (String) - The response format to expect, see net.guttershark.support.servicemanager.http.ResponseFormat.</li>
-	 * <li>onCreate (Function) - A function to call, as soon as a remoting call instance was created (the request hasn't gone out yet though.).</li>
+	 * <li>onCreate (Function) - A function to call, as soon as a http call instance was created (the request hasn't gone out yet though.).</li>
 	 * <li>onResult (Function) - A function to call, and pass a CallResult object to.</li>
 	 * <li>onFault (Function) - A function to call, and pass a CallFault object to.</li>
 	 * <li>onRetry (Function) - A function to call for every retry of a service.</li>
@@ -217,6 +217,21 @@ package net.guttershark.managers
 		
 		/**
 		 * Get's a service from the internal dictionary of services.
+		 * 
+		 * <p>This is only intended to be used when you need to get a service
+		 * defined by a variable, and not a hard coded property on the service manager.</p>
+		 * 
+		 * @example Intended use for this method:
+		 * <listing>	
+		 * var sm:ServiceManager = ServiceManager.gi();
+		 * 
+		 * //only intended for use when a variable decides the service it will use.
+		 * var a:String = "amfphp";
+		 * trace(sm.getService(a)); //return amfphp service.
+		 * 
+		 * //the default, recommended way
+		 * trace(sm.amfphp); //returns amfphp service.
+		 * </listing>
 		 */
 		public function getService(id:String):*
 		{

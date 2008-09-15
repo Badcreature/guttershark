@@ -37,7 +37,7 @@ package net.guttershark.util
 	 * inact.start();
 	 * </listing>
 	 */
-	public class Inactivity extends EventDispatcher
+	final public class Inactivity extends EventDispatcher
 	{
 	
 		/**
