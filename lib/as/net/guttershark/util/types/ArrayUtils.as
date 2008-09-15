@@ -29,13 +29,21 @@ package net.guttershark.util.types
 		{
 			Singleton.assertSingle(ArrayUtils);
 		}
-
-		public function search():void
+		
+		/**
+		 * @private
+		 * This is used to illustrate a point about performance with static methods.
+		 */
+		public function _search():void
 		{
 			var a:int = 0;
 		}
-
-		public static function Search():void
+		
+		/**
+		 * @private
+		 * This is used to illustrate a point about performance with static methods.
+		 */
+		public static function _Search():void
 		{
 			var a:int = 0;
 		}
@@ -91,19 +99,6 @@ package net.guttershark.util.types
 		}
 
 		/**
-		 *
-		 * Search an array for a given element and return its index or <code>-1</code>.
-		 * 
-		 * @param a The array to search.
-		 * @param element The element to search for.
-		 *
-		public static function search(a:Array, element:Object):int 
-		{
-			for(var i:int = 0;i < a.length; i++) if(a[i]===element) return i;
-			return -1;
-		}*/
-
-		/**
 		 * Shuffle array elements.
 		 * 
 		 * @param a The array to shuffle.
@@ -122,8 +117,8 @@ package net.guttershark.util.types
 		}
 
 		/**
-		 * Create a new array that only contains unique instances of objects in the specified array.
-		 * this can be used to remove duplication object instances from an array.
+		 * Create a new array that only contains unique instances of objects.
+		 * This can be used to remove duplication object instances from an array.
 		 * 
 		 * @param a The array to uniquely copy.
 		 */
@@ -339,7 +334,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param a The array to search.
 		 */
-		public function minIndex(a:Array):int 
+		public function minIndex(a:Array):int
 		{
 			var i:int = a.length;
 			var min:Number = a[0];
@@ -382,6 +377,213 @@ package net.guttershark.util.types
 		{
 			if(a.length==0) return 0;
 			return a[maxIndex(a)];
+		}
+		
+		/**
+		 * Advanced array searching with complex matching conditions.
+		 * 
+		 * <span class="hide">
+		 * <ul>
+		 * <li>Class</li><li>If the actual value is a Class then they are compared with ===, else the actual value will be checked to see if it <code>is</code> of the Class type.</li> 
+		 * <li>Function</li><li>If the actual value is a Function then they are compared with ===, else the expected function is called with the item and the actual value as parameters. This function needs to return a Boolean. eg <code>var condtions:Object = { someProperty: function(item:*, actual:*):Boolean {return actual != null;}}</code></li>
+		 * <li>RegExp</li><li>If the actual value is a RegExp then they are compared with ===, else the actual value is tested with the RegExp.</li>
+		 * </ul>
+		 * </span>
+		 * 
+		 * @example Example uses.
+		 * <listing>		
+		 * var movies:Array = []; //retrieve from some datasource
+		 * 
+		 * var at:ArrayUtils = ArrayUtils.gi();
+		 * 
+		 * //find with simple property value condition
+		 * var moviesByMichaelBay:Array = at.asearch(movies,{director:'Michael Bay'});
+		 * 
+		 * //find with property chain condition (assuming the 'released' property returns a Date instance)
+		 * var moviesByMichaelByReleasedIn2007:Array = at.asearch(moviesByMichaelBay,{'released.fullYear':2007});
+		 * 
+		 * //find only the first object.
+		 * var moviesByMichaelByReleasedIn2007:Array = at.asearch(moviesByMichaelBay,{'released.fullYear':2007,{find:"first"}});
+		 * 
+		 * //find only the last object.
+		 * var moviesByMichaelByReleasedIn2007:Array = at.asearch(moviesByMichaelBay,{'released.fullYear':2007,{find:"last"}});
+		 * 
+		 * //find all objects that match (this is the default if no options are provided).
+		 * var moviesByMichaelByReleasedIn2007:Array = at.asearch(moviesByMichaelBay,{'released.fullYear':2007,{find:"all"}});
+		 * 
+		 * //find with class condition - Drama is a class., so any movies[i].genre that is of type Drama, will match and be returned.
+		 * var moviesThatAreClass:Array = at.asearch(movies,{genre:Drama});
+		 * 
+		 * //find with Function condition.
+		 * var moviesWithAverageRatings:Array = at.asearch(movies,{rating:function(item:Movie,actual:Number):Boolean{return actual > 2.4 && actual < 3.7;}});
+		 * 
+		 * //find with RegExp.
+		 * var moviesTheBeginWithTr:Array = at.asearch(movies,{name:new RegExp('^Tr.*')});
+		 * 
+		 * //find with sub-array query (assuming the 'cast' property returns an Array of Actors with the property 'name').
+		 * var moviesWithMeganFox:Array = at.asearch(movies,{'cast.name':'Megan Fox'});
+		 * </listing>
+		 * 
+		 * <p>Supported properties in the "options" parameter.</p>
+		 * 
+		 * <ul>
+		 * <li>find</li><li>Specify a find option, can be "all","first", or "last".</li>
+		 * </ul>
+		 */
+		public function asearch(array:Array,conditions:Object,options:Object=null):*
+		{
+			if(conditions is Function) return array.filter(conditions as Function);
+			if(!options) options = {find:"all"};
+			var i:int, n:int, item:*;
+			if(options.find == "first")
+			{
+				i = 0;
+				n = array.length;
+				while(i < n) if(asearchMatches(item = array[i++],conditions)) return item;
+				return null;
+			}
+			if(options.find == "last")
+			{
+				i = array.length - 1;
+				n = 0;
+				while(i >= n) if(asearchMatches(item = array[i--],conditions)) return item;
+				return null;
+			}
+			return array.filter(function(item:Object, index:int, array:Array ):Boolean 
+			{
+				if(!item) throw new Error("Missing item from array.filter");
+				return asearchMatches(array[index],conditions);
+			});
+		}
+
+		/**
+		 * Shortcut for advanced searching for the first matching item.
+		 * 
+		 * @param array The array to search in.
+		 * @param conditions An object defining the conditions to use in the search.
+		 */
+		public function asearchFirst(array:Array,conditions:Object):*
+		{
+			return asearch(array,conditions,{find:"first"});
+		}
+
+		/**
+		 * Shortcut for advanced searching for the last matching item.
+		 * 
+		 * @param array The array to search in.
+		 * @param conditions An object defining the conditions to use in the search.
+		 */
+		public function asearchLast(array:Array,conditions:Object):*
+		{
+			return asearch(array,conditions,{find:"last"});
+		}
+
+		/**
+		 * Shortcut for advanced searching by a single property.
+		 * 
+		 * @param array The array to search in.
+		 * @param conditions An object defining the conditions to use in the search.
+		 */
+		public function asearchAll(array:Array,conditions:Object):Array
+		{
+			return asearch(array,conditions,{find:"all"}) as Array;
+		}
+
+		/**
+		 * Shortcut for advanced searching by a single property.
+		 * 
+		 * @param array The array to search in.
+		 * @param property The property to read.
+		 * @param value The value of the target property.
+		 * @param options Find An object with find property. {find:"first"|"last"|"all"}.
+		 */
+		public function asearchBy(array:Array,property:String,value:*,options:Object=null):*
+		{
+			var conditions:Object = {};
+			conditions[ property ] = value;
+			return asearch(array,conditions,options);
+		}
+
+		/**
+		 * Checks it the item matches the conditions.
+		 */	
+		private function asearchMatches(item:Object,conditions:Object):Boolean 
+		{
+			for(var property:String in conditions) 
+			{
+				var expectedValue:Object = conditions[property];
+				var actualValue:Object;
+				if(property.indexOf('.') > -1)
+				{
+					actualValue = item;
+					var propertyChain:Array = property.split('.');
+					var chainLength:int = propertyChain.length;
+					var linkIndex:int = 0;
+					var propertyLink:String = '';
+					//todo: revert this to the nicer array.every style
+					//var validChain:Boolean = propertyChain.every(function( propertyLink:String, index:int, array:Array ):Boolean
+					var validChain:Boolean = false;
+					while(linkIndex < chainLength)
+					{
+						//trace( 'matches.propertyChain:', item, linkIndex, '/', chainLength,
+						//actualValue, propertyLink,
+						//actualValue.hasOwnProperty( propertyLink ) ? actualValue[ propertyLink ] : 'null' );
+						propertyLink = propertyChain[linkIndex];
+						if(!actualValue.hasOwnProperty(propertyLink)) break;
+						actualValue = actualValue[propertyLink];
+						if(linkIndex==(chainLength-1)) //valid if we made it to the last link its valid
+						{
+							validChain = true;
+							break;
+						}
+						linkIndex++;
+					}
+					//dont match if the chain isnt valid
+					if(!validChain)
+					{
+						//if links remain in the property chain, check if actualValue is an Array, 
+						//then see if there are items in that array that match
+						if(actualValue is Array) 
+						{
+							//true if there are any items that match the remaining pieces
+							//its safe to bail out on the first found item
+							conditions = {};
+							conditions[propertyChain.slice(linkIndex).join('.')] = expectedValue;
+							var found:Object = asearchFirst(actualValue as Array,conditions);
+							return found ? true : false;
+						}
+						return false;
+					}
+				}
+				else 
+				{
+					if(!item.hasOwnProperty(property)) return false;		
+					actualValue = item[property];
+				}
+				if(!asearchMatchesValue(item,expectedValue,actualValue)) return false;		
+			}
+			return true;
+		}
+
+		/**
+		 * Checks if a value matches the expected value
+		 */
+		private function asearchMatchesValue(item:*,expected:*,actual:*):Boolean
+		{
+			//class matcher.
+			if((actual is Class) && (expected is Class)) return ((actual as Class)===(expected as Class));
+			if((expected is Class)) return (actual is expected);
+			
+			//function matcher
+			if((actual is Function) && (expected is Function)) return ((actual as Function)===(expected as Function)); 
+			if(expected is Function) return (expected as Function)(item,actual);
+			
+			//regexp matcher
+			if((actual is RegExp) && (expected is RegExp)) return ((actual as RegExp)===(expected as RegExp));
+			if((actual is String) && (expected is RegExp)) return (expected as RegExp).test(actual as String);
+			
+			//literal matcher
+			return (actual===expected);
 		}
 	}
 }
