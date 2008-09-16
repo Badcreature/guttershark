@@ -2,7 +2,7 @@ package net.guttershark.display.views
 {
 	
 	/**
-	 * The ControllerView Class defines a name convention for
+	 * The ControllerView class defines a name convention for
 	 * a view that is part of an M(VC) paradigm.
 	 */
 	public class ControllerView extends BasicView 

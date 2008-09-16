@@ -7,7 +7,7 @@ package net.guttershark.util.xml
 	import flash.net.URLRequest;
 	
 	/**
-	 * The XMLLoader class simplifies loading XML.
+	 * The XMLLoader class loads xml.
 	 * 
 	 * @see #load()
 	 */

@@ -17,7 +17,7 @@ package net.guttershark.support.preloading.events
 		public static const PROGRESS:String = "preloadProgress";
 		
 		/**
-		 * The amount of pixels that should be full based off of the overall download progress.
+		 * The number of pixels that are "filled" based off of the overall progress.
 		 */
 		public var pixels:int;
 		
