@@ -1,5 +1,5 @@
 package net.guttershark.util.converters{
-	/**	 * Binary conversion utilities	 */	final public class BinaryConverter 
+	/**	 * Binary conversion utilities.	 */	final public class BinaryConverter 
 	{
 				/**		 * Convert int to binary string representation		 */		public static function toBinary(numberToConvert:int):String
 		{			var result:String = "";			for(var i:Number = 0;i < 32; i++)

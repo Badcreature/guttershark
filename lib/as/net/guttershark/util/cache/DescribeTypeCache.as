@@ -3,7 +3,7 @@ package net.guttershark.util.cache
 	import net.guttershark.util.Singleton;		
 
 	/**
-	 * The DescribeType Classs wraps the flash.util.describeType
+	 * The DescribeType classs wraps the flash.util.describeType
 	 * function and caches all object descriptions so that
 	 * describeType will only be called once for any object.
 	 */

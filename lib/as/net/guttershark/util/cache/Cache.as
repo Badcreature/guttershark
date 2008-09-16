@@ -6,7 +6,7 @@ package net.guttershark.util.cache
 	import flash.utils.setInterval;
 	
 	/**
-	 * The Cache Class caches objects in memory.
+	 * The Cache class caches objects in memory.
 	 * 
 	 * @example Caching an object:
 	 * <listing>	
