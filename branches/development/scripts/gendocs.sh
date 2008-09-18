@@ -93,8 +93,7 @@ ${ASDOC}asdoc \
 -package net.guttershark "The net.guttershark package contains all Actionscript 3 classes, namespaces, and meta data for the net.guttershark package." \
 -package net.guttershark.control "The net.guttershark.control package contains controller classes for an FLA, and preloading." \
 -package net.guttershark.display "The net.guttershark.display package contains all classes that are display objects, and are used in the display list." \
--package net.guttershark.display.controls "The net.guttershark.display.controls package contains base classes for generic user interface elements." \
--package net.guttershark.display.controls.buttons "The net.guttershark.display.controls.buttons package contains base classes for generic buttons." \
+-package net.guttershark.display.buttons "The net.guttershark.display.controls.buttons package contains base classes for generic buttons." \
 -package net.guttershark.display.draw "The net.guttershark.display.draw package contains display objects that are drawn with vectors." \
 -package net.guttershark.display.geom "The net.guttershark.display.geom package contains classes that define basic geomitry." \
 -package net.guttershark.display.lang "The net.guttershark.display.lang package contains classes used for localizing content." \

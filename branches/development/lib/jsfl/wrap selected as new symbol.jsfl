@@ -110,7 +110,7 @@ else
 	if(theDoc.library.getSelectedItems().length <= 1) alert("Please select at least two items in the library!");
 	else
 	{
-			var xmui = theDoc.xmlPanel(fl.configURI + "Commands/xmui/wrap selected as new symbol.xml");
+		var xmui = theDoc.xmlPanel(fl.configURI + "Commands/xmui/wrap selected as new symbol.xml");
 		var obj = new ConvertAllToClips();
 		obj.init();
 	}
