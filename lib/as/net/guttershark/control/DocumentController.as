@@ -174,6 +174,7 @@ package net.guttershark.control
 		private function setupFlashvars():void
 		{
 			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) flashvars = flashvarsForStandalone();
+			else if(Frame1Controller.flashvars) flashvars = Frame1Controller.flashvars;
 			else flashvars = loaderInfo.parameters;
 		}
 		

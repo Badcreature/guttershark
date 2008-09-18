@@ -32,4 +32,15 @@ package
 		{
 			//trace("preload complete, start the app/site.");
 			gotoAndStop(2); //the reall
+			dispose();
+		}
+		
+		override protected function dispose():void
+		{
+			super.dispose();
+			trace("dispose");
+			//removeChild(preloader);
+			//removeChild(percentLabel);
+			preloader = null;
+			percentLabel = null;
 		}	}}
