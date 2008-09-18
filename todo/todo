@@ -3,6 +3,9 @@
 -tools
 -text format definitions in model
 -style definitions in model?
+-get rid of bitfield.
+-move raster methods into bitmap utils.
+
 
 --guttershark tool
 ---bugs - sharedOBject bug, export classes bug, write XML
