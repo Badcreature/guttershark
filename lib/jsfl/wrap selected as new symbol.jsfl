@@ -103,7 +103,6 @@ proto.init = function()
 		this.lib.deleteItem("_tmpConversionClip");
 	}
 }
-
 var theDoc = fl.getDocumentDOM();
 if (!theDoc) alert("You need to open a Flash file first!");
 else

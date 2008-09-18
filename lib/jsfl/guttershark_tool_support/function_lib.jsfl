@@ -1,5 +1,5 @@
 /**
- * Get's all selected items' base class from the library.
+ * Gets all selected items' base class from the library.
  */
 function getSelectedBaseClassesCSV()
 {
