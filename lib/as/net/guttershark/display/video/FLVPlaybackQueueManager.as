@@ -1,9 +1,20 @@
 package net.guttershark.display.video
 {
-	import net.guttershark.util.Assertions;	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.NetStatusEvent;
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
 	
-	import flash.events.Event;	import flash.events.EventDispatcher;	import flash.events.NetStatusEvent;	import flash.utils.clearTimeout;	import flash.utils.setTimeout;		import fl.video.FLVPlayback;	import fl.video.VideoEvent;	import fl.video.VideoPlayer;		import gs.TweenLite;		import net.guttershark.util.BitField;
-	/**
+	import fl.video.FLVPlayback;
+	import fl.video.VideoEvent;
+	import fl.video.VideoPlayer;
+	
+	import gs.TweenLite;
+	
+	import net.guttershark.util.Assertions;		
+
+	/**
 	 * The FLVPlaybackQueueManager uses an instance of an FLVPlayback
 	 * to play videos in a queue. It uses an FLVPlayback for 
 	 * the VideoPlayer stack functionality.
@@ -60,11 +71,6 @@ package net.guttershark.display.video
 		 * The current player index from the FLVPlayback stack.
 		 */
 		private var currentPlayerIndex:int = 0;
-		
-		/**
-		 * Internal states used.
-		 */
-		private var states:BitField;
 
 		/**
 		 * Nan count is used for counting how many times 
@@ -94,6 +100,12 @@ package net.guttershark.display.video
 		 */
 		private var ast:Assertions;
 
+		private var httpAttempt:Boolean;
+		private var rtmpAttempt:Boolean;
+		private var state:int;
+		private var playState:Boolean;
+		private var goingOut:Boolean;
+
 		/**
 		 * Constructor for FLVPlaybackQueueManager instances.
 		 */
@@ -101,16 +113,6 @@ package net.guttershark.display.video
 		{
 			currentPlayerIndex = -1;
 			ast = Assertions.gi();
-			states = new BitField();
-			states.addField("httpAttempt",1,0); //0 for inactive, 1 for http, 2 for rtmp
-			states.addField("rtmpAttempt",1,1); //0 for inactive, 1 for http, 2 for rtmp
-			states.addField("state",2,2); //0 for inactive, 1 for http, 2 for rtmp
-			states.addField("playState",1,4); //0 for paused, 1 for playing
-			states.addField("goingOut",1,5); //0 for not going out, 1 for going out.
-			states.httpAttempt = 0;
-			states.rtmpAttempt = 0;
-			states.state = 0;
-			states.playState = 0;
 			nanCount = 0;
 		}
 
@@ -176,7 +178,7 @@ package net.guttershark.display.video
 		public function pause(val:Boolean):void
 		{
 			_player.pause();
-			states.playState = 0;
+			playState = false;
 		}
 		
 		/**
@@ -184,11 +186,11 @@ package net.guttershark.display.video
 		 */
 		public function reset():void
 		{
-			states.playState = 0;
-			states.state = 0;
-			states.httpAttempt = 0;
-			states.rtmpAttempt = 0;
-			states.goingOut = 0;
+			playState = false;
+			state = 0;
+			httpAttempt = false;
+			rtmpAttempt = false;
+			goingOut = false;
 			_queue = [];
 			for(var i:int = 1; i < 3; i++) _player.getVideoPlayer(i).close();
 		}
@@ -226,12 +228,12 @@ package net.guttershark.display.video
 		{
 			ast.notNil(source,"Parameter source cannot be null");
 			var vp:VideoPlayer = getPlayer(source);
-			states.httpAttempt = 1;
-			states.goingOut = false;
+			httpAttempt = true;
+			goingOut = false;
 			if(source.indexOf("rtmp://") > -1)
 			{
-				states.httpAttempt = 0;
-				states.rtmpAttempt = 1;
+				httpAttempt = false;
+				rtmpAttempt = true;
 				startStreamFail(currentPlayerIndex);
 			}
 			vp.play(source);
@@ -272,11 +274,11 @@ package net.guttershark.display.video
 		{
 			var nextClip:String = getNextClip();
 			var vp:VideoPlayer = getPlayer(nextClip);
-			states.httpAttempt = 1;
+			httpAttempt = true;
 			if(nextClip.indexOf("rtmp://") > -1)
 			{
-				states.httpAttempt = 0;
-				states.rtmpAttempt = 1;
+				httpAttempt = false;
+				rtmpAttempt = true;
 				startStreamFail(currentPlayerIndex);
 			}
 			vp.play(nextClip);
@@ -301,9 +303,9 @@ package net.guttershark.display.video
 				nanCount = -1;
 				playNext();
 			}
-			if(target.playheadTime >= outTweenTime && !states.goingOut)
+			if(target.playheadTime >= outTweenTime && !goingOut)
 			{
-				states.goingOut = 1;
+				goingOut = true;
 				playNext();
 			}
 		}		
@@ -333,15 +335,15 @@ package net.guttershark.display.video
 				{
 					clearTimeout(streamFailTimeout);
 					setTimeout(activePlayer.stop, half);
-					states.rtmpAttempt = 0;
-					states.state = 2;
+					rtmpAttempt = false;
+					state = 2;
 					addNetConnectionEventListeners(target);
 				}
 				else
 				{
 					setTimeout(activePlayer.stop, half);
-					states.httpAttempt = 0;
-					states.state = 1;
+					httpAttempt = false;
+					state = 1;
 				}
 				TweenLite.to(target,half,{autoAlpha:1,volume:_player.volume});
 				TweenLite.to(activePlayer,half,{volume:0,autoAlpha:0});
@@ -351,7 +353,7 @@ package net.guttershark.display.video
 			else
 			{
 				started = true;
-				(target.isRTMP) ? states.rtmpAttempt = 0 : states.httpAttempt = 0;
+				(target.isRTMP) ? rtmpAttempt = false : httpAttempt = false;
 				TweenLite.to(target,half,{autoAlpha:1,volume:_player.volume});
 				activePlayer = target;
 			}
@@ -364,7 +366,7 @@ package net.guttershark.display.video
 		 */
 		private function clearGoingOut():void
 		{
-			states.goingOut = false;
+			goingOut = false;
 		}
 		
 		/**
@@ -412,7 +414,7 @@ package net.guttershark.display.video
 			switch(ns.info.code)
 			{
 				case "NetConnection.Connect.Closed":
-					if(states.rtmpAttempt == 1)
+					if(rtmpAttempt)
 					{
 						removeNetConnectionEventListeners(_player.getVideoPlayer(_player.activeVideoPlayerIndex));
 						reset();

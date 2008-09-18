@@ -10,7 +10,7 @@ package net.guttershark.support.preloading
 	import net.guttershark.support.preloading.events.AssetProgressEvent;
 	import net.guttershark.support.preloading.events.AssetStatusEvent;
 	import net.guttershark.support.preloading.workers.WorkerInstances;
-	import net.guttershark.util.types.StringUtils;	
+	import net.guttershark.util.StringUtils;	
 
 	/**
 	 * The Asset class defines an asset to preload with a PreloadController.

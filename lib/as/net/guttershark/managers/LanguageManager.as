@@ -5,8 +5,9 @@
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.display.text.LocalizableClip;
+	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
-	import net.guttershark.util.xml.XMLLoader;	
+	import net.guttershark.util.XMLLoader;	
 
 	/**
 	 * The LanguageManager class manages loading different language
@@ -42,12 +43,18 @@
 		private var codes:Dictionary;
 		
 		/**
+		 * Assertions.
+		 */
+		private var ast:Assertions;
+
+		/**
 		 * @private
 		 * Constructor for LanguageManager instances.
 		 */
 		public function LanguageManager()
 		{
 			Singleton.assertSingle(LanguageManager);
+			ast = Assertions.gi();
 			clips = new Dictionary();
 			languages = new Dictionary();
 			codes = new Dictionary();
@@ -75,6 +82,8 @@
 		 */
 		public function addLanguageXML(langXML:XML, langCode:String):void
 		{
+			ast.notNil(langXML,"Parameter {langXML} cannot be null");
+			ast.notNil(langCode,"Parameter {langCode} cannot be null");
 			if(!langXML || !langCode) throw new ArgumentError("Parameters cannot be null");
 			languages[langCode] = langXML;
 			codes[langCode] = true;
@@ -88,6 +97,8 @@
 		 */
 		public function loadLanguage(langXMLPath:String, langCode:String):void
 		{
+			ast.notNil(langXMLPath,"Parameter {langXMLPath} cannot be null");
+			ast.notNil(langCode,"Parameter {langCode} cannot be null");
 			if(!langXMLPath || !langCode) throw new ArgumentError("Parameters cannot be null");
 			var x:XMLLoader = new XMLLoader();
 			codes[langCode] = x;
@@ -122,6 +133,8 @@
 		 */
 		public function addLocalizableClip(clip:LocalizableClip,textID:String,updateOnAdd:Boolean=false):void
 		{
+			ast.notNil(clip,"Parameter {clip} cannot be null");
+			ast.notNil(textID,"Parameter {textID} cannot be null");
 			clip.localizedID = textID;
 			clips[textID] = clip;
 			if(!languages[_languageCode] && updateOnAdd) trace("WARNING: updateOnAdd will not be applied. The language code {" + _languageCode + "} has no XML associated with it.");
@@ -135,6 +148,7 @@
 		 */
 		public function removeLocalizableClip(clip:LocalizableClip):void
 		{
+			ast.notNil(clip,"Parameter {clip} cannot be null");
 			if(clips[clip]) clips[clip] = null;
 		}
 		
@@ -143,10 +157,7 @@
 		 */
 		public function updateAll():void
 		{
-			for each(var clip:* in clips)
-			{
-				clip.localizedText = getTextForID(clip.localizedID);
-			}
+			for each(var clip:* in clips) clip.localizedText = getTextForID(clip.localizedID);
 		}
 		
 		/**
@@ -157,6 +168,7 @@
 		 */
 		public function set languageCode(code:String):void
 		{
+			ast.notNil(code,"Parameter {code} cannot be null");
 			if(!codes[code]) throw new Error("Language code " + code.toString() + " is not available");
 			_languageCode = code;
 			updateAll();
@@ -168,6 +180,7 @@
 		 */
 		public function getTextForID(textID:String):String
 		{
+			ast.notNil(textID,"Parameter {textID} cannot be null");
 			if(!_languageCode) return null;
 			if(!languages[_languageCode]) return null;
 			if(!XML(languages[_languageCode]).text.(@id == textID)) throw new Error("No text for text id: {" + textID + "} was found");

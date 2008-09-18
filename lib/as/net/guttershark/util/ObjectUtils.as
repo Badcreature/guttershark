@@ -1,4 +1,4 @@
-package net.guttershark.util.types
+package net.guttershark.util
 {
 	import net.guttershark.util.Singleton;	
 
@@ -38,9 +38,10 @@ package net.guttershark.util.types
 		 * 
 		 * @example Cloning a generic object:
 		 * <listing>	
+		 * var utils:Utilities = Utilities.gi();
 		 * var myObj:Object = new Object();
 		 * myObj.message = "hello world";
-		 * var myCopy:Object = ObjectUtils.Clone(myObj);
+		 * var myCopy:Object = utils.object.clone(myObj);
 		 * trace(myCopy.message);
 		 * </listing>
 		 * 

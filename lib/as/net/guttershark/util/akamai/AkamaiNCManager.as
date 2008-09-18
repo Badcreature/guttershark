@@ -137,26 +137,15 @@ package net.guttershark.util.akamai
     	{	
 			initOtherInfo();
 			_contentPath = url;
-			
     		var canReuse:Boolean;
     		var returnValue:Boolean;
-    		
-    		if(_contentPath == null || _contentPath == "")
-    		{
-    			throw new VideoError(VideoError.INVALID_SOURCE);
-    		}
-    		
+    		if(_contentPath == null || _contentPath == "") throw new VideoError(VideoError.INVALID_SOURCE);
     		//parse URL to determine what to do with it                                        
     		parseResults = parseURL(_contentPath);
-    		if(parseResults.streamName == null || parseResults.streamName == "")
-    		{
-    			throw new VideoError(VideoError.INVALID_SOURCE, url);
-    		}
-    		
+    		if(parseResults.streamName == null || parseResults.streamName == "") throw new VideoError(VideoError.INVALID_SOURCE, url);
     		//connect to either rtmp or http or download and parse smil
     		if(parseResults.isRTMP)
     		{
-    			//trace("parseResults.isRTMP");
     			_isRTMP = true;
     			//assumes we are dealing with an Akamai URL
     			//check to see if the serverName and app names match
@@ -167,52 +156,27 @@ package net.guttershark.util.akamai
 	    			{
 	    				//trace("Reusing existing Akamai connection");
 	    				_streamName = getAkamaiStreamName(url);
-	    				if(_streamName.slice(-4).toLowerCase() == ".flv")
-	    				{
-	    					_streamName = _streamName.slice(0, -4);
-	    				}
-	    				//trace("1Using the Akamai FMS server at: "+_serverName);
-	    				//trace("1The Akamai app name: "+_appName);
-	    				//trace("1The Akamai stream name is:"+_streamName);
+	    				if(_streamName.slice(-4).toLowerCase() == ".flv") _streamName = _streamName.slice(0, -4);
 	    				//if this host and app is already in use then reuse the existing connection.
 	    				returnValue = true;
 	    			}
 	    			else
 	    			{
-	    				//trace("CAN'T REUSE CONNECTION");
 	    				//canReuse = canReuseOldConnection(parseResults);
-	    				
-	    				if(!AkamaiNCManager.FMS_IP)
-			    		{
-			    			sniffFMSIP();
-			    		}
-	    				
-	    				if(!parseResults)
-	    					parseResults = parseURL(_contentPath);
-						
+	    				if(!AkamaiNCManager.FMS_IP) sniffFMSIP();
+	    				if(!parseResults) parseResults = parseURL(_contentPath);
 						akamaiHost = parseResults.serverName;
-						
 						_protocol = parseResults.protocol;
 						_wrappedURL = parseResults.wrappedURL;
 						_portNumber = parseResults.portNumber;
-						
-						if(AkamaiNCManager.FMS_IP)
-	    					_serverName = AkamaiNCManager.FMS_IP;
-	    				else
-	    					_serverName = parseResults.serverName;
-						
+						if(AkamaiNCManager.FMS_IP) _serverName = AkamaiNCManager.FMS_IP;
+	    				else _serverName = parseResults.serverName;
 						_appName = getAkamaiAppName(_contentPath);
 						_streamName = getAkamaiStreamName(_contentPath);
-	    				
-	    				if(_appName == null || _appName == "" || _streamName == null || _streamName == "")
-	    				{
-	    					throw new VideoError(VideoError.INVALID_SOURCE, url);
-	    				}
-	    				
+	    				if(_appName == null || _appName == "" || _streamName == null || _streamName == "") throw new VideoError(VideoError.INVALID_SOURCE, url);
 	    				//trace("2Using the Akamai FMS server at: "+ _serverName);
 						//trace("2Akamai app name: " + _appName);
 						//trace("2Akamai stream name:" + _streamName);
-	    				
 	    				_autoSenseBW = (_streamName.indexOf(",") >= 0);
 	    				returnValue = false;
     				}
@@ -226,41 +190,21 @@ package net.guttershark.util.akamai
     				}
     				else
     				{
-    					if(!parseResults)
-	    					parseResults = parseURL(_contentPath);
-						
+    					if(!parseResults) parseResults = parseURL(_contentPath);
 						akamaiHost = parseResults.serverName;
-						
 						_protocol = parseResults.protocol;
 						_wrappedURL = parseResults.wrappedURL;
 						_portNumber = parseResults.portNumber;
-						
-						if(AkamaiNCManager.FMS_IP)
-	    					_serverName = AkamaiNCManager.FMS_IP;
-	    				else
-	    					_serverName = parseResults.serverName;
-						
+						if(AkamaiNCManager.FMS_IP) _serverName = AkamaiNCManager.FMS_IP;
+	    				else _serverName = parseResults.serverName;
 						_appName = getAkamaiAppName(_contentPath);
 						_streamName = getAkamaiStreamName(_contentPath);
-						
-						if(_streamName.indexOf(".flv") != -1)
-						{
-							_streamName = _streamName.slice(0, _streamName.indexOf(".flv"))+_streamName.slice(_streamName.indexOf(".flv")+4, _streamName.length);
-						}
-						
-						if(_streamName.slice(-4).toLowerCase() == ".mp3")
-						{
-							_streamName = _streamName.slice(0, -4);
-						}
-						
+						if(_streamName.indexOf(".flv") != -1) _streamName = _streamName.slice(0, _streamName.indexOf(".flv"))+_streamName.slice(_streamName.indexOf(".flv")+4, _streamName.length);
+						if(_streamName.slice(-4).toLowerCase() == ".mp3") _streamName = _streamName.slice(0, -4);
 						//trace("3Using the Akamai FMS server at: "+ _serverName);
 						//trace("3Akamai app name: " + _appName);
 						//trace("3Akamai stream name:" + _streamName);
-						
-						if(_appName == null || _appName == "" || _streamName == null || _streamName == "")
-						{
-							throw new VideoError(VideoError.INVALID_SOURCE, _contentPath);
-						}
+						if(_appName == null || _appName == "" || _streamName == null || _streamName == "") throw new VideoError(VideoError.INVALID_SOURCE, _contentPath);
 						returnValue = connectRTMP();
     				}
     			}
@@ -275,10 +219,7 @@ package net.guttershark.util.akamai
     				_streamName = parseResults.streamName;
     				returnValue =  (canReuse || connectHTTP());
     			}
-    			else
-    			{
-    				throw new Error("SMIL Not Supported by the AkamaiNCManager class");
-    			}
+    			else throw new Error("SMIL Not Supported by the AkamaiNCManager class");
     		}
     		return returnValue;
     	}
@@ -293,12 +234,6 @@ package net.guttershark.util.akamai
 			idnt = new Ident();
 			idnt.contentLoader.addEventListener(Event.COMPLETE,onIPSniff);
 			idnt.findBestIPForAkamaiApplication("http://" + parseResults.serverName);
-			/*xml = new XMLLoader();
-			/var r:URLRequest = new URLRequest("http://" + parseResults.serverName + "/fcs/ident");
-			xml.addEventListener(Event.COMPLETE, onIPSniff);
-			xml.addEventListener(IOErrorEvent.IO_ERROR, onIPSniffError);
-			xml.addEventListener(HTTPStatusEvent.HTTP_STATUS, onIPSniffHTTPStatus);
-			xml.load(r);*/
     	}
     	
     	/**
@@ -310,9 +245,7 @@ package net.guttershark.util.akamai
     		if(xml.ip) AkamaiNCManager.FMS_IP = xml.ip.toString();
     		try
     		{
-    			if(!parseResults)
-    				parseResults = parseURL(_contentPath);
-    				
+    			if(!parseResults) parseResults = parseURL(_contentPath);
 				akamaiHost = parseResults.serverName;
 				_isRTMP = true;
 				_protocol = parseResults.protocol;
@@ -321,25 +254,12 @@ package net.guttershark.util.akamai
 				_serverName = AkamaiNCManager.FMS_IP;
 				_appName = getAkamaiAppName(_contentPath);
 				_streamName = getAkamaiStreamName(_contentPath);
-				
-				if(_streamName.indexOf(".flv") != -1)
-				{
-					_streamName = _streamName.slice(0, _streamName.indexOf(".flv"))+_streamName.slice(_streamName.indexOf(".flv")+4, _streamName.length);
-				}
-				
-				if(_streamName.slice(-4).toLowerCase() == ".mp3")
-				{
-					_streamName = _streamName.slice(0, -4);
-				}
-				
+				if(_streamName.indexOf(".flv") != -1) _streamName = _streamName.slice(0, _streamName.indexOf(".flv"))+_streamName.slice(_streamName.indexOf(".flv")+4, _streamName.length);
+				if(_streamName.slice(-4).toLowerCase() == ".mp3") _streamName = _streamName.slice(0, -4);
 				//trace("Using the Akamai FMS server at: "+ _serverName);
 				//trace("Akamai app name: " + _appName);
 				//trace("Akamai stream name:" + _streamName);
-				
-				if(_appName == null || _appName == "" || _streamName == null || _streamName == "")
-				{
-					throw new VideoError(VideoError.INVALID_SOURCE, _contentPath);
-				}
+				if(_appName == null || _appName == "" || _streamName == null || _streamName == "") throw new VideoError(VideoError.INVALID_SOURCE, _contentPath);
 				connectRTMP();
     		}
     		catch(error:Error)
@@ -357,18 +277,9 @@ package net.guttershark.util.akamai
     	{
     		//first check if a vhost is being passed in
     		var a:String;
-    		if(p.indexOf("_fcs_vhost") != -1)
-    		{
-    			a = p.slice(p.indexOf("/", 10)+1, p.indexOf("/", p.indexOf("/", 10)+1))+"?_fcs_vhost="+p.slice(p.indexOf("_fcs_vhost")+11);
-    		}
-    		else
-    		{
-    			a = p.slice(p.indexOf("/", 10)+1, p.indexOf("/", p.indexOf("/", 10)+1))+"?_fcs_vhost="+parseURL(p).serverName;
-    		}
-    		if(p.indexOf("?") != -1)
-    		{
-    			a = a+"&"+p.slice(p.indexOf("?")+1);
-    		}
+    		if(p.indexOf("_fcs_vhost") != -1) a = p.slice(p.indexOf("/", 10)+1, p.indexOf("/", p.indexOf("/", 10)+1))+"?_fcs_vhost="+p.slice(p.indexOf("_fcs_vhost")+11);
+    		else a = p.slice(p.indexOf("/", 10)+1, p.indexOf("/", p.indexOf("/", 10)+1))+"?_fcs_vhost="+parseURL(p).serverName;
+    		if(p.indexOf("?") != -1) a = a+"&"+p.slice(p.indexOf("?")+1);
     		return a;
     	}
 		

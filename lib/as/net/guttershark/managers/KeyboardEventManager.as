@@ -200,6 +200,7 @@ package net.guttershark.managers
 			var i:int = 0;
 			var l:int = objects.length;
 			for(i;i<l;i++) removeMapping(objects[i],mapping);
+			clearKeys();
 		}
 		
 		/**
@@ -568,7 +569,8 @@ package net.guttershark.managers
 			var char:String = getShortcutForKey(ke.keyCode);
 			if(char == null) char = String.fromCharCode(ke.charCode);
 			var test:String = char + "+";
-			for(var i:int = 0; i < 4; i++) if(keysDown.indexOf(test) > -1) keysDown = keysDown.replace(test,"");
+			var i:int = 0;
+			for(i;i<4;i++) if(keysDown.indexOf(test) > -1) keysDown = keysDown.replace(test,"");
 		}
 		
 		/**

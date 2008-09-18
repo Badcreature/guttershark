@@ -1,4 +1,4 @@
-package net.guttershark.util.xml
+package net.guttershark.util
 {	
 
 	import flash.events.*;

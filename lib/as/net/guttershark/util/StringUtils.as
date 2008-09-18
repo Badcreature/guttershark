@@ -1,4 +1,4 @@
-package net.guttershark.util.types
+package net.guttershark.util
 {
 	import net.guttershark.util.crypt.Luhn;	
 	import net.guttershark.util.Singleton;				
@@ -43,7 +43,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The email to evaluate.
 		 */
-		public function isEemail(str:String):Boolean
+		public function isemail(str:String):Boolean
 		{
 			var emailExpression:RegExp = /^[a-z][\w.-]+@\w[\w.-]+\.[\w.-]*[a-z][a-z]$/i;
 			return emailExpression.test(str);
@@ -72,7 +72,7 @@ package net.guttershark.util.types
 		 * @param message A message to throw if the assertion evaluates to false.
 		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
 		 */
-		public function stateAbbrev(state:String,message:String=null,exceptionType:Class=null):Boolean
+		public function isStateAbbrev(state:String,message:String=null,exceptionType:Class=null):Boolean
 		{
 			var states:Array = [
 				"AL","AK","AS","AZ",
@@ -98,7 +98,7 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The string to evaluate.
 		 */
-		public function url(str:String,message:String=null,exceptionType:Class=null):Boolean
+		public function isurl(str:String,message:String=null,exceptionType:Class=null):Boolean
 		{
 			return (str.substring(0,7) == "http://" || str.substring(0,8) == "https://");
 		}
@@ -108,10 +108,20 @@ package net.guttershark.util.types
 		 * 
 		 * @param str The string to evaluate.
 		 */
-		public function isPhone(str:String):Boolean
+		public function isphone(str:String):Boolean
 		{
 			var phoneExpression:RegExp = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/i;
 			return phoneExpression.test(str);
+		}
+		
+		/**
+		 * Check whether or not a string is a valid file URI.
+		 * 
+		 * @param str The string to evaluate.
+		 */
+		public function isfileuri(str:String):Boolean
+		{
+			return (str.substring(0,8) == "file:///");
 		}
 
 		/**
@@ -766,9 +776,10 @@ package net.guttershark.util.types
 		 * @param n The target number.
 		 * 
 		 * @example Using the StringUtils.floatToString method:
-		 * <listing>	
+		 * <listing>
+		 * var utils:Utilities = Utilities.gi();	
 		 * trace(String(0.0000001)); //returns 1e-7
-		 * trace(StringUtils.floatToString(0.0000001)); //returns .00000001
+		 * trace(utils.string.floatToString(0.0000001)); //returns .00000001
 		 * </listing>
 		 */
 		public function floatToString(n:Number):String
@@ -894,7 +905,8 @@ package net.guttershark.util.types
 		 * 
 		 * @example	Using the StringUtils.toNumeric method:
 		 * <listing>	
-		 * StringUtils.toNumeric("123-123-1234"); //returns 1221231234 
+		 * var utils:Utilities = Utilities.gi();
+		 * utils.string.toNumeric("123-123-1234"); //returns 1221231234 
 		 * </listing>
 		 */
 		public function toNumeric(str:String):String
@@ -964,6 +976,25 @@ package net.guttershark.util.types
 			for(var i:Number = 0;i < strNumber.length - digitsShown; i++) encoded += encodeChar;
 			encoded += strNumber.slice(-digitsShown);
 			return encoded;
+		}
+		
+		/**
+		 * Convert string or number to boolean
+		 * 
+		 * @param s The string ("1", "true", "yes", "on").
+		 * 
+		 * @example Using toBoolean:
+		 * <listing>	
+		 * var utils:Utilities = Utilities.gi();
+		 * var b:Boolean = utils.convert.toBoolean("true");
+		 * </listing>
+		 */
+		public function toBoolean(s:String):Boolean
+		{
+			var b:String = String(s).toLowerCase();
+			if(b == "1" || b == "true" || b == "yes" || b == "on") return true;
+			else if (b == "0" || b == "false" || b == "no" || b == "off") return false; 
+			else throw new Error("BoolConversion.toBoolean() could not convert input to a proper Boolean value");
 		}		
 				
 		/**
