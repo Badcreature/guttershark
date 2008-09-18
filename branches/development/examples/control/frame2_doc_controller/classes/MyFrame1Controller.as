@@ -39,8 +39,6 @@ package
 		{
 			super.dispose();
 			trace("dispose");
-			//removeChild(preloader);
-			//removeChild(percentLabel);
 			preloader = null;
 			percentLabel = null;
 		}	}}
