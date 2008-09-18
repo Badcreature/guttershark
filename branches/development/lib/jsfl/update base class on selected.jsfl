@@ -12,4 +12,5 @@ for(i; i < items.length; i++)
 	if(t != "movie clip" && t != "font" && t != "sound" && t != "bitmap") continue;
 	item.linkageExportForAS = true;
 	item.linkageBaseClass = newBaseClass;
+	item.linkageExportInFirstFrame = true;
 }
