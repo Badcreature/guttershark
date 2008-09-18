@@ -11,7 +11,6 @@
 package net.guttershark.control
 {
 	import flash.display.Loader;
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
@@ -28,21 +27,12 @@ package net.guttershark.control
 	import com.asual.swfaddress.SWFAddressEvent;
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
-	import net.guttershark.managers.AssetManager;
-	import net.guttershark.managers.EventManager;
-	import net.guttershark.managers.KeyboardEventManager;
-	import net.guttershark.managers.LanguageManager;
-	import net.guttershark.managers.LayoutManager;
+	import net.guttershark.display.CoreSprite;
 	import net.guttershark.managers.PlayerManager;
-	import net.guttershark.managers.ServiceManager;
-	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
-	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
-	import net.guttershark.util.FlashLibrary;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.Utilities;
 	import net.guttershark.util.XMLLoader;
 	import net.guttershark.util.akamai.Ident;	
 
@@ -93,7 +83,7 @@ package net.guttershark.control
 	 * &lt;/script&gt;
 	 * </listing> 
 	 */
-	public class DocumentController extends Sprite
+	public class DocumentController extends CoreSprite
 	{
 
 		/**
@@ -152,81 +142,12 @@ package net.guttershark.control
 		private var trackingXMLLoader:XMLLoader;
 
 		/**
-		 * The EventManager singleton instance.
-		 */
-		protected var em:EventManager;
-		
-		/**
-		 * The Model singleton instance.
-		 */
-		protected var ml:Model;
-		
-		/**
-		 * The KeyboardEventManager singleton instance.
-		 */
-		protected var km:KeyboardEventManager;
-		
-		/**
-		 * The LanguageManager singleton instance.
-		 */
-		protected var lgm:LanguageManager;
-		
-		/**
-		 * A placeholder variable for a PreloadController instance. You should initialize this yourself.
-		 */
-		protected var pc:PreloadController;
-		
-		/**
-		 * The AssetManager singleton instance.
-		 */
-		protected var am:AssetManager;
-
-		/**
-		 * The ServiceManager singleton instance.
-		 */
-		protected var sm:ServiceManager;
-
-		/**
-		 * The FlashLibrary singleton instance.
-		 */
-		protected var fb:FlashLibrary;
-
-		/**
-		 * The SoundManager singleton instance.
-		 */
-		protected var snm:SoundManager;
-
-		/**
-		 * An instance of a layout manager.
-		 */
-		public var lm:LayoutManager;
-		
-		/**
-		 * The Assertions singleton instance.
-		 */
-		protected var ast:Assertions;
-		
-		/**
-		 * The Utilities singleton instance.
-		 */
-		protected var utils:Utilities;
-
-		/**
 		 * Constructor for DocumentController instances. This should not
 		 * be used directly, only subclassed as a Document Class for an FLA.
 		 */
 		public function DocumentController()
 		{
-			lm = new LayoutManager(this);
-			snm = SoundManager.gi();
-			fb = FlashLibrary.gi();
-			sm = ServiceManager.gi();
-			am = AssetManager.gi();
-			lgm = LanguageManager.gi();
-			km = KeyboardEventManager.gi();
-			em = EventManager.gi();
-			ast = Assertions.gi();
-			utils = Utilities.gi();
+			super();
 			online = true;
 			setupFlashvars();
 			if(flashvars.macMouseWheel) MacMouseWheel.setup(stage);
@@ -377,7 +298,6 @@ package net.guttershark.control
 		 */
 		protected function initModel():void
 		{
-			ml = Model.gi();
 			if(model) ml.xml = model;
 		}
 		
