@@ -224,6 +224,7 @@ package net.guttershark.managers
 		 * @example Intended use for this method:
 		 * <listing>	
 		 * var sm:ServiceManager = ServiceManager.gi();
+		 * sm.createRemotingService("amfphp","http://localhost/amfphp/gateway.php","HelloWorld");
 		 * 
 		 * //only intended for use when a variable decides the service it will use.
 		 * var a:String = "amfphp";

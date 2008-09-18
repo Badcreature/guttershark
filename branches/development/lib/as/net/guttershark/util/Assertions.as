@@ -46,25 +46,6 @@ package net.guttershark.util
 	 *     
 	 *     //protected var ast:Assertion; //ast is a protected variable on CoreClip, and CoreSprite.
 	 *     
-	 *     //example of using the assertion methods to validate a parameter, and throw and error if it evaluates to false.
-	 *     //the default Exception type is ArgumentError.
-	 *     public function setEmail1(email:String):void
-	 *     {
-	 *         ast.email(email,"Parameter email must be a valid email address"); //throws an ArgumentError
-	 *     }
-	 *     
-	 *     //example of using a custom exception class for parameter defense.
-	 *     public function setEmail2(email:String):void
-	 *     {
-	 *         ast.email(email,"Parameter email must be a valid email address",MyCustomExceptionClass);
-	 *     }
-	 *     
-	 *     //example of using the assertion methods for a boolean conditional
-	 *     public function setEmail3(email:String):void
-	 *     {
-	 *         if(ast.notEmail(email)) return;
-	 *     }
-	 *     
 	 *     public function setSomeValue(value:Object):void
 	 *     {
 	 *         ast.notNil(value,"Parameter value cannot be null"); //argument error if value is null

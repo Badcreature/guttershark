@@ -5,9 +5,9 @@ package net.guttershark.control
 	import flash.events.ProgressEvent;	
 
 	/**
-	 * The Frame1Controller class is a stub controller that
+	 * The Frame1Controller class is a controller
 	 * you can use for movies that have two frames on the root - 
-	 * the 1st being the preloader, the second being for the application
+	 * the 1st frame being the preloader, the second being for the application
 	 * start (where all other classes are exported in frame 2).
 	 * 
 	 * <p>In that type of movie (2 frames), you extend this class
