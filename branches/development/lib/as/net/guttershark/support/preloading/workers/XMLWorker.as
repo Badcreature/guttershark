@@ -9,7 +9,7 @@ package net.guttershark.support.preloading.workers
 	
 	import net.guttershark.support.preloading.Asset;
 	import net.guttershark.support.preloading.workers.Worker;
-	import net.guttershark.util.xml.XMLLoader;	
+	import net.guttershark.util.XMLLoader;	
 
 	/**
 	 * The XMLWorker class is the worker that loads all

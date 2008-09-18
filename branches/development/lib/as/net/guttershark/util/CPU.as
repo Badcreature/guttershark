@@ -7,8 +7,7 @@ package net.guttershark.util
 	
 	/**
 	 * The CPU class benchmarks the clients computer
-	 * and provide a number you can use to decide if their cpu
-	 * is fast / med / slow, etc.
+	 * and provides a fast/med/slow estimate.
 	 * 
 	 * <p>The CPU class does not provide details about how many
 	 * CPU's they have, or he actual clock speed.</p>
@@ -71,8 +70,9 @@ package net.guttershark.util
 			var blurFilter:BlurFilter = new BlurFilter(4,4,1);
 			var filters:Array = [];
 			var passes:int = 3;
+			var h:int = 0;
 			var t:Number;
-			for(var h:int = 0; h < passes; h++)
+			for(h;h<passes;h++)
 			{
 				t = getTimer();
 				for(var i:int = 0; i < ((h+1) * 200); i++)

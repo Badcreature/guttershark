@@ -4,43 +4,66 @@ package net.guttershark.util
 	import flash.display.InteractiveObject;	
 	
 	/**
-	 * The ScopeUtils class provides utilities for working with scope problems,
-	 * or simplifying something that is usually done over and over to alter scope.
+	 * The ScopeUtils class provides utilities for working with scope.
 	 */
 	public class ScopeUtils
 	{
 		
 		/**
-		 * Re-target instance variables to a different scope.
+		 * Singleton instance.
+		 */
+		private static var inst:ScopeUtils;
+		
+		/**
+		 * Singleton access.
+		 */
+		public static function gi():ScopeUtils
+		{
+			if(!inst) inst = Singleton.gi(ScopeUtils);
+			return inst;
+		}
+		
+		/**
+		 * @private
+		 * 
+		 * Constructor
+		 */
+		public function ScopeUtils()
+		{
+			Singleton.assertSingle(ScopeUtils);
+		}
+
+		/**
+		 * Re-target instance variables from a source to a different scope.
 		 * 
 		 * @example Re-targetting a class' instance variables to inside of a movie clip.
 		 * <listing>	
 		 * package
 		 * {
-		 *   class MyView
+		 *   class MyView extends CoreClip
 		 *   {
-		 *       public var firstname:TextField;
-		 *       public var lastname:TextField;
 		 *       public var formfieldwrapper:MovieClip;
+		 *       public var firstname:TextField; //actually exists in formfieldwrapper.firstname.
+		 *       public var lastname:TextField;
 		 *       public function MyView()
 		 *       {
+		 *           super();
 		 *           //in this call, "formfieldwrapper" represents the source, and "this" represents the new target host.
-		 *           ScopeUtils.retarget(formfieldwrapper,this,"firstname","lastname");
+		 *           utils.scope.retarget(formfieldwrapper,this,"firstname","lastname");
+		 *           trace(firstname);
 		 *       }
 		 *   }
 		 * }
 		 * </listing>
 		 * 
-		 * <p>In that example. <code><em>firstname</em></code> and <code><em>lastname</em></code> are defined in
-		 * "MyView" but the actual movie clips are inside of formfieldwrapper. So this "re-targetting" of scope re-assigns
-		 * formfieldwrapper.firstname to point to <code><em>this.firstname</em></code> and so on.</p>
-		 * 
 		 * @param source The source instance where the variables are declared.
 		 * @param target The new target.
 		 * @param objs The instance variables in which the pointer is changing.
 		 */
-		public static function retarget(source:InteractiveObject, target:InteractiveObject, ...objs:Array):void
+		public function retarget(source:InteractiveObject, target:InteractiveObject, ...objs:Array):void
 		{
-			for(var i:int = 0; i < objs.length; i++) target[objs[i]] = source[objs[i]];
+			var l:int = objs.length;
+			var k:int = 0;
+			for(k;k<l;k++) target[objs[k]] = source[objs[k]];
 		}
 	}}

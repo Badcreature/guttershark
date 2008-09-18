@@ -4,7 +4,7 @@ package net.guttershark.util.akamai
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
-	import net.guttershark.util.xml.XMLLoader;	
+	import net.guttershark.util.XMLLoader;
 
 	/**
 	 * The Ident class is used for pinging an Akamai Ident service to determine

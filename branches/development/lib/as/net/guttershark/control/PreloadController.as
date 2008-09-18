@@ -12,8 +12,8 @@ package net.guttershark.control
 	import net.guttershark.support.preloading.events.AssetStatusEvent;
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.support.preloading.workers.WorkerInstances;
-	import net.guttershark.util.types.ArrayUtils;
-	import net.guttershark.util.frames.FrameDelay;
+	import net.guttershark.util.ArrayUtils;
+	import net.guttershark.util.FrameDelay;	
 
 	/**
 	 * Dispatched for each asset that has completed downloading.
@@ -246,7 +246,12 @@ package net.guttershark.control
 		public function addPrioritizedItems(items:Array):void
 		{
 			if(!this.loadItems[0]) this.loadItems = art.clone(items);
-			else for(var i:int = 0; i < items.length; i++) this.loadItems.unshift(items[i]);
+			else
+			{
+				var l:int = items.length;
+				var i:int = 0;
+				for(i;i<l;i++)this.loadItems.unshift(items[i]);
+			}
 			loadItemsDuplicate = art.clone(loadItems);
 		}
 
@@ -321,7 +326,8 @@ package net.guttershark.control
 			if(!asset) return;
 			if(!asset.source || !asset.libraryName) throw new Error("Both a source and an id must be provided on the Asset to prioritize.");
 			var l:int = loadItems.length;
-			for(var i:int = 0; i < l; i++)
+			var i:int = 0;
+			for(i;i<l;i++)
 			{
 				var item:Asset = Asset(loadItems[i]);
 				if(item.source == asset.source)
@@ -354,7 +360,6 @@ package net.guttershark.control
 			var pixelContributionPerItem:Number = totalPixelsToFill / (loadItemsDuplicate.length - loadErrors);
 			var pixelUpdate:Number;
 			var percentUpdate:Number;
-			
 			for(var key:String in loadingItemsPool)
 			{
 				var bl:* = bytesLoadedPool[key];
@@ -364,7 +369,6 @@ package net.guttershark.control
 				//trace("update: key: " + key + " bl: " + bl.toString() + " bt: " + bt.toString() + " pixelsForItem: " + pixelsForItem);
 				pixelPool += pixelsForItem;
 			}
-			
 			pixelUpdate = pixelPool;
 			percentUpdate = Math.floor((pixelPool / totalPixelsToFill) * 100);
 			if(lastPixelUpdate == pixelUpdate && lastPercentUpdate == percentUpdate) return;

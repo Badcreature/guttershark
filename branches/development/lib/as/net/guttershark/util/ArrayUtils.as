@@ -1,4 +1,4 @@
-package net.guttershark.util.types
+package net.guttershark.util
 {
 	import net.guttershark.util.Singleton;	
 	
@@ -83,7 +83,9 @@ package net.guttershark.util.types
 		 */
 		public function remove(a:Array, element:Object):Array 
 		{
-			for(var i:int = 0;i < a.length; i++) if(a[i]===element) a.splice(i,1);
+			var l:int = a.length;
+			var k:int = 0;
+			for(k;k<l;k++)if(a[k]===element) a.splice(k,1);
 			return a;
 		}
 
@@ -107,7 +109,7 @@ package net.guttershark.util.types
 		{
 			var l:int = a.length;
 			var i:int = 0;
-			for(i;i<l;i++) 
+			for(i;i<l;i++)
 			{
 				var tmp:* = a[i];
 				var rand:int = int(Math.random()*l);
@@ -117,7 +119,7 @@ package net.guttershark.util.types
 		}
 
 		/**
-		 * Create a new array that only contains unique instances of objects.
+		 * Create a new array that contains unique instances of objects.
 		 * This can be used to remove duplication object instances from an array.
 		 * 
 		 * @param a The array to uniquely copy.
@@ -146,8 +148,9 @@ package net.guttershark.util.types
 		public function equals(arr1:Array, arr2:Array):Boolean 
 		{
 			if(arr1.length!=arr2.length) return false;
-			var len:int = arr1.length;
-			for(var i:int = 0;i < len; i++) if(arr1[i] !== arr2[i]) return false;
+			var l:int = arr1.length;
+			var i:int = 0;
+			for(i;i<l;i++) if(arr1[i] !== arr2[i]) return false;
 			return true;
 		}
 
@@ -159,8 +162,9 @@ package net.guttershark.util.types
 		 */
 		public function merge(a:Array, b:Array):Array 
 		{
-			var c:Array = clone(b);
-			for(var i:int = a.length - 1;i > -1; i--) c.unshift(a[i]);
+			var c:Array = b.concat();
+			var i:int = c.length - 1;
+			for(i;i>-1;i--) c.unshift(a[i]);
 			return c;
 		}	
 
@@ -198,7 +202,9 @@ package net.guttershark.util.types
 		{
 			a.sort();
 			var o:Array = new Array();
-			for(var i:int = 0;i < a.length; i++) if(a[i] != a[i + 1]) o.push(a[i]);
+			var l:int = a.length;
+			var i:int = 0;
+			for(i;i<l;i++)if(a[i]!=a[i+1])o.push(a[i]);
 			return o;
 		}
 
@@ -215,7 +221,7 @@ package net.guttershark.util.types
 			var l:int = 0;
 			var al:int = a.length;
 			var bl:int = b.length;
-			for(f;f<al;f++) for(l;l<bl;l++) if(b[l].toLowerCase() === a[f].toLowerCase()) return true;
+			for(f;f<al;f++)for(l;l<bl;l++)if(b[l].toLowerCase()===a[f].toLowerCase()) return true;
 			return false;
 		}
 
@@ -239,7 +245,7 @@ package net.guttershark.util.types
 			if(c.length != d.length) return false;
 			var l:int = c.length;
 			var i:int = 0;
-			for(i;i<l;i++) if(c[i]!==d[i]) return false;
+			for(i;i<l;i++)if(c[i]!==d[i]) return false;
 			return true;
 		}
 
@@ -255,8 +261,8 @@ package net.guttershark.util.types
 		{
 			for(var o:String in a)
 			{
-				if(!caseInsensitive) if(a[o][prop] == val) return a[o];
-				else if (a[o][prop].toUpperCase() == String(val).toUpperCase()) return a[o];
+				if(!caseInsensitive)if(a[o][prop] == val)return a[o];
+				else if(a[o][prop].toUpperCase()==String(val).toUpperCase())return a[o];
 			}
 			return null;
 		}	
@@ -272,10 +278,12 @@ package net.guttershark.util.types
 		 */
 		public function locatePropValIndex(a:Array, prop:String, val:Object, caseInsensitive:Boolean = false):int 
 		{
-			for(var i:int = 0;i < a.length; i++)
+			var l:int = a.length;
+			var i:int = 0;
+			for(i;i<l;i++)
 			{
-				if(!caseInsensitive) if(a[i][prop]==val)return i;
-				else if (a[i][prop].toUpperCase()==String(val).toUpperCase())return i;
+				if(!caseInsensitive)if(a[i][prop]==val)return i;
+				else if(a[i][prop].toUpperCase()==String(val).toUpperCase())return i;
 			}
 			return -1;
 		}
@@ -318,7 +326,9 @@ package net.guttershark.util.types
 		{
 			var nearest:Number = range[0];
 			var index:uint = 0;
-			for(var i:int = 1;i < range.length; i++) 
+			var l:int = range.length;
+			var i:int = 1;
+			for(i;i<l;i++) 
 			{
 				if(Math.abs(range[i] - val) < Math.abs(nearest - val))
 				{
@@ -339,7 +349,7 @@ package net.guttershark.util.types
 			var i:int = a.length;
 			var min:Number = a[0];
 			var idx:int = 0;
-			while (i-- > 1) if(a[i] < min) min = a[idx = i];
+			while (i-- > 1)if(a[i] < min) min = a[idx = i];
 			return idx;
 		}
 

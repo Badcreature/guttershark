@@ -30,7 +30,7 @@ package net.guttershark.managers
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.xml.XMLLoader;
+	import net.guttershark.util.XMLLoader;
 
 	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
@@ -438,10 +438,8 @@ package net.guttershark.managers
 			var ol:int = objects.length;
 			var pl:int = prefixes.length;
 			if(ol != pl) throw new Error("The objects and prefixes must be a 1 to 1 relationship.");
-			for(var i:int = 0; i < ol; i++)
-			{
-				handleEvents(objects[i],callbackDelegate,prefixes[i],returnEventObjects,cycleThroughTracking);
-			}
+			var i:int = 0;
+			for(i;i<ol;i++) handleEvents(objects[i],callbackDelegate,prefixes[i],returnEventObjects,cycleThroughTracking);
 		}
 		
 		private function onBandwidthComplete(e:Event):void

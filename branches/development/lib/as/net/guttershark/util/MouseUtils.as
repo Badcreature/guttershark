@@ -1,4 +1,4 @@
-package net.guttershark.util.types
+package net.guttershark.util
 {
 	import flash.display.DisplayObject;
 	import flash.geom.Rectangle;
@@ -36,8 +36,8 @@ package net.guttershark.util.types
 		/**
 		 * Check to see if the mouse is within the bounds of a rectangle.
 		 * 
-		 * @param DisplayObject The scope of mouse coordinates to use.
-		 * @param Rectangle The bounds in wich to check the mouse position against.
+		 * @param scope The scope of mouse coordinates to use.
+		 * @param rectangle The bounds in wich to check the mouse position against.
 		 */
 		public function inRectangle(scope:DisplayObject, rectangle:Rectangle):Boolean
 		{

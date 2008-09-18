@@ -1,4 +1,4 @@
-package net.guttershark.util.types
+package net.guttershark.util
 {	import net.guttershark.util.Assertions;	
 	
 	import flash.display.Stage;	
@@ -76,19 +76,52 @@ package net.guttershark.util.types
 		 */
 		public function setLeading(tf:TextField,space:Number = 0):void
 		{
+			ast.notNil(tf,"Parameter {tf} cannot be null");
 			var fmt:TextFormat = tf.getTextFormat();
 			fmt.leading = space;
 			tf.setTextFormat(fmt);
 		}
 		
 		/**
-		 * Restrict a text field to only email valid characters.
+		 * Restrict a text field to email only characters.
 		 * 
-		 * @param tf The text field that should be restricted.
+		 * @param tf The text field to restrict.
 		 */
-		public function restrictEmail(tf:TextField):void
+		public function restrictToEmail(tf:TextField):void
 		{
+			ast.notNil(tf,"Parameter {tf} cannot be null");
 			tf.restrict = "a-zA-Z0-9@._-";
+		}
+		
+		/**
+		 * Restrict a text field to file path only characters (win|unix).
+		 * 
+		 * @param tf The text field to restrict.
+		 */
+		public function restrictToFilePath(tf:TextField):void
+		{
+			ast.notNil(tf,"Parameter {tf} cannot be null");
+			tf.restrict = "a-zA-Z0-9./\ ";
+		}
+		
+		/**
+		 * Restrict a text field to file URI format only (file:///).
+		 */
+		public function restrictToFilURI(tf:TextField):void
+		{
+			ast.notNil(tf,"Parameter {tf} cannot be null");
+			tf.restrict = "a-zA-Z0-9";
+		}
+		
+		/**
+		 * Restrict a text field to letters (lower/upper) and numbers only.
+		 * 
+		 * @param tf The text field to restrict.
+		 */
+		public function restrictLettersAndNumbers(tf:TextField):void
+		{
+			ast.notNil(tf,"Parameter {tf} cannot be null");
+			tf.restrict = "a-zA-Z0-9";
 		}
 		
 		/**
@@ -98,6 +131,7 @@ package net.guttershark.util.types
 		 */
 		public function selectAll(tf:TextField):void
 		{
+			ast.notNil(tf,"Parameter {tf} cannot be null");
 			tf.setSelection(0,tf.length);
 		}
 		
@@ -108,18 +142,19 @@ package net.guttershark.util.types
 		 */
 		public function deselect(tf:TextField):void
 		{
+			ast.notNil(tf,"Parameter {tf} cannot be null");
 			tf.setSelection(0,0);
 		}
 		
 		/**
-		 * Set's the stage focus to the target text field.
+		 * Set the stage focus to the target text field and select all text in it.
 		 * 
 		 * @param stage The stage instance.
 		 * @param tf The text field.
 		 */
 		public function focusAndSelectAll(stage:Stage,tf:TextField):void
 		{
-			ast.notNil(stage,"Parameter stage cannot be null");
+			ast.notNil(stage,"Parameter {stage} cannot be null");
 			stage.focus = tf;
 			selectAll(tf);
 		}	}}

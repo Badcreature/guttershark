@@ -1,15 +1,16 @@
 package net.guttershark.util
 {
-	import net.guttershark.util.filters.FilterUtils;	
-	import net.guttershark.util.types.TextFieldUtils;	
-	import net.guttershark.util.types.StringUtils;	
-	import net.guttershark.util.types.ObjectUtils;	
-	import net.guttershark.util.types.MouseUtils;	
-	import net.guttershark.util.types.DictionaryUtils;	
+	import net.guttershark.util.ArrayUtils;
+	import net.guttershark.util.BitmapUtils;
+	import net.guttershark.util.DateUtils;
+	import net.guttershark.util.DictionaryUtils;
+	import net.guttershark.util.MathUtils;
+	import net.guttershark.util.MouseUtils;
+	import net.guttershark.util.ObjectUtils;
 	import net.guttershark.util.Singleton;
-	import net.guttershark.util.types.ArrayUtils;
-	import net.guttershark.util.types.BitmapUtils;
-	import net.guttershark.util.types.DateUtils;		
+	import net.guttershark.util.StringUtils;
+	import net.guttershark.util.TextFieldUtils;
+	import net.guttershark.util.filters.FilterUtils;	
 
 	/**
 	 * The Utilities class is a singleton that holds references
@@ -21,7 +22,7 @@ package net.guttershark.util
 	 * a nice way of wrapping it for readability when using
 	 * the utilities.
 	 */
-	public class Utilities
+	final public class Utilities
 	{
 		
 		/**
@@ -38,8 +39,12 @@ package net.guttershark.util
 		 * The singleton instance of BitmapUtils.
 		 */
 		public var bitmap:BitmapUtils;
-		
+
 		/**
+		 * The singleton instance of ColorUtils.
+		 */
+		public var color:ColorUtils;
+		/**
 		 * The singleton instance of DateUtils.
 		 */
 		public var date:DateUtils;
@@ -48,6 +53,11 @@ package net.guttershark.util
 		 * The singleton instance of DictionaryUtils.
 		 */
 		public var dict:DictionaryUtils;
+		
+		/**
+		 * The singleton instance of MathUtils.
+		 */
+		public var math:MathUtils;
 
 		/**
 		 * The singleton instance of MouseUtils.
@@ -68,6 +78,11 @@ package net.guttershark.util
 		 * The singleton instance of TextFieldUtils.
 		 */
 		public var text:TextFieldUtils;
+
+		/**
+		 * The singleton instance of ScopeUtils.
+		 */
+		public var scope:ScopeUtils;
 
 		/**
 		 * The singleton instance of SetterUtils.
@@ -96,10 +111,12 @@ package net.guttershark.util
 			Singleton.assertSingle(Utilities);
 			array = ArrayUtils.gi();
 			bitmap = BitmapUtils.gi();
+			color = ColorUtils.gi();
 			date = DateUtils.gi();
 			dict = DictionaryUtils.gi();
 			mouse = MouseUtils.gi();
 			object = ObjectUtils.gi();
+			scope = ScopeUtils.gi();
 			string = StringUtils.gi();
 			text = TextFieldUtils.gi();
 			setters = SetterUtils.gi();
