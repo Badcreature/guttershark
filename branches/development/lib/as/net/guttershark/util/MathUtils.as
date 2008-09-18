@@ -6,6 +6,8 @@ package net.guttershark.util
 
 	/**
 	 * The MathUtils class contains various math functions.
+	 * 
+	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class MathUtils
 	{

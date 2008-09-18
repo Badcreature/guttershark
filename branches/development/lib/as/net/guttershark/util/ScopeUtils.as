@@ -5,6 +5,8 @@ package net.guttershark.util
 	
 	/**
 	 * The ScopeUtils class provides utilities for working with scope.
+	 * 
+	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	public class ScopeUtils
 	{

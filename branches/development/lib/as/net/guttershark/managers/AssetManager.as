@@ -1,5 +1,6 @@
 package net.guttershark.managers
 {
+	import flash.text.StyleSheet;	
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
@@ -280,6 +281,22 @@ package net.guttershark.managers
 			throw(new Error("No sound: {" + soundLinkageId + "} in swf {" + libraryName + "} was found"));
 		}
 		
+		/**
+		 * Get a StyleSheet object that was preloaded from a css file.
+		 * 
+		 * @param libraryName The library name used when the asset was registered.
+		 */
+		public function getStyleSheet(libraryName:String):StyleSheet
+		{
+			ast.notNil(libraryName,"Parameter libraryName cannot be null");
+			if(assets[libraryName] != null)
+			{
+				var sheet:StyleSheet = StyleSheet(assets[libraryName]);
+				return sheet;
+			}
+			throw(new Error("Stylesheet {"+libraryName+"} not found."));
+		}
+
 		/**
 		 * Get a loaded asset as a Bitmap.
 		 * 

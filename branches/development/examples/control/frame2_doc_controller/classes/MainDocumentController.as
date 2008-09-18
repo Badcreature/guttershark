@@ -1,22 +1,22 @@
 package
 {
 	import net.guttershark.control.DocumentController;
-	import net.guttershark.display.buttons.MovieClipButton;		
+	import net.guttershark.display.buttons.MovieClipButton;
 
-	public class MainDC extends DocumentController
+	public class MainDocumentController extends DocumentController
 	{
 		
 		public var bt:MovieClipButton;
 
-		public function MainDC()
+		public function MainDocumentController()
 		{
-			trace("main DC");
+			trace("Constructor for Main Document Controller, starting app..");
 			super();
 		}
 		
 		override protected function flashvarsForStandalone():Object
 		{
-			//return {model:"test.xml"};
+			//etc...
 			return {};
 		}
 		

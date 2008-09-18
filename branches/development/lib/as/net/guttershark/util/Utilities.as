@@ -17,10 +17,10 @@ package net.guttershark.util
 	 * to other utility singletons; this is used for inheritance
 	 * chains on CoreClip and CoreSprite, which ultimately gets
 	 * rid of static functions which are on an average 50% slower than
-	 * having a property defined. Each type of utility is a singleton,
-	 * so you can use them freely anywhere you whish, this is just
-	 * a nice way of wrapping it for readability when using
-	 * the utilities.
+	 * having a property defined.
+	 * 
+	 * @see net.guttershark.display.CoreClip CoreClip class.
+	 * @see net.guttershark.display.CoreSprite CoreSprite class.
 	 */
 	final public class Utilities
 	{
@@ -54,6 +54,11 @@ package net.guttershark.util
 		 */
 		public var dict:DictionaryUtils;
 		
+		/**
+		 * The singleton instance of DisplayListUtils.
+		 */
+		public var display:DisplayListUtils;
+
 		/**
 		 * The singleton instance of MathUtils.
 		 */
