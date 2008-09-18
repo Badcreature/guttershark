@@ -1,10 +1,10 @@
-package net.guttershark.display.controls.buttons
+package net.guttershark.display.buttons
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import net.guttershark.display.controls.buttons.IToggleable;
-	import net.guttershark.display.controls.buttons.MovieClipButton;
+	import net.guttershark.display.buttons.IToggleable;
+	import net.guttershark.display.buttons.MovieClipButton;
 	import net.guttershark.managers.SoundManager;
 
 	/**

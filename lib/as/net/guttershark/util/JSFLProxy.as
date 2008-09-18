@@ -111,22 +111,25 @@ package net.guttershark.util
 		
 		/**
 		 * Alert a message.
+		 * 
 		 * @param message A message to alert.
+		 * @param escap Whether or not to escape the alert message.
 		 */
-		public function alert(message:String):void
+		public function alert(message:String,escap:Boolean=false):void
 		{
-			MMExecute("alert('"+message+"')");
+			if(escap) MMExecute("alert('"+escape(message.toString())+"')");
+			else MMExecute("alert('"+message.toString()+"')");
 		}
 		
 		/**
 		 * Trace to output.
 		 * 
-		 * <p>Note that your message gets traced out like: escape(msg.toString()),
-		 * this is so that you don't get stupid errors when passing complex strings to jsfl.</p>
-		 * 
 		 * @param msg An object to trace out.
+		 * @param escape Whether or not to escape the trace.
 		 */
-		public function trase(msg:*):void
+		public function trase(msg:*,escap:Boolean=false):void
 		{
-			MMExecute("fl.trace("+escape(msg.toString())+")");
+			trace(msg);
+			if(escap) MMExecute("fl.trace('"+escape(msg.toString())+"')");
+			else MMExecute("fl.trace('"+msg.toString()+"')");
 		}	}}
