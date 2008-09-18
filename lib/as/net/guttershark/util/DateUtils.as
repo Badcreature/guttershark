@@ -2,7 +2,9 @@ package net.guttershark.util
 {	import net.guttershark.util.Singleton;
 
 	/**	 * The DateUtils class contains utility methods for working with
-	 * dates.	 */	final public class DateUtils
+	 * dates.
+	 * 
+	 * @see net.guttershark.util.Utilities Utilities class.	 */	final public class DateUtils
 	{
 		
 		/**

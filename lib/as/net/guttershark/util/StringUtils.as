@@ -6,6 +6,8 @@ package net.guttershark.util
 	/**
 	 * The StringUtils class is a singleton that
 	 * contains utility methods for strings.
+	 * 
+	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class StringUtils 
 	{

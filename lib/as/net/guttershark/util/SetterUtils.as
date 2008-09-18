@@ -6,6 +6,8 @@ package net.guttershark.util
 	 * The SetterUtils class is a singleton that has utility methods
 	 * that decrease amount of code you have to write for setting the same
 	 * properties on multiple objects.
+	 * 
+	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class SetterUtils 
 	{

@@ -5,7 +5,9 @@ package net.guttershark.util
 	import flash.text.TextField;	import flash.text.TextFormat;		import net.guttershark.util.Singleton;		
 	/**
 	 * The TextFieldUtils class is a singleton that has utility
-	 * methods for common operations with TextFields. 
+	 * methods for common operations with TextFields.
+	 * 
+	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class TextFieldUtils
 	{
@@ -94,6 +96,7 @@ package net.guttershark.util
 		}
 		
 		/**
+		 * @private
 		 * Restrict a text field to file path only characters (win|unix).
 		 * 
 		 * @param tf The text field to restrict.
@@ -105,6 +108,7 @@ package net.guttershark.util
 		}
 		
 		/**
+		 * @private
 		 * Restrict a text field to file URI format only (file:///).
 		 */
 		public function restrictToFilURI(tf:TextField):void
