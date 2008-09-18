@@ -2,10 +2,7 @@ package net.guttershark.control
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.ProgressEvent;
-	import flash.utils.setTimeout;
-	
-	import net.guttershark.managers.PlayerManager;		
+	import flash.events.ProgressEvent;	
 
 	/**
 	 * The Frame1Controller class is a stub controller that
@@ -78,11 +75,6 @@ package net.guttershark.control
 		 * @see #onProgress()
 		 */
 		private var _pixelsToFill:int = 100;
-		
-		/**
-		 * @private
-		 */
-		public static var flashvars:Object;
 
 		/**
 		 * Constructor for Frame1Controller instances.
@@ -91,21 +83,10 @@ package net.guttershark.control
 		{
 			super();
 			stop();
-			setupFlashvars();
 			_pixelsToFill = pixelsToFill;
 			if(this.totalFrames<2) throw new Error("You must have more than 1 frame in the movie to use Frame1Controller");
 			loaderInfo.addEventListener(ProgressEvent.PROGRESS,onp,false,0,true);
 			loaderInfo.addEventListener(Event.COMPLETE,onc,false,0,true);
-		}
-		
-		/**
-		 * Setup the flash vars on this movie.
-		 */
-		private function setupFlashvars():void
-		{
-			//if standalone, do nothing, as we have hooks in DocumentController for flashvars when standalone.
-			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) return;
-			Frame1Controller.flashvars = loaderInfo.parameters;
 		}
 		
 		/**
@@ -162,12 +143,5 @@ package net.guttershark.control
 		protected function dispose():void
 		{
 			//delay here, if dispose is called too soon, flashvars might not propogate to a DocumentController.
-			setTimeout(actuallyDispose,2000);
-		}
-		
-		private function actuallyDispose():void
-		{
-			trace("dispose");
 			_pixelsToFill = 0;
-			Frame1Controller.flashvars = null;
 		}	}}
