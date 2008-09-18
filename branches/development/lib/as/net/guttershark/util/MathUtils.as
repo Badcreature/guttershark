@@ -1,9 +1,9 @@
 package net.guttershark.util
 {
-	import net.guttershark.display.geom.Point;
-	import net.guttershark.display.geom.Point3D;
-	import net.guttershark.util.Singleton;		
-	
+	import net.guttershark.util.Singleton;
+	import net.guttershark.util.geom.Point;
+	import net.guttershark.util.geom.Point3D;	
+
 	/**
 	 * The MathUtils class contains various math functions.
 	 */
