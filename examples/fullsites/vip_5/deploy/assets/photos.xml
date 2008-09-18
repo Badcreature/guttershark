@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<photos>
+	<unlocked thumb_path="unlocked/thumb/" large_path="unlocked/large/" >
+		<photo thumb_src="billallen1.jpg" large_src="billallen1.jpg" />
+		<photo thumb_src="billallen2.jpg" large_src="billallen2.jpg" />
+		<photo thumb_src="billallen3.jpg" large_src="billallen3.jpg" />
+		<photo thumb_src="billallen4.jpg" large_src="billallen4.jpg" />
+		<photo thumb_src="billallen5.jpg" large_src="billallen5.jpg" />
+		<photo thumb_src="billallen2.jpg" large_src="billallen2.jpg" />
+		<photo thumb_src="billallen1.jpg" large_src="billallen1.jpg" />
+		<photo thumb_src="billallen3.jpg" large_src="billallen3.jpg" />
+		<photo thumb_src="billallen5.jpg" large_src="billallen5.jpg" />
+		<photo thumb_src="billallen4.jpg" large_src="billallen4.jpg" />
+	</unlocked>
+	<locked thumb_path="locked/thumb/" large_path="locked/large/" >
+		<photo thumb_src="conan1.jpg" large_src="conan1.jpg" />
+		<photo thumb_src="conan2.jpg" large_src="conan2.jpg" />
+		<photo thumb_src="conan3.jpg" large_src="conan3.jpg" />
+		<photo thumb_src="billallen4.jpg" large_src="billallen4.jpg" />
+		<photo thumb_src="billallen5.jpg" large_src="billallen5.jpg" />
+		<photo thumb_src="billallen2.jpg" large_src="billallen2.jpg" />
+		<photo thumb_src="billallen1.jpg" large_src="billallen1.jpg" />
+		<photo thumb_src="billallen3.jpg" large_src="billallen3.jpg" />
+		<photo thumb_src="billallen5.jpg" large_src="billallen5.jpg" />
+		<photo thumb_src="billallen4.jpg" large_src="billallen4.jpg" />
+	</locked>
+</photos>

@@ -26,7 +26,7 @@ package scenes.bunker.views
 	import net.guttershark.ui.controls.buttons.MovieClipButton;
 	import net.guttershark.ui.controls.buttons.MovieClipCheckBox;
 	import net.guttershark.util.DisplayListUtils;
-	import net.guttershark.util.FileFilterUtils;
+	import net.guttershark.util.FileFilters;
 	import net.guttershark.util.MathUtils;
 	import net.guttershark.util.ScopeUtils;		
 
@@ -157,7 +157,7 @@ package scenes.bunker.views
 			if(headshot.checked)
 			{
 				DisplayListUtils.RemoveAllChildren(forms.holder);
-				fr.browse([FileFilterUtils.BitmapFileFilter]);
+				fr.browse([FileFilters.BitmapFileFilter]);
 			}
 		}
 
