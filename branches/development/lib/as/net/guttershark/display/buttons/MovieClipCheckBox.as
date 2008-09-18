@@ -1,6 +1,6 @@
-package net.guttershark.display.controls.buttons 
+package net.guttershark.display.buttons 
 {
-	
+	import net.guttershark.display.buttons.MovieClipToggleButton;	
 	import net.guttershark.managers.SoundManager;	
 	
 	/**
@@ -10,7 +10,7 @@ package net.guttershark.display.controls.buttons
 	 */
 	public class MovieClipCheckBox extends MovieClipToggleButton
 	{
-		
+
 		/**
 		 * The sound to play when the button becomes "checked.";
 		 */

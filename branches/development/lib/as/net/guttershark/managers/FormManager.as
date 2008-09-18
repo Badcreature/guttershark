@@ -3,7 +3,7 @@ package net.guttershark.managers
 	import flash.net.URLVariables;
 	import flash.text.TextField;
 	
-	import net.guttershark.display.controls.buttons.IToggleable;	
+	import net.guttershark.display.buttons.IToggleable;	
 
 	/**
 	 * The FormManager class simplifies managing InteractiveObjects

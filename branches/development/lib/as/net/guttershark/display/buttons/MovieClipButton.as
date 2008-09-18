@@ -1,4 +1,4 @@
-package net.guttershark.display.controls.buttons
+package net.guttershark.display.buttons
 {
 
 	import flash.display.MovieClip;	
