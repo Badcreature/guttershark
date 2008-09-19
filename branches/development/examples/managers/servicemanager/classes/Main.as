@@ -9,9 +9,6 @@ package
 	public class Main extends DocumentController 
 	{
 		
-		private var sm:ServiceManager;
-		private var ml:Model;
-
 		/**
 		 * This example will not work on your computer, as I have services
 		 * setup on mine specific for this test. But you should read through
@@ -25,7 +22,7 @@ package
 
 		override protected function flashvarsForStandalone():Object
 		{
-			return {model:"model.xml",autoInitModel:true,initServices:true};
+			return {model:"model.xml",initServices:true};
 		}
 		
 		override protected function initPathsForStandalone():void
@@ -41,10 +38,15 @@ package
 		{
 			trace("SETUP COMPLETE");
 			sm = ServiceManager.gi();
-			sm.ci({onCreate:onc,routes:["session","destroy"],onResult:onhr});
+			sm.ci({onCreate:onc,onFault:onfs,routes:["session","destroy"],onResult:onhr});
 			sm.test.helloWorld({onFault:onf,onResult:onr,onTimeout:ont,onRetry:onrt});
 		}
 		
+		private function onfs(cf:CallFault):void
+		{
+			trace(cf.fault);
+		}
+
 		private function onc():void
 		{
 			trace("created");
@@ -53,7 +55,6 @@ package
 		private function onhr(sr:CallResult):void
 		{
 			trace("service result");
-			trace(sr.result);
 		}
 		
 		private function onsf(sf:CallFault):void

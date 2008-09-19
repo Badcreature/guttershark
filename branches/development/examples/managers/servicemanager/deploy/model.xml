@@ -5,6 +5,7 @@
 		<service id="test" gateway="amfphp" endpoint="Test" limiter="true" attempts="4" timeout="1000" />
 		<service id="foo" url="http://localhost/" attempts="4" timeout="1000" />
 		<service id="sessionDestroy" path="sessiondestroy" url="http://tagsf/services/codeigniter/session/destroy" attempts="4" timeout="1000" responseFormat="variables" />
-		<service id="ci" url="http://tagsf/services/codeigniter/" attempts="4" timeout="1000" responseFormat="variables" />
+		<service id="ci" url="http://tagsf/services/codeigniter/" attempts="4" timeout="3000" responseFormat="variables" />
+		<service id="sendEmail" url="http://localhost/sendEmail.php" />
 	</services>
 </model>

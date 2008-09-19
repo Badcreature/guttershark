@@ -1,3 +1,13 @@
+/*                   __    __                         __                       __         
+ *                  /\ \__/\ \__                     /\ \                     /\ \        
+ *       __   __  __\ \ ,_\ \ ,_\    __   _ __   ____\ \ \___      __     _ __\ \ \/'\    
+ *     /'_ `\/\ \/\ \\ \ \/\ \ \/  /'__`\/\`'__\/',__\\ \  _ `\  /'__`\  /\`'__\ \ , <    
+ *    /\ \_\ g \ \_u \\ \ t_\ \ t_/\  __e\ \ \/r\__, `s\ \ \ \ h/\ \L\.a_\ \ r/ \ \ \\`k  
+ *    \ \____ \ \____/ \ \__\\ \__\ \____\\ \_\\/\____/ \ \_\ \_\ \__/.\_\\ \_\  \ \_\ \_\
+ *     \/___L\ \/___/   \/__/ \/__/\/____/ \/_/ \/___/   \/_/\/_/\/__/\/_/ \/_/   \/_/\/_/
+ *       /\____/                                                                          
+ *       \_/__/                                                                           
+ */
 package net.guttershark.control 
 {
 	import flash.display.MovieClip;
@@ -116,7 +126,6 @@ package net.guttershark.control
 		 */
 		protected function gotoStartFrame():void
 		{
-			gotoAndStop(2);
 			dispose();
 		}
 
@@ -143,5 +152,7 @@ package net.guttershark.control
 		protected function dispose():void
 		{
 			//delay here, if dispose is called too soon, flashvars might not propogate to a DocumentController.
+			loaderInfo.removeEventListener(ProgressEvent.PROGRESS,onp);
+			loaderInfo.removeEventListener(Event.COMPLETE,onc);
 			_pixelsToFill = 0;
 		}	}}

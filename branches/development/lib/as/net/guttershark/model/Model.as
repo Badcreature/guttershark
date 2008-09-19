@@ -230,7 +230,9 @@ package net.guttershark.model
 			for each(var n:XML in a)
 			{
 				if(!n.attribute("preload")) continue;
-				var ast:Asset = new Asset(n.@source,n.@libraryName);
+				var src:String = n.@source;
+				if(n.attribute("path")) src = getPath(n.@path) + src;
+				var ast:Asset = new Asset(src,n.@libraryName);
 				payload.push(ast);
 			}
 			return payload;

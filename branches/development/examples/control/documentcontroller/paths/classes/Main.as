@@ -15,6 +15,11 @@ package
 			super();
 		}
 		
+		override protected function flashvarsForStandalone():Object
+		{
+			return {test:"HELLO WORLD",model:"model.xml"};
+		}
+		
 		override protected function initPathsForStandalone():void
 		{
 			trace("init paths for standalone");
@@ -35,8 +40,10 @@ package
 			super.setupComplete();
 			em.handleEvents(test, this, "onTest");
 			trace("setup complete");
+			trace(flashvars.test);
+			trace(ml.xml);
 		}
-		
+
 		public function onTestClick():void
 		{
 			trace(ml.getPath("root","assets","bitmaps","bitmaps"));

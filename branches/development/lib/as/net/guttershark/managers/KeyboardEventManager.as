@@ -187,6 +187,7 @@ package net.guttershark.managers
 			else if(mapping.indexOf("+") > -1) removeSequenceMapping(scope, mapping);
 			else if(isShortcutForKeycode(mapping)) removeSequenceMapping(scope,mapping);
 			else removeWordMapping(scope, mapping);
+			clearKeys();
 		}
 		
 		/**

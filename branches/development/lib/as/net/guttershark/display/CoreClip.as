@@ -45,7 +45,7 @@ package net.guttershark.display
 		protected var lgm:LanguageManager;
 		
 		/**
-		 * A placeholder variable for a PreloadController instance. You should initialize this yourself.
+		 * A placeholder variable for a PreloadController instance - you should initialize this yourself.
 		 */
 		protected var pc:PreloadController;
 		
