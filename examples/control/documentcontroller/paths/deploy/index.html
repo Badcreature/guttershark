@@ -24,10 +24,11 @@
 	net.guttershark.Paths.addPath("root","http://tagsf/");
 	net.guttershark.Paths.addPath("assets","assets/");
 	net.guttershark.Paths.addPath("bitmaps","bitmaps/");
-	var vars = {};
+	var vars = {test:"WORD",model:"model.xml"};
 	var params = {scale:'noScale',salign:'lt',menu:'false'};
 	var attributes = {id:'flaswf',name:'flaswf'};
-	swfobject.embedSWF("main.swf","flashcontent","600","400","9.0.0","js/expressInstall.swf",vars,params,attributes);
+	//swfobject.embedSWF("main.swf","flashcontent","600","400","9.0.0","js/expressInstall.swf",vars,params,attributes);
+	swfobject.embedSWF("frame1test.swf","flashcontent","600","400","9.0.0","js/expressInstall.swf",vars,params,attributes);
 	swffit(attributes.id,550,450,550,450,true);
 	try{swfmacmousewheel.registerObject(attributes.id);}catch(e){}
 	setupTracking('tracking.xml');

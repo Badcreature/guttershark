@@ -1,7 +1,6 @@
 package net.guttershark.util
 {
-	import net.guttershark.util.crypt.Luhn;	
-	import net.guttershark.util.Singleton;				
+	import net.guttershark.util.Singleton;					
 
 	/**
 	 * The StringUtils class is a singleton that
@@ -961,7 +960,29 @@ package net.guttershark.util
 		public function isValidCCNumber(strNumber:String):Boolean
 		{
 			var ccNumber:String = StringUtils.gi().toNumeric(strNumber);
-			if(ccNumber.length > 0 && !isNaN(ccNumber as Number) && (ccNumber.length >= MINIMUM_CARD_LENGTH && ccNumber.length <= MAXIMUM_CARD_LENGTH)) return Luhn.mod10(ccNumber); 
+			if(ccNumber.length > 0 && !isNaN(ccNumber as Number) && (ccNumber.length >= MINIMUM_CARD_LENGTH && ccNumber.length <= MAXIMUM_CARD_LENGTH))
+			{
+				var aNumbers:Array = strNumber.split("");
+				var nSum_1:Number = 0;
+				var nSum_2:Number = 0;
+				var nSum_Total:Number = 0;
+				var nParity:Number = aNumbers.length % 2;
+				var i:int = 0;
+				var l:int = aNumbers.length;
+				for(i;i<l;i++) //
+				{
+					var n:Number = Number(aNumbers[i]);
+					if(i % 2 == nParity) 
+					{
+						n *= 2;
+						n = n > 9 ? n - 9 : n;
+						nSum_1 += n;
+					}
+					else nSum_2 += n;
+				}
+				nSum_Total = nSum_1 + nSum_2;
+				return (nSum_Total % 10 == 0);
+			} 
 			return false;
 		}
 

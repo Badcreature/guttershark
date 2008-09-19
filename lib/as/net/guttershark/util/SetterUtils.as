@@ -1,6 +1,5 @@
 package net.guttershark.util 
 {
-	import flash.text.TextField;		
 
 	/**
 	 * The SetterUtils class is a singleton that has utility methods
@@ -44,7 +43,13 @@ package net.guttershark.util
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].buttonMode = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].buttonMode = value;
 		}
 		
 		/**
@@ -57,7 +62,13 @@ package net.guttershark.util
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].visible = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].visible = value;
 		}
 		
 		/**
@@ -70,7 +81,13 @@ package net.guttershark.util
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].alpha = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].alpha = value;
 		}
 		
 		/**
@@ -83,7 +100,13 @@ package net.guttershark.util
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].cacheAsBitmap = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].cacheAsBitmap = value;
 		}
 		
 		/**
@@ -92,11 +115,17 @@ package net.guttershark.util
 		 * @param value The value to set the useHandCursor property to.
 		 * @param ...objs An array of objects with the useHandCursor property.
 		 */
-		public function seHandCursor(value:Boolean, ...objs:Array):void
+		public function useHandCursor(value:Boolean, ...objs:Array):void
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].useHandCursor = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].useHandCursor = value;
 		}	
 		
 		/**
@@ -109,7 +138,13 @@ package net.guttershark.util
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].mouseChildren = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].mouseChildren = value;
 		}
 		
 		/**
@@ -122,7 +157,13 @@ package net.guttershark.util
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].mouseEnabled = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].mouseEnabled = value;
 		}
 		
 		/**
@@ -147,7 +188,13 @@ package net.guttershark.util
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].tabChildren = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].tabChildren = value;
 		}
 		
 		/**
@@ -160,7 +207,13 @@ package net.guttershark.util
 		{
 			var l:int = objs.length;
 			var k:int = 0;
-			for(k;k<l;k++) objs[k].tabEnabled = value;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].tabEnabled = value;
 		}
 		
 		/**
@@ -173,7 +226,13 @@ package net.guttershark.util
 		{
 			var l:int = fields.length;
 			var k:int = 0;
-			for(k;k<l;k++) TextField(fields[k]).autoSize = value;
+			var a:Array = fields;
+			if(fields[0] is Array)
+			{
+				a = fields[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].autoSize = value;
 		}
 	}
 }

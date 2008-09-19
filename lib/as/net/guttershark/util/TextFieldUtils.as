@@ -108,6 +108,17 @@ package net.guttershark.util
 		}
 		
 		/**
+		 * Restrict a text field to class path characters only (a-zA-Z0-9_.);
+		 * 
+		 * @param tf The text field to restrict.
+		 */
+		public function restrictToClassPaths(tf:TextField):void
+		{
+			ast.notNil(tf,"Parameter {tf} cannot be null");
+			tf.restrict = "a-zA-Z0-9_.";
+		}
+		
+		/**
 		 * @private
 		 * Restrict a text field to file URI format only (file:///).
 		 */
