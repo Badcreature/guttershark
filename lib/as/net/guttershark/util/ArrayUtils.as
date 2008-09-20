@@ -1,6 +1,6 @@
 package net.guttershark.util
 {
-	import net.guttershark.util.Singleton;	
+	import net.guttershark.util.Singleton;
 	
 	/**
 	 * The ArrayUtils class contains utility methods for arrays.

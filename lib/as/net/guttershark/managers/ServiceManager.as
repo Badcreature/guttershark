@@ -150,7 +150,7 @@ package net.guttershark.managers
 	 * <p>The response should be a url encoded string like so: (name=asdfasd&email=asdfasd&test=sdfsdf)</p>
 	 * <p>To indicate a fault through variables define it like so: (fault=my%20fault%20message).</p>
 	 */
-	public dynamic class ServiceManager extends Proxy
+	final public dynamic class ServiceManager extends Proxy
 	{
 		
 		private static var inst:ServiceManager;
