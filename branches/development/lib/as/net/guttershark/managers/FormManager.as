@@ -10,7 +10,7 @@ package net.guttershark.managers
 	 * that compose a form - THIS IS STILL IN DEVELOPMENT, BUT EVERYTHING
 	 * HERE WORKS, IT'S JUST NOT FEATURE COMPLETE.
 	 */
-	public class FormManager
+	final public class FormManager
 	{
 
 		private var tfs:Array;

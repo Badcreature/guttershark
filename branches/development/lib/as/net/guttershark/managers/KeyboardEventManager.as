@@ -13,7 +13,7 @@ package net.guttershark.managers
 	 * 
 	 * @see KeyboardEventManager#addMapping() addMapping() method for an example.
 	 */
-	public class KeyboardEventManager
+	final public class KeyboardEventManager
 	{
 			
 		private static var inst:KeyboardEventManager;

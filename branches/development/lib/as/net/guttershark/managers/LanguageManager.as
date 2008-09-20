@@ -14,7 +14,7 @@
 	 * xml files, and handles updating your text fields with
 	 * different text for a different language.
 	 */
-	public class LanguageManager
+	final public class LanguageManager
 	{
 		
 		/**

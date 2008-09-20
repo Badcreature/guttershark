@@ -8,8 +8,34 @@
  *       /\____/                                                                          
  *       \_/__/                                                                           
  */
+
+/*
+ * <span class="gs tools">
+ * defaultExclude=true
+ * scaffolding=true
+ * </span>
+ * 
+ * <span class="scaffold class">
+ * package {%PACKAGE%}
+ * {
+ *     public class {%CLASS%} {extends %PARENT_CLASS%}}
+ *     {
+ *     
+ *         {%PROPERTIES%}
+ *     
+ *         public function {%CLASS%}
+ *         {
+ *             super();
+ *         }
+ *         
+ *         {%METHODS%}
+ *     }
+ * }
+ * </span>
+ */
 package net.guttershark.control
 {
+	
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
@@ -34,7 +60,7 @@ package net.guttershark.control
 	import net.guttershark.util.CPU;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;	
+	import net.guttershark.util.akamai.Ident;
 
 	/**
 	 * The DocumentController class is the document class for an FLA, it contains
@@ -85,7 +111,7 @@ package net.guttershark.control
 	 */
 	public class DocumentController extends CoreSprite
 	{
-
+		
 		/**
 		 * The model XML - this is the xml that gets loaded from flashvars.model property.
 		 */
@@ -188,6 +214,17 @@ package net.guttershark.control
 		 *   Model.gi().sharedObject = sharedObject;
 		 * }
 		 * </listing>
+		 * 
+		 * <span class="hide">
+		 *  <span class="scaffold method">
+		 * 	//hook into restoring a shared object.
+		 * 	override protected function restoreSharedObject():void
+		 * 	{
+		 * 	    super();
+		 * 	    //ml.sharedObject = SharedObject.getLocal("myapp");
+		 * 	}
+		 * 	</span>
+		 * </span>
 		 */
 		protected function restoreSharedObject():void{}
 		
@@ -295,6 +332,18 @@ package net.guttershark.control
 		 *     fm = FooBarModel.gi(); //your model
 		 * }
 		 * </listing>
+		 * 
+		 * <span class="hide">
+		 *  <span class="scaffold method">
+		 *  //initialize your model.
+		 *  override protected function initModel():void
+		 *  {
+		 *      super();
+		 *      //myModel = MyModel.gi();
+		 *      //myModel.ml = ml //set the guttershark model on your model.
+		 *  }
+		 *  </span>
+		 * </span>
 		 */
 		protected function initModel():void
 		{

@@ -216,7 +216,7 @@ package net.guttershark.managers
 	 * <li>VideoEvent.PLAYHEAD_UPDATE</li>
 	 * </ul>
 	 */
-	public class EventManager
+	final public class EventManager
 	{
 		
 		/**

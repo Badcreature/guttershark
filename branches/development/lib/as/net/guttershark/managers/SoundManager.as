@@ -20,7 +20,7 @@ package net.guttershark.managers
 	/**
 	 * The SoundManager class is used to control sounds globally.
 	 */
-	public class SoundManager extends EventDispatcher
+	final public class SoundManager extends EventDispatcher
 	{
 		
 		/**

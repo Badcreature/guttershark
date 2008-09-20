@@ -19,7 +19,7 @@ package net.guttershark.managers
 	 * 
 	 * @see net.guttershark.control.PreloadController PreloadController Class
 	 */
-	public class AssetManager
+	final public class AssetManager
 	{	
 		
 		/**

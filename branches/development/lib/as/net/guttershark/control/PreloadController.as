@@ -125,7 +125,7 @@ package net.guttershark.control
 	 * }
 	 * </listing>
 	 */
-	public class PreloadController extends EventDispatcher
+	final public class PreloadController extends EventDispatcher
 	{
 		
 		/**
