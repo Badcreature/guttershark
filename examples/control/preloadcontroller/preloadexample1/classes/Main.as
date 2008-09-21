@@ -46,7 +46,7 @@ package
 		
 		public function onPCProgress(pe:PreloadProgressEvent):void
 		{
-			trace("progress: pixels: " + pe.pixels + " percent: " + pe.percent);
+			trace(pe.toString());
 			TweenMax.to(preloader,.5,{width:pe.pixels,overwrite:false});
 		}
 

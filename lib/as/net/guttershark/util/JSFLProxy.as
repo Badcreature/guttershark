@@ -6,9 +6,15 @@ package net.guttershark.util
 	import net.guttershark.util.Utilities;		
 	
 	/**
-	 * The JSFLProxy class is a proxy that communicates with
-	 * JSFL, and can simplifies various facets of the actionscript<->jsfl
-	 * workflow.
+	 * The JSFLProxy class is a proxy class that eleviates the pain
+	 * of running jsfl from actionscript.
+	 * 
+	 * <p>JSFL Proxy does not eleviate having to call such things like:
+	 * <code>MMExecute("fl.getDocumentDOM().path"), but it does relieve
+	 * calling script files, or functions withing script files, and
+	 * handling parameters, and responses from the script.</p>
+	 * 
+	 * @see #runScript()
 	 */
 	final public class JSFLProxy
 	{
@@ -49,24 +55,35 @@ package net.guttershark.util
 		 * <ul>
 		 * <li>method (String) - A method inside of the jsfl file to execute.</li>
 		 * <li>params (Array) - Parameters to send to the jsfl function.</li>
-		 * <li>escapeParams (Boolean) - Whether or not to escape all params</li>
-		 * <li>responseWasEscaped (Boolean) - Whether the return value from jsfl was escaped.</li>
-		 * <li>responseFormat (String) - A response format, so that casting can occur - supports (xml,boolean,int,number,array).
+		 * <li>escapeParams (Boolean) - Whether or not to escape all parameters being send to the function.</li>
+		 * <li>responseWasEscaped (Boolean) - Whether the return value from jsfl was escaped. This is useful for returning XML, or string with special characters,
+		 * because special characters will throw jsfl errors if they're not escaped.</li>
+		 * <li>responseFormat (String) - A response format, so that casting can occur - supports (xml,boolean,int,number,array(csv)).
 		 * </ul>
 		 * 
 		 * <p>Those properties are optional. And depending on what properties are present,
 		 * either a jsfl file will execute, or a method inside of it</p>
 		 * 
+		 * @example Calling a script file (no method):
+	 	 * <listing>	
+	 	 * var j:JSFLProxy = JSFLProxy.gi();
+	 	 * j.runScript("myscript.jsfl",{responseFormat:"xml",responseWasEscape:true});
+	 	 * </listing>
+	 	 * 
+	 	 * @example Calling a method in a script file:
+	 	 * <listing>	
+	 	 * var j:JSFLProxy = JSFLProxy.gi();
+	 	 * j.runScript("myscript.jsfl",{method:"helloWorld",params:["test"],escapeParams:true,responseFormat:"XML",responseWasEscape:true});
+	 	 * </listing>
+	 	 * 
 		 * @param scriptFile The fileURI (file:///) to run.
 		 * @param callProps The call properties to use for this call.
 		 */
 		public function runScript(scriptFile:String, callProps:Object = null):*
 		{
-			//trase("runscript "+scriptFile);
 			if(!callProps) callProps = {};
 			var params:Array = (callProps.params) ? callProps.params : [];
 			var a:String;
-			if(callProps.requestFormat) trace("ADD SUPPORT FOR REQUEST FORMAT");
 			if(params.length > 0) a = "";
 			for(var i:int = 0; i < params.length;i++)
 			{

@@ -10,9 +10,8 @@ package net.guttershark.managers
 	import net.guttershark.util.Singleton;
 	
 	/**
-	 * The ServiceManager class supports making Remoting
-	 * requests, and normal HTTP service requests, with
-	 * support for retries, timeouts, and some features that
+	 * The ServiceManager simplifies Remoting requests and HTTP
+	 * requests with support for retries, timeouts, and some features that
 	 * are specific to one or the other.
 	 * 
 	 * @example Setting up a remoting service:
@@ -153,8 +152,20 @@ package net.guttershark.managers
 	final public dynamic class ServiceManager extends Proxy
 	{
 		
+		/**
+		 * Singleton instance.
+		 */
 		private static var inst:ServiceManager;
+		
+		/**
+		 * Stored services.
+		 */
 		private var services:Dictionary;
+		
+		/**
+		 * RemotingConnections that can be re-used for a service that connects
+		 * to the same gateway.
+		 */
 		private var rcp:Dictionary;
 		
 		/**
@@ -172,20 +183,20 @@ package net.guttershark.managers
 		 */
 		public static function gi():ServiceManager
 		{
-			if(inst == null) inst = Singleton.gi(ServiceManager);
+			if(!inst) inst = Singleton.gi(ServiceManager);
 			return inst;
 		}
 		
 		/**
-		 * Creates a new remoting service internally, that you can access as a property on the service manager instance.
+		 * Creates a new remoting service internally that you can access as a property on the service manager instance.
 		 * 
-		 * @param	id	The id for the service - you can access the service dyanmically as well, like serviceManager.{id}.
-		 * @param	gateway	The gateway url for the remoting server.
-		 * @param	endpoint	The service endpoint, IE: com.test.Users.
-		 * @param	objectEncoding	The object encoding, 0 or 3.
-		 * @param	attempts	The number of attempts that will be allowed for each service call - this sets the default, but can be overwritten by a callProps object.
-		 * @param	timeout	The time allowed for each call, before making another attempt.
-		 * @param	limiter	Use a call limiter.
+		 * @param id The id for the service - you can access the service dyanmically as well, like serviceManager.{id}.
+		 * @param gateway The gateway url for the remoting server.
+		 * @param endpoint The service endpoint, IE: com.test.Users.
+		 * @param objectEncoding The object encoding, 0 or 3.
+		 * @param attempts The number of attempts that will be allowed for each service call - this sets the default, but can be overwritten by a callProps object.
+		 * @param timeout The time allowed for each call, before making another attempt.
+		 * @param limiter Use a call limiter.
 		 */
 		public function createRemotingService(id:String,gateway:String,endpoint:String,objectEncoding:int,attempts:int=1,timeout:int=10000,limiter:Boolean=false,overwriteIfExists:Boolean=true):void
 		{
@@ -199,14 +210,14 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Creates a new http service internally, that you can access as a property on the service manager instance.
+		 * Creates a new http service internally that you can access as a property on the service manager instance.
 		 * 
-		 * @param	id	The id for the service - you can access the service dyanmically as well, like serviceManager.{id}.
-		 * @param	url	The http url for the service.
-		 * @param	attempts	The number of attempts that will be allowed for each service call - this sets the default, but can be overwritten by a callProps object.
-		 * @param	timeout	The time allowed for each call, before making another attempt.
-		 * @param	limiter	Use a call limiter. (currently not available for HTTP, but plans to add in, in the future.)
-		 * @param	defaultResponseFormat	The default response format ("variables","xml","text","binary"), see net.guttershark.support.servicemanager.http.ResponseFormat.
+		 * @param id The id for the service - you can access the service dyanmically as well, like serviceManager.{id}.
+		 * @param url The http url for the service.
+		 * @param attempts The number of attempts that will be allowed for each service call - this sets the default, but can be overwritten by a callProps object.
+		 * @param timeout The time allowed for each call, before making another attempt.
+		 * @param limiter Use a call limiter. (currently not available for HTTP, but plans to add in, in the future.)
+		 * @param defaultResponseFormat	The default response format ("variables","xml","text","binary"), see net.guttershark.support.servicemanager.http.ResponseFormat.
 		 */
 		public function createHTTPService(id:String, url:String, attempts:int=1, timeout:int=10000, limiter:Boolean=false, defaultResponseFormat:String="variables"):void
 		{
@@ -233,6 +244,8 @@ package net.guttershark.managers
 		 * //the default, recommended way
 		 * trace(sm.amfphp); //returns amfphp service.
 		 * </listing>
+		 * 
+		 * @param id The service id.
 		 */
 		public function getService(id:String):*
 		{
@@ -243,7 +256,7 @@ package net.guttershark.managers
 		/**
 		 * Check whether or not a service has been created.
 		 * 
-		 * @param	id	The service id to check for.
+		 * @param id The service id to check for.
 		 */
 		public function serviceExist(id:String):Boolean
 		{
@@ -253,7 +266,7 @@ package net.guttershark.managers
 		/**
 		 * Dispose of a service.
 		 *
-		 * @param	id	The service id.
+		 * @param id The service id.
 		 */
 		public function disposeService(id:String):void
 		{

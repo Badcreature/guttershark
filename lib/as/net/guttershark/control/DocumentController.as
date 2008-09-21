@@ -149,10 +149,11 @@ package net.guttershark.control
 		public function DocumentController()
 		{
 			super();
+			stage.stageFocusRect = false;
 			online = true;
 			setupFlashvars();
 			if(flashvars.macMouseWheel) MacMouseWheel.setup(stage);
-			if(flashvars.swfAddress && !PlayerManager.IsStandAlonePlayer() && !PlayerManager.IsIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
+			if(flashvars.swfAddress && !PlayerManager.isStandAlonePlayer() && !PlayerManager.isIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
 			if(flashvars.sniffCPU) CPU.calculate();
@@ -163,7 +164,7 @@ package net.guttershark.control
 			if(!flashvars.model)
 			{
 				initModel();
-				if(PlayerManager.IsIDEPlayer()||PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
+				if(PlayerManager.isIDEPlayer()||PlayerManager.isStandAlonePlayer()) initPathsForStandalone();
 				restoreSharedObject();
 				setupComplete();
 			}
@@ -174,7 +175,7 @@ package net.guttershark.control
 		 */
 		private function setupFlashvars():void
 		{
-			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) flashvars = flashvarsForStandalone();
+			if(PlayerManager.isStandAlonePlayer() || PlayerManager.isIDEPlayer()) flashvars = flashvarsForStandalone();
 			else flashvars = this.root.loaderInfo.parameters;
 		}
 		
@@ -185,8 +186,8 @@ package net.guttershark.control
 		 * <listing>	
 		 * override protected function restoreSharedObject():void
 		 * {
-		 *   sharedObject = SharedObject.getLocal("test");
-		 *   Model.gi().sharedObject = sharedObject;
+		 *     sharedObject = SharedObject.getLocal("test");
+		 *     ml.sharedObject = sharedObject;
 		 * }
 		 * </listing>
 		 * 
@@ -195,7 +196,7 @@ package net.guttershark.control
 		 * 	//hook into restoring a shared object.
 		 * 	override protected function restoreSharedObject():void
 		 * 	{
-		 * 	    super();
+		 * 	    //super();
 		 * 	    //ml.sharedObject = SharedObject.getLocal("myapp");
 		 * 	}
 		 * 	</span>
@@ -225,7 +226,7 @@ package net.guttershark.control
 		 */
 		private function setupTrackingMonitor():void
 		{
-			if((PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer())) return;
+			if((PlayerManager.isStandAlonePlayer() || PlayerManager.isIDEPlayer())) return;
 			lc = new LocalConnection();
 			lc.addEventListener(StatusEvent.STATUS, onLCStatus);
 			ExternalInterface.addCallback("tracked", onJSTrack);
@@ -338,7 +339,7 @@ package net.guttershark.control
 			modelXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
 			modelXMLLoader.dispose();
 			modelXMLLoader = null;
-			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer()) initPathsForStandalone();
+			if(PlayerManager.isIDEPlayer() || PlayerManager.isStandAlonePlayer()) initPathsForStandalone();
 			if(flashvars.initServices) ml.initServices();
 			setupComplete();
 		}

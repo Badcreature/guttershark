@@ -39,15 +39,15 @@ package net.guttershark.support.preloading.workers
 			this.request.contentType = "video/x-flv";
 			this.loader = new URLLoader();
 			loader.dataFormat = URLLoaderDataFormat.BINARY;
-			loader.addEventListener(Event.OPEN, onOpen);
-			loader.addEventListener(ProgressEvent.PROGRESS, super.onProgress);
-			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, super.onHTTPStatus);
-			loader.addEventListener(IOErrorEvent.IO_ERROR, super.onIOLoadError);
-			loader.addEventListener(IOErrorEvent.DISK_ERROR, super.onIOLoadError);
-			loader.addEventListener(IOErrorEvent.NETWORK_ERROR, super.onIOLoadError);
-			loader.addEventListener(IOErrorEvent.VERIFY_ERROR, super.onIOLoadError);
-			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, super.onSecurityError);
-			loader.addEventListener(Event.COMPLETE, super.onComplete);
+			loader.addEventListener(Event.OPEN, onOpen,false,0,true);
+			loader.addEventListener(ProgressEvent.PROGRESS, super.onProgress,false,0,true);
+			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, super.onHTTPStatus,false,0,true);
+			loader.addEventListener(IOErrorEvent.IO_ERROR, super.onIOLoadError,false,0,true);
+			loader.addEventListener(IOErrorEvent.DISK_ERROR, super.onIOLoadError,false,0,true);
+			loader.addEventListener(IOErrorEvent.NETWORK_ERROR, super.onIOLoadError,false,0,true);
+			loader.addEventListener(IOErrorEvent.VERIFY_ERROR, super.onIOLoadError,false,0,true);
+			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, super.onSecurityError,false,0,true);
+			loader.addEventListener(Event.COMPLETE, super.onComplete,false,0,true);
 			start();
 		}
 	}

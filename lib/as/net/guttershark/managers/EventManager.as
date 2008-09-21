@@ -185,6 +185,7 @@ package net.guttershark.managers
 	 * <tr bgcolor="#999999"><td width="200"><strong>Object</strong></td><td width="200"><strong>EventListenerDelegate</strong></td><td><strong>Events</strong></td></tr>
 	 * <tr><td>PreloadController</td><td>NA</td><td>Complete,Progress,AssetComplete,AssetError</td></tr>
 	 * <tr><td>XMLLoader</td><td>NA</td><td>Complete</td></tr>
+	 * <tr><td>SoundManager</td><td>NA</td><td>Change</td></tr>
 	 * </table>
 	 * 
 	 * <p>Supported Components:</p>
@@ -374,6 +375,11 @@ package net.guttershark.managers
 				//return;
 			}
 			
+			if(obj is SoundManager)
+			{
+				if((callbackPrefix + "Change") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE, onSoundChange,false,0,true);
+			}
+			
 			for each(var objType:Class in handlers)
 			{
 				if(obj is objType)
@@ -450,6 +456,11 @@ package net.guttershark.managers
 			if(ol != pl) throw new Error("The objects and prefixes must be a 1 to 1 relationship.");
 			var i:int = 0;
 			for(i;i<ol;i++) handleEvents(objects[i],callbackDelegate,prefixes[i],returnEventObjects,cycleThroughTracking);
+		}
+		
+		private function onSoundChange(e:Event):void
+		{
+			handleEvent(e,"Change");
 		}
 		
 		private function onBandwidthComplete(e:Event):void
