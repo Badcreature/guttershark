@@ -1,17 +1,17 @@
 package net.guttershark.managers
 {
-	import flash.text.StyleSheet;	
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.media.Sound;
 	import flash.text.Font;
+	import flash.text.StyleSheet;
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
-	import net.guttershark.util.XMLLoader;	
+	import net.guttershark.util.XMLLoader;		
 
 	/**
 	 * The AssetManager class is a singleton that stores all assets
@@ -65,16 +65,17 @@ package net.guttershark.managers
 		/**
 		 * Register an asset in the library.
 		 * 
-		 * @param	libraryName		The item id.
-		 * @param	obj				The loaded asset object.
-		 * @throws	ArgumentError	If libraryName is null.
-		 * @throws	ArgumentError	If obj is null.
+		 * @param libraryName The item id.
+		 * @param obj The loaded asset object.
 		 */
 		public function addAsset(libraryName:String, obj:*):void
 		{
 			ast.notNil(libraryName,"Parameter libraryName cannot be null");
 			ast.notNil(obj,"Parameter obj cannot be null");
-			if(assets[libraryName]) trace("WARNING: The asset defined by libraryName: {" + libraryName + "} already had an asset registered in the library. The previous asset is no longer available.");
+			if(assets[libraryName])
+			{
+				trace("WARNING: The asset defined by libraryName: {" + libraryName + "} already had an asset registered in the library. The previous asset is no longer available.");
+			}
 			assets[libraryName] = obj;
 			_lastLibraryName = libraryName;
 		}
@@ -82,8 +83,7 @@ package net.guttershark.managers
 		/**
 		 * Remove an asset from the library.
 		 * 
-		 * @param	libraryName	The asset's libraryName to remove.
-		 * @throws	ArgumentError	If libraryName is null.
+		 * @param libraryName The asset's libraryName to remove.
 		 */
 		public function removeAsset(libraryName:String):void
 		{
@@ -111,8 +111,7 @@ package net.guttershark.managers
 		/**
 		 * Check to see if an asset is available in the library.
 		 * 
-		 * @param	libraryName	The libraryName used to register the asset.
-		 * @return	Boolean
+		 * @param libraryName The libraryName used to register the asset.
 		 */
 		public function isAvailable(libraryName:String):Boolean
 		{
@@ -124,10 +123,7 @@ package net.guttershark.managers
 		/**
 		 * A generic method to get any asset from the library.
 		 * 
-		 * @param	libraryName		The library name used when the asset was registered.
-		 * @throws	Error	If the inZipLibrary specified was not a zip registered in the library.
-		 * @throws	Error	If the asset was not registered in the library.
-		 * @return	*				The asset is returned un-typed.
+		 * @param libraryName The library name used when the asset was registered.
 		 */
 		public function getAsset(libraryName:String):*
 		{
@@ -141,9 +137,7 @@ package net.guttershark.managers
 		 * 
 		 * <p>The asset is cast as a Loader class</p>
 		 * 
-		 * @param	libraryName		The library name used when the asset was registered.
-		 * @return	Loader			Returns the asset as a Loader.
-		 * @see flash.display.Loader Loader class
+		 * @param libraryName The library name used when the asset was registered.
 		 */
 		public function getSWF(libraryName:String):Loader
 		{
@@ -155,9 +149,8 @@ package net.guttershark.managers
 		/**
 		 * Get a Class reference from a swf library.
 		 * 
-		 * @param	libraryName			The library name used when the asset was registered.
-		 * @param	classNameInLibrary	The class name in the loaded swf's library.
-		 * @return 	MovieClip			Returns the asset as a MovieClip
+		 * @param libraryName The library name used when the asset was registered.
+		 * @param classNameInLibrary The class name in the loaded swf's library.
 		 */
 		public function getClassFromSWFLibrary(libraryName:String, classNameInLibrary:String):Class
 		{
@@ -175,9 +168,8 @@ package net.guttershark.managers
 		/**
 		 * Get a movie clip from a swf library.
 		 * 
-		 * @param	libraryName			The library name used when the asset was registered.
-		 * @param	classNameInLibrary	The class name in the loaded swf's library.
-		 * @return 	MovieClip			Returns the asset as a MovieClip
+		 * @param libraryName The library name used when the asset was registered.
+		 * @param classNameInLibrary The class name in the loaded swf's library.
 		 */
 		public function getMovieClipFromSWFLibrary(libraryName:String, classNameInLibrary:String):MovieClip
 		{
@@ -196,10 +188,8 @@ package net.guttershark.managers
 		/**
 		 * Get a sprite from a swf library.
 		 * 
-		 * @param	libraryName		The library name used when the asset was registered.
-		 * @param	classNameInLibrary		The class name in the loaded swf's library.
-		 * @param	inZipLibrary	If the asset was in a zip file, provide the libraryName used to register that zip in the library.
-		 * @return	Sprite		Returns the asset as a MovieClip
+		 * @param libraryName The library name used when the asset was registered.
+		 * @param classNameInLibrary The class name in the loaded swf's library.
 		 */
 		public function getSpriteFromSWFLibrary(libraryName:String, classNameInLibrary:String):Sprite
 		{
@@ -219,9 +209,8 @@ package net.guttershark.managers
 		 * Get an embedded Font from a SWF library. The Font is also registered
 		 * through Font.registerFont before it's returned.
 		 * 
-		 * @param	libraryName	The library name used when the asset was registered.
-		 * @param	fontLinkageId	The font linkage id.
-		 * @return 	Font	Returns a Font instance.
+		 * @param libraryName The library name used when the asset was registered.
+		 * @param fontLinkageId	The font linkage id.
 		 */
 		public function getFontFromSWFLibrary(libraryName:String, fontLinkageId:String):Font
 		{
@@ -241,9 +230,8 @@ package net.guttershark.managers
 		/**
 		 * Get a Bitmap from a swf library.
 		 * 
-		 * @param	libraryName		The library name used when the asset was registered.
-		 * @param	bitmapLinkageId		The bitmaps linkage Id.
-		 * @return 	Bitmap	Returns a Font instance.
+		 * @param libraryName The library name used when the asset was registered.
+		 * @param bitmapLinkageId The bitmaps linkage Id.
 		 */
 		public function getBitmapFromSWFLibrary(libraryName:String, bitmapLinkageId:String):Bitmap
 		{
@@ -264,8 +252,6 @@ package net.guttershark.managers
 		 * 
 		 * @param	libraryName		The library name used when the asset was registered.
 		 * @param	soundLinkageId	The sounds linkage id from the library.
-		 * @param	inZipLibrary	The zip file that contains the sound, this should be the libraryName used to register the zip in the asset library.
-		 * @return 	Sound	Returns a Sound instance.
 		 */
 		public function getSoundFromSWFLibrary(libraryName:String, soundLinkageId:String):Sound
 		{
@@ -300,8 +286,7 @@ package net.guttershark.managers
 		/**
 		 * Get a loaded asset as a Bitmap.
 		 * 
-		 * @param	libraryName		The library name used when the asset was registered.
-		 * @return	Bitmap			returns a flash.display.Bitmap asset.
+		 * @param libraryName The library name used when the asset was registered.
 		 */
 		public function getBitmap(libraryName:String):Bitmap
 		{
@@ -319,8 +304,7 @@ package net.guttershark.managers
 		/**
 		 * Get a Sound asset.
 		 * 
-		 * @param	libraryName		The library name used when the asset was registered.
-		 * @return	Sound	returns a flash.media.Sound instance.
+		 * @param libraryName The library name used when the asset was registered.
 		 */
 		public function getSound(libraryName:String):Sound
 		{
@@ -332,8 +316,7 @@ package net.guttershark.managers
 		/**
 		 * Get an XML asset.
 		 * 
-		 * @param	libraryName	The library name used when the asset was registered.
-		 * @return	XML	returns the XML instance.
+		 * @param libraryName The library name used when the asset was registered.
 		 */
 		public function getXML(libraryName:String):XML
 		{

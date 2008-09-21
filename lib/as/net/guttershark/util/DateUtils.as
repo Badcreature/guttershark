@@ -11,7 +11,10 @@ package net.guttershark.util
 		 * Singleton instance.
 		 */
 		private static var inst:DateUtils;
-
+		
+		/**
+		 * MathUtilities instance.
+		 */
 		private var mu:MathUtils;
 
 		/**

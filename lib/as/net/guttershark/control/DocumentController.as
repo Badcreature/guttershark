@@ -8,31 +8,6 @@
  *       /\____/                                                                          
  *       \_/__/                                                                           
  */
-
-/*
- * <span class="gs tools">
- * defaultExclude=true
- * scaffolding=true
- * </span>
- * 
- * <span class="scaffold class">
- * package {%PACKAGE%}
- * {
- *     public class {%CLASS%} {extends %PARENT_CLASS%}}
- *     {
- *     
- *         {%PROPERTIES%}
- *     
- *         public function {%CLASS%}
- *         {
- *             super();
- *         }
- *         
- *         {%METHODS%}
- *     }
- * }
- * </span>
- */
 package net.guttershark.control
 {
 	
@@ -338,7 +313,7 @@ package net.guttershark.control
 		 *  //initialize your model.
 		 *  override protected function initModel():void
 		 *  {
-		 *      super();
+		 *      super.initModel();
 		 *      //myModel = MyModel.gi();
 		 *      //myModel.ml = ml //set the guttershark model on your model.
 		 *  }

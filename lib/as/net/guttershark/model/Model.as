@@ -158,9 +158,9 @@ package net.guttershark.model
 		/**
 		 * Get an Asset instance by the library name.
 		 * 
-		 * @param	libraryName	The libraryName of the asset to create.
-		 * @param	prependSourcePath	The path to append to the source property of the asset.
-		 * @return	An instance of an Asset.
+		 * @param libraryName The libraryName of the asset to create.
+		 * @param prependSourcePath	The path to append to the source property of the asset.
+		 * @return An instance of an Asset.
 		 */
 		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String = null):Asset
 		{

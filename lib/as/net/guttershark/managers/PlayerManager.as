@@ -170,7 +170,7 @@ package net.guttershark.managers
 		/**
 		 * Returns <code>true</code> if client flashplayer is >= the min version.
 		 */
-		public static function isMinVersion(minVersion : Number) : Boolean
+		public static function isMinVersion(minVersion:Number):Boolean
 		{
 			if(Number(Capabilities.version.split(" ")[1].split(",")[0]) >= minVersion) return true;
 			return false;
