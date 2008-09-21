@@ -12,7 +12,7 @@
 	/**
 	 * The LanguageManager class manages loading different language
 	 * xml files, and handles updating your text fields with
-	 * different text for a different language.
+	 * text for a different language.
 	 */
 	final public class LanguageManager
 	{
@@ -70,15 +70,10 @@
 		}
 
 		/**
-		 * Add an XML instance as a language XML file. This is provided
-		 * specifically for when you want to include multiple language files
-		 * in the document preload. So you CAN include the XML in the preload,
-		 * and register it here after it's all ready, instead of loading on the fly
-		 * internally, which cause delays in updates of text fields.
+		 * Add an XML instance as a language XML file.
 		 * 
-		 * @param	langXML	The XML to use for this language.
-		 * @param	langCode	The language code to categorize this XML as.
-		 * @throws	ArgumentErro If any parameters are null;
+		 * @param langXML The XML to use for this language.
+		 * @param langCode The language code to categorize this XML as.
 		 */
 		public function addLanguageXML(langXML:XML, langCode:String):void
 		{
@@ -90,10 +85,10 @@
 		}
 		
 		/**
-		 * Load a language XML file. The loading is handled internally.
+		 * Load a language XML file - the loading is handled internally.
 		 * 
-		 * @param	langXMLPath	A path to a language xml file.
-		 * @param	langCode	A language code to store this XML file as.
+		 * @param langXMLPath A path to a language xml file.
+		 * @param langCode A language code to store this XML file as.
 		 */
 		public function loadLanguage(langXMLPath:String, langCode:String):void
 		{
@@ -125,11 +120,11 @@
 		 * Add a localizable clip to the language manager. The clip will be updated
 		 * when the selected language code changes.
 		 * 
-		 * @param	clip			An ILocalizableClip.
-		 * @param	textID			String ID in language xml file.
-		 * @param	updateOnAdd		Boolean to update localizedText on add.
+		 * @param clip An LocalizableClip.
+		 * @param textID String ID in language xml file.
+		 * @param updateOnAdd Boolean to update localizedText on add.
 		 * 
-		 * @see net.guttershark.lang.ILocalizableClip ILocalizableClip Class
+		 * @see net.guttershark.display.text.LocalizableClip LocalizableClip Class
 		 */
 		public function addLocalizableClip(clip:LocalizableClip,textID:String,updateOnAdd:Boolean=false):void
 		{
@@ -144,7 +139,7 @@
 		/**
 		 * Remove a localizable clip from the manager.
 		 * 
-		 * @param	clip	The ILocalizableClip to remove.
+		 * @param clip The LocalizableClip to remove.
 		 */
 		public function removeLocalizableClip(clip:LocalizableClip):void
 		{
@@ -153,7 +148,7 @@
 		}
 		
 		/**
-		 * Update all ILocalizableClips in this manager.
+		 * Update all LocalizableClip's in this manager.
 		 */
 		public function updateAll():void
 		{
@@ -164,7 +159,7 @@
 		 * Set the language code to currently use. This triggers an update
 		 * to all localizable clips that are registered.
 		 * 
-		 * @param	code	The language code to use.
+		 * @param code The language code to use.
 		 */
 		public function set languageCode(code:String):void
 		{

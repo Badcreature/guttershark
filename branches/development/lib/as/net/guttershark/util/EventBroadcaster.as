@@ -7,7 +7,10 @@ package net.guttershark.util
 	 * The EventBroadcaster is a static class, and wraps an instance of
 	 * an event dispatcher.
 	 * 
-	 * @example	Using the EventBroadcaster
+	 * <p>Using this class is not recommended, as it leads to spaghetti
+	 * events - but is here for those who feel the need.</p>
+	 * 
+	 * @example	Using the EventBroadcaster:
 	 * <listing>	
 	 * private function onTest(e:Event):void
 	 * {
@@ -25,11 +28,11 @@ package net.guttershark.util
 		/**
 		 * Add a listener the the event broadcaster.
 		 * 
-		 * @param	String		The type of event listener
-		 * @param	Function	The callback function when event is fired
-		 * @param	Boolean		UseCapture or not.
-		 * @param	int			Priority of the event.
-		 * @param	Boolean		Use weak references.
+		 * @param type The type of event listener
+		 * @param listener The callback function when event is fired
+		 * @param useCapture UseCapture or not.
+		 * @param priority Priority of the event.
+		 * @param useWeakReferences Use weak references.
 		 */
 		public static function addEventListener(type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean = false):void
 		{
@@ -39,7 +42,7 @@ package net.guttershark.util
 		/**
 		 * Broadcast an event.
 		 * 
-		 * @param		Event		Any Event.
+		 * @param event Any Event.
 		 */
 		public static function broadcastEvent(event:Event):void
 		{
@@ -49,9 +52,9 @@ package net.guttershark.util
 		/**
 		 * Remove an event listener from the broadcaster.
 		 * 
-		 * @param		String		The listener type.
-		 * @param		Function	The callback listening function.
-		 * @param		Boolean		UseCapture of not.
+		 * @param type The listener type.
+		 * @param listener The callback listening function.
+		 * @param useCapture UseCapture of not.
 		 */
 		public static function removeEventListener(type:String, listener:Function, useCapture:Boolean=false):void
 		{
@@ -61,7 +64,7 @@ package net.guttershark.util
 		/**
 		 * Check to see if there is a listener of specified type on the broadcaster.
 		 * 
-		 * @param	type	The event type.
+		 * @param type The event type.
 		 */
 		public static function hasEventListener(type:String):Boolean
 		{
@@ -71,7 +74,7 @@ package net.guttershark.util
 		/**
 		 * Test to see if an event will fire of type.
 		 * 
-		 * @param	type	The event type.
+		 * @param type The event type.
 		 */
 		public static function willTrigger(type:String):Boolean
 		{

@@ -15,16 +15,55 @@ package net.guttershark.managers
 	 */
 	final public class KeyboardEventManager
 	{
-			
+		
+		/**
+		 * Singleton instance.
+		 */
 		private static var inst:KeyboardEventManager;
+		
+		/**
+		 * A timeout that executes when checking word match attempts.
+		 */
 		private var attemptedWordTimeout:Number;
+		
+		/**
+		 * A dictionary of key down mappings.
+		 */
 		private var keyMappings:Dictionary;
+		
+		/**
+		 * A dictionary of word mappins.
+		 */
 		private var wordMappings:Dictionary;
+		
+		/**
+		 * Callback lookups for sequence matches.
+		 */
 		private var sequenceCallbacks:Dictionary;
+		
+		/**
+		 * Sequences to search for by scope of the object being listened to.
+		 */
 		private var sequencesByScope:Dictionary;
+		
+		/**
+		 * A look up for word matches by scope.
+		 */
 		private var scopeToWordLookup:Dictionary;
+		
+		/**
+		 * tmp dict for key down / up monitoring.
+		 */
 		private var tmpDict:Dictionary;
+		
+		/**
+		 * A concatenated string of all keys currently down.
+		 */
 		private var keysDown:String;
+		
+		/**
+		 * The mapping count by scope.
+		 */
 		private var mappingCountByScope:Dictionary;
 		
 		/**
@@ -155,6 +194,16 @@ package net.guttershark.managers
 		}
 		
 		/**
+		 * A shortcut for the <em><code>addMapping</em></code> method.
+		 * 
+		 * @see #addMapping()
+		 */
+		public function am(scope:*, mapping:String, callback:Function):void
+		{
+			addMapping(scope,mapping,callback);
+		}
+		
+		/**
 		 * Add the same mapping and callback to multiple objects.
 		 * 
 		 * @param	objects	An array of objects to add mappings to.
@@ -188,6 +237,15 @@ package net.guttershark.managers
 			else if(isShortcutForKeycode(mapping)) removeSequenceMapping(scope,mapping);
 			else removeWordMapping(scope, mapping);
 			clearKeys();
+		}
+		
+		/**
+		 * A shortcut for the <em><code>removeMapping</em></code> method.
+		 * 
+		 * @see #removeMapping()
+		 */
+		public function rm(scope:*, mapping:String):void
+		{
 		}
 		
 		/**

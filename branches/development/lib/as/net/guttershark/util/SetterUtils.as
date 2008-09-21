@@ -175,6 +175,11 @@ package net.guttershark.util
 		{
 			var l:int = fields.length;
 			var k:int = 0;
+			if(fields[0] is Array)
+			{
+				fields = fields[0];
+				l = fields.length;
+			}
 			for(k;k<l;k++) fields[k].tabIndex = ++k;
 		}
 		

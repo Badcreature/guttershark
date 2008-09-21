@@ -99,12 +99,12 @@ function publishWithExcludes()
 						if(os == "mac")
 						{
 							if(!publish) fl.trace("IN MAC");
-							if(searchDir.toLowerCase().indexOf("macintosh hd")<0) searchDir = "Macintosh HD/" + searchDir;
+							if(searchDir.toLowerCase().indexOf("macintosh hd")<0)searchDir="Macintosh HD/"+searchDir;
 						}
 						else if(os == "win")
 						{
 							if(!publish) fl.trace("IN WIN");
-							if(searchDir.toLowerCase().indexOf("c:")<0) searchDir = "C:" + searchDir;
+							if(searchDir.toLowerCase().indexOf("c:")<0)searchDir="C:/"+searchDir;
 						}
 						if(searchDir.lastIndexOf("/")<searchDir.length-1) searchDir += "/";
 						searchDir = searchDir.replace(/\/{2,}/g,"/");
@@ -132,11 +132,8 @@ function publishWithExcludes()
 					{
 						if(item.linkageExportInFirstFrame)
 						{
-							if(item.linkageExportInFirstFrame == true)
-							{
 								modifiedLibraryItems.push(item);
 								item.linkageExportInFirstFrame = false;
-							}
 						}
 					}
 				}

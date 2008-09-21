@@ -269,8 +269,8 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Add a custom IEventHandlerDelegate. The class must be 
-		 * an implementation of IEventHandlerDelegate.
+		 * Add a custom EventListenerDelegate - the class must be 
+		 * an implementation of EventListenerDelegate.
 		 */
 		public function addEventListenerDelegate(klassOfObject:Class, klassHandler:Class):void
 		{
@@ -279,16 +279,26 @@ package net.guttershark.managers
 		}
 
 		/**
-		 * Add auto event handling for a target object.
+		 * A shortcut for the <em><code>handleEvents</em></code> method.
 		 * 
-		 * @param	obj	The object to add event listeners to.
-		 * @param   callbackDelegate	The object in which your callback methods are defined.
-		 * @param	callbackPrefix	A prefix for all callback function definitions.
-		 * @param	returnEventObjects	Whether or not to pass the origin event objects back to your callbacks (with exception of non-negotiable event types).
-		 * @param	cycleThroughTracking	For every event that is handled, pass the same event through the tracking framework. Only events that have callbacks will be passed through tracking.
-		 * @param	cycleAllThroughTracking	Automatically adds listeners for every event that the target object dispatches, in order to grab every 
+		 * @see #handleEvents()
+		 */
+		public function he(obj:IEventDispatcher, callbackDelegate:*, callbackPrefix:String, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:Boolean = false, trackingID:String = null):void
+		{
+			handleEvents(obj,callbackDelegate,callbackPrefix,returnEventObjects,cycleThroughTracking,cycleAllThroughTracking,trackingID);
+		}
+
+		/**
+		 * Add auto event handling for the target object.
+		 * 
+		 * @param obj The object to add event listeners to.
+		 * @param callbackDelegate The object in which your callback methods are defined.
+		 * @param callbackPrefix A prefix for all callback function definitions.
+		 * @param returnEventObjects Whether or not to pass the origin event objects back to your callbacks (with exception of non-negotiable event types).
+		 * @param cycleThroughTracking For every event that is handled, pass the same event through the tracking framework. Only events that have callbacks will be passed through tracking.
+		 * @param cycleAllThroughTracking Automatically adds listeners for every event that the target object dispatches, in order to grab every 
 		 * event and pass to tracking, without requiring you to have a callback method defined on your callbackDelegate.
-		 * @param	trackingID	Define a custom trackingID to pass through the tracking framework. For events dispatched from the provided object. The id
+		 * @param trackingID Define a custom trackingID to pass through the tracking framework. For events dispatched from the provided object. The id
 		 * is made up your tracking id + the acual event.
 		 */
 		public function handleEvents(obj:IEventDispatcher, callbackDelegate:*, callbackPrefix:String, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:Boolean = false, trackingID:String = null):void
