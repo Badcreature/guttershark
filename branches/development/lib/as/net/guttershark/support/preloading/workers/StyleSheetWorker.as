@@ -29,13 +29,13 @@ package net.guttershark.support.preloading.workers
 			this.loader = new URLLoader();
 			this.asset = asset;
 			this.request = new URLRequest(asset.source);
-			loader.addEventListener(Event.COMPLETE, onComplete);
-			loader.addEventListener(ProgressEvent.PROGRESS, onProgress);
-			loader.addEventListener(IOErrorEvent.IO_ERROR, onIOLoadError);
-			loader.addEventListener(IOErrorEvent.DISK_ERROR, onIOLoadError);
-			loader.addEventListener(IOErrorEvent.NETWORK_ERROR, onIOLoadError);
-			loader.addEventListener(IOErrorEvent.VERIFY_ERROR, onIOLoadError);
-			loader.addEventListener(Event.OPEN, onOpen);
+			loader.addEventListener(Event.COMPLETE, onComplete,false,0,true);
+			loader.addEventListener(ProgressEvent.PROGRESS, onProgress,false,0,true);
+			loader.addEventListener(IOErrorEvent.IO_ERROR, onIOLoadError,false,0,true);
+			loader.addEventListener(IOErrorEvent.DISK_ERROR, onIOLoadError,false,0,true);
+			loader.addEventListener(IOErrorEvent.NETWORK_ERROR, onIOLoadError,false,0,true);
+			loader.addEventListener(IOErrorEvent.VERIFY_ERROR, onIOLoadError,false,0,true);
+			loader.addEventListener(Event.OPEN, onOpen,false,0,true);
 			start();
 		}
 		
@@ -52,8 +52,5 @@ package net.guttershark.support.preloading.workers
 			asset.data = sheet;
 			dispatchEvent(new AssetCompleteEvent(AssetCompleteEvent.COMPLETE, asset));
 			asset = null;
-			try
-			{
-				loader.close();
-			}catch(error:*){} //this suppresses cases where the loader used doesn't have a close method.
+			try{loader.close();}catch(error:*){}
 		}	}}

@@ -35,7 +35,7 @@ package net.guttershark.util
 		}
 
 		/**
-		 * Translate the <code>DisplayObject</code> container position in a new container.
+		 * Translate the display object container position in a new container.
 		 */
 		public function localToLocal(from:DisplayObject, to:DisplayObject):Point
 		{
@@ -46,68 +46,57 @@ package net.guttershark.util
 		}
 		
 		/**
+		 * Set the scale of an object - updates the x and y.
 		 * 
-		 */
-		public function localToContainerLocal(from:DisplayObject, to:DisplayObject):Point
-		{
-			var point:Point = new Point();
-			point = from.localToGlobal(point);
-			point = to.parent.globalToLocal(point);
-			return point;
-		}
-		
-		/**
-		 * Set the scale of an object; this updates the scale for both x and y.
-		 * 
-		 * @param item The target item to scale. 
+		 * @param target The target item to scale. 
 		 * @param scale	The scale percentage.
 		 */
-		public function scale(item:DisplayObject,scale:Number):void 
+		public function scale(target:DisplayObject,scale:Number):void
 		{
-			item.scaleX = scale;
-			item.scaleY = scale;
+			target.scaleX = scale;
+			target.scaleY = scale;
 		}
 
 		/**
 		 * Scale target item to fit within target confines.
 		 * 
-		 * @param item The item to be aligned.
+		 * @param target The item to be aligned.
 		 * @param targetW The target item width.
 		 * @param targetH The target item height.
 		 * @param center Center the object within the targetW and targetH.
 		 */
-		public function scaleToFit(item:DisplayObject,targetW:Number,targetH:Number,center:Boolean):void
+		public function scaleToFit(target:DisplayObject,targetW:Number,targetH:Number,center:Boolean=false):void
 		{
-			if(item.width<targetW && item.width>item.height)
+			if(target.width<targetW && target.width>target.height)
 			{
-				item.width = targetW;
-				item.scaleY = item.scaleX;
+				target.width = targetW;
+				target.scaleY = target.scaleX;
 			}
 			else
 			{
-				item.height = targetH;
-				item.scaleX = item.scaleY;
+				target.height = targetH;
+				target.scaleX = target.scaleY;
 			}
 			if(center) 
 			{
-				item.x = int(targetW/2-item.width/2);
-				item.y = int(targetH/2-item.height/2);
+				target.x = int(targetW/2-target.width/2);
+				target.y = int(targetH/2-target.height/2);
 			}
 		}
 
 		/**
 		 * Scale while retaining original w:h ratio.
 		 * 
-		 * @param item The item to be scaled.
+		 * @param target The item to be scaled.
 		 * @param targetW The target item width.
 		 * @param targetH The target item height.
 		 */
-		public function scaleRatio(item:DisplayObject,targetW:Number,targetH:Number):void
+		public function scaleRatio(target:DisplayObject,targetW:Number,targetH:Number):void
 		{
-			if(targetW/targetH<item.height/item.width) targetW = targetH * item.width / item.height; 
-			else targetH = targetW * item.height / item.width;
-			item.width = targetW;
-			item.height = targetH;
+			if(targetW/targetH<target.height/target.width) targetW = targetH * target.width / target.height; 
+			else targetH = targetW * target.height / target.width;
+			target.width = targetW;
+			target.height = targetH;
 		}
 
 		/**

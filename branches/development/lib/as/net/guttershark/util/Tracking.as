@@ -44,7 +44,7 @@ package net.guttershark.util
 				simulateCall(xmlid,appendData);
 				return;
 			}
-			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) return;
+			if(PlayerManager.isStandAlonePlayer() || PlayerManager.isIDEPlayer()) return;
 			ExternalInterface.call("flashTrack",xmlid,appendData);
 		}
 		

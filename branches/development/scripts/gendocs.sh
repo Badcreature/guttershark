@@ -89,7 +89,7 @@ ${ASDOC}asdoc \
 -package net.guttershark.display.text "The net.guttershark.display.text package contains generic text display objects." \
 -package net.guttershark.display.video "The net.guttershark.video package contains classes use for video objects." \
 -package net.guttershark.display.views "The net.guttershark.display.controls.views package contains base classes for generic views." \
--package net.guttershark.managers "The net.guttershark.managers package contains manager classes that simplify many mundane programming tasks.." \
+-package net.guttershark.managers "The net.guttershark.managers package contains manager classes that simplify many mundane programming tasks." \
 -package net.guttershark.model "The net.guttershark.model package contains classes for working with model classes and model xml." \
 -package net.guttershark.support "The net.guttershark.support package contains all classes that support, managers,controllers and events and generally aren't used directly, with the exception of a couple classes." \
 -package net.guttershark.support.eventmanager "The net.guttershark.support.eventmanager contains all support classes for the EventManager, and other event listener delegates you can opt into for components." \

@@ -3,7 +3,6 @@ package net.guttershark.support.preloading
 	import flash.events.SecurityErrorEvent;
 	
 	import net.guttershark.control.PreloadController;
-	import net.guttershark.managers.AssetManager;
 	import net.guttershark.support.preloading.events.AssetCompleteEvent;
 	import net.guttershark.support.preloading.events.AssetErrorEvent;
 	import net.guttershark.support.preloading.events.AssetOpenEvent;
@@ -127,28 +126,21 @@ package net.guttershark.support.preloading
 		private function onComplete(e:AssetCompleteEvent):void
 		{
 			controller.complete(e);
-			worker.dispose();
-			controller = null;
-			worker = null;
+			dispose();
 		}
 		
 		private function onError(e:AssetErrorEvent):void
 		{
 			if(!controller) return;
-			worker.dispose();
-			worker = null;
 			controller.error(e);
-			controller = null;
+			dispose();
 		}
 		
 		private function onHTTPStatus(h:AssetStatusEvent):void
 		{
 			if(!controller) return;
-			worker.dispose();
-			worker = null;
 			controller.httpStatus(h);
-			controller = null;
-			worker = null;
+			dispose();
 		}
 		
 		/**
@@ -156,8 +148,7 @@ package net.guttershark.support.preloading
 		 */
 		private function onSecurityError(se:SecurityError):void
 		{
-			worker.dispose();
-			worker = null;
+			dispose();
 			throw se;
 		}
 		
@@ -198,21 +189,6 @@ package net.guttershark.support.preloading
 			controller = null;
 			libraryName = null;
 			fileType = null;
-		}
-		
-		/**
-		 * Disposes of the Asset entirely and disposes it out of
-		 * the AssetManager as well.
-		 */
-		public function disposeFinal():void
-		{
-			AssetManager.gi().removeAsset(libraryName);
-			removeListenersFromWorker();
-			if(worker) worker.dispose();
-			libraryName = null;
-			fileType = null;
-			controller = null;
-			worker = null;
 		}
 	}
 }

@@ -181,9 +181,9 @@ package net.guttershark.managers
 		 * <li>NUMPAD_ENTER</li>
 		 * </ul>
 		 * 
-		 * @param	scope	The scope in which to add the keyboard events to.
-		 * @param	mapping	The mapping to listen for.
-		 * @param	callback	The callback function.
+		 * @param scope The scope in which to add the keyboard events to.
+		 * @param mapping The mapping to listen for.
+		 * @param callback The callback function.
 		 */
 		public function addMapping(scope:*, mapping:String, callback:Function):void
 		{
@@ -206,11 +206,11 @@ package net.guttershark.managers
 		/**
 		 * Add the same mapping and callback to multiple objects.
 		 * 
-		 * @param	objects	An array of objects to add mappings to.
-		 * @param	mapping	The mapping to listen for.
-		 * @param	callback	The callback function.
+		 * @param objects An array of objects to add mappings to.
+		 * @param mapping The mapping to listen for.
+		 * @param callback The callback function.
 		 */
-		public function addMappings(objects:Array, mapping:String,callback:Function):void
+		public function addMappings(objects:Array,mapping:String,callback:Function):void
 		{
 			var l:int = objects.length;
 			var i:int = 0;
@@ -227,8 +227,8 @@ package net.guttershark.managers
 		 * km.removeMapping(stage,"f");
 		 * </listing>
 		 * 
-		 * @param	scope	The scope - usually a DisplayObject or Stage.
-		 * @param	mapping	The key event mapping being listened for.
+		 * @param scope The scope - usually a DisplayObject or Stage.
+		 * @param mapping The key event mapping being listened for.
 		 */
 		public function removeMapping(scope:*, mapping:String):void
 		{
@@ -246,13 +246,14 @@ package net.guttershark.managers
 		 */
 		public function rm(scope:*, mapping:String):void
 		{
+			removeMapping(scope,mapping);
 		}
 		
 		/**
 		 * Remove the same mapping from multiple objects.
 		 * 
-		 * @param	objects	An array of objects to remove the mapping from.
-		 * @param	mapping	The key mapping to remove.
+		 * @param objects An array of objects to remove the mapping from.
+		 * @param mapping The key mapping to remove.
 		 */
 		public function removeMappings(objects:Array, mapping:String):void
 		{
@@ -263,7 +264,9 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Clear all keys that have been referenced as being down.
+		 * @private
+		 * 
+		 * Clear all keys that have been pressed.
 		 * This is needed in cases where the object that is dispatching
 		 * keyboard events, is hidden, just before or after you call removeMapping
 		 * - which will cause the KEY_UP events to stop dispatching,
@@ -505,9 +508,9 @@ package net.guttershark.managers
 		/**
 		 * Add a callback mapping for a word.
 		 * 
-		 * @param	scope	The scope in which the key event should be listened for.
-		 * @param	word	The word to listen for.
-		 * @param	callback	The callback function.
+		 * @param scope The scope in which the key event should be listened for.
+		 * @param word The word to listen for.
+		 * @param callback The callback function.
 		 */
 		private function addWordMapping(scope:*, word:String, callback:Function):void
 		{
@@ -526,6 +529,10 @@ package net.guttershark.managers
 		
 		/**
 		 * Add a mapping for a sequence of keys.
+		 * 
+		 * @param scope The scope in which the key event should be listened for.
+		 * @param word The word to listen for.
+		 * @param callback The callback function.
 		 */
 		private function addSequenceMapping(scope:*, sequence:String, callback:Function):void
 		{
@@ -546,8 +553,9 @@ package net.guttershark.managers
 		
 		/**
 		 * Remove a char mapping.
-		 * @param	scope	The scope in which the char mapping was on.
-		 * @param	char	The char that was being listened for.
+		 * 
+		 * @param scope The scope in which the char mapping was on.
+		 * @param char The char that was being listened for.
 		 */
 		private function removeCharMapping(scope:*, char:String):void
 		{
@@ -561,8 +569,8 @@ package net.guttershark.managers
 		/**
 		 * Remove a word mapping.
 		 * 
-		 * @param	scope	The scope in which the keyboard event was added.
-		 * @param	word	The word that was being listened for.
+		 * @param scope The scope in which the keyboard event was added.
+		 * @param word The word that was being listened for.
 		 */
 		private function removeWordMapping(scope:*, word:String):void
 		{
@@ -575,6 +583,9 @@ package net.guttershark.managers
 		
 		/**
 		 * Remove sequence mappings.
+		 * 
+		 * @param scope The scope in which the keyboard event was added.
+		 * @param word The word that was being listened for.
 		 */
 		private function removeSequenceMapping(scope:*, mapping:String):void
 		{

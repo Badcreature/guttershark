@@ -32,15 +32,15 @@ package net.guttershark.support.preloading.workers
 			this.asset = asset;
 			request = new URLRequest(asset.source);
 			loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.OPEN, super.onOpen);
-			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, super.onProgress);
-			loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, super.onHTTPStatus);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, super.onIOLoadError);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.DISK_ERROR, super.onIOLoadError);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR, super.onIOLoadError);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR, super.onIOLoadError);
-			loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, super.onSecurityError);
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, super.onComplete);
+			loader.contentLoaderInfo.addEventListener(Event.OPEN, super.onOpen,false,0,true);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, super.onProgress,false,0,true);
+			loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, super.onHTTPStatus,false,0,true);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, super.onIOLoadError,false,0,true);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.DISK_ERROR, super.onIOLoadError,false,0,true);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR, super.onIOLoadError,false,0,true);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR, super.onIOLoadError,false,0,true);
+			loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, super.onSecurityError,false,0,true);
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, super.onComplete,false,0,true);
 			start();
 		}
 	}

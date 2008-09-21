@@ -56,7 +56,7 @@ package net.guttershark.support.preloading.workers
 	 * 
 	 * @eventType flash.events.SecurityErrorEvent
 	 */
-	[Event("seecurityError", type="flash.events.SecurityErrorEvent")]
+	[Event("securityError", type="flash.events.SecurityErrorEvent")]
 	
 	/**
 	 * The Worker class is a generic worker that implements base logic for loading 
@@ -236,10 +236,7 @@ package net.guttershark.support.preloading.workers
 			asset.data = loader;
 			dispatchEvent(new AssetCompleteEvent(AssetCompleteEvent.COMPLETE, asset));
 			asset = null;
-			try
-			{
-				loader.close();
-			}catch(error:*){} //this suppresses cases where the loader used doesn't have a close method.
+			try{loader.close();}catch(error:*){}
 		}
 		
 		/**
@@ -247,10 +244,7 @@ package net.guttershark.support.preloading.workers
 		 */
 		public function close():void
 		{
-			try
-			{
-				loader.close();
-			}catch(error:*){}
+			try{loader.close();}catch(error:*){}
 		}
 		
 		/**

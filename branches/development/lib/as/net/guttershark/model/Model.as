@@ -47,7 +47,7 @@ package net.guttershark.model
 	{
 		
 		/**
-		 * Singleton instance
+		 * Singleton instance.
 		 */
 		protected static var inst:Model;
 		
@@ -75,7 +75,7 @@ package net.guttershark.model
 		protected var attributes:XMLList;
 		
 		/**
-		 * Stores a reference to the <code>&lt;services&gt;lt;/services&gt;</code
+		 * Stores a reference to the <code>&lt;services&gt;&lt;/services&gt;</code>
 		 * node in the model xml.
 		 */
 		protected var services:XMLList;
@@ -91,7 +91,7 @@ package net.guttershark.model
 		 * not set by default, override <em><code>restoreSharedObject</code></em>
 		 * in your DocumentController, and set this property to a shared object.
 		 * 
-		 * @see net.guttershark.control.DocumentController DocumentController Class
+		 * @see net.guttershark.control.DocumentController#restoreSharedObject() restoreSharedObject method.
 		 */
 		public var sharedObject:SharedObject;
 		
@@ -231,7 +231,7 @@ package net.guttershark.model
 			{
 				if(!n.attribute("preload")) continue;
 				var src:String = n.@source;
-				if(n.attribute("path")) src = getPath(n.@path) + src;
+				if(n.attribute("path")!=undefined) src = getPath(n.@path) + src;
 				var ast:Asset = new Asset(src,n.@libraryName);
 				payload.push(ast);
 			}
@@ -296,7 +296,7 @@ package net.guttershark.model
 		 */	
 		private function checkEI():void
 		{
-			if(PlayerManager.IsIDEPlayer() || PlayerManager.IsStandAlonePlayer())
+			if(PlayerManager.isIDEPlayer() || PlayerManager.isStandAlonePlayer())
 			{
 				if(!warnedAboutEI)
 				{
