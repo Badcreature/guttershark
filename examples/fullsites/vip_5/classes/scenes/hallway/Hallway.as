@@ -10,7 +10,7 @@ package scenes.hallway
 	import gs.TweenMax;
 	
 	import net.guttershark.events.EventManager;
-	import net.guttershark.managers.KeyboardEventManager;
+	import net.guttershark.managers.KeyManager;
 	import net.guttershark.preloading.AssetLibrary;
 	import net.guttershark.sound.SoundManager;
 	import net.guttershark.ui.controls.buttons.MovieClipButton;
@@ -167,7 +167,7 @@ package scenes.hallway
 		
 		private function disposeKeyEvents():void
 		{
-			KeyboardEventManager.gi().removeMapping(stage,"CONTROL+SHIFT+F");	
+			KeyManager.gi().removeMapping(stage,"CONTROL+SHIFT+F");	
 		}
 		
 		public function dispose():void

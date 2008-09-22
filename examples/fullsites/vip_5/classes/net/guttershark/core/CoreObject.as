@@ -3,7 +3,7 @@ package net.guttershark.core
 	import flash.display.MovieClip;
 	
 	import net.guttershark.events.EventManager;
-	import net.guttershark.managers.KeyboardEventManager;
+	import net.guttershark.managers.KeyManager;
 	import net.guttershark.managers.LanguageManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.preloading.AssetLibrary;
@@ -32,7 +32,7 @@ package net.guttershark.core
 		/**
 		 * The KeyboardEventManager singleton instance.
 		 */
-		protected var km:KeyboardEventManager;
+		protected var km:KeyManager;
 		
 		/**
 		 * The LanguageManager singleton instance.
@@ -62,7 +62,7 @@ package net.guttershark.core
 			super();
 			em = EventManager.gi();
 			ml = Model.gi();
-			km = KeyboardEventManager.gi();
+			km = KeyManager.gi();
 			lm = LanguageManager.gi();
 			rm = RemotingManager.gi();
 			al = AssetLibrary.gi();

@@ -3,14 +3,14 @@ package
 	import flash.text.TextField;
 	
 	import net.guttershark.control.DocumentController;
-	import net.guttershark.managers.KeyboardEventManager;		
+	import net.guttershark.managers.KeyManager;		
 
 	public class Main extends DocumentController
 	{
 		
 		public var textfeeld:TextField;
 
-		private var keyboardEventManager:KeyboardEventManager;
+		private var keyboardEventManager:KeyManager;
 
 		public function Main()
 		{
@@ -19,7 +19,7 @@ package
 		
 		override protected function setupComplete():void
 		{
-			keyboardEventManager = KeyboardEventManager.gi();
+			keyboardEventManager = KeyManager.gi();
 			keyboardEventManager.addMapping(stage, "CONTROL+SHIFT+M", onWhatever);
 			keyboardEventManager.addMapping(stage,"Whatup",onWordup);
 			keyboardEventManager.addMapping(stage,"f", onW);
