@@ -9,17 +9,17 @@ package net.guttershark.managers
 	import net.guttershark.util.Singleton;	
 
 	/**
-	 * The KeyboardEventManager class simplifies working with keyboard events.
+	 * The KeyManager class simplifies working with keyboard events.
 	 * 
-	 * @see KeyboardEventManager#addMapping() addMapping() method for an example.
+	 * @see KeyManager#addMapping() addMapping() method for an example.
 	 */
-	final public class KeyboardEventManager
+	final public class KeyManager
 	{
 		
 		/**
 		 * Singleton instance.
 		 */
-		private static var inst:KeyboardEventManager;
+		private static var inst:KeyManager;
 		
 		/**
 		 * A timeout that executes when checking word match attempts.
@@ -69,9 +69,9 @@ package net.guttershark.managers
 		/**
 		 * Singleton Instance.
 		 */
-		public static function gi():KeyboardEventManager
+		public static function gi():KeyManager
 		{
-			if(!inst) inst = Singleton.gi(KeyboardEventManager);
+			if(!inst) inst = Singleton.gi(KeyManager);
 			return inst;
 		}
 		
@@ -79,9 +79,9 @@ package net.guttershark.managers
 		 * @private
 		 * Constructor for KeyboardEventManager instances.
 		 */
-		public function KeyboardEventManager():void
+		public function KeyManager():void
 		{
-			Singleton.assertSingle(KeyboardEventManager);
+			Singleton.assertSingle(KeyManager);
 			keyMappings = new Dictionary();
 			wordMappings = new Dictionary();
 			sequenceCallbacks = new Dictionary();

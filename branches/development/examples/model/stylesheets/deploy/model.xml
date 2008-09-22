@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<stylesheets>
+		<stylesheet id="colors">
+			<![CDATA[
+			.pink{color:#FF0066}
+			]]>
+		</stylesheet>
+	</stylesheets>
+	
+	<textformats>
+		<textformat id="title" embedFonts="true" font="Helvetica Nueu Bold Condensed" color="#FF0066" />
+	</textformats>
+</model>

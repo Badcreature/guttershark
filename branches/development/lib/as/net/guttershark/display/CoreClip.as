@@ -5,7 +5,7 @@ package net.guttershark.display
 	import net.guttershark.control.PreloadController;
 	import net.guttershark.managers.AssetManager;
 	import net.guttershark.managers.EventManager;
-	import net.guttershark.managers.KeyboardEventManager;
+	import net.guttershark.managers.KeyManager;
 	import net.guttershark.managers.LanguageManager;
 	import net.guttershark.managers.LayoutManager;
 	import net.guttershark.managers.ServiceManager;
@@ -37,7 +37,7 @@ package net.guttershark.display
 		/**
 		 * The KeyboardEventManager singleton instance.
 		 */
-		protected var km:KeyboardEventManager;
+		protected var km:KeyManager;
 		
 		/**
 		 * The LanguageManager singleton instance.
@@ -93,7 +93,7 @@ package net.guttershark.display
 			em = EventManager.gi();
 			ml = Model.gi();
 			lm = new LayoutManager(this);
-			km = KeyboardEventManager.gi();
+			km = KeyManager.gi();
 			lgm = LanguageManager.gi();
 			am = AssetManager.gi();
 			sm = ServiceManager.gi();

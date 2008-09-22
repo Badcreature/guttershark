@@ -1,5 +1,10 @@
 package net.guttershark.model 
 {
+	import net.guttershark.util.cache.Cache;	
+	
+	import flash.text.TextFormat;	
+	import flash.text.StyleSheet;	
+	
 	import net.guttershark.util.Utilities;	
 	
 	import flash.external.ExternalInterface;
@@ -82,6 +87,17 @@ package net.guttershark.model
 		protected var services:XMLList;
 		
 		/**
+		 * Stores a reference to the <code>&lt;stylesheets&gt;&lt;/stylesheets&gt;</code>
+		 * node in the model xml.
+		 */
+		protected var stylesheets:XMLList;
+		
+		/**
+		 * Stores a reference to the <code>&lt;textformats&gt;&lt;/textformats&gt;</code>
+		 */
+		protected var textformats:XMLList;
+		
+		/**
 		 * A placeholder variable for the movies flashvars - this is
 		 * not set by default, you need to set it in your controller.
 		 */
@@ -120,6 +136,11 @@ package net.guttershark.model
 		 * Utilities singleton instance.
 		 */
 		private var utils:Utilities;
+		
+		/**
+		 * A cache for text formats and stylesheets.
+		 */
+		private var formatcache:Cache;
 
 		/**
 		 * @private
@@ -152,6 +173,8 @@ package net.guttershark.model
 			if(_model.assets) assets = _model.assets;
 			if(_model.links) links = _model.links;
 			if(_model.attributes) attributes = _model.attributes;
+			if(_model.stylesheets) stylesheets = _model.stylesheets;
+			//if(_model.service) services = _model.services;
 		}
 		
 		/**
@@ -360,7 +383,7 @@ package net.guttershark.model
 		 * uses the guttershark javascript api. Otherwise everything is
 		 * stored in a local dictionary.
 		 * 
-		 * @param	...pathIds	An array of pathIds whose values will be concatenated together.
+		 * @param ...pathIds An array of pathIds whose values will be concatenated together.
 		 */
 		public function getPath(...pathIds:Array):String
 		{
@@ -378,6 +401,70 @@ package net.guttershark.model
 			return ExternalInterface.call("net.guttershark.Paths.getPath",pathIds as Array);
 		}
 		
+		/**
+		 * Get a StyleSheet object by the node id.
+		 * 
+		 * @param id The id of the stylesheet node to grab from the model.
+		 */
+		public function getStyleSheetById(id:String):StyleSheet
+		{
+			var cacheId:String = "css_"+id;
+			if(formatcache.isCached(cacheId)) return formatcache.getCachedObject(cacheId);
+			var n:XMLList = stylesheets.stylesheet.(@id==id);
+			if(!n) return null;
+			var s:StyleSheet = new StyleSheet();
+			s.parseCSS(n.toString());
+			formatcache.cacheObject(cacheId,s);
+			return s;
+		}
+		
+		/**
+		 * Get a TextFormat object by the node id.
+		 * 
+		 * <p>Supports these attributes:</p>
+		 * <ul>
+		 * <li>align</li>
+		 * <li>blockIndent</li>
+		 * <li>bold</li>
+		 * <li>bullet</li>
+		 * <li>color</li>
+		 * <li>font</li>
+		 * <li>indent</li>
+		 * <li>italic</li>
+		 * <li>kerning</li>
+		 * <li>leading</li>
+		 * <li>leftMargin</li>
+		 * <li>letterSpacing</li>
+		 * <li>rightMargin</li>
+		 * <li>size</li>
+		 * <li>underline</li>
+		 * </ul>
+		 */
+		public function getTextFormatById(id:String):TextFormat
+		{
+			var cacheId:String = "tf_"+id;
+			if(formatcache.isCached(cacheId)) return formatcache.getCachedObject(cacheId) as TextFormat;
+			var n:XMLList = textformats.textformat.(@id==id);
+			var tf:TextFormat = new TextFormat();
+			if(n.attribute("align")!=undefined) tf.align = n.@align;
+			if(n.attribute("blockIndent")!=undefined) tf.blockIndent = n.@blockIndent;
+			if(n.attribute("bold")!=undefined) tf.bold = n.@bold;
+			if(n.attribute("bullet")!=undefined) tf.bullet = Boolean(n.@bullet);
+			if(n.attribute("color")!=undefined) tf.color = int(n.@color);
+			if(n.attribute("font")!=undefined) tf.font = n.@font;
+			if(n.attribute("indent")!=undefined) tf.indent = int(n.@indent);
+			if(n.attribute("italic")!=undefined) tf.italic = Boolean(n.@italic);
+			if(n.attribute("kerning")!=undefined) tf.kerning = Boolean(n.@kerning);
+			if(n.attribute("leading")!=undefined) tf.leading = int(n.@leading);
+			if(n.attribute("leftMargin")!=undefined) tf.leftMargin = int(n.@leftMargin);
+			if(n.attribute("letterSpacing")!=undefined) tf.letterSpacing = int(n.@letterSpacing);
+			if(n.attribute("rightMargin")!=undefined) tf.rightMargin = int(n.@rightMargin);
+			if(n.attribute("size")!=undefined) tf.size = int(n.@size);
+			if(n.attribute("underline")!=undefined) tf.underline = int(n.@underline);
+			formatcache.cacheObject(cacheId,tf);
+			return tf;
+		}
+
 		/**
 		 * Flush the <em><code>sharedObject</code></em> property.
 		 */

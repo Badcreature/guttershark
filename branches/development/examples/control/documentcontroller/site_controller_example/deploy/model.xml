@@ -7,4 +7,11 @@
 		<asset libraryName="pizza_song" source="assets/flv/Pizza_Song.flv" preload="true" />
 		<asset libraryName="testxml" source="assets/xml/test.xml" />
 	</assets>
+	<stylesheets>
+		<stylesheet id="one">
+			<![CDATA[
+			.something{}
+			]]>
+		</stylesheet>
+	</stylesheets>
 </model>
