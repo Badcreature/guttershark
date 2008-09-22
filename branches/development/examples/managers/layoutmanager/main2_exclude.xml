@@ -45,5 +45,4 @@
 	<asset name="net.guttershark.util.Tracking"/>
 	<asset name="net.guttershark.util.Utilities"/>
 	<asset name="net.guttershark.util.XMLLoader"/>
-	<asset name="fl.video.FLVPlayback"/>
 </excludeAssets>

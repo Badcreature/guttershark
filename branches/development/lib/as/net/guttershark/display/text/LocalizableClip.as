@@ -5,7 +5,7 @@
 	import flash.display.MovieClip;	
 	
 	/**
-	 * The LocalizableClip class can be used with the LanguageManager
+	 * The LocalizableClip class is used with the LanguageManager
 	 * to add localization support.
 	 */
 	public class LocalizableClip extends MovieClip

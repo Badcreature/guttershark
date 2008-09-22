@@ -1,12 +1,13 @@
 package net.guttershark.model 
 {
+	import net.guttershark.util.Utilities;	
+	
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.support.preloading.Asset;
 	import net.guttershark.util.Assertions;
@@ -114,6 +115,11 @@ package net.guttershark.model
 		 * Flag for warning about ExternalInterface.
 		 */
 		private var warnedAboutEI:Boolean;
+		
+		/**
+		 * Utilities singleton instance.
+		 */
+		private var utils:Utilities;
 
 		/**
 		 * @private
@@ -124,6 +130,7 @@ package net.guttershark.model
 			Singleton.assertSingle(Model);
 			paths = new Dictionary();
 			ast = Assertions.gi();
+			utils = Utilities.gi();
 		}
 
 		/**
@@ -296,7 +303,7 @@ package net.guttershark.model
 		 */	
 		private function checkEI():void
 		{
-			if(PlayerManager.isIDEPlayer() || PlayerManager.isStandAlonePlayer())
+			if(utils.player.isIDEPlayer() || utils.player.isStandAlonePlayer())
 			{
 				if(!warnedAboutEI)
 				{

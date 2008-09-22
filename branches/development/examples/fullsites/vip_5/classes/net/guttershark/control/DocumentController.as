@@ -18,7 +18,7 @@ package net.guttershark.control
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
 	import net.guttershark.akamai.Ident;
-	import net.guttershark.managers.PlayerManager;
+	import net.guttershark.managers.PlayerUtils;
 	import net.guttershark.model.Model;
 	import net.guttershark.remoting.RemotingManager;
 	import net.guttershark.util.Bandwidth;
@@ -187,7 +187,7 @@ package net.guttershark.control
 		 */
 		private function setupFlashvars():void
 		{
-			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) flashvars = flashvarsForStandalone();
+			if(PlayerUtils.IsStandAlonePlayer() || PlayerUtils.IsIDEPlayer()) flashvars = flashvarsForStandalone();
 			else flashvars = loaderInfo.parameters;
 		}
 		
@@ -211,7 +211,7 @@ package net.guttershark.control
 		private function setupQueryString():void
 		{
 			queryString = new QueryString();
-			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) queryString.querystringData = queryStringForStandalone();
+			if(PlayerUtils.IsStandAlonePlayer() || PlayerUtils.IsIDEPlayer()) queryString.querystringData = queryStringForStandalone();
 		}
 		
 		/**
@@ -239,7 +239,7 @@ package net.guttershark.control
 		 */
 		private function setupTrackingMonitor():void
 		{
-			if((PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()))
+			if((PlayerUtils.IsStandAlonePlayer() || PlayerUtils.IsIDEPlayer()))
 			{
 				return;
 				/*trace("WARNING: No tracking tags will fire because the SWF is currently not " +
