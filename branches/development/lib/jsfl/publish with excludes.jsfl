@@ -69,18 +69,18 @@ function publishWithExcludes(traces,throwOnFail)
 				{
 					if(xfile.substr(0,1)=="/") filepath = "Macintosh HD/"+xfile.substr(1,xfile.length); //file="/Users/aaronsmith"
 					else if(xfile.toLowerCase().indexOf("macintosh hd")>-1) filepath = xfile; // file="Macintosh HD/xxxx"
-					else filepath = getDocumentPath() + filepath; //file="./xxx" ||  file="../../xxx" || file="someexcludes.xml"
+					else filepath = getDocumentPath() + xfile; //file="./xxx" ||  file="../../xxx" || file="someexcludes.xml"
 				}
 				else if(os=="win")
 				{
 					xfile = xfile.replace(/\//,"/");
-					if(xfile.substr(0,2).match(/[a-z]\:/i)) filepath = xfile;//file="c:/xxx"
+					if(xfile.substr(0,2).match(/^[a-z]\:/i)) filepath = xfile;//file="c:/xxx"
 					else filepath = getDocumentPath() + xfile;
 				}
 				filepath = filepath.replace(/file\:\/\/\//,"");
 				filepath = filepath.replace(/\/{2,}/g,"/");
 				filepath = "file:///"+filepath;
-				xcontents = FLfile.read(getDocumentPath()+xfile);
+				xcontents = FLfile.read(filepath);
 				xcontents = xcontents.replace(/\n/g, ' ').replace(/<!--.*?-->/g, ''); //comments
 				while(xtmp=xpattern.exec(xcontents)) excludedClasses.push(xtmp[1]);
 			}
