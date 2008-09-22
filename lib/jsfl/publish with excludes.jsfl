@@ -1,8 +1,8 @@
 /**
- * Publish the current document with excludes, if 0 is returned, it was successful
- * otherwise a message will be returned.
+ * Publish the current document. Excluding any classes 
+ * found in a {fla_name}_exclude.xml file.
  */
-function publishWithExcludes()
+function publishWithExcludes(traces,throwOnFail)
 {
 	var docName = document.name.toString().replace(/\.fla/i,"");
 	var dom = fl.getDocumentDOM();
@@ -10,7 +10,7 @@ function publishWithExcludes()
 	var renamedClasses=[];
 	var tmp,tmp2,i,j,res,os,items,item,publish;
 	var as3PackagePaths,publishProfileSource,libPublishProfileSource;
-	var noExcludedPublish,noExcludesXML,failErrorMessage;
+	var failErrorMessage,traceMessage;
 	var docPath=getDocumentPath();
 	var isSaved=(document.path)?true:false;
 	var cu=unescape(fl.configURI).toLowerCase();
@@ -19,7 +19,7 @@ function publishWithExcludes()
 	items = dom.library.items;
 	publish = true;//publish flag,set to false to debug (runs the script without any publishing).
 	if(!publish) fl.trace("OS: "+os);
-
+	
 	//get document path, for win/mac
 	function getDocumentPath()
 	{
@@ -52,13 +52,38 @@ function publishWithExcludes()
 	
 	if(isSaved) //must be saved.
 	{
+		var xcontents,xfile,filepath;
 		var contents = FLfile.read(getDocumentPath() + docName + '_exclude.xml'); //reads exclude xml
+		var xpattern = /name="([^"]+)"/g;
 		if(contents)
 		{
-			contents = contents.replace(/\n/g, ' ').replace(/<!--.*?-->/g, ''); //remove the comments.
+			contents = contents.replace(/\n/g, ' ').replace(/<!--.*?-->/g, ''); //comments
 			var pattern = /name="([^"]+)"/g;
 			var excludedClasses = [];
 			while(tmp = pattern.exec(contents)) excludedClasses.push(tmp[1]);
+			pattern = /file="([^"]+)"/g;
+			while(tmp=pattern.exec(contents))
+			{
+				xfile = tmp[1];
+				if(os=="mac")
+				{
+					if(xfile.substr(0,1)=="/") filepath = "Macintosh HD/"+xfile.substr(1,xfile.length); //file="/Users/aaronsmith"
+					else if(xfile.toLowerCase().indexOf("macintosh hd")>-1) filepath = xfile; // file="Macintosh HD/xxxx"
+					else filepath = getDocumentPath() + filepath; //file="./xxx" ||  file="../../xxx" || file="someexcludes.xml"
+				}
+				else if(os=="win")
+				{
+					xfile = xfile.replace(/\//,"/");
+					if(xfile.substr(0,2).match(/[a-z]\:/i)) filepath = xfile;//file="c:/xxx"
+					else filepath = getDocumentPath() + xfile;
+				}
+				filepath = filepath.replace(/file\:\/\/\//,"");
+				filepath = filepath.replace(/\/{2,}/g,"/");
+				filepath = "file:///"+filepath;
+				xcontents = FLfile.read(getDocumentPath()+xfile);
+				xcontents = xcontents.replace(/\n/g, ' ').replace(/<!--.*?-->/g, ''); //comments
+				while(xtmp=xpattern.exec(xcontents)) excludedClasses.push(xtmp[1]);
+			}
 			if(excludedClasses.length)
 			{
 				publishProfileSource = getDocumentPath() + docName + '_publishProfile.xml'; //the file name to write the current publish profile to.
@@ -74,7 +99,8 @@ function publishWithExcludes()
 			  {
 					cleanup();
 					failErrorMessage = "The library publish profile could not be saved";
-					res = 1;
+					if(throwOnError) throw failErrorMessage;
+					res = false;
 			  }
 				for(i=excludedClasses.length-1;i>0;i--) if(excludedClasses.indexOf(excludedClasses[i])!=i) excludedClasses.splice(i,1); //eliminate redundancies in excludes.
 		    dom.importPublishProfile(libPublishProfileSource); //set the new library publish profile
@@ -118,8 +144,9 @@ function publishWithExcludes()
 							if(!FLfile.copy(classSource,classSource+'.bkup')||!FLfile.remove(classSource)) //tmp rename class
 							{
 								cleanup();
+								res = false;
 								failErrorMessage = "Unable to rename file "+classSource;
-								res = 1;
+								if(throwOnError) throw failErrorMessage;
 							}
 							break;
 						}
@@ -137,47 +164,29 @@ function publishWithExcludes()
 						}
 					}
 				}
+				res = true;
 				dom.importPublishProfile(publishProfileSource);
 				if(publish) dom.testMovie();
 				cleanup();
-				res = 0;
 			}
 			else
 			{
-				res = 1;
+				res = true;
+				traceMessage = "Nothing was excluded.";
 				if(publish) dom.testMovie(); //no excludes
-				noExcludedPublish = true;
 			}
 		}
 		else
 		{
+			res = true;
+			traceMessage = "Exclude classes must be declared in " + docName + "_exclude.xml";
 			if(publish) dom.testMovie(); //no _exclude.xml file
-			res = 1;
-			noExcludesXML = true;
 		}
 	}
-	else fl.trace('In order to run this JSFL script, the document must be saved.');
-	if(res!=0)
-	{
-		var m;
-		if(failErrorMessage)
-		{
-			fl.trace(failErrorMessage);
-			res = failErrorMessage;
-		}
-		else if(noExcludesXML)
-		{
-			var m = "Exclude classes must be declared in " + docName + "_exclude.xml";
-			fl.trace(m);
-			res = m;
-		}
-		else if(noExcludedPublish)
-		{
-			m = "Nothing was excluded.";
-			fl.trace(m);
-			res = m;
-		}
-	}
+	else fl.alert("In order to publish with excludes, the fla must be saved.");
+	if(traces && traceMessage) fl.trace(traceMessage);
 	return res;
 }
-result = publishWithExcludes();
+//a result of true means ok
+//a result of false means errors.
+result = publishWithExcludes(true,true);
