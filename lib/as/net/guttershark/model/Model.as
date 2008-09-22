@@ -34,7 +34,7 @@ package net.guttershark.model
 	 *        &lt;link id="guttershark" url="http://www.guttershark.net" window="_blank" /&gt;
 	 *    &lt/links&gt;
 	 *    &lt;attributes&gt;
-	 *        &lt;attribute id="host" value="http://www.guttershark.net" /&gt;
+	 *        &lt;attribute id="someAttribute" value="the value" /&gt;
 	 *    &lt;/attributes&gt;
 	 *    &lt;services&gt;
 	 *        &lt;gateway id="amfphp" path="amfphp" url="http://localhost/amfphp/gateway.php" objectEncoding="3" /&gt;
@@ -43,6 +43,16 @@ package net.guttershark.model
 	 *        &lt;service id="sessionDestroy" path="sessiondestroy" url="http://tagsf/services/codeigniter/session/destroy" attempts="4" timeout="1000" responseFormat="variables" /&gt;
 	 *        &lt;service id="ci" url="http://tagsf/services/codeigniter/" attempts="4" timeout="1000" responseFormat="variables" /&gt;
 	 *    &lt;/services&gt;
+	 *    &lt;stylesheets&gt;
+	 *        &lt;stylesheet id="colors"&gt;
+	 *        &lt;![CDATA[
+	 *            .pink{color:#FF0066}
+	 *        ]]&gt;
+	 *        &lt;/stylesheet&gt;
+	 *    &lt;/stylesheets&gt;
+	 *    &lt;textformats&gt;
+	 *        &lt;textformat id="theTF" font="Arial" color="0xFF0066" bold="true" /&gt;
+	 *    &lt;/textformats&gt;
 	 * &lt;/model&gt;
 	 * </listing>
 	 */

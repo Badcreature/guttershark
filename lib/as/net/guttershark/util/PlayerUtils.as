@@ -9,14 +9,23 @@ package net.guttershark.util
 	final public class PlayerUtils
 	{
 		
+		/**
+		 * Singleton instance.
+		 */
 		private static var inst:PlayerUtils;
 		
+		/**
+		 * Singleton access.
+		 */
 		public static function gi():PlayerUtils
 		{
 			if(!inst) inst = Singleton.gi(PlayerUtils);
 			return inst;
 		}
 		
+		/**
+		 * @private
+		 */
 		public function PlayerUtils()
 		{
 			Singleton.assertSingle(PlayerUtils);
