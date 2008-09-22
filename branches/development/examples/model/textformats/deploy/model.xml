@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<textformats>
+		<textformat id="theTF" font="Arial" color="0xFF0066" bold="true" />
+	</textformats>
+</model>
