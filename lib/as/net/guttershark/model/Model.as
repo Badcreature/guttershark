@@ -1,22 +1,19 @@
 package net.guttershark.model 
 {
-	import net.guttershark.util.cache.Cache;	
-	
-	import flash.text.TextFormat;	
-	import flash.text.StyleSheet;	
-	
-	import net.guttershark.util.Utilities;	
-	
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
+	import flash.text.StyleSheet;
+	import flash.text.TextFormat;
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.support.preloading.Asset;
 	import net.guttershark.util.Assertions;
-	import net.guttershark.util.Singleton;		
+	import net.guttershark.util.Singleton;
+	import net.guttershark.util.Utilities;
+	import net.guttershark.util.cache.Cache;		
 
 	/**
 	 * The Model Class provides shortcuts for parsing a model xml file as
@@ -152,6 +149,7 @@ package net.guttershark.model
 			paths = new Dictionary();
 			ast = Assertions.gi();
 			utils = Utilities.gi();
+			formatcache = new Cache();
 		}
 
 		/**
@@ -174,7 +172,8 @@ package net.guttershark.model
 			if(_model.links) links = _model.links;
 			if(_model.attributes) attributes = _model.attributes;
 			if(_model.stylesheets) stylesheets = _model.stylesheets;
-			//if(_model.service) services = _model.services;
+			if(_model.service) services = _model.services;
+			if(_model.textformats) textformats = _model.textformats;
 		}
 		
 		/**
@@ -447,20 +446,20 @@ package net.guttershark.model
 			var n:XMLList = textformats.textformat.(@id==id);
 			var tf:TextFormat = new TextFormat();
 			if(n.attribute("align")!=undefined) tf.align = n.@align;
-			if(n.attribute("blockIndent")!=undefined) tf.blockIndent = n.@blockIndent;
+			if(n.attribute("blockIndent")!=undefined) tf.blockIndent = int(n.@blockIndent);
 			if(n.attribute("bold")!=undefined) tf.bold = n.@bold;
-			if(n.attribute("bullet")!=undefined) tf.bullet = Boolean(n.@bullet);
-			if(n.attribute("color")!=undefined) tf.color = int(n.@color);
+			if(n.attribute("bullet")!=undefined) tf.bullet = utils.string.toBoolean(n.@bullet);
+			if(n.attribute("color")!=undefined) tf.color = Number(n.@color);
 			if(n.attribute("font")!=undefined) tf.font = n.@font;
 			if(n.attribute("indent")!=undefined) tf.indent = int(n.@indent);
-			if(n.attribute("italic")!=undefined) tf.italic = Boolean(n.@italic);
-			if(n.attribute("kerning")!=undefined) tf.kerning = Boolean(n.@kerning);
+			if(n.attribute("italic")!=undefined) tf.italic = utils.string.toBoolean(n.@italic);
+			if(n.attribute("kerning")!=undefined) tf.kerning = utils.string.toBoolean(n.@kerning);
 			if(n.attribute("leading")!=undefined) tf.leading = int(n.@leading);
 			if(n.attribute("leftMargin")!=undefined) tf.leftMargin = int(n.@leftMargin);
 			if(n.attribute("letterSpacing")!=undefined) tf.letterSpacing = int(n.@letterSpacing);
 			if(n.attribute("rightMargin")!=undefined) tf.rightMargin = int(n.@rightMargin);
 			if(n.attribute("size")!=undefined) tf.size = int(n.@size);
-			if(n.attribute("underline")!=undefined) tf.underline = int(n.@underline);
+			if(n.attribute("underline")!=undefined) tf.underline = utils.string.toBoolean(n.@underline);
 			formatcache.cacheObject(cacheId,tf);
 			return tf;
 		}
