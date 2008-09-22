@@ -4,7 +4,7 @@ package net.guttershark.util
 	import flash.external.ExternalInterface;
 	import flash.net.LocalConnection;
 	
-	import net.guttershark.managers.PlayerManager;		
+	import net.guttershark.managers.PlayerUtils;		
 
 	/**
 	 * The Tracking class implements tracking calls.
@@ -40,7 +40,7 @@ package net.guttershark.util
 				SimulateCall(xmlid,appendData);
 				return;
 			}
-			if(PlayerManager.IsStandAlonePlayer() || PlayerManager.IsIDEPlayer()) return;
+			if(PlayerUtils.IsStandAlonePlayer() || PlayerUtils.IsIDEPlayer()) return;
 			ExternalInterface.call("flashTrack",xmlid,appendData);
 		}
 		

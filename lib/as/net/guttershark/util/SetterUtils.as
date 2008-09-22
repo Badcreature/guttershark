@@ -6,6 +6,22 @@ package net.guttershark.util
 	 * that decrease amount of code you have to write for setting the same
 	 * properties on multiple objects.
 	 * 
+	 * <p>All methods can be used in two ways.</p>
+	 * 
+	 * @example Two uses for each method:
+	 * <listing>	
+	 * var su:SetterUtils = SetterUtils.gi();
+	 * 
+	 * var mc1,mc2,mc3:MovieClip;
+	 * var mcref:Array = [mc1,mc2,mc3];
+	 * 
+	 * su.visible(true,mc1,mc2,mc3); //rest style.
+	 * 
+	 * //array style - this is nice when you want to group
+	 * //display objects to you can quickly toggle a property.
+	 * su.visible(true,mcref);
+	 * </listing>
+	 * 
 	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class SetterUtils 

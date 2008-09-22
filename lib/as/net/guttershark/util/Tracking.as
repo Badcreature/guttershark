@@ -4,7 +4,7 @@ package net.guttershark.util
 	import flash.external.ExternalInterface;
 	import flash.net.LocalConnection;
 	
-	import net.guttershark.managers.PlayerManager;	
+	import net.guttershark.managers.PlayerUtils;	
 
 	/**
 	 * The Tracking class sends tracking calls through 
@@ -44,7 +44,7 @@ package net.guttershark.util
 				simulateCall(xmlid,appendData);
 				return;
 			}
-			if(PlayerManager.isStandAlonePlayer() || PlayerManager.isIDEPlayer()) return;
+			if(PlayerUtils.isStandAlonePlayer() || PlayerUtils.isIDEPlayer()) return;
 			ExternalInterface.call("flashTrack",xmlid,appendData);
 		}
 		

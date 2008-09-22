@@ -1,36 +1,49 @@
-package net.guttershark.managers
+package net.guttershark.util
 {
-	import flash.system.System;		import flash.system.Capabilities;
-
+	import flash.system.Capabilities;
+	import flash.system.System;		
 	/**
 	 * The PlayerManager class provides static shortcut methods for finding
 	 * things about the currently running player.
 	 */
-	public final class PlayerManager
+	final public class PlayerUtils
 	{
+		
+		private static var inst:PlayerUtils;
+		
+		public static function gi():PlayerUtils
+		{
+			if(!inst) inst = Singleton.gi(PlayerUtils);
+			return inst;
+		}
+		
+		public function PlayerUtils()
+		{
+			Singleton.assertSingle(PlayerUtils);
+		}
 		
 		/**
 		 * Retrieve the FlashPlayer Version the application is running under.
 		 */
-		public static const FLASHPLAYER_VERSION:String = Capabilities.version;
+		public const FLASHPLAYER_VERSION:String = Capabilities.version;
 		
 		/**
 		 * Retrieve the ActionScript Virtual Machine Version the application is running under.
 		 */
-		public static const AVM_VERSION:String = System.vmVersion;
+		public const AVM_VERSION:String = System.vmVersion;
 		
 		/**
 		 * Retrieve the FlashPlayers Localized Language Code.
 		 * 
 		 * <p>e.g. <code>cs,da,nl,en,fi,fr,de,hu,it,ja,ko,no,xu,pl,pt,ru,zh-CN,es,sv,zh-TW,tr</code></p>.
 		 */
-		public static const LANGUAGE:String = Capabilities.language;
+		public const LANGUAGE:String = Capabilities.language;
 		
 		/**
 		 * is client a PC?
 		 * @return Boolean
 		 */
-		public static function isPC():Boolean
+		public function isPC():Boolean
 		{
 			var v:String = String(Capabilities.version).toLowerCase();
 			return (v.indexOf("win")>-1);
@@ -39,7 +52,7 @@ package net.guttershark.managers
 		/**
 		 * Check whether or not the current player is running on a mac.
 		 */
-		public static function isMac():Boolean
+		public function isMac():Boolean
 		{
 			var v:String = String(Capabilities.version).toLowerCase();
 			return (v.indexOf("mac")>-1);
@@ -48,7 +61,7 @@ package net.guttershark.managers
 		/**
 		 * Check whether or not the current player is running on a pc.
 		 */
-		public static function isLinux():Boolean
+		public function isLinux():Boolean
 		{
 			var v:String = String(Capabilities.version).toLowerCase();
 			return (v.indexOf("linux")>-1);
@@ -57,7 +70,7 @@ package net.guttershark.managers
 		/**
 		 * If the flash player is the external player.
 		 */
-		public static function isIDEPlayer():Boolean
+		public function isIDEPlayer():Boolean
 		{
 			if(Capabilities.playerType=="External") return true;
 			return false;
@@ -66,7 +79,7 @@ package net.guttershark.managers
 		/**
 		 * When run as a standlone (projector, or flex builder)
 		 */
-		public static function isStandAlonePlayer():Boolean
+		public function isStandAlonePlayer():Boolean
 		{
 			if(Capabilities.playerType=="StandAlone") return true;
 			return false;
@@ -75,7 +88,7 @@ package net.guttershark.managers
 		/**
 		 * IF the player is the active x player.
 		 */ 
-		public static function isActiveX():Boolean
+		public function isActiveX():Boolean
 		{
 			if(Capabilities.playerType=="ActiveX")return true;
 			return false;
@@ -84,7 +97,7 @@ package net.guttershark.managers
 		/**
 		 * If the player is just a regular plugin.
 		 */
-		public static function isPlugIn():Boolean
+		public function isPlugIn():Boolean
 		{
 			if(Capabilities.playerType=="PlugIn")return true;
 			return false;
@@ -93,7 +106,7 @@ package net.guttershark.managers
 		/**
 		 * Get the version of the flash player.
 		 */
-		public static function versionOfPlayer():String
+		public function versionOfPlayer():String
 		{
 			return Capabilities.version;
 		}
@@ -101,7 +114,7 @@ package net.guttershark.managers
 		/**
 		 * Check whether or not the current player supports fullscreen.
 		 */
-		public static function hasFullscreenMode():Boolean
+		public function hasFullscreenMode():Boolean
 		{
 			var v:Array = Capabilities.version.split(" ")[1].split(",");
 			var major:Number = Number(v[0]);
@@ -116,7 +129,7 @@ package net.guttershark.managers
 		/**
 		 * Is the current player the debugger.
 		 */
-		public static function isDebugger():Boolean
+		public function isDebugger():Boolean
 		{
 			return Capabilities.isDebugger;
 		}
@@ -126,7 +139,7 @@ package net.guttershark.managers
 		 * 
 		 * @param version The major version to test for (9,8,7,etc);
 		 */
-		public static function isMajorVersionOrBetter(version:Number):Boolean
+		public function isMajorVersionOrBetter(version:Number):Boolean
 		{
 			if(Number(Capabilities.version.split(" ")[1].split(",")[0]) >= version) return true;
 			return false;

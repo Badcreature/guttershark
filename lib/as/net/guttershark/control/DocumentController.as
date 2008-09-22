@@ -29,7 +29,6 @@ package net.guttershark.control
 	import com.pixelbreaker.ui.osx.MacMouseWheel;
 	
 	import net.guttershark.display.CoreSprite;
-	import net.guttershark.managers.PlayerManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.CPU;
@@ -153,7 +152,7 @@ package net.guttershark.control
 			online = true;
 			setupFlashvars();
 			if(flashvars.macMouseWheel) MacMouseWheel.setup(stage);
-			if(flashvars.swfAddress && !PlayerManager.isStandAlonePlayer() && !PlayerManager.isIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
+			if(flashvars.swfAddress && !utils.player.isStandAlonePlayer() && !utils.player.isIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
 			if(flashvars.sniffCPU) CPU.calculate();
@@ -164,7 +163,7 @@ package net.guttershark.control
 			if(!flashvars.model)
 			{
 				initModel();
-				if(PlayerManager.isIDEPlayer()||PlayerManager.isStandAlonePlayer()) initPathsForStandalone();
+				if(utils.player.isIDEPlayer()||utils.player.isStandAlonePlayer()) initPathsForStandalone();
 				restoreSharedObject();
 				setupComplete();
 			}
@@ -175,7 +174,7 @@ package net.guttershark.control
 		 */
 		private function setupFlashvars():void
 		{
-			if(PlayerManager.isStandAlonePlayer() || PlayerManager.isIDEPlayer()) flashvars = flashvarsForStandalone();
+			if(utils.player.isStandAlonePlayer() || utils.player.isIDEPlayer()) flashvars = flashvarsForStandalone();
 			else flashvars = this.root.loaderInfo.parameters;
 		}
 		
@@ -226,7 +225,7 @@ package net.guttershark.control
 		 */
 		private function setupTrackingMonitor():void
 		{
-			if((PlayerManager.isStandAlonePlayer() || PlayerManager.isIDEPlayer())) return;
+			if((utils.player.isStandAlonePlayer() || utils.player.isIDEPlayer())) return;
 			lc = new LocalConnection();
 			lc.addEventListener(StatusEvent.STATUS, onLCStatus);
 			ExternalInterface.addCallback("tracked", onJSTrack);
@@ -339,7 +338,7 @@ package net.guttershark.control
 			modelXMLLoader.contentLoader.removeEventListener(Event.COMPLETE,onSiteXMLComplete);
 			modelXMLLoader.dispose();
 			modelXMLLoader = null;
-			if(PlayerManager.isIDEPlayer() || PlayerManager.isStandAlonePlayer()) initPathsForStandalone();
+			if(utils.player.isIDEPlayer() || utils.player.isStandAlonePlayer()) initPathsForStandalone();
 			if(flashvars.initServices) ml.initServices();
 			setupComplete();
 		}

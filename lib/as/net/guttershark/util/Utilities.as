@@ -98,6 +98,11 @@ package net.guttershark.util
 		 * The singleton instance of FilterUtils.
 		 */
 		public var filters:FilterUtils;
+		
+		/**
+		 * The singleton instance of PlayerUtils.
+		 */
+		public var player:PlayerUtils;
 
 		/**
 		 * Singleton access.
@@ -126,4 +131,5 @@ package net.guttershark.util
 			text = TextFieldUtils.gi();
 			setters = SetterUtils.gi();
 			filters = FilterUtils.gi();
+			player = PlayerUtils.gi();
 		}	}}
