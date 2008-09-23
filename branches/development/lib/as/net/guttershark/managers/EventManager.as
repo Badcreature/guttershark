@@ -750,9 +750,20 @@ package net.guttershark.managers
 		}
 		
 		/**
+		 * A shorcut for the disposeEventsForObject method, this will used
+		 * in favor of the latter in 1.0.
+		 * 
+		 * @param obj The object in which events are being managed.
+		 */
+		public function disposeEvents(obj:IEventDispatcher):void
+		{
+			disposeEventsForObject(obj);
+		}
+
+		/**
 		 * Dispose of events for an object that was being managed by this event manager.
 		 * 
-		 * @param	obj	The object in which events are being managed in this manager.
+		 * @param	obj	The object in which events are being managed.
 		 */
 		public function disposeEventsForObject(obj:IEventDispatcher):void
 		{

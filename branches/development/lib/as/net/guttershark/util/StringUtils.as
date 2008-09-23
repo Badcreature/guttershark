@@ -870,9 +870,9 @@ package net.guttershark.util
 		 * 
 		 * @param str The target string.
 		 */
-		public function detectBr(str:String):Boolean
+		public function hasBr(str:String):Boolean
 		{
-			return (str.split("<br").length > 1) ? true : false;
+			return (str.split("<br").length>0)?true:false;
 		}
 
 		/**

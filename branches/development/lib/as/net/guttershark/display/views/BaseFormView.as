@@ -3,17 +3,22 @@ package net.guttershark.display.views
 	import flash.display.MovieClip;	
 	
 	/**
-	 * The CoreFormView class has hooks for common "form" behaviors.
+	 * The BaseFormView class defines the top most class a form
+	 * shoud implement, to follow a good pattern of the most commonly
+	 * used form functionality.
 	 * 
-	 * <p>The CoreFormView class is also intended to be used
-	 * as a composite class, meaning a CoreFormView could have
-	 * children views that are also CoreFormView's.</p>
+	 * <p>The BaseFormView class is also intended to be used
+	 * as a composite class, meaning a BaseFormView could have
+	 * children views that are also BaseFormView's.</p>
+	 * 
+	 * @see #onConfirmClick() onConfirmClick() for an example of using function delegates
+	 * correctly.
 	 */
-	public class CoreFormView extends CoreView
+	public class BaseFormView extends BaseView
 	{
 		
 		/**
-		 * A container for error views to show and hide
+		 * A container for BaseErrorView's to show and hide
 		 * during validation.
 		 */
 		public var errorViews:MovieClip;
@@ -56,7 +61,7 @@ package net.guttershark.display.views
 		/**
 		 * Constructor for CoreFormView instances.
 		 */
-		public function CoreFormView()
+		public function BaseFormView()
 		{
 			super();
 		}
@@ -127,29 +132,82 @@ package net.guttershark.display.views
 		 * Override this method, and use as the the click event
 		 * handler for a "confirm" button - validate this
 		 * form and then call the onConfirm delegate function.
+		 * 
+		 * @example Correctly using a delegate function:
+		 * <listing>	
+		 * public class MyFormView extends BaseFormView
+		 * {
+		 *     
+		 *     public var confirm:MovieClip;
+		 *     public var email:TextField;
+		 *     
+		 *     public function MyFormView()
+		 *     {
+		 *         super();
+		 *     }
+		 *     
+		 *     override protected function addEventHandlers():void
+		 *     {
+		 *         em.handleEvents(confirm,this,"onConfirm");
+		 *     }
+		 *     
+		 *     override protected function removeEventHandlers():void
+		 *     {
+		 *         em.disposeEvents(confirm);
+		 *     }
+		 *     
+		 *     override protected function validate():Boolean
+		 *     {
+		 *         if(!utils.string.isemail(email.text))
+		 *         {
+		 *             errorViews.badEmail.showAndHide(3000); //see BaseErrorView for showAndHide()
+		 *             return false;
+		 *         }
+		 *         return true;
+		 *     }
+		 *     
+		 *     override public function onConfirmClick():void
+		 *     {
+		 *         super.onConfirmClick();
+		 *         
+		 *         //in this case, the delegate function (onConfirm) 
+		 *         //would have to accept one parameter - an email.
+		 *         //This pattern is taken from apple's cocoa
+		 *         //framework. This type of pattern is extremly
+		 *         //useful, and leads to less bugs and good design.
+		 *         if(validate()) onConfirm(email.text);
+		 *     }
+		 * }
+		 * </listing>
 		 */
-		protected function onConfirmClick():void{}
+		public function onConfirmClick():void{}
 		
 		/**
 		 * Override this method, and use as the the click event
 		 * handler for a "yes" button - validate this
 		 * form and then call the onYes delegate function.
+		 * 
+		 * @see #onConfirmClick() for a function delegate example.
 		 */
-		protected function onYesClick():void{}
+		public function onYesClick():void{}
 		
 		/**
 		 * Override this method, and use as the the click event
 		 * handler for a "no" button - validate this
 		 * form and then call the onNo delegate function.
+		 * 
+		 * @see #onConfirmClick() for a function delegate example.
 		 */
-		protected function onNoClick():void{}
+		public function onNoClick():void{}
 		
 		/**
 		 * Override this method, and use as the the click event
 		 * handler for a "delete" button - validate this
 		 * form and then call the onDelete delegate function.
+		 * 
+		 * @see #onConfirmClick() for a function delegate example.
 		 */
-		protected function onDeleteClick():void{}
+		public function onDeleteClick():void{}
 		
 		/**
 		 * Override this method and implement a modal blocker,

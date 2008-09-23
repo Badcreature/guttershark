@@ -23,8 +23,8 @@ package net.guttershark.support.preloading.events
 		/**
 		 * Constructor for AssetOpenEvent instances.
 		 * 
-		 * @param	type	The event type.
-		 * @param	asset	The Asset that is downloading.
+		 * @param type The event type.
+		 * @param asset	The Asset that is downloading.
 		 * @see	net.guttershark.preloading.Asset Asset class
 		 */
 		public function AssetOpenEvent(type:String, asset:Asset)

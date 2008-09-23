@@ -1,21 +1,25 @@
 package net.guttershark.support.servicemanager.http
 {
+	import flash.events.DataEvent;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.TimerEvent;
+	import flash.net.FileReference;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
 	import flash.utils.ByteArray;
 	import flash.utils.Timer;
+	import flash.utils.setTimeout;
 	
 	import net.guttershark.support.servicemanager.shared.BaseCall;
 	import net.guttershark.support.servicemanager.shared.CallFault;
 	import net.guttershark.support.servicemanager.shared.CallResult;		
 
 	/**
-	 * The ServiceCall class is an abstract http service call and uses callbacks
-	 * for result and fault events - this class is generally not used directly.
+	 * The ServiceCall class makes the http calls that a service class requests.
+	 *  
+	 * @see net.guttershark.support.servicemanager.Service Service class.
 	 */
 	final public class ServiceCall extends BaseCall
 	{
@@ -36,6 +40,17 @@ package net.guttershark.support.servicemanager.http
 		private var request:URLRequest;
 		
 		/**
+		 * A file reference, which must be a member variable in
+		 * order to fix async issues with responses from files.
+		 */
+		private var file:FileReference;
+		
+		/**
+		 * the upload data from a file upload.
+		 */
+		private var uploadDataResponse:*;
+
+		/**
 		 * Constructor for ServiceCall instances.
 		 */
 		public function ServiceCall(url:String,callProps:Object)
@@ -46,13 +61,7 @@ package net.guttershark.support.servicemanager.http
 		}
 		
 		/**
-		 * Executes the service call.
-		 * 
-		 * @param urlRequest The urlRequest to use as the endpoint.
-		 * @param service The service to call.
-		 * @param args Any arguments to send to the service. Must be an array for url routed services, or an object for querystring get/post services.
-		 * @param rc The result callback.
-		 * @param fc The fault callback.
+		 * Executes the service call (for non file uploads).
 		 */
 		override public function execute():void
 		{
@@ -63,7 +72,7 @@ package net.guttershark.support.servicemanager.http
 				if(!callTimer)
 				{
 					callTimer = new Timer(props.timeout,attempts);
-					callTimer.addEventListener(TimerEvent.TIMER,onTick, false, 0, true);
+					callTimer.addEventListener(TimerEvent.TIMER,onTick,false,0,true);
 				}
 				if(!loader)
 				{
@@ -91,7 +100,7 @@ package net.guttershark.support.servicemanager.http
 				loader = new URLLoader();
 				if(!loader.hasEventListener(Event.COMPLETE))
 				{
-					loader.addEventListener(Event.COMPLETE, onComplete);
+					loader.addEventListener(Event.COMPLETE,onComplete);
 					loader.addEventListener(IOErrorEvent.IO_ERROR,onError);
 				}
 				var rf:String = props.responseFormat;
@@ -102,6 +111,86 @@ package net.guttershark.support.servicemanager.http
 			}
 		}
 		
+		/**
+		 * Execute this service for file uploads.
+		 */
+		public function uploadFile():void
+		{
+			attempts = 1;
+			file = props.file;
+			request = new URLRequest(url);
+			if(!completed)
+			{
+				if(props.routes && props.routes.length > 0)
+				{
+					var route:String = "";
+					for each(var n:String in props.routes) route = route + n + "/";
+					request.url += route;
+				}
+				if(props.data)
+				{
+					var t:URLVariables = new URLVariables();
+					var k:String;
+					for(k in props.data) t[k] = props.data[k];
+					request.data = t;
+					if(props.method=="get") request.url += "?";
+				}
+				file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,onUploadCompleteData);
+				file.addEventListener(Event.COMPLETE,onFileComplete);
+				file.addEventListener(IOErrorEvent.IO_ERROR,onFileIOError);
+				if(props.uploadDataFieldName) file.upload(request,props.uploadDataFieldName);
+				else file.upload(request);
+			}
+		}
+		
+		/**
+		 * On io error.
+		 */
+		private function onFileIOError(ie:IOErrorEvent):void
+		{
+			completed = true;
+			if(props.onFault) props.onFault(new CallFault(ie.text));
+		}
+
+		/**
+		 * Generic shared on file complete method.
+		 */
+		private function fileComplete():void
+		{
+			if(completed)
+			{
+				dispose();
+				return;
+			}
+			completed = true;
+			if(uploadDataResponse) onCompleteSequence(uploadDataResponse);
+			else
+			{
+				onCompleteSequence(null);
+				dispose();
+			}
+		}
+
+		/**
+		 * On upload data complete event.
+		 */
+		private function onUploadCompleteData(de:DataEvent):void
+		{
+			uploadDataResponse = de.data;
+			setTimeout(fileComplete,100);
+		}
+		
+		/**
+		 * On file complete.
+		 */
+		private function onFileComplete(e:Event):void
+		{
+			setTimeout(fileComplete,300);
+		}
+		
+		/**
+		 * on error.
+		 */
 		private function onError(e:*):void
 		{
 			if(!completed && !url) return;
@@ -121,60 +210,85 @@ package net.guttershark.support.servicemanager.http
 			if(!completed && !url) return;
 			if(completed) return;
 			callComplete();
+			onCompleteSequence(loader.data);
+		}
+		
+		/**
+		 * Generic on complete sequence for http / file.
+		 */
+		private function onCompleteSequence(rawData:*):void
+		{
 			var res:CallResult;
 			var fal:CallFault;
+			var nodata:Boolean;
+			var emptyres:CallResult = new CallResult();
+			if(!rawData) nodata = true;
 			if(props.responseFormat == ResponseFormat.VARS)
 			{
-				if(loader.data.result != null)
+				if(file) rawData = new URLVariables(rawData);
+				if(!nodata && rawData.result)
 				{
-					res = new CallResult(loader.data.result);
-					if(loader.data.result.toLowerCase() == "true") res.result = true;
-					else if(loader.data.result.toLowerCase() == "false") res.result = false;
+					res = new CallResult(rawData.result);
+					if(rawData.result.toLowerCase() == "true") res.result = true;
+					else if(rawData.result.toLowerCase() == "false") res.result = false;
 					if(!checkForOnResultCallback()) return;
 					props.onResult(res);
 				}
-				else if(loader.data.fault != null)
+				else if(!nodata && rawData.fault)
 				{
-					fal = new CallFault(loader.data.fault);
-					fal.fault = loader.data.fault;
+					fal = new CallFault(rawData.fault);
+					fal.fault = rawData.fault;
 					if(!checkForOnFaultCallback()) return;
 					props.onFault(fal);
 				}
 				else
 				{
-					res = new CallResult(loader.data);
+					if(nodata) res = emptyres;
+					else res = new CallResult(rawData);
+					//if(!checkForOnResultCallback()) return;
 					props.onResult(res);
 				}
 			}
 			else if(props.responseFormat == ResponseFormat.XML)
 			{
-				var x:XML = new XML(loader.data);
-				if(x.fault != undefined)
+				if(rawData)
 				{
-					fal = new CallFault(x.fault.toString());
-					if(!checkForOnFaultCallback()) return;
-					props.onFault(fal);
+					var x:XML = new XML(rawData);
+					if(x.fault != undefined)
+					{
+						fal = new CallFault(x.fault.toString());
+						if(!checkForOnFaultCallback()) return;
+						props.onFault(fal);
+					}
+					else
+					{
+						res = new CallResult(x);
+						if(!checkForOnResultCallback()) return;
+						props.onResult(res);
+					}
 				}
 				else
 				{
-					res = new CallResult(x);
+					res = emptyres;
 					if(!checkForOnResultCallback()) return;
 					props.onResult(res);
 				}
 			}
 			else if(props.responseFormat == ResponseFormat.TEXT)
 			{
-				res = new CallResult(loader.data);
+				if(rawData) res = new CallResult(rawData);
+				else res = emptyres;
 				if(!checkForOnResultCallback()) return;
 				props.onResult(res);
 			}
 			else if(props.responseFormat == ResponseFormat.BINARY)
 			{
-				res = new CallResult(loader.data as ByteArray);
+				if(rawData) res = new CallResult(rawData as ByteArray);
+				else res = emptyres;
 				if(!checkForOnResultCallback()) return;
 				props.onResult(res);
 			}
-			dispose();
+			if(!file) dispose();
 		}
 		
 		/**
@@ -182,13 +296,24 @@ package net.guttershark.support.servicemanager.http
 		 */
 		override public function dispose():void
 		{
+			trace("DISPOSE");
 			super.dispose();
 			url = null;
-			loader.close();
-			loader.removeEventListener(Event.COMPLETE, onComplete);
-			loader.removeEventListener(IOErrorEvent.NETWORK_ERROR,onError);
-			loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
-			loader = null;
+			if(loader)
+			{
+				loader.close();
+				loader.removeEventListener(Event.COMPLETE, onComplete);
+				loader.removeEventListener(IOErrorEvent.IO_ERROR,onError);
+				loader = null;
+			}
+			if(file)
+			{
+				uploadDataResponse = null;
+				file.removeEventListener(DataEvent.UPLOAD_COMPLETE_DATA,onUploadCompleteData);
+				file.removeEventListener(Event.COMPLETE,onFileComplete);
+				file.removeEventListener(IOErrorEvent.IO_ERROR,onFileIOError);
+				file = null;
+			}
 			request = null;
 		}
 	}

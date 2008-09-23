@@ -203,7 +203,7 @@ package net.guttershark.control
 		/**
 		 * Constructor for PreloadController instances.
 		 * 
-		 * @param 	pixelsToFill	The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
+		 * @param  pixelsToFill The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
 		 * 
 		 * @see net.guttershark.preloading.events.PreloadProgressEvent PreloadProgressEvent event
 		 */
@@ -226,7 +226,7 @@ package net.guttershark.control
 		 * Add items to the controller to load - if the preloader is currently working,
 		 * these items will be appended to the items to load.
 		 * 
-		 * @param	items	An array of Asset instances.
+		 * @param items An array of Asset instances.
 		 * 
 		 * @see net.guttershark.preloading.Asset Asset class
 		 */
@@ -240,7 +240,7 @@ package net.guttershark.control
 		/**
 		 * Add items to the controller to load, with top priority.
 		 * 
-		 * @param	items	An array of Asset instances.
+		 * @param items An array of Asset instances.
 		 * @see net.guttershark.preloading.Asset Asset class
 		 */
 		public function addPrioritizedItems(items:Array):void
@@ -319,7 +319,7 @@ package net.guttershark.control
 		/**
 		 * Prioritize an asset.
 		 * 
-		 * @param	asset	An asset instance that is in the queue to be loaded.
+		 * @param asset An asset instance that is in the queue to be loaded.
 		 */
 		public function prioritize(asset:Asset):void
 		{
@@ -431,7 +431,7 @@ package net.guttershark.control
 		 * 
 		 * Every Asset in the queue calls this method on it's progress event.
 		 * 
-		 * @param	pe		AssetProgressEvent
+		 * @param pe AssetProgressEvent
 		 */
 		public function progress(pe:AssetProgressEvent):void
 		{
@@ -449,7 +449,7 @@ package net.guttershark.control
 		 * 
 		 * Each item calls this method on it's complete.
 		 * 
-		 * @param	e	AssetCompleteEvent
+		 * @param e AssetCompleteEvent
 		 */
 		public function complete(e:AssetCompleteEvent):void
 		{
@@ -466,7 +466,7 @@ package net.guttershark.control
 		 * 
 		 * Each item calls this method on any load errors.
 		 * 
-		 * @param	e	AssetErrorEvent
+		 * @param e AssetErrorEvent
 		 */
 		public function error(e:AssetErrorEvent):void
 		{
@@ -483,7 +483,7 @@ package net.guttershark.control
 		 * Each item calls this method on an http status that is
 		 * not 0 or 200.
 		 * 
-		 * @param	e	AssetStatusEvent
+		 * @param e AssetStatusEvent
 		 */
 		public function httpStatus(e:AssetStatusEvent):void
 		{
@@ -499,7 +499,7 @@ package net.guttershark.control
 		 * 
 		 * Each item calls this method when it starts downloading.
 		 * 
-		 * @param	e	AssetOpenEvent
+		 * @param e AssetOpenEvent
 		 */
 		public function open(e:AssetOpenEvent):void
 		{	

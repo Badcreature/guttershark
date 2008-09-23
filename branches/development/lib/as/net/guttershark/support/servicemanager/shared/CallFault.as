@@ -7,7 +7,7 @@ package net.guttershark.support.servicemanager.shared
 	 * a fault, and is passed back to the onFault callback of
 	 * a service call.
 	 */
-	final public class CallFault 
+	final public class CallFault
 	{
 		
 		/**

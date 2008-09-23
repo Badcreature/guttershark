@@ -5,20 +5,20 @@ package net.guttershark.display.views
 	import net.guttershark.display.CoreClip;	
 
 	/**
-	 * The CoreView class provides common hooks and properties.
+	 * The BaseView class provides common hooks and properties.
 	 */
-	public class CoreView extends CoreClip
+	public class BaseView extends CoreClip
 	{
 				
 		/**
 		 * A controller for this view.
 		 */
-		public var controller:CoreView;
+		public var controller:CoreClip;
 
 		/**
-		 * Constructor for BasicView instances.
+		 * Constructor for BaseView instances.
 		 */
-		public function CoreView()
+		public function BaseView()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE,ona,false,10,true);
@@ -93,7 +93,7 @@ package net.guttershark.display.views
 		/**
 		 * Override this method to hook into the added to stage event.
 		 * 
-		 * <p>This method calls #addEventHandlers() and #onResize()</p>
+		 * <p>This method calls <a href='#addEventHandlers()'>addEventHandlers()</a> and <a href='#onResize()'>onResize()</a>.</p>
 		 */
 		protected function onAddedToStage():void
 		{
@@ -104,7 +104,7 @@ package net.guttershark.display.views
 		/**
 		 * Override this method to hook into the removed from stage event.
 		 * 
-		 * <p>This method also calls #removeEventHandlers()</p>
+		 * <p>This method also calls <a href='#removeEventHandlers()'>removeEventHandlers()</a>.</p>
 		 */
 		protected function onRemovedFromStage():void
 		{

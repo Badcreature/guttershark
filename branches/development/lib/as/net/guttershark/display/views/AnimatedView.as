@@ -2,7 +2,6 @@ package net.guttershark.display.views
 {
 	import flash.events.Event;
 	
-	import net.guttershark.display.views.BasicView;
 	import net.guttershark.util.FrameDelay;
 	import net.guttershark.util.FramePulse;	
 
@@ -11,9 +10,9 @@ package net.guttershark.display.views
 	 * where views need to have animated timelines, rather
 	 * than all code tweens.
 	 */
-	public class AnimatedView extends BasicView
+	public class AnimatedView extends BaseView
 	{
-		
+
 		/**
 		 * Watch for last frame and call complete when done.
 		 */

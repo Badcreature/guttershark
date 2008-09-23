@@ -7,7 +7,7 @@
 		<link id="google" href="http://www.google.com/" window="_blank" />
 	</link>
 	<assets>
-		<asset libraryName="jpg1" source="jpg1.jpg" />
+		<asset libraryName="jpg1" source="jpg1.jpg" preload="true" />
 		<asset libraryName="jpg2" source="jpg2.jpg" />
 		<asset libraryName="swftest" source="swfload_test.swf" />
 		<asset libraryName="pizza_song" source="Pizza_Song.flv" />
@@ -16,6 +16,16 @@
 		<asset libraryName="png2" source="png2.png" />
 		<asset libraryName="sound1" source="sound1.mp3" />
 	</assets>
+	<textformats>
+		<textformat id="theTF" font="Arial" color="0xFF0066" bold="true" />
+	</textformats>
+	<stylesheets>
+		<stylesheet id="colors">
+			<![CDATA[
+			.pink{color:#FF0066}
+			]]>
+		</stylesheet>
+	</stylesheets>
 	<services>
 		<gateway id="amfphp" path="amfphp" url="http://localhost/amfphp/gateway.php" objectEncoding="3" />
 		<service id="test" gateway="amfphp" endpoint="Test" limiter="true" attempts="4" timeout="1000" />

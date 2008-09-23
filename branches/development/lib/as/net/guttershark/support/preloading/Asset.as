@@ -85,7 +85,7 @@ package net.guttershark.support.preloading
 		 * 
 		 * Starts the load process for this item.
 		 * 
-		 * @param	A preload controller that is controller this asset.
+		 * @param controller A preload controller that is controlling this asset.
 		 */
 		public function load(controller:PreloadController):void
 		{
