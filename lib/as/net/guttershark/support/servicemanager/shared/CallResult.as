@@ -18,7 +18,7 @@ package net.guttershark.support.servicemanager.shared
 		 * Constructor for CallResult instances.
 		 * @param res The result object.
 		 */
-		public function CallResult(res:*)
+		public function CallResult(res:*=null)
 		{
 			result = res;
 		}	}}

@@ -10,7 +10,7 @@ package net.guttershark.util
 	 * of running jsfl from actionscript.
 	 * 
 	 * <p>JSFL Proxy does not eleviate having to call such things like:
-	 * <code>MMExecute("fl.getDocumentDOM().path"), but it does relieve
+	 * <code>MMExecute("fl.getDocumentDOM().path")</code>, but it does relieve
 	 * calling script files, or functions withing script files, and
 	 * handling parameters, and responses from the script.</p>
 	 * 
@@ -50,12 +50,12 @@ package net.guttershark.util
 		/**
 		 * Run a jsfl script file, with optional parameters.
 		 * 
-		 * <p>The callProps object accepts these properties</p>
+		 * <p>The callProps object accepts these properties:</p>
 		 * 
 		 * <ul>
 		 * <li>method (String) - A method inside of the jsfl file to execute.</li>
 		 * <li>params (Array) - Parameters to send to the jsfl function.</li>
-		 * <li>escapeParams (Boolean) - Whether or not to escape all parameters being send to the function.</li>
+		 * <li>escapeParams (Boolean) - Whether or not to escape all parameters being sent to the function.</li>
 		 * <li>responseWasEscaped (Boolean) - Whether the return value from jsfl was escaped. This is useful for returning XML, or string with special characters,
 		 * because special characters will throw jsfl errors if they're not escaped.</li>
 		 * <li>responseFormat (String) - A response format, so that casting can occur - supports (xml,boolean,int,number,array(csv)).

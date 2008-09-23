@@ -10,7 +10,7 @@ package net.guttershark.display.video
 	import fl.video.VideoEvent;
 	import fl.video.VideoPlayer;
 	
-	import gs.TweenLite;
+	import gs.TweenMax;
 	
 	import net.guttershark.util.Assertions;		
 
@@ -100,6 +100,9 @@ package net.guttershark.display.video
 		 */
 		private var ast:Assertions;
 
+		/**
+		 * Some state vars.
+		 */
 		private var httpAttempt:Boolean;
 		private var rtmpAttempt:Boolean;
 		private var state:int;
@@ -120,7 +123,7 @@ package net.guttershark.display.video
 		 * Set the queue of file's to play through. You can
 		 * use relative, http, and rtmp locations.
 		 * 
-		 * @param	files	An array of files to play.
+		 * @param queue An array of files to play.
 		 */
 		public function set queue(queue:Array):void
 		{
@@ -138,8 +141,10 @@ package net.guttershark.display.video
 		}
 		
 		/**
-		 * Set's the instance of an FLVPlayback component you're using
+		 * Set the instance of an FLVPlayback component you're using
 		 * to play the queue in.
+		 * 
+		 * @param player An FLVPlayback instance.
 		 */
 		public function set player(player:FLVPlayback):void
 		{
@@ -157,6 +162,8 @@ package net.guttershark.display.video
 		 * Set the time (in seconds) allowed for a stream attempt, before it is considered
 		 * a failed attempt. If a stream does not play before the timeout, the stream is closed and
 		 * the next video is played.
+		 * 
+		 * @param seconds The length in seconds.
 		 */
 		public function set streamAttemptTimeBeforeFail(seconds:Number):void
 		{
@@ -175,10 +182,9 @@ package net.guttershark.display.video
 		/**
 		 * Pause the queue.
 		 */
-		public function pause(val:Boolean):void
+		public function pause():void
 		{
 			_player.pause();
-			playState = false;
 		}
 		
 		/**
@@ -192,7 +198,8 @@ package net.guttershark.display.video
 			rtmpAttempt = false;
 			goingOut = false;
 			_queue = [];
-			for(var i:int = 1; i < 3; i++) _player.getVideoPlayer(i).close();
+			var i:int = 1;
+			for(i;i<3;i++) _player.getVideoPlayer(i).close();
 		}
 		
 		/**
@@ -220,7 +227,7 @@ package net.guttershark.display.video
 		}
 		
 		/**
-		 * Interupt the queue and play the file specified immediately.
+		 * Interupt the queue and play the specified file immediately.
 		 * 
 		 * @param source The video source path.
 		 */
@@ -345,8 +352,8 @@ package net.guttershark.display.video
 					httpAttempt = false;
 					state = 1;
 				}
-				TweenLite.to(target,half,{autoAlpha:1,volume:_player.volume});
-				TweenLite.to(activePlayer,half,{volume:0,autoAlpha:0});
+				TweenMax.to(target,half,{autoAlpha:1,volume:_player.volume});
+				TweenMax.to(activePlayer,half,{volume:0,autoAlpha:0});
 				activePlayer = target;
 				activePlayer.bufferTime = 10; //up the buffer time so that it doesn't stop buffering.
 			}
@@ -354,7 +361,7 @@ package net.guttershark.display.video
 			{
 				started = true;
 				(target.isRTMP) ? rtmpAttempt = false : httpAttempt = false;
-				TweenLite.to(target,half,{autoAlpha:1,volume:_player.volume});
+				TweenMax.to(target,half,{autoAlpha:1,volume:_player.volume});
 				activePlayer = target;
 			}
 			setTimeout(clearGoingOut, 3000);
@@ -410,14 +417,12 @@ package net.guttershark.display.video
 		 */
 		private function onNS(ns:NetStatusEvent):void
 		{
-			trace(ns.info.code);
 			switch(ns.info.code)
 			{
 				case "NetConnection.Connect.Closed":
 					if(rtmpAttempt)
 					{
 						removeNetConnectionEventListeners(_player.getVideoPlayer(_player.activeVideoPlayerIndex));
-						reset();
 						playNext();
 					}
 					break;

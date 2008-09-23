@@ -27,9 +27,9 @@ package net.guttershark.support.preloading.events
 		/**
 		 * Constructor for AssetStatusEvent instances.
 		 * 
-		 * @param	String		The type.
-		 * @param	LoadItem	The Asset that triggered the status event.
-		 * @param	int			The status code of the event.
+		 * @param type The type.
+		 * @param asset The Asset that triggered the status event.
+		 * @param int The status code of the event.
 		 * @see	net.guttershark.preloading.Asset Asset class
 		 */
 		public function AssetStatusEvent(type:String, asset:Asset, status:int)

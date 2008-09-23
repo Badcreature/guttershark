@@ -23,10 +23,8 @@ package net.guttershark.support.servicemanager.remoting
 		/**
 		 * Constructor for RemotingConnection instances.
 		 * 
-		 * @param	gateway	The remoting gateway URL.
-		 * @param	objectEncoding	The AMF Object encoding.
-		 * @throws	ArgumentError	If the gateway parameter was null.
-		 * @throws	ArgumentError	IF the objectEncoding is not 0 or 3.
+		 * @param gateway The remoting gateway URL.
+		 * @param objectEncoding The AMF Object encoding.
 		 */
 		public function RemotingConnection(gateway:String, objectEncoding:int = 3)
 		{
@@ -35,9 +33,9 @@ package net.guttershark.support.servicemanager.remoting
 			this.gateway = gateway;
 			connection = new NetConnection();
 			connection.objectEncoding = objectEncoding;
-			connection.addEventListener(NetStatusEvent.NET_STATUS, onConnectionStatus);
-			connection.addEventListener(IOErrorEvent.IO_ERROR, onConnectionError);
-			connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR , onConnectionError);
+			connection.addEventListener(NetStatusEvent.NET_STATUS, onConnectionStatus,false,0,true);
+			connection.addEventListener(IOErrorEvent.IO_ERROR, onConnectionError,false,0,true);
+			connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR , onConnectionError,false,0,true);
 			connection.connect(gateway);
 		}
 		
@@ -87,8 +85,6 @@ package net.guttershark.support.servicemanager.remoting
 
 		/**
 		 * Check whether or not the connection is currently established.
-		 * 
-		 * @return	Boolean
 		 */
 		public function get connected():Boolean
 		{
@@ -97,12 +93,21 @@ package net.guttershark.support.servicemanager.remoting
 		
 		/**
 		 * Re-connect the net connection object.
-		 * 
-		 * @return	void
 		 */
 		public function reConnect():void
 		{
 			connection.connect(gateway);
+		}
+		
+		/**
+		 * Add a credentials header for any requests going to this connection.
+		 * 
+		 * @param username The username.
+		 * @param password The password.
+		 */
+		public function setCredentials(username:String,password:String):void
+		{
+			connection.addHeader("Credentials",false,{userid:username,password:password});
 		}
 	}
 }

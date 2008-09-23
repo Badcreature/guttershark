@@ -10,11 +10,11 @@ package net.guttershark.managers
 	import net.guttershark.util.Singleton;
 	
 	/**
-	 * The ServiceManager simplifies Remoting requests and HTTP
+	 * The ServiceManager simplifies remoting requests and http
 	 * requests with support for retries, timeouts, and some features that
 	 * are specific to one or the other.
 	 * 
-	 * @example Setting up a remoting service:
+	 * @example A basic remoting request example.
 	 * <listing>	
 	 * import net.guttershark.managers.ServiceManager;
 	 * import net.guttershark.support.serviceamanager.shared.CallResult;
@@ -22,7 +22,6 @@ package net.guttershark.managers
 	 * 
 	 * var sm:ServiceManager = ServiceManager.gi();
 	 * 
-	 * //this sets up a remoting service.
 	 * sm.createRemotingService("users","http://localhost/amfphp/gateway.php",3,1,3000,true);
 	 * 
 	 * //make a remoting call.
@@ -31,123 +30,26 @@ package net.guttershark.managers
 	 * function onf(cf:CallFault):void{}
 	 * </listing>
 	 * 
-	 * <p>The above example is the most basic remoting call,but there are
-	 * other callbacks you can supply, as well as supply the number
-	 * of attempts that will be attempted, and the time before a call
-	 * is considered timed-out (to initiate a retry).</p>
-	 * 
-	 * <p>Supported properties on the callProps object for a <strong>remoting service call</strong>:</p>
-	 * <ul>
-	 * <li>params (Array) - The parameters to send to the remoting service.</li>
-	 * <li>onCreate (Function) - A function to call, as soon as a remoting call instance was created (the request hasn't gone out yet though.).</li>
-	 * <li>onResult (Function) - A function to call, and pass a CallResult object to.</li>
-	 * <li>onFault (Function) - A function to call, and pass a CallFault object to.</li>
-	 * <li>onRetry (Function) - A function to call for every retry of a service call.</li>
-	 * <li>onTimeout (Function) - A function to call after every retry has been attempted, and no result or fault was returned.</li>
-	 * <li>attempts (int) - The number of retry attempts allowed.</li>
-	 * <li>timeout (int - milliseconds) - The amount of time allowed for each call before another attempt is made.</li>
-	 * <li>returnArgs (Boolean) - Return the original <em><code>callprops.params</code></em> sent through the
-	 * request as the second parameter to your onResult, or onFault callback</li>
-	 * </ul>
-	 * 
-	 * @example An extended remoting call example, with all callProp objects filled in:
+	 * @example A basic http request example:
 	 * <listing>	
 	 * import net.guttershark.managers.ServiceManager;
 	 * import net.guttershark.support.serviceamanager.shared.CallResult;
 	 * import net.guttershark.support.serviceamanager.shared.CallFault;
-	 * 
 	 * var sm:ServiceManager = ServiceManager.gi();
-	 * 
-	 * //this sets up a remoting service.
-	 * sm.createRemotingService("users","http://localhost/amfphp/gateway.php",3,1,3000,true);
-	 * 
-	 * //make a remoting call.
-	 * sm.users.getUserByName({param:["sam"],onResult:onr,onFault:onf,onCreate:onc,onRetry:onrt,onTimeout:ont,attempts:2,timeout:3000,returnArgs:true});
-	 * function onr(cr:CallResult,params:Array):void{} //onResult
-	 * function onf(cf:CallFault,params:Array):void{} //onFault
-	 * function onc():void{} //onCreate
-	 * function onrt():void{} //onRetry
-	 * function ont:void(){} //onTimeout
-	 * </listing>
-	 * 
-	 * <p>A remoting service supports something called a "limiter" which means
-	 * that if a request is being made to a service with X parameters, another
-	 * request to that service CANNOT be made until a result,timeout,or fault
-	 * occurs on the first call.</p>
-	 * 
-	 * <p>Now into HTTP Service calls</p>
-	 * 
-	 * @example Setting up an HTTP Service and make a basic call:
-	 * <listing>	
-	 * import net.guttershark.managers.ServiceManager;
-	 * import net.guttershark.support.serviceamanager.shared.CallResult;
-	 * import net.guttershark.support.serviceamanager.shared.CallFault;
-	 * 
-	 * var sm:ServiceManager = ServiceManager.gi();
-	 * 
 	 * sm.createHTTPService("codeigniter","http://localhost/codeigniter/index.php/",3,3000,false,"variables");
-	 * 
 	 * sm.codeigniter({routes:["user","name"],onResult:onr,onFault:onf}); // -> http://localhost/codeigniter/index.php/user/name
 	 * </listing>
 	 * 
-	 * <p>The above example is a basic HTTP Service call. The "routes" parameter is optional,
-	 * but in this case, because code igniter is being used on the server, which is route based,
-	 * we can supply these routes. But this is optional, see below for all available parameters</p>
+	 * <p><strong>See the Service class for additional detailed information and examples of
+	 * the types of http calls you can make as well as supported properties that
+	 * control calls.</strong></p>
 	 * 
-	 * <p>Supported properties on the callProps object for a <strong>http service call</strong>:</p>
-	 * <ul>
-	 * <li>data (Object) - Data to submit to the service (post or get).</li>
-	 * <li>routes (Array) - An array of "route" paths that get concatenated together.</li>
-	 * <li>method (String) - post or get</li>
-	 * <li>responseFormat (String) - The response format to expect, see net.guttershark.support.servicemanager.http.ResponseFormat.</li>
-	 * <li>onCreate (Function) - A function to call, as soon as a http call instance was created (the request hasn't gone out yet though.).</li>
-	 * <li>onResult (Function) - A function to call, and pass a CallResult object to.</li>
-	 * <li>onFault (Function) - A function to call, and pass a CallFault object to.</li>
-	 * <li>onRetry (Function) - A function to call for every retry of a service.</li>
-	 * <li>onTimeout (Function) - A function to call after every retry has been attempted, and no result was returned.</li>
-	 * <li>attempts (int) - The number of retry attempts allowed.</li>
-	 * <li>timeout (int - milliseconds) - The amount of time allowed for each call before another attempt is made.</li>
-	 * </ul>
+	 * <p>When you are creating a service (http or remoting) the parameters
+	 * you give to the service are the "defaults", but you can override the
+	 * attempts,timeout,limiter parameter by supplying it in the callProps
+	 * object.</p>
 	 * 
-	 * @example Another example that submits data as a POST request to a service:
-	 * <listing>	
-	 * import net.guttershark.managers.ServiceManager;
-	 * import net.guttershark.support.serviceamanager.shared.CallResult;
-	 * import net.guttershark.support.serviceamanager.shared.CallFault;
-	 * 
-	 * var sm:ServiceManager = ServiceManager.gi();
-	 * 
-	 * sm.createHTTPService("sendEmail","http://localhost/sendEmail.php",3,5000,false);
-	 * 
-	 * sm.sendEmail({responseFormat:"variables",data:{toEmail:"test&#64;example.com",subject:"Example",message:"Hello World"},onResult:onr,onFault:onf});
-	 * function onr(cr:CallResult):void{}
-	 * function onf(cf:CallFault):void{}
-	 * </listing>
-	 * 
-	 * <p>When you are creating a service (createHTTPService / createRemotingService) the parameters
-	 * you give to the service are the "defaults", but you can override the attempts,timeout,limiter
-	 * parameter by supplying it in the callProps object.</p>
-	 * 
-	 * <p>HTTP Service's must supply a reponse format for each call, whether it be the default
-	 * that was defined when calling createHTTPService, or by overriding it in a callProp.
-	 * Each call response that is received is parsed differently depending on the response format,
-	 * and the result property on the CallResult object is also different.</p>
-	 * 
-	 * <p>HTTP Service calls support a couple extra features, if you follow the rules with the
-	 * responses from the server.</p>
-	 * 
-	 * <p><strong>for "xml" responses</strong></p>
-	 * <p>A successful xml response can be any well formed xml</p>
-	 * <p>To indicate a fault, send an XML structure like this as the response:</p> 
-	 * <listing>	
-	 * &lt;root&gt;
-	 *     &lt;fault&gt;my message&lt;/fault&gt;
-	 * &lt;/root&gt;
-	 * </listing>
-	 * 
-	 * <p><strong>for "variable" responses</strong></p>
-	 * <p>The response should be a url encoded string like so: (name=asdfasd&email=asdfasd&test=sdfsdf)</p>
-	 * <p>To indicate a fault through variables define it like so: (fault=my%20fault%20message).</p>
+	 * @see net.guttershark.support.servicemanager.http.Service Service class.
 	 */
 	final public dynamic class ServiceManager extends Proxy
 	{
@@ -197,14 +99,17 @@ package net.guttershark.managers
 		 * @param attempts The number of attempts that will be allowed for each service call - this sets the default, but can be overwritten by a callProps object.
 		 * @param timeout The time allowed for each call, before making another attempt.
 		 * @param limiter Use a call limiter.
+		 * @param username A username to supply for a credentials header.
+		 * @param password A password to supply for a credentals header.
 		 */
-		public function createRemotingService(id:String,gateway:String,endpoint:String,objectEncoding:int,attempts:int=1,timeout:int=10000,limiter:Boolean=false,overwriteIfExists:Boolean=true):void
+		public function createRemotingService(id:String,gateway:String,endpoint:String,objectEncoding:int,attempts:int=1,timeout:int=10000,limiter:Boolean=false,overwriteIfExists:Boolean=true,username:String=null,password:String=null):void
 		{
 			if(services[id] && !overwriteIfExists) return;
 			var rc:RemotingConnection;
 			if(rcp[gateway] && overwriteIfExists) rcp[gateway].dispose();
 			if(!rcp[gateway] || overwriteIfExists) rc = rcp[gateway] = new RemotingConnection(gateway,objectEncoding); 
 			else rc = rcp[gateway];
+			if(username && password) rc.setCredentials(username,password);
 			if(services[id] && !overwriteIfExists) return;
 			services[id] = new RemotingService(rc,endpoint,attempts,timeout,limiter);
 		}

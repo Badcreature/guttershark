@@ -100,7 +100,7 @@ package net.guttershark.managers
 		 * 
 		 * @example Adding mappings of different types.
 		 * <listing>	
-		 * km = KeyboardEventManager.gi();
+		 * km = KeyManager.gi();
 		 * km.addMapping(stage,"f", onF);
 		 * km.addMapping(stage,"Whatup",onWhatup);
 		 * km.addMapping(stage,"CONTROL+SHIFT+M", onM);

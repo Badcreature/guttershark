@@ -234,13 +234,20 @@ package net.guttershark.model
 				if(s.@gateway != undefined)
 				{
 					var r:XMLList = xml.services.gateway.(@id == s.@gateway);
+					var username:String;
+					var password:String;
 					if(!r) throw new Error("Gateway {"+s.@gateway+"} not found.");
+					if(r.@password !=undefined && (r.@username != undefined || r.@userid !=undefined))
+					{
+						username = (r.@username!=undefined) ? r.@username : r.@userid;
+						password = r.@password;
+					}
 					if(r.@url != undefined) gateway = r.@url;
 					if(r.@path != undefined) gateway = getPath(r.@path.toString());
 					if(!gateway) throw new Error("Gateway not found, you must have a url or path attribute on defined on the gateway node.");
 					if(r.@objectEncoding!=undefined) oe = int(r.@objectEncoding);
 					if(oe != 3 && oe != 0) throw new Error("ObjectEncoding can only be 0 or 3.");
-					sm.createRemotingService(s.@id,gateway,s.@endpoint,oe,attempts,timeout,limiter);
+					sm.createRemotingService(s.@id,gateway,s.@endpoint,oe,attempts,timeout,limiter,true,username,password);
 				}
 				else
 				{
@@ -280,8 +287,7 @@ package net.guttershark.model
 		/**
 		 * Creates and returns a URLRequest from a link node.
 		 * 
-		 * @param	id	The id of the link node.
-		 * @return	URLRequest
+		 * @param id The id of the link node.
 		 */
 		public function getLink(id:String):URLRequest
 		{
@@ -295,8 +301,7 @@ package net.guttershark.model
 		/**
 		 * Get the window attribute value on a link node.
 		 * 
-		 * @param	id	The id of the link node.
-		 * @return	String
+		 * @param id The id of the link node.
 		 */
 		public function getLinkWindow(id:String):String
 		{

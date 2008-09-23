@@ -23,8 +23,8 @@ package net.guttershark.support.preloading.events
 		/**
 		 * Constructor for AssetProgressEvent instances.
 		 * 
-		 * @param	String		The type.
-		 * @param	LoadItem	The Asset that is downloading.
+		 * @param type The type.
+		 * @param asset	The Asset that is downloading.
 		 * @see	net.guttershark.preloading.Asset Asset class
 		 */
 		public function AssetProgressEvent(type:String, asset:Asset)

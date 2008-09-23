@@ -8,8 +8,53 @@ package net.guttershark.support.servicemanager.remoting
 	import net.guttershark.support.servicemanager.shared.Limiter;	
 	
 	/**
-	 * The RemotingService class implements a Remoting endpoint
-	 * where RemotingCalls get sent to.
+	 * The RemotingService class creates and sends remoting requests.
+	 * This class is used internally, and when using the service manager to
+	 * make remoting calls, you are invariably using this class without realizing it.
+	 * Don't use this class directly, use the service manager, this class is strictly
+	 * for documentation.
+	 * 
+	 * <p>When you make a service call from the service manager, and pass it
+	 * an object of properties, you are passing it a "callProps" object.</p>
+	 * 
+	 * <p>Supported properties on the callProps object:</p>
+	 * <ul>
+	 * <li>params (Array) - The parameters to send to the remoting service.</li>
+	 * <li>onCreate (Function) - A function to call, as soon as a remoting call instance was created (the request hasn't gone out yet though.).</li>
+	 * <li>onResult (Function) - A function to call, and pass a CallResult object to.</li>
+	 * <li>onFault (Function) - A function to call, and pass a CallFault object to.</li>
+	 * <li>onRetry (Function) - A function to call for every retry of a service call.</li>
+	 * <li>onTimeout (Function) - A function to call after every retry has been attempted, and no result or fault was returned.</li>
+	 * <li>attempts (int) - The number of retry attempts allowed.</li>
+	 * <li>timeout (int - milliseconds) - The amount of time allowed for each call before another attempt is made.</li>
+	 * <li>returnArgs (Boolean) - Return the original <em><code>callprops.params</code></em> sent through the
+	 * request as the second parameter to your onResult, or onFault callback</li>
+	 * </ul>
+	 * 
+	 * @example An extended remoting call example, with all callProp object properties filled in:
+	 * <listing>	
+	 * import net.guttershark.managers.ServiceManager;
+	 * import net.guttershark.support.serviceamanager.shared.CallResult;
+	 * import net.guttershark.support.serviceamanager.shared.CallFault;
+	 * 
+	 * var sm:ServiceManager = ServiceManager.gi();
+	 * 
+	 * //this sets up a remoting service.
+	 * sm.createRemotingService("users","http://localhost/amfphp/gateway.php",3,1,3000,true);
+	 * 
+	 * //make a remoting call.
+	 * sm.users.getUserByName({param:["sam"],onResult:onr,onFault:onf,onCreate:onc,onRetry:onrt,onTimeout:ont,attempts:2,timeout:3000,returnArgs:true});
+	 * function onr(cr:CallResult,params:Array):void{} //onResult
+	 * function onf(cf:CallFault,params:Array):void{} //onFault
+	 * function onc():void{} //onCreate
+	 * function onrt():void{} //onRetry
+	 * function ont:void(){} //onTimeout
+	 * </listing>
+	 * 
+	 * <p>A remoting service supports something called a "limiter" which means
+	 * that if a request is being made to a service with X parameters, another
+	 * request to that service CANNOT be made until a result,timeout,or fault
+	 * occurs on the first call.</p>
 	 */
 	dynamic public class RemotingService extends Proxy
 	{

@@ -29,9 +29,9 @@ package net.guttershark.support.preloading.events
 		/**
 		 * Constructor for PreloadProgressEvent instances.
 		 * 
-		 * @param	type	The event type.
-		 * @param	pixels	The amount of pixels.
-		 * @param	percent	The percent complete.
+		 * @param type The event type.
+		 * @param pixels The amount of pixels.
+		 * @param percent The percent complete.
 		 */
 		public function PreloadProgressEvent(type:String, pixels:int, percent:Number):void
 		{
