@@ -59,6 +59,7 @@ ${ASDOC}asdoc \
 -exclude-classes fl.managers.StyleManager \
 -exclude-classes com.pixelbreaker.ui.osx.MacMouseWheel \
 -exclude-classes gs.TweenMax \
+-exclude-classes gs.events.TweenEvent \
 -exclude-classes gs.TweenLite \
 -exclude-classes gs.TweenFilterLite \
 -exclude-classes fl.events.ScrollEvent \

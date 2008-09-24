@@ -156,8 +156,6 @@ package net.guttershark.support.preloading
 		 * @private
 		 * 
 		 * Returns the bytes loaded for this item.
-		 * 
-		 * @return Number
 		 */
 		public function get bytesLoaded():Number
 		{
@@ -168,8 +166,6 @@ package net.guttershark.support.preloading
 		 * @private
 		 * 
 		 * Returns the bytes total for this item.
-		 * 
-		 * @return Number
 		 */
 		public function get bytesTotal():Number
 		{

@@ -40,16 +40,17 @@ package net.guttershark.managers
 	 * sm.codeigniter({routes:["user","name"],onResult:onr,onFault:onf}); // -> http://localhost/codeigniter/index.php/user/name
 	 * </listing>
 	 * 
-	 * <p><strong>See the Service class for additional detailed information and examples of
-	 * the types of http calls you can make as well as supported properties that
-	 * control calls.</strong></p>
-	 * 
 	 * <p>When you are creating a service (http or remoting) the parameters
 	 * you give to the service are the "defaults", but you can override the
 	 * attempts,timeout,limiter parameter by supplying it in the callProps
 	 * object.</p>
 	 * 
+	 * <p><strong>See the Service and RemotingService classes for additional detailed
+	 * information and examples of the types of requests you can make as well as
+	 * supported call properties.</strong></p>
+	 * 
 	 * @see net.guttershark.support.servicemanager.http.Service Service class.
+	 * @see net.guttershark.support.servicemanager.remoting.RemotingService RemotingService class.
 	 */
 	final public dynamic class ServiceManager extends Proxy
 	{

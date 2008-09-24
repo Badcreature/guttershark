@@ -99,7 +99,7 @@ function publishWithExcludes(traces,throwOnFail)
 			  {
 					cleanup();
 					failErrorMessage = "The library publish profile could not be saved";
-					if(throwOnError) throw failErrorMessage;
+					if(throwOnFail) throw failErrorMessage;
 					res = false;
 			  }
 				for(i=excludedClasses.length-1;i>0;i--) if(excludedClasses.indexOf(excludedClasses[i])!=i) excludedClasses.splice(i,1); //eliminate redundancies in excludes.
@@ -146,7 +146,7 @@ function publishWithExcludes(traces,throwOnFail)
 								cleanup();
 								res = false;
 								failErrorMessage = "Unable to rename file "+classSource;
-								if(throwOnError) throw failErrorMessage;
+								if(throwOnFail) throw failErrorMessage;
 							}
 							break;
 						}

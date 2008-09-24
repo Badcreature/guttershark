@@ -296,7 +296,6 @@ package net.guttershark.support.servicemanager.http
 		 */
 		override public function dispose():void
 		{
-			trace("DISPOSE");
 			super.dispose();
 			url = null;
 			if(loader)

@@ -38,18 +38,18 @@ package net.guttershark.util.cache
 		/**
 		 * Constructor for CacheItem instances.
 		 * 
-		 * @param	key	The key to store the object by.
-		 * @param	obj	The object you want stored by key.
-		 * @param	purgeCallback	The callback function that purges this object.
-		 * @param	timeout	The timeout in which to expie this object.
+		 * @param key The key to store the object by.
+		 * @param obj The object you want stored by key.
+		 * @param purgeCallback The callback function that purges this object.
+		 * @param timeout The timeout in which to expie this object.
 		 */
-		public function CacheItem(key:String, object:*, purgeCallback:Function, timeout:int = -1):void
+		public function CacheItem(key:String,object:*,purgeCallback:Function,timeout:int=-1):void
 		{
 			this.purgeCallback = purgeCallback;
-			this.cacheKey = key;
+			cacheKey = key;
 			this.timeout = timeout;
 			this.object = object;
-			if(timeout > -1) flash.utils.setTimeout(purgeItem, timeout);
+			if(timeout>-1) flash.utils.setTimeout(purgeItem, timeout);
 		}
 		
 		/**
@@ -63,13 +63,13 @@ package net.guttershark.util.cache
 		/**
 		 * Destroy this cache items internal variables.
 		 */
-		public function destroy():void
+		public function dispose():void
 		{
-			this.purgeCallback = null;
-			this.cacheKey = null;
+			purgeCallback = null;
+			cacheKey = null;
 			flash.utils.clearTimeout(timeout);
-			this.timeout = NaN;
-			this.object = null;
+			timeout = NaN;
+			object = null;
 		}
 	}
 }

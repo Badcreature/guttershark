@@ -79,13 +79,13 @@ package net.guttershark.util.autosuggest
 		 * }
 		 * </listing>
 		 * 
-		 * @param	term	The term to search for.
-		 * @param	returnLowercaseMatches	Return all lowercase matches.
-		 * @return	Array	An array of AutoSuggestMatches.
+		 * @param term The term to search for.
+		 * @param returnLowercaseMatches Return all lowercase matches.
+		 * @return Array An array of AutoSuggestMatches.
 		 * 
 		 * @see net.guttershark.util.AutoSuggestMatch
 		 */
-		public function search(term:String, returnLowercaseMatches:Boolean = true):Array
+		public function search(term:String,returnLowercaseMatches:Boolean=true):Array
 		{
 			if(!caseSensitive) term = term.toLowerCase();
 			var resultsTop:Array = [];
@@ -95,7 +95,6 @@ package net.guttershark.util.autosuggest
 			//var regexContains:RegExp;
 			var regexExact:RegExp;
 			var exactMatch:*;
-			
 			if(caseSensitive)
 			{
 				regexExact = new RegExp("^" + term + "$","i");
@@ -108,7 +107,6 @@ package net.guttershark.util.autosuggest
 				regexTop = new RegExp("^" + term,"");
 				//regexContains = new RegExp(term,"");
 			}
-			
 			for(var i:int = 0; i < termsLen; i++)
 			{
 				var nterm:String = (caseSensitive) ? _terms[i] : _terms[i].toLowerCase();
@@ -118,7 +116,6 @@ package net.guttershark.util.autosuggest
 				//var matchContains:Object = nterm.match(regexContains);
 				var highlightedTerm:String;
 				var matchf:AutoSuggestMatch;
-				
 				if(matchExact)
 				{
 					highlightedTerm = "<span class='suggestedTerm'><span class='matchedLetters'>" + nterm + "</span></span>";
@@ -151,7 +148,7 @@ package net.guttershark.util.autosuggest
 		/**
 		 * Set the terms to search through.
 		 * 
-		 * @param	terms	An array of strings.
+		 * @param terms An array of strings.
 		 */
 		public function set terms(terms:Array):void
 		{

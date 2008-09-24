@@ -17,7 +17,7 @@ package
 		
 		override protected function flashvarsForStandalone():Object
 		{
-			return {test:"HELLO WORLD",model:"model.xml"};
+			return {model:"model.xml"};
 		}
 		
 		override protected function initPathsForStandalone():void
@@ -29,19 +29,11 @@ package
 			trace(ml.getPath("root","assets"));
 		}
 		
-		override protected function initModel():void
-		{
-			super.initModel();
-			trace("init model");
-		}
-		
 		override protected function setupComplete():void
 		{
 			super.setupComplete();
 			em.handleEvents(test, this, "onTest");
 			trace("setup complete");
-			trace(flashvars.test);
-			trace(ml.xml);
 		}
 
 		public function onTestClick():void

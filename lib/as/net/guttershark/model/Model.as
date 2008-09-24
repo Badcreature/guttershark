@@ -199,7 +199,6 @@ package net.guttershark.model
 		 * 
 		 * @param libraryName The libraryName of the asset to create.
 		 * @param prependSourcePath	The path to append to the source property of the asset.
-		 * @return An instance of an Asset.
 		 */
 		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String = null):Asset
 		{
@@ -373,12 +372,36 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Add a URL path to the model. If ExternalInterface is available, it
-		 * uses the guttershark javascript api. Otherwise everything is
-		 * stored in a local dictionary.
+		 * Add a URL path to the model - if ExternalInterface is available, it
+		 * uses the guttershark javascript api. Otherwise it's stored in a local dictionary.
 		 * 
-		 * @param	pathId	The path identifier.
-		 * @param	path	The path.
+		 * @example Using path logic with the model.
+		 * <listing>
+		 * public class Main extends DocumentController
+		 * {
+		 * 
+		 *     //only called in standalone player, otherwise you must
+		 *     //add paths through javascript - see the guttershark/lib/js/guttershark.js file.
+		 *     override protected function initPathsForStandalone():void
+		 *     {
+		 *         ml.addPath("root","./");
+		 *         ml.addPath("assets",ml.getPath("root")+"assets/");
+		 *         ml.addPath("bitmaps",ml.getPath("root","assets")+"bitmaps/");
+		 *         testPaths();
+		 *     }
+		 *     
+		 *     //illustrates how the "getPath" function works.
+		 *     private function testPaths():void
+		 *     {
+		 *         trace(ml.getPath("root")); // -> ./
+		 *         trace(ml.getPath("assets")); // -> ./assets/
+		 *         trace(ml.getPath("bitmaps")); // -> ./assets/bitmaps/
+		 *     }
+		 * }
+		 * </listing>
+		 * 
+		 * @param pathId The path identifier.
+		 * @param path The path.
 		 */	
 		public function addPath(pathId:String, path:String):void
 		{
@@ -392,12 +415,14 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Get a path concatenated from the given pathIds. They need
-		 * to be in order that you want them concatenated. If ExternalInterface is available, it
-		 * uses the guttershark javascript api. Otherwise everything is
-		 * stored in a local dictionary.
+		 * Get a path concatenated from the given pathIds - if ExternalInterface is
+		 * available, it uses the guttershark javascript api. Otherwise it's stored in a local
+		 * dictionary.
+		 * 
 		 * 
 		 * @param ...pathIds An array of pathIds whose values will be concatenated together.
+		 * 
+		 * @see #addPath() addPath function.
 		 */
 		public function getPath(...pathIds:Array):String
 		{
@@ -405,10 +430,12 @@ package net.guttershark.model
 			var fp:String = "";
 			if(!available)
 			{
-				for each(var id:String in pathIds)
+				var i:int = 0;
+				var l:int = pathIds.length;
+				for(i;i<l;i++)
 				{
-					if(!paths[id]) throw new Error("Path {"+id+"} not defined.");
-					fp += paths[id];
+					if(!paths[pathIds[i]]) throw new Error("Path {"+pathIds[i]+"} not defined.");
+					fp += paths[pathIds[i]];
 				}
 				return fp;
 			}
