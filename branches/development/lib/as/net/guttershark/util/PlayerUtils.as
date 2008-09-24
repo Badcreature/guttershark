@@ -49,8 +49,7 @@ package net.guttershark.util
 		public const LANGUAGE:String = Capabilities.language;
 		
 		/**
-		 * is client a PC?
-		 * @return Boolean
+		 * Check whether or not the current player is running on a pc.
 		 */
 		public function isPC():Boolean
 		{
@@ -68,7 +67,7 @@ package net.guttershark.util
 		}	
 		
 		/**
-		 * Check whether or not the current player is running on a pc.
+		 * Check whether or not the current player is running on linux.
 		 */
 		public function isLinux():Boolean
 		{

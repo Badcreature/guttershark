@@ -15,6 +15,7 @@ package net.guttershark.managers
 	import flash.events.TimerEvent;
 	import flash.media.Camera;
 	import flash.media.Microphone;
+	import flash.media.Sound;
 	import flash.net.FileReference;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
@@ -30,7 +31,7 @@ package net.guttershark.managers
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;
+	import net.guttershark.util.XMLLoader;		
 
 	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
@@ -166,7 +167,7 @@ package net.guttershark.managers
 	 * <table border='1'>
 	 * <tr bgcolor="#999999"><td width="200"><strong>Object</strong></td><td><strong>Events</strong></td></tr>
 	 * <tr><td>DisplayObject</td><td>Added,AddedToStage,Activate,Deactivate,Removed,RemovedFromStage</td>
-	 * <tr><td>InteractiveObject</td><td>Click,MouseUp,MouseDown,MouseMove,MouseOver,MouseWheel,MouseOut,FocusIn,<br/>
+	 * <tr><td>InteractiveObject</td><td>Click,DoubleClick,MouseUp,MouseDown,MouseMove,MouseOver,MouseWheel,MouseOut,FocusIn,<br/>
 	 * FocusOut,KeyFocusChange,MouseFocusChange,TabChildrenChange,TabIndexChange,TabEnabledChange</td></tr>
 	 * <tr><td>Stage</td><td>Resize,Fullscreen,MouseLeave</td></tr>
 	 * <tr><td>TextField</td><td>Change,Link</td></tr>
@@ -178,6 +179,7 @@ package net.guttershark.managers
 	 * <tr><td>NetConnection</td><td>Status</td></tr>
 	 * <tr><td>NetStream</td><td>Status</td></tr>
 	 * <tr><td>FileReference</td><td>Cancel,Complete,Open,Select,UploadCompleteData</td></tr>
+	 * <tr><td>Sound</td><td>Progress,Complete,ID3,Open</td></tr>
 	 * </table>
 	 * 
 	 * <p>Supported Guttershark Classes:</p>
@@ -351,12 +353,14 @@ package net.guttershark.managers
 				if(((callbackPrefix + "Complete") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(Event.COMPLETE, onComplete, false, 0, true);
 				if(((callbackPrefix + "AssetComplete") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(AssetCompleteEvent.COMPLETE, onAssetComplete, false, 0, true);
 				if(((callbackPrefix + "AssetError") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(AssetErrorEvent.ERROR,onAssetError, false, 0, true);
+				return;
 			}
 			
 			if(obj is TextField)
 			{
 				if((callbackPrefix + "Change") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE, onTextFieldChange,false,0,true);
 				if((callbackPrefix + "Link") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(TextEvent.LINK, onTextFieldLink,false,0,true);
+				return;
 			}
 					
 			if(obj is XMLLoader)
@@ -364,7 +368,7 @@ package net.guttershark.managers
 				var x:XMLLoader = XMLLoader(obj);
 				edinfo[x.contentLoader] = edinfo[obj];
 				if((callbackPrefix + "Complete") in callbackDelegate || cycleAllThroughTracking) x.contentLoader.addEventListener(Event.COMPLETE,onXMLLoaderComplete,false,0,true);
-				//return;
+				return;
 			}
 			
 			if(obj is Bandwidth)
@@ -372,12 +376,13 @@ package net.guttershark.managers
 				var b:Bandwidth = Bandwidth(obj);
 				edinfo[b.contentLoader] = edinfo[obj];
 				if(callbackPrefix + "Complete" in callbackDelegate || cycleAllThroughTracking) b.contentLoader.addEventListener(Event.COMPLETE, onBandwidthComplete,false,0,true);
-				//return;
+				return;
 			}
 			
 			if(obj is SoundManager)
 			{
-				if((callbackPrefix + "Change") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE, onSoundChange,false,0,true);
+				if((callbackPrefix + "Change") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE,onSoundChange,false,0,true);
+				return;
 			}
 			
 			for each(var objType:Class in handlers)
@@ -394,6 +399,14 @@ package net.guttershark.managers
 				}
 			}
 			
+			if(obj is Sound)
+			{
+				if((callbackPrefix + "Complete") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.COMPLETE,onSoundComplete,false,0,true);
+				if((callbackPrefix + "Progress") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ProgressEvent.PROGRESS,onSoundProgress,false,0,true);
+				if((callbackPrefix + "Open") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.OPEN,onSoundOpen,false,0,true);
+				if((callbackPrefix + "ID3") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.ID3,onSoundID3,false,0,true);
+			}
+			
 			if(obj is LoaderInfo || obj is URLLoader)
 			{
 				if((callbackPrefix + "Complete") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.COMPLETE, onLIComplete,false,0,true);
@@ -401,21 +414,21 @@ package net.guttershark.managers
 				if((callbackPrefix + "Unload") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.UNLOAD, onLIUnload,false,0,true);
 				if((callbackPrefix + "Init") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.INIT, onLIInit,false,0,true);
 				if((callbackPrefix + "Progress") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ProgressEvent.PROGRESS, onLIProgress,false,0,true);
-				//return;
+				return;
 			}
 			
 			if(obj is Timer)
 			{
 				if((callbackPrefix + "Timer") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(TimerEvent.TIMER, onTimer,false,0,true);
 				if((callbackPrefix + "TimerComplete") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete,false,0,true); 
-				//return;
+				return;
 			}
 			
 			if(obj is Camera || obj is Microphone)
 			{
 				if((callbackPrefix + "Activity") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ActivityEvent.ACTIVITY, onCameraActivity,false,0,true);
 				if((callbackPrefix + "Status") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(StatusEvent.STATUS, onCameraStatus,false,0,true);
-				///return;
+				return;
 			}
 			
 			if(obj is Socket)
@@ -423,19 +436,19 @@ package net.guttershark.managers
 				if((callbackPrefix + "Close") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CLOSE, onSocketClose,false,0,true);
 				if((callbackPrefix + "Connect") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CONNECT, onSocketConnect,false,0,true);
 				if((callbackPrefix + "SocketData") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(ProgressEvent.SOCKET_DATA, onSocketData,false,0,true);
-				//return;
+				return;
 			}
 			
 			if(obj is NetConnection)
 			{
 				if((callbackPrefix + "Status") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(StatusEvent.STATUS, onCameraStatus,false,0,true);
-				//return;
+				return;
 			}
 			
 			if(obj is NetStream)
 			{
 				if((callbackPrefix + "Status") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(StatusEvent.STATUS, onCameraStatus,false,0,true);
-				//return;
+				return;
 			}
 			
 			if(obj is FileReference)
@@ -445,10 +458,31 @@ package net.guttershark.managers
 				if((callbackPrefix + "Open") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.OPEN,onFROpen,false,0,true);
 				if((callbackPrefix + "Select") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.SELECT, onFRSelect,false,0,true);
 				if((callbackPrefix + "UploadCompleteData") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, onFRUploadCompleteData,false,0,true);
-				//return;
+				return;
 			}
 		}
 		
+		private function onSoundID3(e:Event):void
+		{
+			handleEvent(e,"ID3");
+		}
+		
+		private function onSoundProgress(pe:ProgressEvent):void
+		{
+			trace("progress");
+			handleEvent(pe,"Progress",true);
+		}
+		
+		private function onSoundComplete(e:Event):void
+		{
+			handleEvent(e,"Complete");
+		}
+		
+		private function onSoundOpen(e:Event):void
+		{
+			handleEvent(e,"Open");
+		}
+
 		public function handleEventsForObjects(callbackDelegate:*, objects:Array,prefixes:Array,returnEventObjects:Boolean = false,cycleThroughTracking:Boolean = false):void
 		{
 			var ol:int = objects.length;

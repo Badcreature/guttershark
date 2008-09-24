@@ -1,6 +1,7 @@
 package net.guttershark.util.cache
 {
-
+	import net.guttershark.util.Assertions;	
+	
 	import flash.utils.Dictionary;
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
@@ -31,14 +32,20 @@ package net.guttershark.util.cache
 		private var purgeAllInterval:int;
 		
 		/**
+		 * Assertions instance.
+		 */
+		private var ast:Assertions;
+
+		/**
 		 * Constructor for Cache instances.
 		 * 
-		 * @param	purgeAllTimeout	An interval that purges all items in the cache for every time the interval is called.
+		 * @param purgeAllTimeout An interval that purges all items in the cache for every time the interval is called.
 		 */
 		public function Cache(purgeAllInterval:int = -1)
 		{
 			if(purgeAllInterval > -1) purgeAllInterval = flash.utils.setInterval(purgeAll, purgeAllInterval);
 			cache = new Dictionary(true);
+			ast = Assertions.gi();
 		}
 		
 		/**
@@ -47,7 +54,8 @@ package net.guttershark.util.cache
 		public function purgeAll():void
 		{
 			//destroy all items in the cache
-			for each(var key:* in cache) cache[key].destroy();
+			var k:*;
+			for each(k in cache) CacheItem(cache[k]).dispose();
 			cache = new Dictionary(true);
 		}
 		
@@ -83,26 +91,31 @@ package net.guttershark.util.cache
 		/**
 		 * Purge one item.
 		 * 
-		 * @param	key		Any object that was used as the key to store the object.
+		 * @param key The key for the object that is stored.
 		 */
 		public function purgeItem(key:*):void
 		{
 			if(!cache[key]) return;
-			else if(cache[key]) cache[key] = null;
+			else if(cache[key])
+			{
+				var ci:CacheItem = CacheItem(cache[key]);
+				ci.dispose();
+				cache[key] = null;
+			}
 		}
 		
 		/**
 		 * Cache an object in memory.
 		 * 
-		 * @param	key	The key to store the object by.
-		 * @param	obj	The object data.
-		 * @param	expiresTimeout	The timeout to expire this item after.
-		 * @param	overwrite	Overwrite the previously cached item.
+		 * @param key The key to store the object by.
+		 * @param obj The object data.
+		 * @param expiresTimeout The timeout to expire this item after.
+		 * @param overwrite	Overwrite the previously cached item.
 		 */
 		public function cacheObject(key:*, obj:*, expiresTimeout:int = -1, overwrite:Boolean = false):void
 		{
-			if(!key) throw new ArgumentError("Key cannot be null");
-			if(!obj) throw new ArgumentError("The object to store cannot be null");
+			ast.notNil(key,"Parameter {key} cannot be null.");
+			ast.notNil(obj,"Parameter {obj} cannot be null.");
 			if(!cache[key] || overwrite)
 			{
 				var cacheItem:CacheItem = new CacheItem(key,obj,purgeItem,expiresTimeout);
@@ -113,27 +126,23 @@ package net.guttershark.util.cache
 		/**
 		 * Test whether or not an object is cached.
 		 * 
-		 * @return	True if the item is in cache. False if the item is not in cache.
+		 * @param key The key of the object that is cached.
 		 */
 		public function isCached(key:*):Boolean
 		{
-			if(!cache[key]) return false;
-			else return true;
+			return (!(cache[key]==null));
 		}
 		
 		/**
 		 * Get's a cached Object.
 		 * 
-		 * @return	The object in cache stored by the specified key.
+		 * @param key The key of the object that is cached.
 		 */
 		public function getCachedObject(key:*):*
 		{
-			if(!cache[key]) throw new Error("No cached item existed for " + key.toString() + " use the isCached() function before blindly calling getCachedItem");
-			if(cache[key])
-			{
-				var item:CacheItem = cache[key] as CacheItem;
-				return item.object;
-			}
+			ast.notNil(cache[key],"No cached item existed for " + key.toString() + " use the isCached() function before calling getCachedItem",Error);
+			var item:CacheItem = cache[key] as CacheItem;
+			return item.object;
 		}
 	}
 }

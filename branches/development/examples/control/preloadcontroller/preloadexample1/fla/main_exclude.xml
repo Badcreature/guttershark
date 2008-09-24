@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <excludeAssets>
+	<asset name="Main"/>
 	<asset name="net.guttershark.control.Frame1Controller"/>
 	<asset name="net.guttershark.control.PreloadController"/>
 	<asset name="net.guttershark.display.CoreSprite"/>
@@ -46,4 +47,5 @@
 	<asset name="net.guttershark.util.Utilities"/>
 	<asset name="net.guttershark.util.XMLLoader"/>
 	<asset name="fl.video.FLVPlayback"/>
+	<asset name="fl.video.VideoEvent"/>
 </excludeAssets>

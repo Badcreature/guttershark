@@ -139,12 +139,11 @@ package net.guttershark.support.preloading.workers
 		public var bytesTotal:Number = -1;
 		
 		/**
-		 * Interface compliance only.
+		 * Load an asset.
 		 * 
 		 * <p>This will throw an exception if you do not override the method.</p>
 		 * 
-		 * @param	asset	the asset to load.
-		 * @throws	Error	If the method is not overridden.
+		 * @param asset the asset to load.
 		 */
 		public function load(asset:Asset):void
 		{
@@ -167,7 +166,7 @@ package net.guttershark.support.preloading.workers
 		/** 
 		 * The event handler for the internal loaders open event.
 		 * 
-		 * @param	e	The open event from the internal loader.
+		 * @param e The open event from the internal loader.
 		 */
 		protected function onOpen(e:Event):void
 		{
@@ -177,7 +176,7 @@ package net.guttershark.support.preloading.workers
 		/**
 		 * The event handler for the internal loaders progress.
 		 * 
-		 * @param	pe		The progress event from the internal loader.
+		 * @param pe The progress event from the internal loader.
 		 */
 		protected function onProgress(pe:ProgressEvent):void
 		{
@@ -189,7 +188,7 @@ package net.guttershark.support.preloading.workers
 		/**
 		 * The event handler for the internal loaders http status event.
 		 * 
-		 * @param	hse		The status event from the internal loader.
+		 * @param hse The status event from the internal loader.
 		 */
 		protected function onHTTPStatus(hse:HTTPStatusEvent):void
 		{
@@ -204,7 +203,7 @@ package net.guttershark.support.preloading.workers
 		/**
 		 * The event handler for the internal loaders error event.
 		 * 
-		 * @param	e	The error event from the internal loader.
+		 * @param e The error event from the internal loader.
 		 */
 		protected function onIOLoadError(e:IOErrorEvent):void
 		{
@@ -216,7 +215,7 @@ package net.guttershark.support.preloading.workers
 		/**
 		 * The event handler for the internal loaders security error event.
 		 * 
-		 * @param	se	The security error event from the internal loader.
+		 * @param se The security error event from the internal loader.
 		 */
 		protected function onSecurityError(se:SecurityErrorEvent):void
 		{
@@ -228,7 +227,7 @@ package net.guttershark.support.preloading.workers
 		/**
 		 * The event handler for the internal loaders complete event.
 		 * 
-		 * @param	e	The event from the internal loaders complete event.
+		 * @param e The event from the internal loaders complete event.
 		 */
 		protected function onComplete(e:Event):void
 		{
@@ -254,19 +253,16 @@ package net.guttershark.support.preloading.workers
 		 */
 		protected function removeEventListeners():void
 		{
-			try
-			{
-				loader.removeEventListener(Event.OPEN, onOpen);
-				loader.removeEventListener(Event.COMPLETE, onComplete);
-				loader.removeEventListener(ProgressEvent.PROGRESS, onProgress);
-				loader.removeEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatus);
-				loader.removeEventListener(IOErrorEvent.IO_ERROR, onIOLoadError);
-				loader.removeEventListener(IOErrorEvent.DISK_ERROR, onIOLoadError);
-				loader.removeEventListener(IOErrorEvent.NETWORK_ERROR, onIOLoadError);
-				loader.removeEventListener(IOErrorEvent.VERIFY_ERROR, onIOLoadError);
-				loader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
-			}
-			catch(e:*){}
+			if(!loader) return;
+			loader.removeEventListener(Event.OPEN, onOpen);
+			loader.removeEventListener(Event.COMPLETE, onComplete);
+			loader.removeEventListener(ProgressEvent.PROGRESS, onProgress);
+			loader.removeEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatus);
+			loader.removeEventListener(IOErrorEvent.IO_ERROR, onIOLoadError);
+			loader.removeEventListener(IOErrorEvent.DISK_ERROR, onIOLoadError);
+			loader.removeEventListener(IOErrorEvent.NETWORK_ERROR, onIOLoadError);
+			loader.removeEventListener(IOErrorEvent.VERIFY_ERROR, onIOLoadError);
+			loader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
 		}
 		
 		/**
