@@ -132,4 +132,5 @@ package net.guttershark.util
 			setters = SetterUtils.gi();
 			filters = FilterUtils.gi();
 			player = PlayerUtils.gi();
+			math = MathUtils.gi();
 		}	}}

@@ -19,7 +19,7 @@ package net.guttershark.util
 	 * 
 	 * //array style - this is nice when you want to group
 	 * //display objects to you can quickly toggle a property.
-	 * su.visible(true,mcref);
+	 * su.visible(false,mcref);
 	 * </listing>
 	 * 
 	 * @see net.guttershark.util.Utilities Utilities class.

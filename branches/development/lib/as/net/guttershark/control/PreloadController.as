@@ -393,7 +393,7 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * Resets internal state. 
+		 * Resets internal state.
 		 */
 		public function reset():void
 		{

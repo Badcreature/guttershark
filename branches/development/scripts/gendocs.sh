@@ -17,7 +17,6 @@ ${ASDOC}asdoc \
 -output ./docs/ \
 -exclude-classes com.asual.swfaddress.SWFAddress \
 -exclude-classes com.asual.swfaddress.SWFAddressEvent \
--exclude-classes net.guttershark.display.video.FLV \
 -exclude-classes net.guttershark.display.video.FLVPlayer \
 -exclude-classes fl.events.ColorPickerEvent \
 -exclude-classes fl.events.ComponentEvent \

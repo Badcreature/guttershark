@@ -46,11 +46,11 @@ package net.guttershark.support.preloading.workers
 		 */
 		override protected function onComplete(e:Event):void
 		{
-			removeEventListeners();
 			var sheet:StyleSheet = new StyleSheet();
 			sheet.parseCSS(loader.data);
 			asset.data = sheet;
 			dispatchEvent(new AssetCompleteEvent(AssetCompleteEvent.COMPLETE, asset));
 			asset = null;
 			try{loader.close();}catch(error:*){}
+			dispose();
 		}	}}

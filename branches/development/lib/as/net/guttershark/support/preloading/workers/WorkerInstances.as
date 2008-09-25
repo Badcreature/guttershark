@@ -52,6 +52,7 @@ package net.guttershark.support.preloading.workers
 		public static function RegisterDefaultWorkers():void
 		{
 			if(defaultsRegistered) return;
+			if(!workerKlasses) workerKlasses = new Dictionary(true);
 			RegisterWorkerForFileType("jpg",BitmapWorker);
 			RegisterWorkerForFileType("jpeg",BitmapWorker);
 			RegisterWorkerForFileType("png",BitmapWorker);
@@ -70,19 +71,18 @@ package net.guttershark.support.preloading.workers
 		 * Registers a worker for a file type. The file type string should be a file extension 
 		 * less the period. EX: "jpg","jpeg", etc.
 		 * 
-		 * @param	fileType	The file type to register the worker too
-		 * @param	workerKlass	The worker class to use for the specified file type. This must be a class reference.
+		 * @param fileType The file type to register the worker too
+		 * @param workerKlass The worker class to use for the specified file type. This must be a class reference.
 		 */
 		public static function RegisterWorkerForFileType(fileType:String, workerKlass:Class):void
-		{
-			if(!workerKlasses) workerKlasses = new Dictionary(true);
+		{			
 			workerKlasses[fileType] = workerKlass;
 		}
 		
 		/**
 		 * Get an instance of the worker specified by type.
 		 * 
-		 * @param	fileType	The type of the worker. EX: 'bitmap', or 'swf', etc. The Worker must
+		 * @param fileType The type of the worker. EX: 'bitmap', or 'swf', etc. The Worker must
 		 * have been registered previously before getting an instnace of it.
 		 */
 		public static function GetWorkerInstance(fileType:String):Worker
