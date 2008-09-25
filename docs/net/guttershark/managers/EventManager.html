@@ -1,0 +1,578 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="EventManager,net.guttershark.managers.EventManager,addEventListenerDelegate,disposeEvents,disposeEventsForObject,disposeEventsForObjects,gi,handleEvents,handleEventsForObjects,he" name="keywords">
+<title>net.guttershark.managers.EventManager</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'EventManager - Guttershark Flash API Docs';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?net/guttershark/managers/EventManager.html&amp;net/guttershark/managers/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;EventManager</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class EventManager"); titleBar_setSubNav(false,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.managers</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public final  class EventManager</td>
+</tr>
+</table>
+<p></p>
+  The EventManager class simplifies events and provides shortcuts for event listeners 
+  for AS3 top level classes, guttershark classes, and component events on
+  an opt-in basis. Depending on the callbacks you have defined in your callback delegate,
+  event listeners will be added to the object. So this means that not all events will
+  be listened for, only ones with callback functions defined.
+  
+  <p>Events can also be cycled through the javascript tracking framework. You can
+  send all events that exist for an object through the tracking framework, or - (by
+  default), only send the events through tracking that you have callbacks defined for.</p>
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>Using EventManager with a MovieClip.
+  <div class='listing'><pre> 
+  import net.guttershark.managers.EventManager;
+  
+  public class Main extends Sprite
+  {
+  
+     private var em:EventManager;
+     private var mc:MovieClip;
+     
+     public function Main()
+     {
+        super();
+        em = EventManager.gi();
+        mc = new MovieClip();
+        mc.graphics.beginFill(0xFF0066);
+        mc.graphics.drawCircle(200, 200, 100);
+        mc.graphics.endFill();
+        em.handleEvents(mc,this,"onCircle");
+        addChild(mc);
+     }
+     
+     public function onCircleClick():void
+     {
+        trace("circle click");
+     }
+     
+     public function onCircleAddedToStage():void
+     {
+         trace("my circle was added to stage");
+     }
+  }
+  </pre></div>
+  
+  <p>Callback methods are defined by the prefix you give to the <em><code>handleEvents</code></em>
+  method, plus the event name.</p>
+  
+  <p></p>How callbacks must be defined:
+  <div class='listing'><pre> 
+  import net.guttershark.managers.EventManager;
+  
+  var em:EventManager = EventManager.gi();
+  var mc:MovieClip = new MovieClip();
+  
+  em.handleEvents(mc,this,"onMyMC",false,true); //onMyMC is the "prefix"
+  
+  function onMyMCClick():void{} //Click is the Event -> so the callback must be defined like prefix+event -> onMyMCClick
+  
+  //to define a handler for MouseMove, the prefix is "onMyMC" the event is "MouseMove".
+  function onMyMCMouseMove():void{}
+  </pre></div>
+  
+  <p>Passing the originating event object back to your callback is optional, but there are a few
+  events that are not optional, because they contain information you probably need.
+  The non-negotiable events are listed below.</p>
+  
+  <p>EventManager also supports adding your own EventListenerDelegate, this is how
+  component support is available. There are custom EventListenerDelegates for 
+  components so you don't have to compile every one into your swf. This also
+  allows you to extend the EventManager to support your own classes that dispatch events.</p>
+  
+  <p></p>Adding support for event handler delegate of an FLVPlayback component:
+  <div class='listing'><pre> 
+  import net.guttershark.managers.EventManager;
+  import net.guttershark.support.eventmanager.FLVPlaybackEventListenerDelegate;
+  var em:EventManager = EventManager.gi();
+  em.addEventListenerDelegate(FLVPlayback,FLVPlaybackEventListenerDelegate);
+  em.handleEvents(myFLVPlayback,this,"onMyFLVPlayback");
+  </pre></div>
+  
+  <p></p>Adding support for tracking (only the click event will go through tracking):
+  <div class='listing'><pre> 
+  import net.guttershark.managers.EventManager;
+  var em:EventManager = EventManager.gi();
+  var mc:MovieClip = new MovieClip();
+  em.handleEvents(mc,this,"onMyMC",false,true);
+  function onMyMCClick(){}
+  </pre></div>
+  
+  <p></p>Adding support for tracking (all events cycle through tracking):
+  <div class='listing'><pre> 
+  import net.guttershark.managers.EventManager;
+  var em:EventManager = EventManager.gi();
+  var mc:MovieClip = new MovieClip();
+  em.handleEvents(mc,this,"onMyMC",false,false,<strong>true</strong>);
+  function onMyMCClick(){}
+  </pre></div>
+  
+  <p>In the above example, even though a callback is only defined for the click event,
+  all events from the object will be fire through tracking - with the usual prefix+eventName
+  as the id for the tracking call.</p>
+  
+  <p></p>Using the EventManager in a loop situation for unique tracking:
+  <div class='listing'><pre> 
+  import net.guttershark.managers.EventManager;
+  var em:EventManager = EventManager.gi();
+  for(var i:int = 0; i < myClips.length; i++)
+  {
+      em.handleEvents(myClips[i],this,"onClip",false,true,false,"onClip"+i.toString());
+  }
+  function onClipClick()
+  {
+  }
+  </pre></div>
+  
+  <p></p>Tracking xml file example for the above example.
+  <div class='listing'><pre> 
+  &lt;tracking&gt;
+      &lt;track id="onClipClick0"&gt;
+          &lt;atlas&gt;...&lt;/atlas&gt;
+          &lt;webtrends&gt;...&lt;/webtrends&gt;
+      &lt;/track&gt;
+      &lt;track id="onClipClick1"&gt;
+          &lt;atlas&gt;...&lt;/atlas&gt;
+          &lt;webtrends&gt;...&lt;/webtrends&gt;
+      &lt;/track&gt;
+  &lt;/tracking&gt;
+  </pre></div>
+  
+  <p>Supported TopLevel Flashplayer Objects and Events:</p>
+  <table border='1'>
+  <tr bgcolor="#999999"><td width="200"><strong>Object</strong></td><td><strong>Events</strong></td></tr>
+  <tr><td>DisplayObject</td><td>Added,AddedToStage,Activate,Deactivate,Removed,RemovedFromStage</td>
+  <tr><td>InteractiveObject</td><td>Click,DoubleClick,MouseUp,MouseDown,MouseMove,MouseOver,MouseWheel,MouseOut,FocusIn,<br/>
+  FocusOut,KeyFocusChange,MouseFocusChange,TabChildrenChange,TabIndexChange,TabEnabledChange</td></tr>
+  <tr><td>Stage</td><td>Resize,Fullscreen,MouseLeave</td></tr>
+  <tr><td>TextField</td><td>Change,Link</td></tr>
+  <tr><td>Timer</td><td>Timer,TimerComplete</td></tr>
+  <tr><td>Socket</td><td>Connect,Close,SocketData</td></tr>
+  <tr><td>LoaderInfo</td><td>Complete,Unload,Init,Open,Progress</td></tr>
+  <tr><td>Camera</td><td>Activity,Status</td></tr>
+  <tr><td>Microphone</td><td>Activity,Status</td></tr>
+  <tr><td>NetConnection</td><td>Status</td></tr>
+  <tr><td>NetStream</td><td>Status</td></tr>
+  <tr><td>FileReference</td><td>Cancel,Complete,Open,Select,UploadCompleteData</td></tr>
+  <tr><td>Sound</td><td>Progress,Complete,ID3,Open</td></tr>
+  </table>
+  
+  <p>Supported Guttershark Classes:</p>
+  <table border='1'>
+  <tr bgcolor="#999999"><td width="200"><strong>Object</strong></td><td width="200"><strong>EventListenerDelegate</strong></td><td><strong>Events</strong></td></tr>
+  <tr><td>PreloadController</td><td>NA</td><td>Complete,Progress,AssetComplete,AssetError</td></tr>
+  <tr><td>XMLLoader</td><td>NA</td><td>Complete</td></tr>
+  <tr><td>SoundManager</td><td>NA</td><td>Change</td></tr>
+  </table>
+  
+  <p>Supported Components:</p>
+  <table border='1'>
+  <tr bgcolor="#999999"><td width="200"><strong>Component</strong></td><td width="200"><strong>EventHandlerDelegate</strong></td><td><strong>Events</strong></td></tr>
+  <tr><td>FLVPlayback</td><td>FLVPlaybackEventDelegate</td><td>Play,Pause,Stopped,PlayheadUpdate,StateChange,AutoRewound,Close,Complete,FastForward,Rewind,<br/>
+  SkinLoaded,Seeked,ScrubStart,ScrubFinish,Ready,BufferState</td></tr>
+  <tr><td>Button (Inherits Events)</td><td>Change,LabelChange,ButtonDown</td><td></td></tr>
+  </table>
+  
+  <p>To support any of those components, you need to add the EventListenerDelegate for the
+  target component to the event manager. See the example above for using the FLVPlaybackEventDelegate</p>
+  
+  <p>Non-negotiable event types that always pass event objects to your callbacks:</p>
+  <ul>
+  <li>AssetErrorEvent.ERROR</li>
+  <li>AssetCompleteEvent.COMPLETE</li>
+  <li>ActivityEvent.ACTIVITY</li>
+  <li>ColorPickerEvent.CHANGE</li>
+  <li>ComponentEvent.LABEL_CHANGE</li>
+  <li>DataEvent.UPLOAD_COMPLETE_DATA</li>
+  <li>KeyboardEvent.KEY_UP</li>
+  <li>KeyboardEvent.KEY_DOWN</li>
+  <li>MouseEvent.MOUSE_WHEEL</li>
+  <li>PreloadProgressEvent.PROGRESS</li>
+  <li>ScrollEvent.SCROLL</li>
+  <li>StatusEvent.STATUS</li>
+  <li>TextEvent.LINK</li>
+  <li>VideoEvent.PLAYHEAD_UPDATE</li>
+  </ul>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addEventListenerDelegate()">addEventListenerDelegate</a>(klassOfObject:Class, klassHandler:Class):void</div>
+<div class="summaryTableDescription">
+   Add a custom EventListenerDelegate - the class must be 
+   an implementation of EventListenerDelegate.</div>
+</td><td class="summaryTableOwnerCol">EventManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#disposeEvents()">disposeEvents</a>(obj:IEventDispatcher):void</div>
+<div class="summaryTableDescription">
+   A shorcut for the disposeEventsForObject method, this will used
+   in favor of the latter in 1.0.</div>
+</td><td class="summaryTableOwnerCol">EventManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#disposeEventsForObject()">disposeEventsForObject</a>(obj:IEventDispatcher):void</div>
+<div class="summaryTableDescription">
+   Dispose of events for an object that was being managed by this event manager.</div>
+</td><td class="summaryTableOwnerCol">EventManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#disposeEventsForObjects()">disposeEventsForObjects</a>(... objects):void</div>
+<div class="summaryTableDescription">
+   Dispose of events for multiple objects.</div>
+</td><td class="summaryTableOwnerCol">EventManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#gi()">gi</a>():<a href="../managers/EventManager.html">EventManager</a>
+</div>
+<div class="summaryTableDescription">[static]
+   Singleton access.</div>
+</td><td class="summaryTableOwnerCol">EventManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#handleEvents()">handleEvents</a>(obj:IEventDispatcher, callbackDelegate:String, callbackPrefix:Boolean, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:String = "false", trackingID:* = null):void</div>
+<div class="summaryTableDescription">
+   Add auto event handling for the target object.</div>
+</td><td class="summaryTableOwnerCol">EventManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#handleEventsForObjects()">handleEventsForObjects</a>(callbackDelegate:*, objects:Array, prefixes:Array, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false):void</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">EventManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#he()">he</a>(obj:IEventDispatcher, callbackDelegate:String, callbackPrefix:Boolean, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:String = "false", trackingID:* = null):void</div>
+<div class="summaryTableDescription">
+   A shortcut for the <em><code>handleEvents</em></code> method.</div>
+</td><td class="summaryTableOwnerCol">EventManager</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="addEventListenerDelegate()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addEventListenerDelegate</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addEventListenerDelegate(klassOfObject:Class, klassHandler:Class):void</code><p>
+   Add a custom EventListenerDelegate - the class must be 
+   an implementation of EventListenerDelegate.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">klassOfObject</span>:Class</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">klassHandler</span>:Class</code></td>
+</tr>
+</table>
+</div>
+<a name="disposeEvents()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">disposeEvents</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function disposeEvents(obj:IEventDispatcher):void</code><p>
+   A shorcut for the disposeEventsForObject method, this will used
+   in favor of the latter in 1.0.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:IEventDispatcher</code> &mdash; The object in which events are being managed.
+   </td>
+</tr>
+</table>
+</div>
+<a name="disposeEventsForObject()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">disposeEventsForObject</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function disposeEventsForObject(obj:IEventDispatcher):void</code><p>
+   Dispose of events for an object that was being managed by this event manager.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:IEventDispatcher</code> &mdash; The object in which events are being managed.
+   </td>
+</tr>
+</table>
+</div>
+<a name="disposeEventsForObjects()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">disposeEventsForObjects</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function disposeEventsForObjects(... objects):void</code><p>
+   Dispose of events for multiple objects.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code>... <span class="label">objects</span></code> &mdash; An array of objects whose events should be disposed of.
+   </td>
+</tr>
+</table>
+</div>
+<a name="gi()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">gi</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function gi():<a href="../managers/EventManager.html">EventManager</a></code><p>
+   Singleton access.
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../managers/EventManager.html">EventManager</a></code></td>
+</tr>
+</table>
+</div>
+<a name="handleEvents()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">handleEvents</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function handleEvents(obj:IEventDispatcher, callbackDelegate:String, callbackPrefix:Boolean, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:String = "false", trackingID:* = null):void</code><p>
+   Add auto event handling for the target object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:IEventDispatcher</code> &mdash; The object to add event listeners to.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">callbackDelegate</span>:String</code> &mdash; The object in which your callback methods are defined.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">callbackPrefix</span>:Boolean</code> &mdash; A prefix for all callback function definitions.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">returnEventObjects</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Whether or not to pass the origin event objects back to your callbacks (with exception of non-negotiable event types).
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">cycleThroughTracking</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; For every event that is handled, pass the same event through the tracking framework. Only events that have callbacks will be passed through tracking.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">cycleAllThroughTracking</span>:String</code> (default = "<code>false</code>")<code></code> &mdash; Automatically adds listeners for every event that the target object dispatches, in order to grab every 
+   event and pass to tracking, without requiring you to have a callback method defined on your callbackDelegate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">trackingID</span>:*</code> (default = <code>null</code>)<code></code> &mdash; Define a custom trackingID to pass through the tracking framework. For events dispatched from the provided object. The id
+   is made up your tracking id + the acual event.
+   </td>
+</tr>
+</table>
+</div>
+<a name="handleEventsForObjects()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">handleEventsForObjects</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function handleEventsForObjects(callbackDelegate:*, objects:Array, prefixes:Array, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">callbackDelegate</span>:*</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">objects</span>:Array</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">prefixes</span>:Array</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">returnEventObjects</span>:Boolean</code> (default = <code>false</code>)<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">cycleThroughTracking</span>:Boolean</code> (default = <code>false</code>)<code></code></td>
+</tr>
+</table>
+</div>
+<a name="he()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">he</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function he(obj:IEventDispatcher, callbackDelegate:String, callbackPrefix:Boolean, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:String = "false", trackingID:* = null):void</code><p>
+   A shortcut for the <em><code>handleEvents</em></code> method.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:IEventDispatcher</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">callbackDelegate</span>:String</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">callbackPrefix</span>:Boolean</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">returnEventObjects</span>:Boolean</code> (default = <code>false</code>)<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">cycleThroughTracking</span>:Boolean</code> (default = <code>false</code>)<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">cycleAllThroughTracking</span>:String</code> (default = "<code>false</code>")<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">trackingID</span>:*</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../managers/EventManager.html#handleEvents()" target="">handleEvents()</a>
+</div>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

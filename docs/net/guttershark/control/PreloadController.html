@@ -1,0 +1,596 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="PreloadController,net.guttershark.control.PreloadController,lastCompletedAsset,numLeft,working,pixelsToFill,addItems,addPrioritizedItems,dispose,prioritize,reset,start,stop" name="keywords">
+<title>net.guttershark.control.PreloadController</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'PreloadController - Guttershark Flash API Docs';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?net/guttershark/control/PreloadController.html&amp;net/guttershark/control/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;PreloadController</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class PreloadController"); titleBar_setSubNav(false,true,false,false,true,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.control</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public final  class PreloadController</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">PreloadController <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> flash.events.EventDispatcher</td>
+</tr>
+</table>
+<p></p>
+  The PreloadController class is a controller you use for loading Assets - it provides you
+  with methods for starting, stopping, pausing, resuming and prioritizing of assets, 
+  and registers all loaded assets with the AssetManager.
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>Using the preload controller:
+  <div class='listing'><pre>  
+  import net.guttershark.control.PreloadController;
+  import net.guttershark.managers.AssetManager;
+  import net.guttershark.managers.EventManager;
+  import net.guttershark.support.preloading.Asset;
+  
+  public class PreloaderTest extends DocumentController 
+  {
+     
+     public var preloader:MovieClip;
+     
+     public function PreloaderTest()
+     {
+         super();
+     }
+     
+     private function setupComplete():void
+     {
+         pc = new PreloadController(400);
+         var assets:Array = [
+            new Asset("assets/jpg1.jpg","jpg1"),
+            new Asset("assets/jpg2.jpg","jpg2"), 
+            new Asset("assets/png1.png","png1"),
+            new Asset("assets/png2.png","png2"),
+            new Asset("swfload_test.swf","swf1"),
+            new Asset("assets/sound1.mp3","snd1"),
+            new Asset("assets/Pizza_Song.flv","pizza")
+        ];
+        pc.addItems(assets);
+        em.handleEvents(pc,this,"onPC",true);
+        pc.prioritize(assets[4]); //prioritize the swf.
+        pc.start(); //start it;
+        pc.stop(); //pause it
+        setTimeout(pc.start,4000); //resume it
+     }
+     
+     private function onPCProgress(pe:PreloadProgressEvent):void
+     {
+         trace(pe.toString());
+         preloader.width = pe.pixels
+     }
+     
+     private function onPCAssetComplete(e:AssetCompleteEvent):void
+     {
+         trace(e.toString());
+     }
+     
+     private function onPCComplete(e:Event):void
+     {
+         addChild(am.getMovieClipFromSWFLibrary("swf1", "Test"));
+         addChild(am.getBitmap("jpg1"));
+     }
+  }
+  </pre></div>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#lastCompletedAsset">lastCompletedAsset</a> : <a href="../support/preloading/Asset.html">Asset</a>
+<div class="summaryTableDescription">[read-only]
+   The last completed asset.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#numLeft">numLeft</a> : int<div class="summaryTableDescription">[read-only]
+   The number of items left in the preload queue.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#pixelsToFill">pixelsToFill</a> : int<div class="summaryTableDescription">[write-only]
+   Set the number of pixels to fill, useful if
+   the pixel calculations need to change.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#working">working</a> : Boolean<div class="summaryTableDescription">[read-only]
+   Indicates whether or not this controller is doing any preloading.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#PreloadController()">PreloadController</a>(pixelsToFill:int = 100)</div>
+<div class="summaryTableDescription">
+   Constructor for PreloadController instances.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addItems()">addItems</a>(items:Array):void</div>
+<div class="summaryTableDescription">
+   Add items to the controller to load - if the preloader is currently working,
+   these items will be appended to the items to load.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addPrioritizedItems()">addPrioritizedItems</a>(items:Array):void</div>
+<div class="summaryTableDescription">
+   Add items to the controller to load, with top priority.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#dispose()">dispose</a>():void</div>
+<div class="summaryTableDescription">
+   Dispose of this preloadController.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#prioritize()">prioritize</a>(asset:<a href="../support/preloading/Asset.html">Asset</a>):void</div>
+<div class="summaryTableDescription">
+   Prioritize an asset.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#reset()">reset</a>():void</div>
+<div class="summaryTableDescription">
+   Resets internal state.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#start()">start</a>():void</div>
+<div class="summaryTableDescription">
+   Starts loading the assets, and resumes loading from a stopped state.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stop()">stop</a>():void</div>
+<div class="summaryTableDescription">
+   Stops this preload controller from loading assets, if there is
+   an asset currently loading, that asset will finish loading, but the
+   controller will not continue after that.</div>
+</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+</table>
+</div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetComplete">assetComplete</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched for each asset that has completed downloading.</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetError">assetError</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched for each asset that has has stopped downloading because of an error.</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetOpen">assetOpen</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched for each asset that has started downloading.</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetProgress">assetProgress</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched for each asset that is downloading.</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:assetStatus">assetStatus</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched for each asset that generated an http status code other than 0 or 200.</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:complete">complete</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched when the preload controller completes downloading all assets in the queue.</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:preloadProgress">preloadProgress</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+  Dispatched on progress of the entire PreloadController progress.</td><td class="summaryTableOwnerCol">PreloadController</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="lastCompletedAsset"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">lastCompletedAsset</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>lastCompletedAsset:<a href="../support/preloading/Asset.html">Asset</a></code>&nbsp;&nbsp;[read-only]<p>
+   The last completed asset.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get lastCompletedAsset():<a href="../support/preloading/Asset.html">Asset</a></code>
+<br>
+</div>
+<a name="numLeft"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">numLeft</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>numLeft:int</code>&nbsp;&nbsp;[read-only]<p>
+   The number of items left in the preload queue.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get numLeft():int</code>
+<br>
+</div>
+<a name="pixelsToFill"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">pixelsToFill</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>pixelsToFill:int</code>&nbsp;&nbsp;[write-only]<p>
+   Set the number of pixels to fill, useful if
+   the pixel calculations need to change.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set pixelsToFill(value:int):void</code>
+<br>
+</div>
+<a name="working"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">working</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>working:Boolean</code>&nbsp;&nbsp;[read-only]<p>
+   Indicates whether or not this controller is doing any preloading.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get working():Boolean</code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="PreloadController()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">PreloadController</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function PreloadController(pixelsToFill:int = 100)</code><p>
+   Constructor for PreloadController instances.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">pixelsToFill</span>:int</code> (default = <code>100</code>)<code></code> &mdash; pixelsToFill The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
+   
+   </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">PreloadProgressEvent event</div>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="addItems()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addItems</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addItems(items:Array):void</code><p>
+   Add items to the controller to load - if the preloader is currently working,
+   these items will be appended to the items to load.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">items</span>:Array</code> &mdash; An array of Asset instances.
+   
+   </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">Asset class</div>
+</div>
+<a name="addPrioritizedItems()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addPrioritizedItems</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addPrioritizedItems(items:Array):void</code><p>
+   Add items to the controller to load, with top priority.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">items</span>:Array</code> &mdash; An array of Asset instances.
+   </td>
+</tr>
+</table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">Asset class</div>
+</div>
+<a name="dispose()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dispose</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function dispose():void</code><p>
+   Dispose of this preloadController.
+   </p></div>
+<a name="prioritize()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">prioritize</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function prioritize(asset:<a href="../support/preloading/Asset.html">Asset</a>):void</code><p>
+   Prioritize an asset.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">asset</span>:<a href="../support/preloading/Asset.html">Asset</a></code> &mdash; An asset instance that is in the queue to be loaded.
+   </td>
+</tr>
+</table>
+</div>
+<a name="reset()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">reset</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function reset():void</code><p>
+   Resets internal state.
+   </p></div>
+<a name="start()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">start</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function start():void</code><p>
+   Starts loading the assets, and resumes loading from a stopped state.
+   
+   </p><p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../control/PreloadController.html#stop()" target="">stop method</a>
+</div>
+</div>
+<a name="stop()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stop</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stop():void</code><p>
+   Stops this preload controller from loading assets, if there is
+   an asset currently loading, that asset will finish loading, but the
+   controller will not continue after that.
+   
+   </p><p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../control/PreloadController.html#start()" target="">start method</a>
+</div>
+</div>
+<div class="detailSectionHeader">Event detail</div>
+<a name="event:assetComplete"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetComplete</td><td class="detailHeaderType">event&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../support/preloading/events/AssetCompleteEvent.html"><code>net.guttershark.support.preloading.events.AssetCompleteEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched for each asset that has completed downloading.
+  
+  </p></div>
+<a name="event:assetError"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetError</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../support/preloading/events/AssetErrorEvent.html"><code>net.guttershark.support.preloading.events.AssetErrorEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched for each asset that has has stopped downloading because of an error.
+  
+  </p></div>
+<a name="event:assetOpen"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetOpen</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../support/preloading/events/AssetOpenEvent.html"><code>net.guttershark.support.preloading.events.AssetOpenEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched for each asset that has started downloading.
+  
+  </p></div>
+<a name="event:assetProgress"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetProgress</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../support/preloading/events/AssetProgressEvent.html"><code>net.guttershark.support.preloading.events.AssetProgressEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched for each asset that is downloading.
+  
+  </p></div>
+<a name="event:assetStatus"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">assetStatus</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../support/preloading/events/AssetStatusEvent.html"><code>net.guttershark.support.preloading.events.AssetStatusEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched for each asset that generated an http status code other than 0 or 200.
+  
+  </p></div>
+<a name="event:complete"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">complete</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href=""><code>flash.events.Event</code></a>
+<br>
+<p></p><p>
+  Dispatched when the preload controller completes downloading all assets in the queue.
+  
+  </p></div>
+<a name="event:preloadProgress"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">preloadProgress</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../support/preloading/events/PreloadProgressEvent.html"><code>net.guttershark.support.preloading.events.PreloadProgressEvent</code></a>
+<br>
+<p></p><p>
+  Dispatched on progress of the entire PreloadController progress.
+  
+  </p></div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

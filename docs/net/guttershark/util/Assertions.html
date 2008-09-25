@@ -1,0 +1,951 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="Assertions,net.guttershark.util.Assertions,onAssertionFail,compatible,contains,different,emptyString,equal,gi,greater,nil,nilOrEmpty,notCompatible,notEmptyString,notNil,notNilOrEmpty,notNumberString,numberString,smaller" name="keywords">
+<title>net.guttershark.util.Assertions</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Assertions - Guttershark Flash API Docs';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?net/guttershark/util/Assertions.html&amp;net/guttershark/util/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Assertions</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Assertions"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.util</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public final  class Assertions</td>
+</tr>
+</table>
+<p></p>
+  The Assertions class is a singleton that provides assertions for conditionals,
+  and relieve's defensive programming for methods that require arguments.
+  
+  <p>All of the methods can be used for conditional assertions.</p>
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>Using assertions for conditionals:
+  
+  <div class='listing'><pre> 
+  var ast:Assertions = Assertions.gi();
+  var t:String = " ";
+  if(ast.emptyString(t)) trace("it's empty");
+  t = "word";
+  if(ast.emptyString(t)) trace("doh"); //this wont trace, because the assertion evaluates to false.
+  </pre></div>
+  
+  <p>You can also use the assertion class as defense when checking for valid
+  method arguments and throw errors.</p>
+  
+  <p></p>Using the assertions class for method argument defense:
+  <div class='listing'><pre> 
+  var ast:Assertions = Assertions.gi();
+  function setSomething(val:Number):void
+  {
+      ast.notNull(val,"Parameter val cannot be null"); //throws argument error if val is null
+      somthing = val;
+  }
+  </pre></div>
+  
+  <p>You can also change the exception type that get's thrown if an assertion fails.</p>
+  <p></p>Changing the exception type:
+  <div class='listing'><pre> 
+  var ast:Assertions = Assertions.gi();
+  function setSomething(mc:MovieClip):void
+  {
+     ast.compatible(mc,MovieClip,"Parameter val must be a MovieClip",TypeError);
+  }
+  </pre></div>
+  
+  <p></p>Extended example:
+  <div class='listing'><pre> 
+  public class MyMC extends CoreClip
+  {
+      
+      //protected var ast:Assertion; //ast is a protected variable on CoreClip, and CoreSprite.
+      
+      public function setSomeValue(value:Object):void
+      {
+          ast.notNil(value,"Parameter value cannot be null"); //argument error if value is null
+      }
+      
+      public function setSomeArray(array:Array):void
+      {
+          ast.notNilOrEmpty(array,"Parameter array cannot be null"); //argument error if array is null or length==0
+      }
+  }
+  </pre></div>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#onAssertionFail">onAssertionFail</a> : Function<div class="summaryTableDescription">
+   A function delegate you can define, which will
+   be called when an assertion fails - this is intended
+   to be used if you wanted to post the assertion
+   to an http service for logging errors.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#compatible()">compatible</a>(obj:*, type:Class, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert if an object is compatible with another type.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#contains()">contains</a>(str:String, pat:String, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert that a string contains another string.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#different()">different</a>(value:*, otherValue:String, message:Class = null, exceptionType:* = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert that a value is defferent from another value.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#emptyString()">emptyString</a>(str:String, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert a string as being empty (zero characters or all spaces).</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#equal()">equal</a>(value:*, otherValue:String, message:Class = null, exceptionType:* = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert that a value is equal to another value.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#gi()">gi</a>():<a href="../util/Assertions.html">Assertions</a>
+</div>
+<div class="summaryTableDescription">[static]
+   Singleton access.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#greater()">greater</a>(value:Number, minimum:Number = -1, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert that a value is greater than a minimum number.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#nil()">nil</a>(obj:*, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert if an object is nil.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#nilOrEmpty()">nilOrEmpty</a>(array:Array, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert if an Array is nil or empty.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#notCompatible()">notCompatible</a>(obj:*, type:Class, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert if an object is not compatible with another type.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#notEmptyString()">notEmptyString</a>(str:String, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert a string as being not empty (zero characters or all spaces).</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#notNil()">notNil</a>(object:*, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert if an object is not nil.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#notNilOrEmpty()">notNilOrEmpty</a>(array:Array, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert if an Array is not nil or empty.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#notNumberString()">notNumberString</a>(str:String, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert that a string does not have all number characters.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#numberString()">numberString</a>(str:String, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert that a string has all number characters.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#smaller()">smaller</a>(value:Number, maxmimum:Number = 0, message:String = null, exceptionType:Class = null):Boolean</div>
+<div class="summaryTableDescription">
+   Assert that a value is smaller than a maximum number.</div>
+</td><td class="summaryTableOwnerCol">Assertions</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="onAssertionFail"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onAssertionFail</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var onAssertionFail:Function</code><p>
+   A function delegate you can define, which will
+   be called when an assertion fails - this is intended
+   to be used if you wanted to post the assertion
+   to an http service for logging errors.
+   
+   </p><br>
+<span class="label">Example</span>
+<br>Using the onAssertionFail delegate:
+   <div class='listing'><pre> 
+   var ast:Assertions = Assertions.gi();
+   ast.onAssertionFail = onAssertionFail;
+   private function onAssertionFail(msg:String):void
+   {
+       trace(msg);
+   }
+   </pre></div>
+   <p></p>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="compatible()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">compatible</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function compatible(obj:*, type:Class, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert if an object is compatible with another type.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:*</code> &mdash; The object to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:Class</code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="contains()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">contains</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function contains(str:String, pat:String, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert that a string contains another string.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">str</span>:String</code> &mdash; The string to search in.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">pat</span>:String</code> &mdash; The pattern that will be searched for in str.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="different()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">different</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function different(value:*, otherValue:String, message:Class = null, exceptionType:* = null):Boolean</code><p>
+   Assert that a value is defferent from another value.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">value</span>:*</code> &mdash; The value to test.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">otherValue</span>:String</code> &mdash; The other value to compare with value (this is actually typed as &#42, but asdocs changes it to String for some reason).
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:*</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="emptyString()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">emptyString</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function emptyString(str:String, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert a string as being empty (zero characters or all spaces).
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">str</span>:String</code> &mdash; The string to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="equal()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">equal</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function equal(value:*, otherValue:String, message:Class = null, exceptionType:* = null):Boolean</code><p>
+   Assert that a value is equal to another value.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">value</span>:*</code> &mdash; The value to test.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">otherValue</span>:String</code> &mdash; The other value to compare with value (this is actually typed as &#42;, but asdocs changes it to String for some reason).
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:*</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="gi()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">gi</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function gi():<a href="../util/Assertions.html">Assertions</a></code><p>
+   Singleton access.
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../util/Assertions.html">Assertions</a></code></td>
+</tr>
+</table>
+</div>
+<a name="greater()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">greater</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function greater(value:Number, minimum:Number = -1, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert that a value is greater than a minimum number.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">value</span>:Number</code> &mdash; The value to test.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">minimum</span>:Number</code> (default = <code>-1</code>)<code></code> &mdash; The minimum number that the value must be greater than.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="nil()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">nil</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function nil(obj:*, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert if an object is nil.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:*</code> &mdash; The object to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="nilOrEmpty()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">nilOrEmpty</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function nilOrEmpty(array:Array, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert if an Array is nil or empty.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">array</span>:Array</code> &mdash; The array to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="notCompatible()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">notCompatible</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function notCompatible(obj:*, type:Class, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert if an object is not compatible with another type.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:*</code> &mdash; The object to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">type</span>:Class</code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="notEmptyString()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">notEmptyString</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function notEmptyString(str:String, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert a string as being not empty (zero characters or all spaces).
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">str</span>:String</code> &mdash; The string to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="notNil()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">notNil</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function notNil(object:*, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert if an object is not nil.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">object</span>:*</code> &mdash; The object to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="notNilOrEmpty()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">notNilOrEmpty</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function notNilOrEmpty(array:Array, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert if an Array is not nil or empty.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">array</span>:Array</code> &mdash; The array to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="notNumberString()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">notNumberString</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function notNumberString(str:String, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert that a string does not have all number characters.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">str</span>:String</code> &mdash; The string to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="numberString()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">numberString</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function numberString(str:String, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert that a string has all number characters.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">str</span>:String</code> &mdash; The string to evaluate.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="smaller()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">smaller</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function smaller(value:Number, maxmimum:Number = 0, message:String = null, exceptionType:Class = null):Boolean</code><p>
+   Assert that a value is smaller than a maximum number.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">value</span>:Number</code> &mdash; The value to test.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">maxmimum</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The maximum number that the value must be smaller than.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A message to throw if the assertion evaluates to false.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">exceptionType</span>:Class</code> (default = <code>null</code>)<code></code> &mdash; The exceptionType to throw if an exception is being thrown.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
