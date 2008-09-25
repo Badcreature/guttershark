@@ -1,0 +1,1426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="LayoutManager,net.guttershark.managers.LayoutManager,container,ignoreStageAlign,wholePixels,addChildren,addChildrenTo,alignBottom,alignBottomCenter,alignBottomLeft,alignBottomRight,alignCenter,alignLeft,alignMiddleLeft,alignMiddleRight,alignRight,alignTop,alignTopCenter,alignTopLeft,alignTopRight,alignXCenter,alignYCenter,bringForward,bringInFront,bringToFront,removeAllChildren,removeAllChildrenFrom,removeChildren,sendBackward,sendBehind,sendToBack,stageAlignBottom,stageAlignBottomCenter,stageAlignBottomLeft,stageAlignBottomRight,stageAlignCenter,stageAlignLeft,stageAlignMiddleLeft,stageAlignMiddleRight,stageAlignRight,stageAlignTop,stageAlignTopCenter,stageAlignTopLeft,stageAlignTopRight,stageAlignXCenter,stageAlignYCenter" name="keywords">
+<title>net.guttershark.managers.LayoutManager</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'LayoutManager - Guttershark Flash API Docs';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?net/guttershark/managers/LayoutManager.html&amp;net/guttershark/managers/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;LayoutManager</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class LayoutManager"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.managers</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public final  class LayoutManager</td>
+</tr>
+</table>
+<p></p>
+  The LayoutManager class adds shortcuts for layout, and layer management
+  with a display objects children.
+  
+  <p>DisplayObject's must have their registration point at 0,0 in
+  order for the align / stage align methods to function correctly. Otherwise
+  you'll see shifts in what is expected.</p>
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>Using a layout manager from a CoreClip.
+  <div class='listing'><pre> 
+  public class MyClip extends CoreClip
+  {
+      public function MyClip()
+      {
+          super(); //critical
+          
+          var mc1:MovieClip = new MovieClip();
+          //draw vector box in mc1 here...
+         
+          var mc2:MovieClip = new MovieClip();
+          //draw vector box in mc2 here...
+          
+          var mc3:MovieClip = new MovieClip();
+          //draw vector box in mc3 here...
+          
+          lm.addChildren(mc1,mc2,mc3); //shortcut to add multiple children.
+          
+          lm.bringInFront(mc1,mc2); //moves mc1 in front of mc2.
+          lm.sendToBack(mc1); //sends mc1 all the way to the back.
+          lm.bringForward(mc2); //brings mc2 forward (in front of mc3).
+      }
+  }
+  </pre></div>
+  
+  <p></p>Using a layout manager manually.
+  <div class='listing'><pre> 
+  var lm:LayoutManager = new LayoutManager(this);
+  
+  var mc1:MovieClip = new MovieClip();
+  //draw box in mc1
+  
+  var mc2:MovieClip = new MovieClip();
+  //draw box in mc2
+  
+  var mc3:MovieClip = new MovieClip();
+  //draw box in mc3
+  
+  lm.addChildren(mc1,mc2,mc3);
+  lm.bringToFront(mc1); //moves mc1 in front
+  </pre></div>
+  
+  <p>There is also an extended example in guttershark/examples/managers/layoutmanager/</p>
+  
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../display/CoreClip.html#lm" target="">CoreClip lm property</a>
+<br>
+<a href="../display/CoreSprite.html#lm" target="">CoreSprite lm property</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#ignoreStageAlign">ignoreStageAlign</a> : Boolean = true<div class="summaryTableDescription">[static]
+   Ignore the stage align property and correctly translate
+   stage alignment operations to the actual stage viewport -
+   meaning if the stage.align property is anything other
+   than undefined or TOP_LEFT, correctly translate the 
+   positioning offsets that occur when setting x and y.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#wholePixels">wholePixels</a> : Boolean = true<div class="summaryTableDescription">[static]
+   Whether or not to use whole pixels on for x and y coordinates.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+</table>
+</div>
+<a name="protectedPropertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Properties</div>
+<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#container">container</a> : DisplayObjectContainer<div class="summaryTableDescription">
+   The container in which layering operations will occur.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#LayoutManager()">LayoutManager</a>(target:DisplayObjectContainer)</div>
+<div class="summaryTableDescription">
+   Constructor for LayoutManager instances.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addChildren()">addChildren</a>(... children):void</div>
+<div class="summaryTableDescription">
+   Add all children specified to the display list.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addChildrenTo()">addChildrenTo</a>(target:DisplayObjectContainer, ... children):void</div>
+<div class="summaryTableDescription">
+   Add all children specified onto the display list of the target container.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignBottom()">alignBottom</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the bottom edge of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignBottomCenter()">alignBottomCenter</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the bottom center of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignBottomLeft()">alignBottomLeft</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the bottom left corner of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignBottomRight()">alignBottomRight</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the bottom right corner of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignCenter()">alignCenter</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the dead center of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignLeft()">alignLeft</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the left edge of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignMiddleLeft()">alignMiddleLeft</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the left middle of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignMiddleRight()">alignMiddleRight</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the right middle of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignRight()">alignRight</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the right edge of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignTop()">alignTop</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the top edge of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignTopCenter()">alignTopCenter</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the top center of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignTopLeft()">alignTopLeft</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the top left corner of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignTopRight()">alignTopRight</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align a display object to the top right corner of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignXCenter()">alignXCenter</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object centered on the x coordinate relatively
+   to another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alignYCenter()">alignYCenter</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object centered on the y coordinate relatively
+   to another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#bringForward()">bringForward</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Bring a display object forward 1 layer.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#bringInFront()">bringInFront</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Bring a target display object in front of another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#bringToFront()">bringToFront</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Bring the target display object to the top most layer.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removeAllChildren()">removeAllChildren</a>():void</div>
+<div class="summaryTableDescription">
+   Remove all children from the display list.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removeAllChildrenFrom()">removeAllChildrenFrom</a>(target:DisplayObjectContainer):void</div>
+<div class="summaryTableDescription">
+   Remove all children from the display list of the specified target object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#removeChildren()">removeChildren</a>(... children):void</div>
+<div class="summaryTableDescription">
+   Remove all children specified from the display list.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#sendBackward()">sendBackward</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Send the target display object backward 1 layer.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#sendBehind()">sendBehind</a>(target:DisplayObject, relativeTo:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Send a target display object behind another display object.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#sendToBack()">sendToBack</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Send the target display object to bottom most layer.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignBottom()">stageAlignBottom</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the bottom edge of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignBottomCenter()">stageAlignBottomCenter</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the bottom center of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignBottomLeft()">stageAlignBottomLeft</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the bottom left corner of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignBottomRight()">stageAlignBottomRight</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the bottom right corner of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignCenter()">stageAlignCenter</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the dead center of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignLeft()">stageAlignLeft</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the left edge of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignMiddleLeft()">stageAlignMiddleLeft</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the left middle of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignMiddleRight()">stageAlignMiddleRight</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the right middle of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignRight()">stageAlignRight</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the right edge of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignTop()">stageAlignTop</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the top edge of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignTopCenter()">stageAlignTopCenter</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the top center of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignTopLeft()">stageAlignTopLeft</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the top left corner of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignTopRight()">stageAlignTopRight</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object to the top right corner of the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignXCenter()">stageAlignXCenter</a>(target:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object centered on the x coordinate relatively
+   to the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#stageAlignYCenter()">stageAlignYCenter</a>(item:DisplayObject):void</div>
+<div class="summaryTableDescription">
+   Align the target display object centered on the y coordinate relatively
+   to the stage.</div>
+</td><td class="summaryTableOwnerCol">LayoutManager</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="container"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">container</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected var container:DisplayObjectContainer</code><p>
+   The container in which layering operations will occur.
+   </p></div>
+<a name="ignoreStageAlign"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">ignoreStageAlign</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var ignoreStageAlign:Boolean = true</code><p>
+   Ignore the stage align property and correctly translate
+   stage alignment operations to the actual stage viewport -
+   meaning if the stage.align property is anything other
+   than undefined or TOP_LEFT, correctly translate the 
+   positioning offsets that occur when setting x and y.
+   </p></div>
+<a name="wholePixels"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">wholePixels</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static var wholePixels:Boolean = true</code><p>
+   Whether or not to use whole pixels on for x and y coordinates.
+   </p></div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="LayoutManager()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">LayoutManager</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function LayoutManager(target:DisplayObjectContainer)</code><p>
+   Constructor for LayoutManager instances. 
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObjectContainer</code></td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="addChildren()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addChildren</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addChildren(... children):void</code><p>
+   Add all children specified to the display list.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code>... <span class="label">children</span></code> &mdash; An array of display objects to add.
+   </td>
+</tr>
+</table>
+</div>
+<a name="addChildrenTo()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addChildrenTo</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addChildrenTo(target:DisplayObjectContainer, ... children):void</code><p>
+   Add all children specified onto the display list of the target container.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObjectContainer</code> &mdash; A display object to add the spefified children onto.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code>... <span class="label">children</span></code> &mdash; An array of display objects to add.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignBottom()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignBottom</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignBottom(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the bottom edge of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignBottomCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignBottomCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignBottomCenter(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the bottom center of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignBottomLeft()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignBottomLeft</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignBottomLeft(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the bottom left corner of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignBottomRight()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignBottomRight</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignBottomRight(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the bottom right corner of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignCenter(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the dead center of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignLeft()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignLeft</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignLeft(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align the target display object to the left edge of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignMiddleLeft()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignMiddleLeft</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignMiddleLeft(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the left middle of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignMiddleRight()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignMiddleRight</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignMiddleRight(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the right middle of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignRight()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignRight</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignRight(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align the target display object to the right edge of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignTop()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignTop</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignTop(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the top edge of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignTopCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignTopCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignTopCenter(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the top center of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignTopLeft()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignTopLeft</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignTopLeft(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the top left corner of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignTopRight()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignTopRight</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignTopRight(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align a display object to the top right corner of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignXCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignXCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignXCenter(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align the target display object centered on the x coordinate relatively
+   to another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="alignYCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alignYCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alignYCenter(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Align the target display object centered on the y coordinate relatively
+   to another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The target display object that target will be aligned to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="bringForward()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">bringForward</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function bringForward(target:DisplayObject):void</code><p>
+   Bring a display object forward 1 layer.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object.
+   </td>
+</tr>
+</table>
+</div>
+<a name="bringInFront()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">bringInFront</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function bringInFront(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Bring a target display object in front of another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to re-layer.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The display object in which the target will be brought in front of.
+   </td>
+</tr>
+</table>
+</div>
+<a name="bringToFront()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">bringToFront</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function bringToFront(target:DisplayObject):void</code><p>
+   Bring the target display object to the top most layer.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object.
+   </td>
+</tr>
+</table>
+</div>
+<a name="removeAllChildren()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removeAllChildren</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function removeAllChildren():void</code><p>
+   Remove all children from the display list.
+   </p></div>
+<a name="removeAllChildrenFrom()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removeAllChildrenFrom</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function removeAllChildrenFrom(target:DisplayObjectContainer):void</code><p>
+   Remove all children from the display list of the specified target object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObjectContainer</code> &mdash; The target display object container whose children will be removed.
+   </td>
+</tr>
+</table>
+</div>
+<a name="removeChildren()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">removeChildren</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function removeChildren(... children):void</code><p>
+   Remove all children specified from the display list.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code>... <span class="label">children</span></code> &mdash; The children to remove.
+   </td>
+</tr>
+</table>
+</div>
+<a name="sendBackward()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">sendBackward</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function sendBackward(target:DisplayObject):void</code><p>
+   Send the target display object backward 1 layer.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object.
+   </td>
+</tr>
+</table>
+</div>
+<a name="sendBehind()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">sendBehind</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function sendBehind(target:DisplayObject, relativeTo:DisplayObject):void</code><p>
+   Send a target display object behind another display object.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to re-layer.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">relativeTo</span>:DisplayObject</code> &mdash; The display object in which the target will be moved behind.
+   </td>
+</tr>
+</table>
+</div>
+<a name="sendToBack()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">sendToBack</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function sendToBack(target:DisplayObject):void</code><p>
+   Send the target display object to bottom most layer.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignBottom()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignBottom</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignBottom(target:DisplayObject):void</code><p>
+   Align the target display object to the bottom edge of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignBottomCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignBottomCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignBottomCenter(target:DisplayObject):void</code><p>
+   Align the target display object to the bottom center of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignBottomLeft()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignBottomLeft</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignBottomLeft(target:DisplayObject):void</code><p>
+   Align the target display object to the bottom left corner of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignBottomRight()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignBottomRight</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignBottomRight(target:DisplayObject):void</code><p>
+   Align the target display object to the bottom right corner of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignCenter(target:DisplayObject):void</code><p>
+   Align the target display object to the dead center of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignLeft()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignLeft</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignLeft(target:DisplayObject):void</code><p>
+   Align the target display object to the left edge of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignMiddleLeft()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignMiddleLeft</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignMiddleLeft(target:DisplayObject):void</code><p>
+   Align the target display object to the left middle of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignMiddleRight()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignMiddleRight</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignMiddleRight(target:DisplayObject):void</code><p>
+   Align the target display object to the right middle of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignRight()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignRight</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignRight(target:DisplayObject):void</code><p>
+   Align the target display object to the right edge of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignTop()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignTop</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignTop(target:DisplayObject):void</code><p>
+   Align the target display object to the top edge of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignTopCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignTopCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignTopCenter(target:DisplayObject):void</code><p>
+   Align the target display object to the top center of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignTopLeft()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignTopLeft</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignTopLeft(target:DisplayObject):void</code><p>
+   Align the target display object to the top left corner of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignTopRight()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignTopRight</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignTopRight(target:DisplayObject):void</code><p>
+   Align the target display object to the top right corner of the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignXCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignXCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignXCenter(target:DisplayObject):void</code><p>
+   Align the target display object centered on the x coordinate relatively
+   to the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">target</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<a name="stageAlignYCenter()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">stageAlignYCenter</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function stageAlignYCenter(item:DisplayObject):void</code><p>
+   Align the target display object centered on the y coordinate relatively
+   to the stage.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">item</span>:DisplayObject</code> &mdash; The target display object to align.
+   </td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

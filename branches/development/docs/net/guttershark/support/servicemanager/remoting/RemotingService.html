@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../../print.css" type="text/css" media="print">
+<meta content="RemotingService,net.guttershark.support.servicemanager.remoting.RemotingService,call,dispose,toString" name="keywords">
+<title>net.guttershark.support.servicemanager.remoting.RemotingService</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'RemotingService - Guttershark Flash API Docs';
+				var baseRef = '../../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../all-classes.html')" href="../../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../../index-list.html')" href="../../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../../index.html?net/guttershark/support/servicemanager/remoting/RemotingService.html&amp;net/guttershark/support/servicemanager/remoting/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;RemotingService</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class RemotingService"); titleBar_setSubNav(false,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.support.servicemanager.remoting</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public dynamic  class RemotingService</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">RemotingService <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../../images/inherit-arrow.gif"> flash.utils.Proxy</td>
+</tr>
+</table>
+<p></p>
+  The RemotingService class creates and sends remoting requests.
+  This class is used internally, and when using the service manager to
+  make remoting calls, you are invariably using this class without realizing it.
+  Don't use this class directly, use the service manager, this class is strictly
+  for documentation.
+  
+  <p>When you make a service call from the service manager, and pass it
+  an object of properties, you are passing it a "callProps" object.</p>
+  
+  <p>Supported properties on the callProps object:</p>
+  <ul>
+  <li>params (Array) - The parameters to send to the remoting service.</li>
+  <li>onCreate (Function) - A function to call, as soon as a remoting call instance was created (the request hasn't gone out yet though.).</li>
+  <li>onResult (Function) - A function to call, and pass a CallResult object to.</li>
+  <li>onFault (Function) - A function to call, and pass a CallFault object to.</li>
+  <li>onRetry (Function) - A function to call for every retry of a service call.</li>
+  <li>onTimeout (Function) - A function to call after every retry has been attempted, and no result or fault was returned.</li>
+  <li>attempts (int) - The number of retry attempts allowed.</li>
+  <li>timeout (int - milliseconds) - The amount of time allowed for each call before another attempt is made.</li>
+  <li>returnArgs (Boolean) - Return the original <em><code>callprops.params</code></em> sent through the
+  request as the second parameter to your onResult, or onFault callback</li>
+  </ul>
+  
+  <p></p>
+<br>
+<span class="label">Example</span>
+<br>An extended remoting call example, with all callProp object properties filled in:
+  <div class='listing'><pre> 
+  import net.guttershark.managers.ServiceManager;
+  import net.guttershark.support.serviceamanager.shared.CallResult;
+  import net.guttershark.support.serviceamanager.shared.CallFault;
+  
+  var sm:ServiceManager = ServiceManager.gi();
+  
+  //this sets up a remoting service.
+  sm.createRemotingService("users","http://localhost/amfphp/gateway.php",3,1,3000,true);
+  
+  //make a remoting call.
+  sm.users.getUserByName({param:["sam"],onResult:onr,onFault:onf,onCreate:onc,onRetry:onrt,onTimeout:ont,attempts:2,timeout:3000,returnArgs:true});
+  function onr(cr:CallResult,params:Array):void{} //onResult
+  function onf(cf:CallFault,params:Array):void{} //onFault
+  function onc():void{} //onCreate
+  function onrt():void{} //onRetry
+  function ont:void(){} //onTimeout
+  </pre></div>
+  
+  <p>A remoting service supports something called a "limiter" which means
+  that if a request is being made to a service with X parameters, another
+  request to that service CANNOT be made until a result,timeout,or fault
+  occurs on the first call.</p>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#RemotingService()">RemotingService</a>(rc:<a href="RemotingConnection.html">RemotingConnection</a>, endpoint:String, attempts:int, timeout:int, limiter:Boolean)</div>
+<div class="summaryTableDescription">
+   Constructor for RemotingService instances.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#call()">call</a>(methodName:String, ... args):*</div>
+<div class="summaryTableDescription">
+   This is not the recommended way of using the remoting service, but is available
+   so you can call service methods where the methd name comes from a string variable.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#dispose()">dispose</a>():void</div>
+<div class="summaryTableDescription">
+   Dispose of this RemotingService.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#toString()">toString</a>():String</div>
+<div class="summaryTableDescription">
+   Friendly description.</div>
+</td><td class="summaryTableOwnerCol">RemotingService</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="RemotingService()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">RemotingService</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function RemotingService(rc:<a href="RemotingConnection.html">RemotingConnection</a>, endpoint:String, attempts:int, timeout:int, limiter:Boolean)</code><p>
+   Constructor for RemotingService instances.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">rc</span>:<a href="RemotingConnection.html">RemotingConnection</a></code> &mdash; A RemotingConnection that this service will use.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">endpoint</span>:String</code> &mdash; The service endpoint.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">attempts</span>:int</code> &mdash; How many attempts can be made before a timeout occures.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">timeout</span>:int</code> &mdash; The time to allow each request, before retrying.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">limiter</span>:Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="call()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">call</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function call(methodName:String, ... args):*</code><p>
+   This is not the recommended way of using the remoting service, but is available
+   so you can call service methods where the methd name comes from a string variable.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">methodName</span>:String</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code>... <span class="label">args</span></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>*</code></td>
+</tr>
+</table>
+<br>
+<span class="label">Example</span>
+<br>Calling a service with the call method:
+   <div class='listing'><pre> 
+   var sm:ServiceManager = ServiceManager.gi();
+   
+   var tf:TextField = new TextField();
+   tf.text = "helloWorld";
+   
+   sm.helloWorldService.call(tf.text,{...});
+   
+   //the normal way:
+   sm.helloWorldService.helloWorld({...});
+   </pre></div>
+   <p></p>
+</div>
+<a name="dispose()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">dispose</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function dispose():void</code><p>
+   Dispose of this RemotingService.
+   </p></div>
+<a name="toString()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">toString</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function toString():String</code><p>
+   Friendly description.
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>String</code></td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
