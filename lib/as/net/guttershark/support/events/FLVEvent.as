@@ -22,7 +22,6 @@ package net.guttershark.support.events
 		public static const SEEK_NOTIFY:String = 'seekNotify';
 		public static const STREAM_NOT_FOUND:String = 'streamNotFound';
 		public static var CUE_POINT:String = "cuePoint";
-		public static var CUE_POINT_DISPLAY:String = "cuePointDisplay";
 		public static var REBUFFER:String = "rebuffer";
 		public static var REBUFFER_COMPLETE:String = "rebufferComplete";
 		

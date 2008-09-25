@@ -111,7 +111,6 @@ package net.guttershark.managers
 			if(!rcp[gateway] || overwriteIfExists) rc = rcp[gateway] = new RemotingConnection(gateway,objectEncoding); 
 			else rc = rcp[gateway];
 			if(username && password) rc.setCredentials(username,password);
-			if(services[id] && !overwriteIfExists) return;
 			services[id] = new RemotingService(rc,endpoint,attempts,timeout,limiter);
 		}
 		

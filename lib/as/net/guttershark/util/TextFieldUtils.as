@@ -108,7 +108,7 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Restrict a text field to class path characters only (a-zA-Z0-9_.);
+		 * Restrict a text field to class path characters only (a-zA-Z0-9_.).
 		 * 
 		 * @param tf The text field to restrict.
 		 */
@@ -170,6 +170,7 @@ package net.guttershark.util
 		public function focusAndSelectAll(stage:Stage,tf:TextField):void
 		{
 			ast.notNil(stage,"Parameter {stage} cannot be null");
+			ast.notNil(tf,"Parameter {tf} cannot be null");
 			stage.focus = tf;
 			selectAll(tf);
 		}	}}

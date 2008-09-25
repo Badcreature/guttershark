@@ -12,39 +12,97 @@ package net.guttershark.util
 	final public class MathUtils
 	{
 		
+		/**
+		 * Singleton instance.
+		 */
 		private static var inst:MathUtils;
+		
+		/**
+		 * String utils.
+		 */
 		private var su:StringUtils;
+		
+		/**
+		 * Byte value.
+		 */
 		protected const BYTE:Number = 8;
+		
+		/**
+		 * Kilobit value.
+		 */
 		protected const KILOBIT:Number = 1024;
+		
+		/**
+		 * Kilobyte value.
+		 */
 		protected const KILOBYTE:Number = 8192;
+		
+		/**
+		 * Mega bit value.
+		 */
 		protected const MEGABIT:Number = 1048576;
+		
+		/**
+		 * Megabyte value.
+		 */
 		protected const MEGABYTE:Number = 8388608;
+		
+		/**
+		 * Gigabit value.
+		 */
 		protected const GIGABIT:Number = 1073741824;
-		protected const GIGABYTE:Number = 8589934592; 
+		
+		/**
+		 * Gigabyte value.
+		 */
+		protected const GIGABYTE:Number = 8589934592;
+		
+		/**
+		 * Terabit value.
+		 */ 
 		protected const TERABIT:Number = 1.099511628e+12;
+		
+		/**
+		 * Terabyte value.
+		 */
 		protected const TERABYTE:Number = 8.796093022e+12;
+		
+		/**
+		 * Petabit value.
+		 */
 		protected const PETABIT:Number = 1.125899907e+15;
+		
+		/**
+		 * Petabyte value.
+		 */
 		protected const PETABYTE:Number = 9.007199255e+15;
+		
+		/**
+		 * Exabit value.
+		 */
 		protected const EXABIT:Number = 1.152921505e+18;
+		
+		/**
+		 * Exabyte value.
+		 */
 		protected const EXABYTE:Number = 9.223372037e+18;
 		
 		/** 
 		 * String for quick lookup of a hex character based on index
 		 */
-		public const HEX_CHARACTERS:String = "0123456789abcdef";
+		private const HEX_CHARACTERS:String = "0123456789abcdef";
 		
 		/**
 		 * Singleton access.
 		 */
 		public static function gi():MathUtils
 		{
-			if(!inst) Singleton.gi(MathUtils);
+			if(!inst) inst = Singleton.gi(MathUtils);
 			return inst;
 		}
 		
 		/**
 		 * @private
-		 * Constructor.
 		 */
 		public function MathUtils()
 		{
@@ -53,50 +111,59 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Rotates <code>x</code> left <code>n</code> bits
+		 * Rotates an integer left by <code>n</code> bits.
+		 * 
+		 * @param x The integer.
+		 * @param n The number of bits to shift left.
 		 */
-		public function rol(x:int,n:int):int
+		public function rotateLeft(x:int,n:int):int
 		{
-			return ( x << n ) | ( x >>> ( 32 - n ) );
+			return (x<<n)|(x>>>(32-n));
 		}
 		
 		/**
-		 * Rotates <code>x</code> right <code>n</code> bits
+		 * Rotates an integer right by <code>n</code> bits.
+		 * 
+		 * @param x The integer.
+		 * @param The number of bits to shift right.
 		 */
-		public function ror(x:int,n:int):uint
+		public function rotateRight(x:int,n:int):uint
 		{
 			var nn:int = 32 - n;
-			return ( x << nn ) | ( x >>> ( 32 - nn ) );
+			return (x<<nn)|(x>>>(32-nn));
 		}
 
 		/**
-		 * Outputs the hex value of a int, allowing the developer to specify
-		 * the endinaness in the process. Hex output is lowercase.
+		 * Outputs the (lowercase) hex value of a int, with optional endianness,
 		 *
-		 * @param n The int value to output as hex
-		 * @param bigEndian Flag to output the int as big or little endian
-		 * @return A string of length 8 corresponding to the hex representation of n ( minus the leading "0x" )
+		 * @param n The integr value to output as hex.
+		 * @param bigEndian Whether or not to convert in big endian order.
+		 * @return The hex string, not including the 0x.
 		 */
-		public function toHex( n:int, bigEndian:Boolean = false ):String 
+		public function toHex(n:int,bigEndian:Boolean=false):String 
 		{
 			var s:String = "";
-			if(bigEndian) for(var i:int = 0;i < 4;i++) s += HEX_CHARACTERS.charAt(( n >> ( ( 3 - i ) * 8 + 4 ) ) & 0xF) + HEX_CHARACTERS.charAt(( n >> ( ( 3 - i ) * 8 ) ) & 0xF);
-			else for(var x:int=0;x<4;x++) s += HEX_CHARACTERS.charAt(( n >> ( x * 8 + 4 ) ) & 0xF) + HEX_CHARACTERS.charAt(( n >> ( x * 8 ) ) & 0xF);			
+			var i:int = 0;
+			var x:int = 0;
+			if(bigEndian) for(i;i<4;i++) s += HEX_CHARACTERS.charAt(( n >> ( ( 3 - i ) * 8 + 4 ) ) & 0xF) + HEX_CHARACTERS.charAt(( n >> ( ( 3 - i ) * 8 ) ) & 0xF);
+			else for(x;x<4;x++) s += HEX_CHARACTERS.charAt(( n >> ( x * 8 + 4 ) ) & 0xF) + HEX_CHARACTERS.charAt(( n >> ( x * 8 ) ) & 0xF);			
 			return s;
 		}
 		
 		/**
-		 * Returns the highest value of all passed arguments like <code>Math.max( )</code> 
-		 * but supports any number of args passed to it.
+		 * Returns the highest value of all passed arguments.
+		 * 
+		 * @param ...args Any list of numbers.
 		 */
-		public function max(...args):Number 
+		public function max(...args):Number
 		{
 			return args.sort()[-1];
 		}
 
 		/**
-		 * Returns the lowest value of all passed arguments like <code>Math.min( )</code> 
-		 * but supports any number of args passed to it.
+		 * Returns the lowest value of all passed arguments.
+		 * 
+		 * @param ...args Any list of numbers.
 		 */
 		public function min(...args):Number
 		{
@@ -104,9 +171,12 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Same as <code>Math.floor( )</code> with extra argument to specify number of decimals.
+		 * Returns the floor of a number, with optional decimal precision.
+		 * 
+		 * @param val The number.
+		 * @param decimal How many decimals to include.
 		 */
-		public function floor(val:Number, decimal:Number):Number 
+		public function floor(val:Number, decimal:Number):Number
 		{
 			var n:Number = Math.pow(10,decimal);
 			return Math.floor(val * n) / n;
@@ -114,29 +184,42 @@ package net.guttershark.util
 
 		/**
 		 * Round to a given amount of decimals.
+		 * 
+		 * @param val The number.
+		 * @param decimal The decimal precision.
 		 */
 		public function round(val:Number, decimal:Number):Number 
 		{
-			return Math.round(val * Math.pow(10,decimal)) / Math.pow(10,decimal);
+			return Math.round(val*Math.pow(10,decimal))/Math.pow(10,decimal);
 		}
 
 		/**
 		 * Returns a random number inside a specific range.
+		 * 
+		 * @param start The first number.
+		 * @param end The end number.
 		 */	
 		public function random(start:Number, end:Number):Number 
 		{
-			return Math.round(Math.random() * (end - start)) + start;
+			return Math.round(Math.random()*(end-start))+start;
 		}
 
 		/**
 		 * Clamp constrains a value to the defined numeric boundaries.
-		 * @example	
-		 * <listing>	
-		 * utils.math.clamp(20,2,5); //gives back 5.
-		 * utils.math.clamp(3,2,5); //gives back 3.
+		 * 
+		 * @example
+		 * <listing>		
+		 * utils.math.clamp(20,2,5); //returns 5
+		 * utils.math.clamp(3,2,5); //returns 3
+		 * utils.math.clamp(3,1,5); //returns 3
+		 * utils.math.clamp(1,10,20); //returns 10
 		 * </listing>
+		 * 
+		 * @param val The number.
+		 * @param min The minumum range.
+		 * @param max The maximum range.
 		 */
-		public function clamp( val:Number, min:Number, max:Number ):Number 
+		public function clamp(val:Number,min:Number,max:Number):Number
 		{
 			if(val < min) return min;
 			if(val > max) return max;
@@ -145,20 +228,30 @@ package net.guttershark.util
 
 		/**
 		 * Similar to clamp & constrain but allows for <i>limit value wrapping</i>.
+		 * 
+		 * @param val The number.
+		 * @param min The miniimum range.
+		 * @param max The maximum range.
+		 * 
 		 * @see #clamp()
 		 */
-		public function limit(val:Number, min:Number, max:Number, wrap:Boolean = false):Number 
+		public function limit(val:Number, min:Number, max:Number, wrap:Boolean = false):Number
 		{
 			if(!wrap) return clamp(val,min,max);
-			while (val > max) val -= (max - min);
-			while (val < min) val += (max - min);
+			while(val > max) val -= (max - min);
+			while(val < min) val += (max - min);
 			return val;
 		}		
 
 		/**
-		 * Return the distance between two points.
+		 * Return the distance between two x,y points.
+		 * 
+		 * @param x1 The first x position.
+		 * @param y1 The first y position.
+		 * @param x2 The second x position.
+		 * @param y2 The second y position.
 		 */
-		public function distance( x1:Number, x2:Number, y1:Number, y2:Number ):Number 
+		public function xyDistance(x1:Number,y1:Number,x2:Number,y2:Number):Number
 		{
 			var dx:Number = x1 - x2;
 			var dy:Number = y1 - y2;
@@ -167,8 +260,14 @@ package net.guttershark.util
 
 		/**
 		 * Return the proportional value of two pairs of numbers.
+		 * 
+		 * @param x1 The first x position.
+		 * @param y1 The first y position.
+		 * @param x2 The second x position.
+		 * @param y2 The second y position.
+		 * //TODO
 		 */
-		public function proportion(x1:Number, x2:Number, y1:Number, y2:Number, x:Number = 1):Number 
+		public function proportion(x1:Number,y1:Number,x2:Number,y2:Number,x:Number=1):Number
 		{
 			var n:Number = (!x) ? 1 : x;
 			var slope:Number = (y2 - y1) / (x2 - x1);
@@ -177,15 +276,21 @@ package net.guttershark.util
 
 		/**
 		 * Return a percentage based on the numerator and denominator.
+		 * 
+		 * @param amount The amount.
+		 * @param total The total
+		 * @param percentRange The percentage range that the calculation will scale to.
 		 */
-		public function percent(amount:Number, total:Number):Number 
+		public function percent(amount:Number,total:Number,percentRange:int = 100):Number
 		{
 			if(total == 0) return 0;
-			return (amount / total * 100);
+			return (amount / total * percentRange);
 		}
 
 		/**
-		 * Check if number is positive (zero is considered positive).
+		 * Check if number is positive (zero is positive).
+		 * 
+		 * @param n The number.
 		 */
 		public function isPositive(n:Number):Boolean 
 		{
@@ -194,6 +299,8 @@ package net.guttershark.util
 
 		/**
 		 * Check if number is negative.
+		 * 
+		 * @param n The number.
 		 */
 		public function isNegative(n:Number):Boolean 
 		{
@@ -201,7 +308,9 @@ package net.guttershark.util
 		}	
 
 		/**
-		 * Check if number is Odd (convert to Integer if necessary).
+		 * Check if number is odd (convert to Integer if necessary).
+		 * 
+		 * @param n The number.
 		 */
 		public function isOdd(n:Number):Boolean 
 		{
@@ -211,7 +320,9 @@ package net.guttershark.util
 		}
 
 		/**
-		 * Check if number is Even (convert to Integer if necessary).
+		 * Check if number is even (convert to Integer if necessary).
+		 * 
+		 * @param n The number.
 		 */
 		public function isEven(n:Number):Boolean 
 		{
@@ -221,25 +332,30 @@ package net.guttershark.util
 		}
 
 		/**
-		 * Check if number is Prime (divisible only itself and one).
+		 * Check if number is Prime (divisible only by itself and one).
+		 * 
+		 * @param n The number.
 		 */
 		public function isPrime(n:Number):Boolean 
 		{
 			if (n > 2 && n % 2 == 0) return false;
 			var l:Number = Math.sqrt(n);
-			for (var i:Number = 3;i <= l; i += 2) if(n % i == 0) return false;
+			var i:int = 3;
+			for (i;i<=l;i+=2) if(n % i == 0) return false;
 			return true;
 		}
 
 		/**
 		 * Calculate the factorial of the integer.
+		 * 
+		 * @param n The number.
 		 */
 		public function factorial(n:Number):Number 
 		{
-			if (n == 0) return 1;
+			if(n == 0) return 1;
 			var d:Number = n.valueOf();
 			var i:Number = d - 1;
-			while (i) 
+			while(i) 
 			{
 				d = d * i;
 				i--;
@@ -249,6 +365,8 @@ package net.guttershark.util
 
 		/**
 		 * Return an array of divisors of the integer.
+		 * 
+		 * @param n The number.
 		 */
 		public function getDivisors(n:Number):Array 
 		{
@@ -260,6 +378,8 @@ package net.guttershark.util
 
 		/**
 		 * Check if number is an Integer.
+		 * 
+		 * @param n The number.
 		 */
 		public function isInteger(n:Number):Boolean 
 		{
@@ -268,6 +388,8 @@ package net.guttershark.util
 
 		/**
 		 * Check if number is Natural (positive Integer).
+		 * 
+		 * @param n The number.
 		 */
 		public function isNatural(n:Number):Boolean 
 		{
@@ -276,16 +398,24 @@ package net.guttershark.util
 
 		/**
 		 * Correct "roundoff errors" in floating point math.
-		 * @see http://www.zeuslabs.us/2007/01/30/flash-floating-point-number-errors/ 
+		 * 
+		 * @param n The number.
+		 * @param precision The floating point precision.
+		 * 
+		 * @see http://www.zeuslabs.us/2007/01/30/flash-floating-point-number-errors/
 		 */
 		public function sanitizeFloat(n:Number, precision:uint = 5):Number 
 		{
 			var c:Number = Math.pow(10,precision);
-			return Math.round(c * n) / c;
+			return Math.round(c*n)/c;
 		}
 
 		/**
 		 * Evaluate if two numbers are nearly equal.
+		 * 
+		 * @param n1 The first number.
+		 * @param n2 The second number.
+		 * 
 		 * @see http://www.zeuslabs.us/2007/01/30/flash-floating-point-number-errors/
 		 */
 		public function fuzzyEval(n1:Number, n2:Number, precision:int = 5):Boolean
@@ -299,8 +429,8 @@ package net.guttershark.util
 		 * Returns a random float.
 		 * @example
 		 * <listing>	
-		 * Random.float(50); //returns a number between 0-50 exclusive
-		 * Random.float(20,50); //returns a number between 20-50 exclusive
+		 * math.utils.randFloat(50); //returns a number between 0-50 exclusive
+		 * math.utils.randFloat(20,50); //returns a number between 20-50 exclusive
 		 * </listing>
 		 */
 		public function randFloat(min:Number,max:Number=NaN):Number 
@@ -310,17 +440,19 @@ package net.guttershark.util
 				max = min; 
 				min = 0; 
 			}
-			return Math.random() * (max - min) + min;
+			return Math.random()*(max-min)+min;
 		}
 
 		/**
 		 * Return a "tilted" random Boolean value.
-		 * @param chance Percentage chance advantage of true.
+		 * 
 		 * @example	
 		 * <listing>	
-		 * Random.boolean(); //returns 50% chance of true.
-		 * Random.boolean(.75); //returns 75% chance of true.
+		 * math.utils.boolean(); //returns 50% chance of true.
+		 * math.utils.boolean(.75); //returns 75% chance of true.
 		 * </listing>
+		 * 
+		 * @param chance The percentage chance that the return value will be true.
 		 */
 		public function randBool(chance:Number = 0.5):Boolean
 		{
@@ -329,12 +461,14 @@ package net.guttershark.util
 
 		/**
 		 * Return a "tilted" value of 1 or -1.
-		 * @param chance Percentage chance advantage of true.
+		 * 
 		 * @example
 		 * <listing>	
-		 * Random.sign(); //returns 50% chance of 1.
-		 * Random.sign(.75); //returns 75% chance of 1.
+		 * math.utils.sign(); //returns 50% chance of 1.
+		 * math.utils.sign(.75); //returns 75% chance of 1.
 		 * </listing>
+		 * 
+		 * @param chance The percentage chance that the return value will be true.
 		 */		
 		public function sign(chance:Number=0.5):int 
 		{
@@ -343,16 +477,18 @@ package net.guttershark.util
 
 		/**
 		 * Return a "tilted" value of 1 or 0.
-		 * @param chance Percentage chance advantage of true.
+		 * 
 		 * @example
 		 * <listing>	
-		 * Random.bit(); //returns 50% chance of 1.
-		 * Random.bit(.75); //returns 75% chance of 1.
+		 * math.utils.bit(); //returns 50% chance of 1.
+		 * math.utils.bit(.75); //returns 75% chance of 1.
 		 * </listing>
+		 * 
+		 * @param chance The percentage chance that the return value will be true.
 		 */
 		public function randBit(chance:Number = 0.5):int
 		{
-			return (Math.random() < chance) ? 1 : 0;
+			return (Math.random()<chance)?1:0;
 		}
 
 		/**
@@ -360,11 +496,12 @@ package net.guttershark.util
 		 * 
 		 * @example
 		 * <listing>	
-		 * Random.integer(25); //returns an integer between 0-24 inclusive.
-		 * Random.integer(10,25); //returns an integer between 10-24 inclusive.
+		 * math.utils.integer(25); //returns an integer between 0-24 inclusive.
+		 * math.utils.integer(10,25); //returns an integer between 10-24 inclusive.
 		 * </listing>
 		 * 
-		 * @param chance Percentage chance advantage of true.
+		 * @param min The minumum.
+		 * @param max The max.
 		 */
 		public function randInteger(min:Number,max:Number=NaN):int 
 		{
@@ -373,74 +510,92 @@ package net.guttershark.util
 				max = min; 
 				min = 0; 
 			}
-			// Need to use floor instead of bit shift to work properly with negative values:
 			return Math.floor(randFloat(min,max));
 		}
 		
 		
 		/**
 		 * Check if a number is in range.
+		 * 
+		 * @param n The number.
+		 * @param min The minimum number.
+		 * @param max The maximum number.
+		 * @param blacklist An array of numbers that cannot be considered in range.
 		 */
-		public function isInRange(n:Number, min:Number, max:Number, blacklist:Array = null):Boolean 
+		public function isInRange(n:Number,min:Number,max:Number,blacklist:Array=null):Boolean 
 		{
-			if(!blacklist) blacklist = new Array();	
-			if(blacklist.length > 0) 
+			if(!blacklist || blacklist.length < 1) return (n >= min && n <= max);
+			if(blacklist.length > 0)
 			{
 				for(var i:String in blacklist) if(n == blacklist[i]) return false;
 			}
-			return (n >= min && n <= max);
+			return false;
 		}	
 
 		/**
-		 * Returns a set of random numbers inside a specific range (unique numbers is optional)
+		 * Returns a set of random numbers inside a specific range, optionally unique numbers only.
+		 * 
+		 * @param min The minimum number.
+		 * @param max The maximum number.
+		 * @param count How many mubers to generate.
+		 * @param unique Whether or not the numbers generated must be unique.
 		 */
 		public function randRangeSet(min:Number, max:Number, count:Number, unique:Boolean):Array 
 		{
 			var rnds:Array = new Array();
-			if (unique && count <= max - min + 1) 
+			var i:int = 0;
+			if(unique && count <= (max-min)+1) 
 			{
-				//unique - create num range array
 				var nums:Array = new Array();
-				for (var i:Number = min;i <= max; i++) 
+				i = min;
+				for(i;i<=max;i++)nums.push(i);
+				i=1;
+				for(i;i<=count;i++) 
 				{
-					nums.push(i);
-				}
-				for (var j:Number = 1;j <= count; j++) 
-				{
-					// random number
 					var rn:Number = Math.floor(Math.random() * nums.length);
 					rnds.push(nums[rn]);
 					nums.splice(rn,1);
 				}
-			} else 
+			}
+			else 
 			{
-				//non unique
-				for (var k:Number = 1;k <= count; k++) 
-				{
-					rnds.push(randRangeInt(min,max));
-				}
+				i = 1;
+				for (i;i<=count;i++) rnds.push(randRangeInt(min,max));
 			}
 			return rnds;
 		}
 
 		/**
-		 * Returns a random float number within a given range
+		 * Returns a random float number within a given range.
+		 * 
+		 * @param min The minimum number.
+		 * @param max The maxmimum number.
 		 */
 		public function randRangeFloat(min:Number, max:Number):Number 
 		{
-			return Math.random() * (max - min) + min;
+			return Math.random()*(max-min)+min;
 		}
 
 		/**
-		 * Returns a random int number within a given range
+		 * Returns a random integer number within a given range.
+		 * 
+		 * @param n The minumum number.
+		 * @param max The maximum number.
 		 */
-		public function randRangeInt(min:Number, max:Number):Number 
+		public function randRangeInt(min:Number, max:Number):int 
 		{
-			return Math.floor(Math.random() * (max - min + 1) + min);
+			return int(Math.floor(Math.random()*(max-min+1)+min));
 		}		
 
 		/**
-		 * Resolve the number inside the range. If outside the range the nearest boundary value will be returned.
+		 * @private
+		 * 
+		 * Resolve the number inside the range - if outside the range the
+		 * nearest boundary value will be returned.
+		 * 
+		 * @param val The number.
+		 * @param min The minimum allowed.
+		 * @param max The maximum allowed.
 		 */
 		public function resolve(val:Number, min:Number, max:Number):Number
 		{
@@ -449,6 +604,10 @@ package net.guttershark.util
 
 		/**
 		 * Locate and return the middle value between the three.
+		 * 
+		 * @param a The first number.
+		 * @param b The second number.
+		 * @param c The second number.
 		 */
 		public function center(a:Number, b:Number, c:Number):Number 
 		{
@@ -467,7 +626,9 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Convert angle to radian
+		 * Convert angle to radian.
+		 * 
+		 * a The angle.
 		 */
 		public function angle2radian(a:Number):Number
 		{
@@ -475,7 +636,9 @@ package net.guttershark.util
 		}
 
 		/**
-		 * Convert radian to angle
+		 * Convert radian to angle.
+		 * 
+		 * @param t The radian.
 		 */
 		public function radian2angle(r:Number):Number 
 		{
@@ -483,7 +646,9 @@ package net.guttershark.util
 		}
 
 		/**
-		 * will always give back a positive angle between 0 and 360
+		 * Will always give back a positive angle between 0 and 360
+		 * 
+		 * @param a The angle.
 		 */
 		public function resolveAngle(a:Number):Number 
 		{
@@ -492,16 +657,22 @@ package net.guttershark.util
 		}
 
 		/**
-		 * Get angle from two points
+		 * Get the angle from two points.
+		 * 
+		 * @param p1 The first point.
+		 * @param p2 The second point.
 		 */
-		public function getAngle(p1:Point, p2:Point):Number 
+		public function getAngle(p1:Point,p2:Point):Number 
 		{
 			var r:Number = Math.atan2(p2.y - p1.y,p2.x - p1.x);
 			return radian2angle(r);
 		}
 
 		/**
-		 * Get radian from two points
+		 * Get the radian from two points.
+		 * 
+		 * @param p1 The first point.
+		 * @param p2 The second point.
 		 */
 		public function getRadian(p1:Point, p2:Point):Number 
 		{
@@ -509,9 +680,12 @@ package net.guttershark.util
 		}
 
 		/**
-		 * Get distance between two points
+		 * Get the distance between two points.
+		 * 
+		 * @param p1 The first point.
+		 * @param p2 The secoind point.
 		 */
-		public function getDistance(p1:Point, p2:Point):Number 
+		public function pointDistance(p1:Point, p2:Point):Number
 		{
 			var xd:Number = p1.x - p2.x;
 			var yd:Number = p1.y - p2.y;
@@ -520,6 +694,9 @@ package net.guttershark.util
 		
 		/**
 		 * Get z distance between two Point3D instances.
+		 * 
+		 * @param p1 The first point 3d.
+		 * @param p2 The second point 3d.
 		 */
 		public function getZDistance(p1:Point3D, p2:Point3D):Number 
 		{
@@ -529,8 +706,9 @@ package net.guttershark.util
 		/**
 		 * Get new point based on distance and angle from a given point.
 		 * 
-		 * Note: Rounding to 3 decimals because got results like this: 6.12303176911189e-15
-		 * just as a precaution not to screw up movieclips positions & infinite tween loops
+		 * @param centerPoint The center point.
+		 * @param dist The distance from the center point.
+		 * @param angle The angle from the center point.
 		 */
 		public function getPointFromDistanceAndAngle(centerPoint:Point, dist:Number, angle:Number):Point 
 		{
@@ -541,16 +719,16 @@ package net.guttershark.util
 		/**
 		 * Convert an integer to binary string representation.
 		 * 
-		 * @param numberToConvert The integer to convert.
+		 * @param n The integer to convert.
 		 */
-		public function toBinary(numberToConvert:int):String
+		public function toBinary(n:int):String
 		{
 			var result:String = "";
 			for(var i:Number = 0;i < 32; i++)
 			{
-				var lsb:int = numberToConvert & 1;
+				var lsb:int = n & 1;
 				result = (lsb?"1":"0") + result;
-				numberToConvert >>= 1;
+				n >>= 1;
 			}
 			return result;
 		}
@@ -563,17 +741,17 @@ package net.guttershark.util
 		public function toDecimal(binaryString:String):int 
 		{
 			var result:Number = 0;
-			for(var i:int = binaryString.length;i > 0; i--) result += parseInt(binaryString.charAt(binaryString.length - i)) * Math.pow(2,i - 1);
+			for(var i:int = binaryString.length;i > 0; i--) result += parseInt(binaryString.charAt(binaryString.length - i))*Math.pow(2,i-1);
 			return result;
 		}
 		
 		/**
-		 * Convert Fahrenheit to Celsius
+		 * Convert Fahrenheit to Celsius.
 		 * 
-		 * @param f Fahrenheit value
-		 * @param p The number of decimal after int '.' without round.
+		 * @param f The fahrenheit value.
+		 * @param p The number of decimals.
 		 */
-		public function toCelsius(f:Number, p:Number = 2):Number 
+		public function toCelsius(f:Number,p:Number = 2):Number 
 		{
 			var d:String;
 			var r:Number = (5 / 9) * (f - 32);
@@ -589,14 +767,14 @@ package net.guttershark.util
 				}
 			}
 			var c:String = s[0] + "." + d;
-			return Number(c);		
+			return Number(c);
 		}
 
 		/**
 		 * Convert Celsius to Fahrenheit.
 		 * 
-		 * @param c Celsius value.
-		 * @param p The number of decimal after int '.' without round.
+		 * @param c The celsius value.
+		 * @param p The number of decimals.
 		 */
 		public function toFahrenheit(c:Number, p:Number = 2):Number 
 		{
@@ -618,7 +796,8 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Convert XML data to native types.
+		 * Parse xml string boolean values into native booleans
+		 * - supports (true,false,0,1,yes,no,on,off).
 		 * 
 		 * @param value The string value from XML.
 		 */
@@ -631,67 +810,158 @@ package net.guttershark.util
 			return value;
 		}
 		
+		/**
+		 * Spreads a current value and it's total possible value,
+		 * over a value that is mapped to another property, like width,
+		 * height, etc.
+		 * 
+		 * <p>This is probably most commonly used
+		 * for bytes loaded/total, or video time.</p>
+		 * 
+		 * @example
+		 * <listing>	
+		 * var current:Number = 14;
+		 * var total:Number = 60;
+		 * var myBar:MovieClip = new MovieClip();
+		 * //spreads the value across 300 pixels, and gives you a value you can use for width;
+		 * myBar.width = utils.math.mapValuesToPixel(current,total,300); //returns 70
+		 * </listing>
+		 * 
+		 * @param current The current value.
+		 * @param total The total possible value.
+		 * @param spreadInto The total of another property that should be spread over.
+		 */
+		public function spread(current:Number,total:Number,spreadInto:int):Number
+		{
+			return Math.ceil(Math.min((current/total)*spreadInto,spreadInto));
+		}
+		
+		/**
+		 * Convert bytes to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function byte2bit(n:Number):Number
 		{
 			return n * BYTE;
 		}
-
+		
+		/**
+		 * Convert kilobits to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function kilobit2bit(n:Number):Number 
 		{
 			return n * KILOBIT;
 		}
 
+		/**
+		 * Convert kilobytes to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function kilobyte2bit(n:Number):Number 
 		{
 			return n * KILOBYTE;	
 		}
-
+		
+		/**
+		 * Convert megabits to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function megabit2bit(n:Number):Number 
 		{
 			return n * MEGABIT;
 		}
-
+		
+		/**
+		 * Convert megabytes to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function megabyte2bit(n:Number):Number 
 		{
 			return n * MEGABYTE;
 		}			
-
+		
+		/**
+		 * Convert gigabit to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function gigabit2bit(n:Number):Number 
 		{
 			return n * GIGABIT;
 		}
-
+		
+		/**
+		 * Convert gigabytes to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function gigabyte2bit(n:Number):Number
 		{
 			return n * GIGABYTE;
 		}
-
+		
+		/**
+		 * Convert terabits to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function terabit2bit(n:Number):Number 
 		{
 			return n * TERABIT;	
 		}
 
+		/**
+		 * Convert terabytes to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function terabyte2bit(n:Number):Number 
 		{
 			return n * TERABYTE;
 		}
-
+		
+		/**
+		 * Convert petabits to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function petaabit2bit(n:Number):Number 
 		{
 			return n * PETABIT;	
 		}
-
+		
+		/**
+		 * Convert petabyte to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function petabyte2bit(n:Number):Number 
 		{
 			return n * PETABYTE;
 		}
 
+		/**
+		 * Convert exabits to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function exabit2bit(n:Number):Number 
 		{
 			return n * EXABIT;	
 		}
 
+		/**
+		 * Convert exabytes to bits.
+		 * 
+		 * @param n The number.
+		 */
 		public function exabyte2bit(n:Number):Number 
 		{
 			return n * EXABYTE;
-		}	}}
+		}	}}
