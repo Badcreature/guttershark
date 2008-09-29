@@ -385,12 +385,12 @@ package net.guttershark.display
 		 */
 		public function showButtons(buttons:uint):void
 		{
-			if(buttons & CANCEL_BTN) showCancelButton();
-			if(buttons & OK_BTN) showOKButton();
-			if(buttons & CONFIRM_BTN) showConfirmButton();
-			if(buttons & YES_BTN) showYesButton();
-			if(buttons & NO_BTN) showNoButton();
-			if(buttons & DELETE_BTN) showDeleteButton();
+			if(buttons&CANCEL_BTN) showCancelButton();
+			if(buttons&OK_BTN) showOKButton();
+			if(buttons&CONFIRM_BTN) showConfirmButton();
+			if(buttons&YES_BTN) showYesButton();
+			if(buttons&NO_BTN) showNoButton();
+			if(buttons&DELETE_BTN) showDeleteButton();
 		}
 		
 		/**

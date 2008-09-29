@@ -12,7 +12,8 @@
 	/**
 	 * The LanguageManager class manages loading different language
 	 * xml files, and handles updating your text fields with
-	 * text for a different language.
+	 * text for a different language. This is really only
+	 * used when languages need to be changed at runtime.
 	 */
 	final public class LanguageManager
 	{

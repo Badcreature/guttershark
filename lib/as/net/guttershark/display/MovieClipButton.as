@@ -1,11 +1,11 @@
 package net.guttershark.display
 {
-	import flash.display.Stage;
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import net.guttershark.managers.SoundManager;
+	import net.guttershark.managers.SoundManager;	
 
 	/**
 	 * The MovieClipButton class is a generic class you can bind

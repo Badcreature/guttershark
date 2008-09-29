@@ -190,6 +190,8 @@ package net.guttershark.managers
 	 * <tr><td>PreloadController</td><td>NA</td><td>Complete,Progress,AssetComplete,AssetError</td></tr>
 	 * <tr><td>XMLLoader</td><td>NA</td><td>Complete</td></tr>
 	 * <tr><td>SoundManager</td><td>NA</td><td>Change</td></tr>
+	 * <tr><td>FLV</td><td>NA</td><td>Start,Stop,BufferFull,BufferEmpty,BufferFlush,SeekNotify,SeekInvalidTime,
+	 * Meta,CuePoint,Progress,StreamNotFound</td></tr>
 	 * </table>
 	 * 
 	 * <p>Supported Components:</p>
@@ -219,6 +221,10 @@ package net.guttershark.managers
 	 * <li>StatusEvent.STATUS</li>
 	 * <li>TextEvent.LINK</li>
 	 * <li>VideoEvent.PLAYHEAD_UPDATE</li>
+	 * <li>FLVEvent.PROGRESS</li>
+	 * <li>FLVEvent.META_DATA</li>
+	 * <li>FLVEvent.CUE_POINT</li>
+	 * <li>FLVEvent.STREAM_NOT_FOUND</li>
 	 * </ul>
 	 */
 	final public class EventManager
@@ -518,16 +524,6 @@ package net.guttershark.managers
 		private function onFLVMetaData(fe:FLVEvent):void
 		{
 			handleEvent(fe,"Meta",true);
-		}
-		
-		private function onFLVRebufferComplete(fe:FLVEvent):void
-		{
-			handleEvent(fe,"RebufferComplete");
-		}
-		
-		private function onFLVRebuffer(fe:FLVEvent):void
-		{
-			handleEvent(fe,"Rebuffer");
 		}
 		
 		private function onFLVStop(fe:FLVEvent):void
