@@ -19,6 +19,8 @@ package net.guttershark.display
 		
 		/**
 		 * Set an error message.
+		 * 
+		 * @param str The message.
 		 */
 		public function set message(str:String):void{}
 		

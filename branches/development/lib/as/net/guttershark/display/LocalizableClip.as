@@ -6,7 +6,7 @@
 	
 	/**
 	 * The LocalizableClip class is used with the LanguageManager
-	 * to add localization support.
+	 * to add localization support at runtime.
 	 */
 	public class LocalizableClip extends MovieClip
 	{
@@ -25,11 +25,17 @@
 		
 		/**
 		 * Constructor for LocalizableClip instances - you should
-		 * bind this class to a movie clip in the library.
+		 * bind this class to a movie clip in the library, or
+		 * if you need to create one through code, pass in
+		 * a text field instance in the constructor.
+		 * 
+		 * @param tf The text field to store internally that displays the text.
 		 */
-		public function LocalizableClip()
+		public function LocalizableClip(tf:TextField=null)
 		{
 			super();
+			this.tfield = tf;
+			addChild(tfield);
 			if(!this.tfield) throw new Error("The movie clip, {" + this.name + "} must have an instance of a Textfield on the stage called 'tfield'.");
 		}
 		
@@ -50,7 +56,7 @@
 		}
 		
 		/**
-		 * Return's the instance name of this localized clip, which correlates
+		 * The localized id of this clip, which correlates
 		 * to a text node in a language xml file.
 		 */
 		public function get localizedID():String
@@ -59,7 +65,7 @@
 		}
 		
 		/**
-		 * Sets the instance name of this localized clip, which correlates
+		 * The localized id of this clip, which correlates
 		 * to a text node in a language xml file.
 		 */
 		public function set localizedID(value:String):void

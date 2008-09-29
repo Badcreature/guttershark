@@ -2,8 +2,9 @@ package net.guttershark.util
 {
 	import flash.system.Capabilities;
 	import flash.system.System;		
+	
 	/**
-	 * The PlayerManager class provides static shortcut methods for finding
+	 * The PlayerUtils class provides static shortcut methods for finding
 	 * things about the currently running player.
 	 */
 	final public class PlayerUtils

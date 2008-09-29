@@ -206,9 +206,10 @@ package net.guttershark.model
 			ast.notNil(libraryName, "Parameter libraryName cannot be null");
 			var node:XMLList = assets..asset.(@libraryName == libraryName);
 			var ft:String = (node.@forceType != undefined && node.@forceType != "") ? node.@forceType : null;
-			var s:String = (prependSourcePath) ? prependSourcePath+node.@source : node.@source;
-			if(node.@path != undefined) s = getPath(node.@path.toString()) + node.@source.toString();
-			return new Asset(s,libraryName,ft);
+			var src:String = node.@source || node.@src;
+			if(prependSourcePath) src=prependSourcePath+src;
+			if(node.@path != undefined) src = getPath(node.@path.toString())+src;
+			return new Asset(src,libraryName,ft);
 		}
 		
 		/**
@@ -275,7 +276,7 @@ package net.guttershark.model
 			for each(var n:XML in a)
 			{
 				if(!n.attribute("preload")) continue;
-				var src:String = n.@source;
+				var src:String = n.@source || n.@src;
 				if(n.attribute("path")!=undefined) src = getPath(n.@path) + src;
 				var ast:Asset = new Asset(src,n.@libraryName);
 				payload.push(ast);

@@ -85,7 +85,7 @@ package net.guttershark.util
 		 * <p>The target high bandwidth is not a parameter because anything higher than the target medium
 		 * bandwidth KBps will automatically be high.</p>
 		 */
-		public function Bandwidth(targetLowBandwidth:Number=256,targetMedBandwidth:Number=550,image:URLRequest = null):void
+		public function Bandwidth(image:URLRequest=null,targetLowBandwidth:Number=256,targetMedBandwidth:Number=550):void
 		{
 			if(!image) image = new URLRequest("./bandwidth.jpg");
 			this.targetLowBandwidth = targetLowBandwidth;
