@@ -78,7 +78,7 @@ package net.guttershark.managers
 			playingSounds = new Dictionary();
 			soundTransforms = new Dictionary();
 			mainTransform = new SoundTransform(1,0);
-			vol = 0;
+			vol = 1;
 		}
 		
 		/**
@@ -194,7 +194,7 @@ package net.guttershark.managers
 			for each(obj in sndObjectsWithTransforms) obj.soundTransform.volume = mainTransform.volume;
 			dispatchEvent(new Event(Event.CHANGE));
 		}
-		/**
+				/**
 		 * Read the internal volume.
 		 */
 		public function get volume():int
