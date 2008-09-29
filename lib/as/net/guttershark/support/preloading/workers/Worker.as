@@ -182,7 +182,7 @@ package net.guttershark.support.preloading.workers
 		{
 			this.bytesLoaded = pe.bytesLoaded;
 			this.bytesTotal = pe.bytesTotal;
-			dispatchEvent(new AssetProgressEvent(AssetProgressEvent.PROGRESS, asset));
+			dispatchEvent(new AssetProgressEvent(AssetProgressEvent.PROGRESS,asset));
 		}
 		
 		/**

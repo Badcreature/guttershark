@@ -102,11 +102,11 @@ package net.guttershark.support.preloading
 		{
 			if(!worker) return;
 			worker.removeEventListener(AssetCompleteEvent.COMPLETE,onComplete);
-			worker.removeEventListener(AssetProgressEvent.PROGRESS, controller.progress);
-			worker.removeEventListener(AssetErrorEvent.ERROR, onError);
-			worker.removeEventListener(AssetOpenEvent.OPEN, controller.open);
-			worker.removeEventListener(AssetStatusEvent.STATUS, onHTTPStatus);
-			worker.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
+			worker.removeEventListener(AssetProgressEvent.PROGRESS,controller.progress);
+			worker.removeEventListener(AssetErrorEvent.ERROR,onError);
+			worker.removeEventListener(AssetOpenEvent.OPEN,controller.open);
+			worker.removeEventListener(AssetStatusEvent.STATUS,onHTTPStatus);
+			worker.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,onSecurityError);
 		}
 		
 		/**
@@ -116,11 +116,11 @@ package net.guttershark.support.preloading
 		{
 			if(!worker) return;
 			worker.addEventListener(AssetCompleteEvent.COMPLETE,onComplete);
-			worker.addEventListener(AssetProgressEvent.PROGRESS, controller.progress);
-			worker.addEventListener(AssetErrorEvent.ERROR, onError);
-			worker.addEventListener(AssetOpenEvent.OPEN, controller.open);
-			worker.addEventListener(AssetStatusEvent.STATUS, onHTTPStatus);
-			worker.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
+			worker.addEventListener(AssetProgressEvent.PROGRESS,controller.progress);
+			worker.addEventListener(AssetErrorEvent.ERROR,onError);
+			worker.addEventListener(AssetOpenEvent.OPEN,controller.open);
+			worker.addEventListener(AssetStatusEvent.STATUS,onHTTPStatus);
+			worker.addEventListener(SecurityErrorEvent.SECURITY_ERROR,onSecurityError);
 		}
 		
 		private function onComplete(e:AssetCompleteEvent):void

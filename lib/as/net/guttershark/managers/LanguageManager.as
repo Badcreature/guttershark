@@ -4,7 +4,7 @@
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 	
-	import net.guttershark.display.text.LocalizableClip;
+	import net.guttershark.display.LocalizableClip;
 	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
 	import net.guttershark.util.XMLLoader;	

@@ -355,9 +355,9 @@ package net.guttershark.control
 		 * Internal method used to send out updates.
 		 */
 		private function updateStatus():void
-		{			
+		{
 			var pixelPool:Number = 0;
-			var pixelContributionPerItem:Number = totalPixelsToFill / (loadItemsDuplicate.length - loadErrors);
+			var pixelContributionPerItem:Number = Math.ceil(totalPixelsToFill/(loadItemsDuplicate.length-loadErrors));
 			var pixelUpdate:Number;
 			var percentUpdate:Number;
 			for(var key:String in loadingItemsPool)
@@ -365,16 +365,16 @@ package net.guttershark.control
 				var bl:* = bytesLoadedPool[key];
 				var bt:* = bytesTotalPool[key];
 				if(bl == undefined || bt == undefined) continue;
-				var pixelsForItem:Number = Math.floor((bl / bt) * pixelContributionPerItem);
+				var pixelsForItem:Number = Math.ceil((bl/bt)*pixelContributionPerItem);
 				//trace("update: key: " + key + " bl: " + bl.toString() + " bt: " + bt.toString() + " pixelsForItem: " + pixelsForItem);
 				pixelPool += pixelsForItem;
 			}
 			pixelUpdate = pixelPool;
-			percentUpdate = Math.floor((pixelPool / totalPixelsToFill) * 100);
-			if(lastPixelUpdate == pixelUpdate && lastPercentUpdate == percentUpdate) return;
+			percentUpdate = Math.ceil((pixelPool/totalPixelsToFill)*100);
+			if(lastPixelUpdate>0&&lastPercentUpdate>0&&lastPixelUpdate==pixelUpdate&&lastPercentUpdate==percentUpdate) return;
 			lastPixelUpdate = pixelUpdate;
 			lastPercentUpdate = percentUpdate;
-			dispatchEvent(new PreloadProgressEvent(PreloadProgressEvent.PROGRESS, pixelUpdate, percentUpdate));
+			dispatchEvent(new PreloadProgressEvent(PreloadProgressEvent.PROGRESS,pixelUpdate,percentUpdate));
 		}
 		
 		/**
@@ -455,7 +455,7 @@ package net.guttershark.control
 		{
 			loaded++;
 			lastCompleteAsset = e.asset;
-			AssetManager.gi().addAsset(e.asset.libraryName,e.asset.data);
+			AssetManager.gi().addAsset(e.asset.libraryName,e.asset.data,e.asset.source);
 			dispatchEvent(new AssetCompleteEvent(AssetCompleteEvent.COMPLETE,e.asset));
 			updateStatus();
 			updateLoading();

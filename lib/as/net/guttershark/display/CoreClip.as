@@ -1,4 +1,4 @@
-package net.guttershark.display 
+package net.guttershark.display
 {
 	import flash.display.MovieClip;
 	

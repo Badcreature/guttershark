@@ -5,10 +5,12 @@ package net.guttershark.managers
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.media.Sound;
+	import flash.net.NetStream;
 	import flash.text.Font;
 	import flash.text.StyleSheet;
 	import flash.utils.Dictionary;
 	
+	import net.guttershark.display.FLV;
 	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
 	import net.guttershark.util.XMLLoader;		
@@ -41,6 +43,11 @@ package net.guttershark.managers
 		 * Assertions.
 		 */
 		private var ast:Assertions;
+		
+		/**
+		 * A lookup to objects by source utl path.
+		 */
+		private var sourceLookup:Dictionary;
 
 		/**
 		 * @private
@@ -50,6 +57,7 @@ package net.guttershark.managers
 		{
 			Singleton.assertSingle(AssetManager);
 			assets = new Dictionary(false);
+			sourceLookup = new Dictionary(false);
 			ast = Assertions.gi();
 		}
 		
@@ -68,15 +76,12 @@ package net.guttershark.managers
 		 * @param libraryName The item id.
 		 * @param obj The loaded asset object.
 		 */
-		public function addAsset(libraryName:String, obj:*):void
+		public function addAsset(libraryName:String,obj:*,source:String=null):void
 		{
 			ast.notNil(libraryName,"Parameter libraryName cannot be null");
 			ast.notNil(obj,"Parameter obj cannot be null");
-			if(assets[libraryName])
-			{
-				trace("WARNING: The asset defined by libraryName: {" + libraryName + "} already had an asset registered in the library. The previous asset is no longer available.");
-			}
 			assets[libraryName] = obj;
+			sourceLookup[libraryName] = source;
 			_lastLibraryName = libraryName;
 		}
 		
@@ -89,6 +94,7 @@ package net.guttershark.managers
 		{
 			ast.notNil(libraryName,"Parameter libraryName cannot be null");
 			assets[libraryName] = null;
+			sourceLookup[libraryName] = null;
 		}
 		
 		/**
@@ -324,6 +330,30 @@ package net.guttershark.managers
 			if(assets[libraryName] != null) return XMLLoader(getAsset(libraryName)).data as XML;
 			throw new Error("XML {" + libraryName + "} was not found.");
 		}
+		
+		/**
+		 * Get a net stream that was used to load an flv.
+		 * 
+		 * @param libraryName The library name used when the asset was registered.
+		 */
+		public function getNetStream(libraryName:String):NetStream
+		{
+			ast.notNil(libraryName,"Parameter {libraryName} cannot be null");
+			if(assets[libraryName] != null) return NetStream(getAsset(libraryName));
+			throw new Error("NetStream {" + libraryName + "} was not found.");
+		}
+		
+		/**
+		 * Get an flv instance.
+		 * 
+		 * @param libraryName The library name used when the asset was registered.
+		 */
+		public function getFLV(libraryName:String):FLV
+		{
+			var f:FLV = new FLV();
+			f.load(sourceLookup[libraryName],320,240,4,false,false);
+			return f;
+		}
 
 		/**
 		 * Purge all assets from the library. The AssetLibrary is still
@@ -332,6 +362,7 @@ package net.guttershark.managers
 		public function dispose():void
 		{
 			assets = new Dictionary(false);
+			sourceLookup = new Dictionary(false);
 			_lastLibraryName = null;
 		}
 	}

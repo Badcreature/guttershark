@@ -17,7 +17,7 @@ package
 	 */
 	public class StaticVSLocal extends DocumentController
 	{
-
+		
 		private var ar:ArrayUtils;
 
 		public function StaticVSLocal()
@@ -36,7 +36,7 @@ package
 			run4();
 		}
 
-		private function run1():void
+		private function run1():void //40
 		{
 			var c:int = 1000000;
 			var i:int = 0;
@@ -87,7 +87,7 @@ package
 		}
 		
 		//static is slowest. on average about %50 slower.
-		private function run4():void
+		private function run4():void //145
 		{
 			var c:int = 1000000;
 			var i:int = 0;
