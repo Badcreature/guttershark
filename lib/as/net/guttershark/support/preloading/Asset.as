@@ -131,16 +131,24 @@ package net.guttershark.support.preloading
 		
 		private function onError(e:AssetErrorEvent):void
 		{
-			dispose();
-			if(!controller) return;
+			if(!controller)
+			{
+				dispose();
+				return;
+			}
 			controller.error(e);
+			dispose();
 		}
 		
 		private function onHTTPStatus(h:AssetStatusEvent):void
 		{
-			dispose();
-			if(!controller) return;
+			if(!controller)
+			{
+				dispose();
+				return;
+			}
 			controller.httpStatus(h);
+			dispose();
 		}
 		
 		/**

@@ -13,7 +13,7 @@ package net.guttershark.model
 	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
 	import net.guttershark.util.Utilities;
-	import net.guttershark.util.cache.Cache;		
+	import net.guttershark.util.cache.Cache;	
 
 	/**
 	 * The Model Class provides shortcuts for parsing a model xml file as
@@ -23,6 +23,9 @@ package net.guttershark.model
 	 * <listing>	
 	 * &lt;?xml version="1.0" encoding="utf-8"?&gt;
 	 * &lt;model&gt;
+	 * 	  &lt;content&gt;
+	 *        &lt;text id="helloWorldExample"&gt;&lt;![CDATA[Hello]]&gt;&lt;/text&gt;
+	 *    &lt;/content&gt;
 	 *    &lt;assets&gt;
 	 *        &lt;asset libraryName="clayBanner1" source="clay_banners_1.jpg" preload="true" /&gt;
 	 *        &lt;asset libraryName="clayBanner2" source="clay_banners_2.jpg" /&gt;
@@ -56,7 +59,7 @@ package net.guttershark.model
 	 * &lt;/model&gt;
 	 * </listing>
 	 */
-	final public class Model
+	final public dynamic class Model
 	{
 		
 		/**
@@ -103,6 +106,12 @@ package net.guttershark.model
 		 * Stores a reference to the <code>&lt;textformats&gt;&lt;/textformats&gt;</code>
 		 */
 		protected var textformats:XMLList;
+		
+		/**
+		 * Stores a reference to the <code>&lt;content&gt;&lt;/content&gt;</code>
+		 * node in the model xml.
+		 */
+		protected var contents:XMLList;
 		
 		/**
 		 * A placeholder variable for the movies flashvars - this is
@@ -184,6 +193,7 @@ package net.guttershark.model
 			if(_model.stylesheets) stylesheets = _model.stylesheets;
 			if(_model.service) services = _model.services;
 			if(_model.textformats) textformats = _model.textformats;
+			if(_model.content) contents = _model.content;
 		}
 		
 		/**
@@ -277,7 +287,7 @@ package net.guttershark.model
 			{
 				if(!n.attribute("preload")) continue;
 				var src:String = n.@source || n.@src;
-				if(n.attribute("path")!=undefined) src = getPath(n.@path) + src;
+				if(n.attribute("path")!=undefined) src = getPath(n.@path.toString()) + src;
 				var ast:Asset = new Asset(src,n.@libraryName);
 				payload.push(ast);
 			}
@@ -518,6 +528,17 @@ package net.guttershark.model
 				return;
 			}
 			sharedObject.flush();
+		}
+		
+		/**
+		 * Get's a piece of content from the content node in xml.
+		 * 
+		 * @param id The text id.
+		 */
+		public function getContentById(id:String):String
+		{
+			var n:XMLList = contents..text.(@id==id);
+			return n.toString();
 		}
 	}
 }
