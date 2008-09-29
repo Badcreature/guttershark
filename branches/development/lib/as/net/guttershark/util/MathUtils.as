@@ -824,7 +824,7 @@ package net.guttershark.util
 		 * var total:Number = 60;
 		 * var myBar:MovieClip = new MovieClip();
 		 * //spreads the value across 300 pixels, and gives you a value you can use for width;
-		 * myBar.width = utils.math.mapValuesToPixel(current,total,300); //returns 70
+		 * myBar.width = utils.math.spread(current,total,300); //returns 70
 		 * </listing>
 		 * 
 		 * @param current The current value.
@@ -836,6 +836,26 @@ package net.guttershark.util
 			return Math.ceil(Math.min((current/total)*spreadInto,spreadInto));
 		}
 		
+		/**
+		 * Convert bytes to mega bytes
+		 * 
+		 * @param n The number.
+		 */
+		public function byte2Megabyte(n:Number):Number
+		{
+			return n / MEGABIT;
+		}
+		
+		/**
+		 * Convert bytes to killo bytes.
+		 * 
+		 * @param n The number.
+		 */
+		public function byte2Kilobyte(n:Number):Number
+		{
+			return n / KILOBIT;
+		}
+
 		/**
 		 * Convert bytes to bits.
 		 * 

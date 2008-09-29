@@ -55,7 +55,7 @@ package net.guttershark.util
 		 * 
 		 * @param address The string to evaluate.
 		 */
-		public function ispobox(address:String,message:String=null,exceptionType:Class=null):Boolean
+		public function ispobox(address:String):Boolean
 		{
 			var look:Array = ["PO ","P O","P.O","P. O", "p o","p.o","p. o","Box","Post Office","post office"];
 			var len:Number = look.length;
@@ -73,7 +73,7 @@ package net.guttershark.util
 		 * @param message A message to throw if the assertion evaluates to false.
 		 * @param exceptionType The exceptionType to throw if an exception is being thrown.
 		 */
-		public function isStateAbbrev(state:String,message:String=null,exceptionType:Class=null):Boolean
+		public function isStateAbbrev(state:String):Boolean
 		{
 			var states:Array = [
 				"AL","AK","AS","AZ",
@@ -99,7 +99,7 @@ package net.guttershark.util
 		 * 
 		 * @param str The string to evaluate.
 		 */
-		public function isurl(str:String,message:String=null,exceptionType:Class=null):Boolean
+		public function isurl(str:String):Boolean
 		{
 			return (str.substring(0,7) == "http://" || str.substring(0,8) == "https://");
 		}

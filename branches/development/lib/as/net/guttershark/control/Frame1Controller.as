@@ -12,7 +12,7 @@ package net.guttershark.control
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.ProgressEvent;	
+	import flash.events.ProgressEvent;
 
 	/**
 	 * The Frame1Controller class is a controller

@@ -26,6 +26,8 @@ package net.guttershark.managers
 	import flash.utils.Timer;
 	
 	import net.guttershark.control.PreloadController;
+	import net.guttershark.display.FLV;
+	import net.guttershark.support.events.FLVEvent;
 	import net.guttershark.support.preloading.events.AssetCompleteEvent;
 	import net.guttershark.support.preloading.events.AssetErrorEvent;
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
@@ -346,15 +348,31 @@ package net.guttershark.managers
 				if((callbackPrefix + "KeyDown") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown,false,0,true);
 				if((callbackPrefix + "KeyUp") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(KeyboardEvent.KEY_UP, onKeyUp,false,0,true);
 			}
+						
+			if(obj is FLV)
+			{
+				if(((callbackPrefix + "Progress") in callbackDelegate)) obj.addEventListener(FLVEvent.PROGRESS,onFLVProgress,false,0,true);
+				if(((callbackPrefix + "Start") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.START,onFLVStart,false,0,true);
+				if(((callbackPrefix + "Stop") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.STOP,onFLVStop,false,0,true);
+				if(((callbackPrefix + "SeekNotify") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.SEEK_NOTIFY,onFLVSeekNotify,false,0,true);
+				if(((callbackPrefix + "SeekInvalidTime") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.SEEK_INVALID_TIME,onFLVSeekInvalidTime,false,0,true);
+				if(((callbackPrefix + "StreamNotFound") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.STREAM_NOT_FOUND,onFLVStreamNotFound,false,0,true);
+				if(((callbackPrefix + "BufferFlush") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.BUFFER_FLUSH,onFLVBufferFlush,false,0,true);
+				if(((callbackPrefix + "BufferEmpty") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.BUFFER_EMPTY,onFLVBufferEmpty,false,0,true);
+				if(((callbackPrefix + "BufferFull") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.BUFFER_FULL,onFLVBufferFull,false,0,true);
+				if(((callbackPrefix + "CuePoint") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.CUE_POINT,onFLVCuePoint,false,0,true);
+				if(((callbackPrefix + "Meta") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(FLVEvent.METADATA,onFLVMetaData,false,0,true);
+			}
 			
 			if(obj is PreloadController)
 			{
-				if(((callbackPrefix + "Progress") in callbackDelegate)) obj.addEventListener(PreloadProgressEvent.PROGRESS, onProgress, false, 0, true);
+				if(((callbackPrefix + "Progress") in callbackDelegate)) obj.addEventListener(PreloadProgressEvent.PROGRESS,onProgress,false,0,true);
 				if(((callbackPrefix + "Complete") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(Event.COMPLETE, onComplete, false, 0, true);
 				if(((callbackPrefix + "AssetComplete") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(AssetCompleteEvent.COMPLETE, onAssetComplete, false, 0, true);
 				if(((callbackPrefix + "AssetError") in callbackDelegate) || cycleAllThroughTracking) obj.addEventListener(AssetErrorEvent.ERROR,onAssetError, false, 0, true);
 				return;
 			}
+			
 			
 			if(obj is TextField)
 			{
@@ -460,6 +478,71 @@ package net.guttershark.managers
 				if((callbackPrefix + "UploadCompleteData") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, onFRUploadCompleteData,false,0,true);
 				return;
 			}
+		}
+		
+		private function onFLVSeekNotify(fe:FLVEvent):void
+		{
+			handleEvent(fe,"Seek");
+		}
+		
+		private function onFLVSeekInvalidTime(fe:FLVEvent):void
+		{
+			handleEvent(fe,"InvalidTime");
+		}
+		
+		private function onFLVStreamNotFound(fe:FLVEvent):void
+		{
+			handleEvent(fe,"StreamNotFound",true);
+		}
+		
+		private function onFLVBufferFlush(fe:FLVEvent):void
+		{
+			handleEvent(fe,"BufferFlush");
+		}
+		
+		private function onFLVBufferFull(fe:FLVEvent):void
+		{
+			handleEvent(fe,"BufferFull");
+		}
+		
+		private function onFLVBufferEmpty(fe:FLVEvent):void
+		{
+			handleEvent(fe,"BufferEmpty");
+		}
+		
+		private function onFLVCuePoint(fe:FLVEvent):void
+		{
+			handleEvent(fe,"CuePoint",true);
+		}
+		
+		private function onFLVMetaData(fe:FLVEvent):void
+		{
+			handleEvent(fe,"Meta",true);
+		}
+		
+		private function onFLVRebufferComplete(fe:FLVEvent):void
+		{
+			handleEvent(fe,"RebufferComplete");
+		}
+		
+		private function onFLVRebuffer(fe:FLVEvent):void
+		{
+			handleEvent(fe,"Rebuffer");
+		}
+		
+		private function onFLVStop(fe:FLVEvent):void
+		{
+			handleEvent(fe,"Stop");
+		}
+		
+		private function onFLVStart(fe:FLVEvent):void
+		{
+			handleEvent(fe,"Start");
+		}
+		
+		private function onFLVProgress(fe:FLVEvent):void
+		{
+			handleEvent(fe,"Progress",true);
 		}
 		
 		private function onSoundID3(e:Event):void

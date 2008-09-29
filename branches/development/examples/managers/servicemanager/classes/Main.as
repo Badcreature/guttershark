@@ -46,6 +46,7 @@ package
 		
 		override protected function setupComplete():void
 		{
+			
 			trace("SETUP COMPLETE");
 			file = new FileReference();
 			em.handleEvents(upload,this,"onUpload");

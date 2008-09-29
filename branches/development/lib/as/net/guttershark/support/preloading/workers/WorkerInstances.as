@@ -3,11 +3,10 @@ package net.guttershark.support.preloading.workers
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.support.preloading.workers.BitmapWorker;
-	import net.guttershark.support.preloading.workers.ProgressiveFLVWorker;
 	import net.guttershark.support.preloading.workers.SWFWorker;
 	import net.guttershark.support.preloading.workers.SoundWorker;
 	import net.guttershark.support.preloading.workers.Worker;
-	import net.guttershark.support.preloading.workers.XMLWorker;	
+	import net.guttershark.support.preloading.workers.XMLWorker;
 
 	/**
 	 * The WorkerInstances class is an instance factory that returns instances
@@ -61,7 +60,7 @@ package net.guttershark.support.preloading.workers
 			RegisterWorkerForFileType("png",BitmapWorker);
 			RegisterWorkerForFileType("swf",SWFWorker);
 			RegisterWorkerForFileType("xml",XMLWorker);
-			RegisterWorkerForFileType("flv",ProgressiveFLVWorker);
+			RegisterWorkerForFileType("flv",FLVWorker);
 			RegisterWorkerForFileType("mp3",SoundWorker);
 			RegisterWorkerForFileType("css",StyleSheetWorker);
 			defaultsRegistered = true;
