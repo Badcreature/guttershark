@@ -12,7 +12,7 @@ package net.guttershark.util
 	 * The Bandwidth class downloads a bitmap file, and benchmarks the client's
 	 * bandwidth.
 	 *  
-	 * @example Sniffing the users bandwidth.
+	 * @example Sniffing the user's bandwidth:
 	 * <listing>	
 	 * import net.guttershark.managers.EventManager;
 	 * import net.guttershark.util.Bandwidth;
@@ -76,17 +76,16 @@ package net.guttershark.util
 		/**
 		 * Constructor for Bandwidth instances.
 		 * 
-		 * @param	image	This is an optional parameter. By default the sniffer loads a reference to
+		 * @param targetLowBandwidth The target KBps for low bandwidth.
+		 * @param targetMedBandwidth The target KBps for med bandwidth.
+		 * @param image This is an optional parameter - by default the sniffer loads a reference to
 		 * ./bandwidth.jpg. You can pass a different URLRequest here to change what file
 		 * is used in the bandwidth detection.
 		 * 
-		 * @param	targetLowBandwidth	The target Kbps for low bandwidth
-		 * @param	targetMedBandwidth	The target Kbps for med bandwidth
-		 * 
 		 * <p>The target high bandwidth is not a parameter because anything higher than the target medium
-		 * bandwidth Kbps will automatically be high.</p>
+		 * bandwidth KBps will automatically be high.</p>
 		 */
-		public function Bandwidth(image:URLRequest = null, targetLowBandwidth:Number = 256, targetMedBandwidth:Number = 550):void
+		public function Bandwidth(targetLowBandwidth:Number=256,targetMedBandwidth:Number=550,image:URLRequest = null):void
 		{
 			if(!image) image = new URLRequest("./bandwidth.jpg");
 			this.targetLowBandwidth = targetLowBandwidth;

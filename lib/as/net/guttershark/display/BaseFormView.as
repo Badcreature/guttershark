@@ -3,8 +3,8 @@ package net.guttershark.display
 	import flash.display.MovieClip;	
 	
 	/**
-	 * The BaseFormView class defines the top most class a form
-	 * shoud implement, to follow a good pattern of the most commonly
+	 * The BaseFormView class defines the base form view
+	 * should implement, to follow a good pattern of the most commonly
 	 * used form functionality.
 	 * 
 	 * @see #onConfirmClick() onConfirmClick() for an example of using function delegates

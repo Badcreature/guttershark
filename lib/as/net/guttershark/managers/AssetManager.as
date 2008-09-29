@@ -1,21 +1,7 @@
 package net.guttershark.managers
 {
-	import flash.display.Bitmap;
-	import flash.display.Loader;
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.media.Sound;
-	import flash.net.NetStream;
-	import flash.text.Font;
-	import flash.text.StyleSheet;
-	import flash.utils.Dictionary;
-	
-	import net.guttershark.display.FLV;
-	import net.guttershark.util.Assertions;
-	import net.guttershark.util.Singleton;
-	import net.guttershark.util.XMLLoader;		
-
-	/**
+	import flash.display.Bitmap;	import flash.display.Loader;	import flash.display.MovieClip;	import flash.display.Sprite;	import flash.media.Sound;	import flash.net.NetStream;	import flash.text.Font;	import flash.text.StyleSheet;	import flash.utils.Dictionary;		import net.guttershark.display.FLV;	import net.guttershark.util.Assertions;	import net.guttershark.util.Singleton;	import net.guttershark.util.XMLLoader;	
+	/**
 	 * The AssetManager class is a singleton that stores all assets
 	 * loaded by any PreloadController.
 	 * 
@@ -350,8 +336,10 @@ package net.guttershark.managers
 		 */
 		public function getFLV(libraryName:String):FLV
 		{
+			ast.notNil(libraryName,"Parameter {libraryName} cannot be null");
 			var f:FLV = new FLV();
 			f.load(sourceLookup[libraryName],320,240,4,false,false);
+			f.volume = SoundManager.gi().volume;
 			return f;
 		}
 
