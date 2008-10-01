@@ -1,3 +1,9 @@
+==revision 373==
+-re-wrote movie clip to swf jsfl. cleaned everything up and minimized code.
+
+==revision 372===
+-added movie clip to swf jsfl.
+
 ==revision 371===
 -Fixed order of events in the Asset class, for when assets errored out with IOError event or HTTPStatus events - dispose was being called first, but should have been in 2 places.
 -Fixed bug with the getAssetsForPreload function on the Model. was calling getPath(node.@path) but should have been calling getPath(node.@path.toString()).
