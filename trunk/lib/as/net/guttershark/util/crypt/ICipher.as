@@ -1,1 +1,0 @@
-package net.guttershark.util.crypt{	/**	 * Marker interface for all cryptographic cipher classes	 * @see http://en.wikipedia.org/wiki/Encryption	 * @see http://en.wikipedia.org/wiki/Marker_interface_pattern	 */	public interface ICipher{}}

@@ -1,1 +1,0 @@
-alert("Please grab the guttershark.js file from lib/js/guttershark.js. This is just a placeholder.");
