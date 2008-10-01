@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="JSFLProxy,net.guttershark.util.JSFLProxy,alert,gi,runScript,trase" name="keywords">
+<title>net.guttershark.util.JSFLProxy</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'JSFLProxy - Guttershark Flash API Docs';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">Guttershark Flash API Docs</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?net/guttershark/util/JSFLProxy.html&amp;net/guttershark/util/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;JSFLProxy</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class JSFLProxy"); titleBar_setSubNav(false,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">net.guttershark.util</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public final  class JSFLProxy</td>
+</tr>
+</table>
+<p></p>
+  The JSFLProxy class is a proxy class that eleviates the pain
+  of running jsfl from actionscript.
+  
+  <p>JSFL Proxy does not eleviate having to call such things like:
+  <code>MMExecute("fl.getDocumentDOM().path")</code>, but it does relieve
+  calling script files, or functions withing script files, and
+  handling parameters, and responses from the script.</p>
+  
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../util/JSFLProxy.html#runScript()" target="">runScript()</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#alert()">alert</a>(message:String, escap:Boolean = false):void</div>
+<div class="summaryTableDescription">
+   Alert a message.</div>
+</td><td class="summaryTableOwnerCol">JSFLProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#gi()">gi</a>():<a href="../util/JSFLProxy.html">JSFLProxy</a>
+</div>
+<div class="summaryTableDescription">[static]
+   Singleton access.</div>
+</td><td class="summaryTableOwnerCol">JSFLProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#runScript()">runScript</a>(scriptFile:String, callProps:Object = null):*</div>
+<div class="summaryTableDescription">
+   Run a jsfl script file, with optional parameters.</div>
+</td><td class="summaryTableOwnerCol">JSFLProxy</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#trase()">trase</a>(msg:*, escap:Boolean = false):void</div>
+<div class="summaryTableDescription">
+   Trace to output.</div>
+</td><td class="summaryTableOwnerCol">JSFLProxy</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="alert()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">alert</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function alert(message:String, escap:Boolean = false):void</code><p>
+   Alert a message.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">message</span>:String</code> &mdash; A message to alert.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">escap</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Whether or not to escape the alert message.
+   </td>
+</tr>
+</table>
+</div>
+<a name="gi()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">gi</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function gi():<a href="../util/JSFLProxy.html">JSFLProxy</a></code><p>
+   Singleton access.
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../util/JSFLProxy.html">JSFLProxy</a></code></td>
+</tr>
+</table>
+</div>
+<a name="runScript()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">runScript</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function runScript(scriptFile:String, callProps:Object = null):*</code><p>
+   Run a jsfl script file, with optional parameters.
+   
+   </p><p>The callProps object accepts these properties:</p>
+   
+   <ul>
+   <li>method (String) - A method inside of the jsfl file to execute.</li>
+   <li>params (Array) - Parameters to send to the jsfl function.</li>
+   <li>escapeParams (Boolean) - Whether or not to escape all parameters being sent to the function.</li>
+   <li>responseWasEscaped (Boolean) - Whether the return value from jsfl was escaped. This is useful for returning XML, or string with special characters,
+   because special characters will throw jsfl errors if they're not escaped.</li>
+   <li>responseFormat (String) - A response format, so that casting can occur - supports (xml,boolean,int,number,array(csv)).
+   </ul>
+   
+   <p>Those properties are optional. And depending on what properties are present,
+   either a jsfl file will execute, or a method inside of it</p>
+   
+   <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">scriptFile</span>:String</code> &mdash; The fileURI (file:///) to run.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">callProps</span>:Object</code> (default = <code>null</code>)<code></code> &mdash; The call properties to use for this call.
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>*</code></td>
+</tr>
+</table>
+<br>
+<span class="label">Example</span>
+<br>Calling a script file (no method):
+    <div class='listing'><pre> 
+    var j:JSFLProxy = JSFLProxy.gi();
+    j.runScript("myscript.jsfl",{responseFormat:"xml",responseWasEscape:true});
+    </pre></div>
+    
+    <p></p>Calling a method in a script file:
+    <div class='listing'><pre> 
+    var j:JSFLProxy = JSFLProxy.gi();
+    j.runScript("myscript.jsfl",{method:"helloWorld",params:["test"],escapeParams:true,responseFormat:"XML",responseWasEscape:true});
+    </pre></div>
+    
+   <p></p>
+</div>
+<a name="trase()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">trase</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function trase(msg:*, escap:Boolean = false):void</code><p>
+   Trace to output.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">msg</span>:*</code> &mdash; An object to trace out.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">escap</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Whether or not to escape the trace.
+   </td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->
