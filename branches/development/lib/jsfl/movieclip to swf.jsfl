@@ -11,9 +11,10 @@ function MovieClipToSWF()
 	dom.exportPublishProfile(publishProfileSource);
 	var publishProfile=FLfile.read(publishProfileSource);
 	var exportval=publishProfile.match(/<flashFileName>(.*)<\/flashFileName>/)[1].replace(/\\/g,"/");
-	exportPath=docPath+exportval.split("/").slice(0,-1).join("/")+"/";
+	exportPath=((docPath.indexOf("/")>-1)?docPath+exportval.split("/").slice(0,-1).join("/")+"/":docPath).replace("file:////","");
+	while(exportPath.match(/\/$/))exportPath=exportPath.replace(/\/$/,"");
 	if(si.length==0)alert('ERROR: No Library items are selected.');
-	else for(var i=0;i<si.length;i++)if(si[i].itemType=='movie clip')si[i].exportSWF(exportPath+si[i].name.split("/").slice(-1)+".swf");
+	else for(var i=0;i<si.length;i++)if(si[i].itemType=='movie clip')(si[i].name.indexOf("/")>-1)?si[i].exportSWF("file:///"+exportPath+"/"+(si[i].name.split("/").slice(-1))+".swf"):si[i].exportSWF("file:///"+exportPath+"/"+si[i].name+".swf");
 	FLfile.remove(publishProfileSource);
 }
 MovieClipToSWF();
