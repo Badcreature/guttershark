@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<services>
+		<gateway id="amfphp" path="amfphp" objectEncoding="3" />
+		<service id="test" gateway="amfphp" endpoint="Test" limiter="true" attempts="4" timeout="1000" />
+		<service id="sessionDestroy" path="sessiondestroy" attempts="4" timeout="1000" responseFormat="variables" />
+		<service id="ci" attempts="4" timeout="3000" responseFormat="variables" />
+		<service id="uploadImage" path="uploadImage" />
+	</services>
+</model>
