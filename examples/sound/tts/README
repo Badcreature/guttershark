@@ -1,0 +1,6 @@
+This example requires a local virtual host setup as "tts" that points to
+the deploy directory. The example uses a java tool called FreeTTS.
+
+You should have php and something close to the latest java.
+
+See the deploy/tts.php script as well as the as class in classes.
