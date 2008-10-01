@@ -3,49 +3,36 @@
  */
 function MovieClipToSWF()
 {
-	var doc=fl.getDocumentDOM();
-	var selLibItems=doc.library.getSelectedItems();
-	var selLibItemNames=new Array();
-	var len=selLibItems.length;
+	//get document path, for win/mac
+	function getDocumentPath()
+	{
+		var path = document.path.replace(/\\/g, '/').split('/').slice(0,-1).join('/');
+		if((path.indexOf(':/')!=-1)||(path.charAt(0)=='/'))while(path.charAt(0)=='/')path=path.substr(1);
+		if(path.indexOf('file:///')!=0) path='file:///'+path;
+		path += '/';
+		return path;
+	}
+	var item,exportPath;
+	var dom=fl.getDocumentDOM();
+	var docName = document.name.toString().replace(/\.fla/i,"");
+	var selItems=dom.library.getSelectedItems();
+	var len=selItems.length;
+	var selNames=[];
+	var publishProfileSource=getDocumentPath()+docName+'_publishProfile.xml';
+	dom.exportPublishProfile(publishProfileSource);
+	var publishProfile=FLfile.read(publishProfileSource);
+	var flf=publishProfile.match(/<flashFileName>(.*)<\/flashFileName>/);
+	var exportval = flf[1];
+	if(exportval.indexOf("/")>-1) exportPath=getDocumentPath()+exportval.split("/").slice(0,-1).join("/")+"/";
+	else exportPath=getDocumentPath();
 	for(var i=0;i<len;i++)
 	{
-		var item = selLibItems[i].name;
-		if(item.indexOf("/")>-1)
-		{
-			var nameAry=selLibItems[i].name.split("/");
-			selLibItemNames[i]=nameAry[nameAry.length-1];
-		}
-		else selLibItemNames[i]=selLibItems[i].name;
+		item = selItems[i].name;
+		if(item.indexOf("/")>-1) selNames[i]=selItems[i].name.split("/").slice(-1);
+		else selNames[i]=selItems[i].name;
 	}
-	if(selLibItems.length==0)
-	{
-		alert('ERROR: No Library items are selected.');
-		return;
-	}
-	else
-	{
-		var tempPath="file:///"+doc.path.split("\\").join("/").split(":").join("|");
-		var baseFilePathArray=tempPath.split(".fla")[0].split("/");
-		var mcName=baseFilePathArray[baseFilePathArray.length-1].split("_")[0]+"/";
-		baseFilePathArray.pop();
-		var saveFolder=baseFilePathArray.join('/')+'/'+mcName;
-		var len=selLibItems.length;
-		var pathString='';
-		var pathArray=saveFolder.split('/').concat();
-		var len2=pathArray.length;
-		for(var i=0;i<len;i++)
-		{
-			if(selLibItems[i].itemType == 'movie clip')
-			{
-				for(var j=0;j<len2;j++) 
-				{
-					if(i!=0) pathString+='/'+pathArray[j];
-					else pathString+=pathArray[j];
-					if(pathString!='file://')if(!FLfile.exists(pathString))FLfile.createFolder(pathString);
-				}
-				selLibItems[i].exportSWF(saveFolder+selLibItemNames[i]+".swf");
-			}
-		}
-	}
+	if(len==0) alert('ERROR: No Library items are selected.');
+	else for(var i=0;i<len;i++) if(selItems[i].itemType=='movie clip')selItems[i].exportSWF(exportPath+selNames[i]+".swf");
+	FLfile.remove(publishProfileSource);
 }
 MovieClipToSWF();
