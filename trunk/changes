@@ -1,0 +1,23 @@
+==revision 376==
+-updated examples
+
+==revision 375==
+-updated FLV docs.
+
+==revision 374==
+-more consolidation in the movie clip to swf jsfl script.
+-added assets folder.
+
+==revision 373==
+-re-wrote movie clip to swf jsfl. cleaned everything up and minimized code.
+
+==revision 372===
+-added movie clip to swf jsfl.
+
+==revision 371===
+-Fixed order of events in the Asset class, for when assets errored out with IOError event or HTTPStatus events - dispose was being called first, but should have been in 2 places.
+-Fixed bug with the getAssetsForPreload function on the Model. was calling getPath(node.@path) but should have been calling getPath(node.@path.toString()).
+-Added getContentById on the model, for getting text content.
+
+==revision 369==
+First 1.0 release.
