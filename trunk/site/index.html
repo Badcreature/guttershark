@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Guttershark Library</title>
+	<style type="text/css">
+		body{margin:0;padding:0;background-color:#a5cfda;font:12px arial,verdana,sans-serif;}
+		#wrapper{margin:0 auto;width:43em;}
+		#content{width:38em;background-color:white;padding:20px;margin-top:90px;border:solid 10px #94c0cc;margin-bottom:90px;}
+		#content #navs{padding:0;margin:0;margin-bottom:20px;font-size:10px;width:100%;}
+		#content #navs a{color:#d1d3d3;}
+		#content #navs a:hover{color:#09a7ce;}
+		#blog{width:100%;text-align:right;}
+		#blog a{display:block;padding:10px;background-color:#d1d3d3;margin-top:40px;}
+		#other{margin-top:40px;}
+		h1{margin:0;padding:0;margin-bottom:20px;}
+		h2{padding:0;margin:0;padding-top:20px;}
+		h3{padding:0;margin:0;padding-top:20px;}
+		h3.first{padding-top:5px;margin:0;}
+		p{padding:0;margin:10px 0 10px 0;line-height:17px;}
+		a{color:#09a7ce;}
+		a:hover{color:#0791b3;}
+		sup{font-size:12px;color:#d1d3d3;}
+		ul li{margin-top:4px;}
+	</style>
+</head>
+<body>
+<div id="wrapper">
+	<div id="content">
+		<h1>GUTTERSHARK<br/><sup>Actionscript 3 Library</sup></h1>
+		<p>Guttershark is a Flash Actionscript 3 productivity library that uses some simple conventions - to make you faster as a 
+			developer. It's a pattern for Flash development that cuts out a huge amount of time, especially when you're
+			in the first stages of development.</p>
+		<p>There are quite a few AS3 Flash libraries out there, but a lot of them push abstraction on you that isn't necessary. Just 	
+			because something can be abstracted, it doesn't mean it should be. Does that make it more
+			useful? Does it make your job easier or less complicated? Probably not.</p>
+		<p>So what's the deal with Guttershark? Essentially it defines the "scaffolding" of what seems to be 95% of
+			Flash websites. </p>
+		<p>By following the conventions, you can override a couple methods, write a few lines of code, and have the following implemented:</p>
+		<ul>
+			<li>Load a model XML file.</li>
+			<li>Model XML Methods.</li>
+			<ul>
+				<li>Methods that parse and give you back objects you can pass directly to the preloading framework.</li>
+				<li>Methods that initialize remoting services and initialize everything for you.</li>
+				<li>Methods for working with generic attributes, links, assets, etc</li>
+			</ul>
+			<li>Advanced Preloading Framework.</li>
+			<ul>
+				<li>Load XML,SWF,FLV,Bitmaps and Sounds. Access everything from one AssetLibrary, which simplifies working with
+					assets including Fonts.</li>
+			</ul>
+			<li>Bandwidth Detection (High/Med/Low).</li>
+			<li>CPU Speed Estimation (Fast/Med/Slow).</li>
+			<li>Online/Offline Status Hooks.</li>
+			<li>SharedObject initialization Hooks.</li>
+			<li>Akamai Ident Service Integration.</li>
+			<li>Akamai Net Connection Manager for FLVPlayback components.</li>
+			<li>Simplified Keyboard Event Management.</li>
+			<li>Simplified Language Management.</li>
+			<li>Remoting Framework.</li>
+			<li>MacMouseWheel integration.</li>
+			<li>Tracking Framework for Atlas,Webtrends, and Google Analytics.</li>
+			<li>Tracking Integration into an EventManager. Write 0 lines of code to implement tracking!</li>
+		</ul>
+		<p>Guttershark uses a common DocumentController that a lot of the default functionality resides in and can be opted
+			into with FlashVars.</p>
+		<p>By conforming to these pretty loose conventions, you get a lot of things for free, and still
+			have plenty of room to implement anything else you wish.</p>
+		<h3>DOCUMENTATION</h3>
+		<p>The philosophy about documentation is that it should make sense, and use the API docs as the place
+			for all information, so that any questions can be directed to the API docs.</p>
+		<p>By having an extremely well documented API. 95% of classes have examples, and explain
+			things in a readable fashion. The guide for writing documentation for Guttershark has been the Flash and Flex API's.
+			What makes more sense than following how Adobe does it?</p>
+		<p>Documentation is always updated and maintained.</p>
+		<p>You should start by reading the <strong>net.guttershark.control.DocumentController</strong> documentation.</p>
+		<p><a href="http://www.guttershark.net/docs/" name="documentation">API Docs</a></p>
+		<h3>EXAMPLES</h3>
+		<a href="#" name="examples" style="display:none">examples</a>
+		<p>All examples are in the <a href="http://code.google.com/p/guttershark/source/checkout">SVN repository</a>. Add a Flash class path that points to the Guttershark "lib/as" directory and
+			all examples will publish out of the box.</p>
+		<h3>CODE</h3>
+		<p>Hosted on <a href="http://code.google.com/p/guttershark">googlecode</a></p>
+		<h3>CODE DEPENDENCIES</h3>
+		<ul>
+			<li><a href="http://www.tweenmax.com">TweenMax</a></li>
+			<li><a href="http://blog.pixelbreaker.com/">MacMouseWheel</a></li>
+			<li><a href="http://www.asual.com/swfaddress/">SWFAddress</a></li>
+		</ul>
+		<!--<h3>Screencasts</h3>
+		<ul>
+			<li><strong>Document Controller</strong> - FlashVars</li>
+			<li><strong>Document Controller</strong> - QueryString parameters</li>
+			<li><strong>Document Controller</strong> - SWFAddress Integration</li>
+			<li><strong>Document Controller</strong> - online status events</li>
+			<li><strong>Document Controller</strong> - Model- Site XML files</li>
+			<li><Strong>Extending your models</strong></li>
+			<li><strong>Document Controller</strong> - Preloading</li>
+			<li><strong>Document Controller</strong> - Remoting Framework</li>
+			<li><strong>Document Controller</strong> - KeyboardEventManager</li>
+			<li><strong>Document Controller</strong> - LanguageManager and ILocalizableClip for localization</li>
+			<li><strong>Fonts</strong></li>
+			<li><strong>Preloading Framework</strong> - outside of the document controller integration</li>
+			<li><strong>Remoting Framework</strong> - outside of the document controller integration</li>
+			<li><strong>EventListenersDelegate</strong> - simplify your life!</li>
+			<li><strong>SoundManager</strong></li>
+			<li><strong>Utils</strong> - FlashLibrary,FrameDelay,FramePulse</li>
+			<li><strong>Akamai</strong> - Ident, AkamaiNCManager</li>
+			<li><strong>View</strong> - BasicView, AnimatedView</li>
+		</ul>-->
+		<h3>WHAT'S MISSING?</h3>
+		<p>The most noticeable classes that are missing are user interface control classes. There are a couple
+			in here, but not nearly enough. These will be developed and added in over time, any help is always
+			welcomed.</p>
+		<h3>IN THE INDUSTRY</h3>
+		<p>Have you used it? <a href="mailto:aaron@rubyamf.org">shout it</a></p>
+		<ul>
+			<li><a href="http://www.villageidiotpictures.com">Village Idiot Pictures.</a> Credits: Ryan Noonan, Michael Squibb, Arron Creechly, Aaron Smith. (Imaginatia)</li>
+			<li><a href="http://www.microsoft.com/uc/voipasyouare/default.aspx">VOIP As You Are!</a> Credits: Jonathan Cipriano. (Mccann Worldgroup)</a></li>
+		</ul>
+		<div id="other"><a href="http://groups.google.com/group/guttershark">Google Group</a></div>
+		<!--<a href="http://blog.guttershark.net">Blog</a> | -->
+	</div>
+</div>
+</body>
+</html>
