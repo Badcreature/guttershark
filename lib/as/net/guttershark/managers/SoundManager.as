@@ -79,8 +79,9 @@ package net.guttershark.managers
 			soundTransforms = new Dictionary();
 			mainTransform = new SoundTransform(1,0);
 			vol = 1;
+			ast = Assertions.gi();
 		}
-		
+
 		/**
 		 * Singleton access.
 		 */
