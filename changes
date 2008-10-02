@@ -1,3 +1,10 @@
+==revision 381==
+-updated the type of the controller property in BaseView to MovieClip.
+-Added errorField property on BaseErrorView.
+
+==revision 380==
+-fixed null reference to Assertions in the SoundManager.
+
 ==revision 376==
 -updated examples
 
