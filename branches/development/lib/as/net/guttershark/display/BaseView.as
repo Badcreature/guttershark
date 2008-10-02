@@ -1,7 +1,11 @@
 package net.guttershark.display
 {
-	import flash.events.Event;		import net.guttershark.display.CoreClip;	
-	/**
+	import flash.display.MovieClip;
+	import flash.events.Event;
+	
+	import net.guttershark.display.CoreClip;	
+
+	/**
 	 * The BaseView class is the base for any views, and provides
 	 * common hooks and properties.
 	 */
@@ -11,7 +15,7 @@ package net.guttershark.display
 		/**
 		 * A controller for this view.
 		 */
-		public var controller:BaseView;
+		public var controller:MovieClip;
 
 		/**
 		 * Constructor for BaseView instances.
