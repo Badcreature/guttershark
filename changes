@@ -1,4 +1,7 @@
-==revision 380==
+==revision 393==
+-fixed revision entry in this changes file.
+
+==revision 392==
 -Added initStage() method to DocumentController.
 -Added static function Stage() to LayoutManager, and set the stage reference from the DocumentController.
 -fixed sound manager ast null reference, it wasn't setup in the constructor.
