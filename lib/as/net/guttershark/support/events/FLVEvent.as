@@ -121,6 +121,8 @@ package net.guttershark.support.events
 		public function FLVEvent(type:String,url:String=null,percentLoaded:Number=0,percentPlayed:Number=0,percentBuffered:Number=0,pixelsBuffered:Number=0,pixelsPlayed:Number=0,cuepoint:Object=null,metadata:Object=null,bytesLoaded:Number=0,bytesTotal:Number=0) 
 		{
 			super(type,false,true);
+			this.bytesLoaded = bytesLoaded;
+			this.bytesTotal = bytesTotal;
 			this.percentLoaded = percentLoaded;
 			this.percentPlayed = percentPlayed;
 			this.percentBuffered = percentBuffered;
@@ -136,7 +138,7 @@ package net.guttershark.support.events
 		 */
 		override public function clone():Event
 		{
-			return new FLVEvent(type,url,percentLoaded,percentPlayed,percentBuffered,pixelsBuffered,pixelsPlayed);
+			return new FLVEvent(type,url,percentLoaded,percentPlayed,percentBuffered,pixelsBuffered,pixelsPlayed,cuepoint,metadata,bytesLoaded,bytesTotal);
 		}														
 	}
 }

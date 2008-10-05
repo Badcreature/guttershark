@@ -1,6 +1,5 @@
 package net.guttershark.display
 {
-	import flash.display.MovieClip;
 	import flash.events.Event;
 	
 	import net.guttershark.display.CoreClip;	
@@ -15,7 +14,7 @@ package net.guttershark.display
 		/**
 		 * A controller for this view.
 		 */
-		public var controller:MovieClip;
+		public var controller:*;
 
 		/**
 		 * Constructor for BaseView instances.
