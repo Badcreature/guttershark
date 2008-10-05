@@ -10,33 +10,8 @@
  */
 package net.guttershark.control
 {
-	
-	import flash.display.Loader;
-	import flash.events.Event;
-	import flash.events.HTTPStatusEvent;
-	import flash.events.IOErrorEvent;
-	import flash.events.StatusEvent;
-	import flash.events.TimerEvent;
-	import flash.external.ExternalInterface;
-	import flash.net.LocalConnection;
-	import flash.net.URLRequest;
-	import flash.net.URLRequestHeader;
-	import flash.utils.Dictionary;
-	import flash.utils.Timer;
-	
-	import com.asual.swfaddress.SWFAddress;
-	import com.asual.swfaddress.SWFAddressEvent;
-	import com.pixelbreaker.ui.osx.MacMouseWheel;
-	
-	import net.guttershark.display.CoreSprite;
-	import net.guttershark.model.Model;
-	import net.guttershark.util.Bandwidth;
-	import net.guttershark.util.CPU;
-	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;
-
-	/**
+	import flash.display.Loader;	import flash.events.Event;	import flash.events.HTTPStatusEvent;	import flash.events.IOErrorEvent;	import flash.events.StatusEvent;	import flash.events.TimerEvent;	import flash.external.ExternalInterface;	import flash.net.LocalConnection;	import flash.net.URLRequest;	import flash.net.URLRequestHeader;	import flash.utils.Dictionary;	import flash.utils.Timer;		import com.asual.swfaddress.SWFAddress;	import com.asual.swfaddress.SWFAddressEvent;	import com.pixelbreaker.ui.osx.MacMouseWheel;		import net.guttershark.display.CoreSprite;	import net.guttershark.managers.LayoutManager;	import net.guttershark.model.Model;	import net.guttershark.util.Bandwidth;	import net.guttershark.util.CPU;	import net.guttershark.util.Tracking;	import net.guttershark.util.XMLLoader;	import net.guttershark.util.akamai.Ident;		
+	/**
 	 * The DocumentController class is the document class for an FLA, it contains
 	 * default startup functionality that you can hook into, and all logic
 	 * is controllable through flashvars.
@@ -149,8 +124,10 @@ package net.guttershark.control
 		{
 			super();
 			stage.stageFocusRect = false;
+			initStage();
 			online = true;
 			setupFlashvars();
+			LayoutManager.Stage=stage;
 			if(flashvars.macMouseWheel) MacMouseWheel.setup(stage);
 			if(flashvars.swfAddress && !utils.player.isStandAlonePlayer() && !utils.player.isIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
@@ -168,6 +145,11 @@ package net.guttershark.control
 				setupComplete();
 			}
 		}
+		
+		/**
+		 * A stub method you can override to initialize stage properties.
+		 */
+		protected function initStage():void{}
 		
 		/**
 		 * Setup the flash vars on this movie.
@@ -459,7 +441,7 @@ package net.guttershark.control
 		 */
 		protected function flashvarsForStandalone():Object
 		{
-			return {};		
+			return {};
 		}
 		
 		/**

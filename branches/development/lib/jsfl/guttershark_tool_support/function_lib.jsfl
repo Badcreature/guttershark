@@ -98,3 +98,13 @@ function browseForFileName(windowTitle)
 	var file = fl.browseForFileURL("open",windowTitle);
 	return file;
 }
+
+/**
+ * Browses for a select folder url, and returns the folder URI
+ * as an escaped string.
+ */
+function browseForDirectory(windowTitle)
+{
+	var file = fl.browseForFolderURL(windowTitle);
+	return file;
+}

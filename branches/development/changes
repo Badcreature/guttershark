@@ -1,3 +1,12 @@
+==revision 380==
+-Added initStage() method to DocumentController.
+-Added static function Stage() to LayoutManager, and set the stage reference from the DocumentController.
+-fixed sound manager ast null reference, it wasn't setup in the constructor.
+-add errorField to BaseErrorView.
+-Changed controller property on BaseView to be of type *.
+-Fixed bytesLoaded and bytesTotal references in FLVEvent
+-Added browseForDirectory() in lib/jsfl/guttershark_tool_support/function_lib.jsfl
+
 ==revision 376==
 -updated examples
 
