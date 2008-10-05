@@ -10,8 +10,35 @@
  */
 package net.guttershark.control
 {
-	import flash.display.Loader;	import flash.events.Event;	import flash.events.HTTPStatusEvent;	import flash.events.IOErrorEvent;	import flash.events.StatusEvent;	import flash.events.TimerEvent;	import flash.external.ExternalInterface;	import flash.net.LocalConnection;	import flash.net.URLRequest;	import flash.net.URLRequestHeader;	import flash.utils.Dictionary;	import flash.utils.Timer;		import com.asual.swfaddress.SWFAddress;	import com.asual.swfaddress.SWFAddressEvent;	import com.pixelbreaker.ui.osx.MacMouseWheel;		import net.guttershark.display.CoreSprite;	import net.guttershark.managers.LayoutManager;	import net.guttershark.model.Model;	import net.guttershark.util.Bandwidth;	import net.guttershark.util.CPU;	import net.guttershark.util.Tracking;	import net.guttershark.util.XMLLoader;	import net.guttershark.util.akamai.Ident;		
-	/**
+	import flash.display.Loader;
+	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.events.HTTPStatusEvent;
+	import flash.events.IOErrorEvent;
+	import flash.events.StatusEvent;
+	import flash.events.TimerEvent;
+	import flash.external.ExternalInterface;
+	import flash.filters.BlurFilter;
+	import flash.net.LocalConnection;
+	import flash.net.URLRequest;
+	import flash.net.URLRequestHeader;
+	import flash.utils.Dictionary;
+	import flash.utils.Timer;
+	import flash.utils.getTimer;
+	
+	import com.asual.swfaddress.SWFAddress;
+	import com.asual.swfaddress.SWFAddressEvent;
+	import com.pixelbreaker.ui.osx.MacMouseWheel;
+	
+	import net.guttershark.display.CoreSprite;
+	import net.guttershark.managers.LayoutManager;
+	import net.guttershark.model.Model;
+	import net.guttershark.util.PlayerUtils;
+	import net.guttershark.util.Tracking;
+	import net.guttershark.util.XMLLoader;
+	import net.guttershark.util.akamai.Ident;
+
+	/**
 	 * The DocumentController class is the document class for an FLA, it contains
 	 * default startup functionality that you can hook into, and all logic
 	 * is controllable through flashvars.
@@ -25,9 +52,6 @@ package net.guttershark.control
 	 * <li><strong>onlineStatus</strong> (Boolean) - Ping for online status.</li>
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000 (1 minute).</li>
 	 * <li><strong>onlineStatusPingURL</strong> (String) - Specify the URL to an image to ping for online status. The default is "./ping.png".</li>
-	 * <li><strong>sniffBandwidth</strong> (Boolean) - Sniff bandwidth on startup. The default file of "./bandwidth.jpg" will attempt to be loaded. Or you can specify sniffBandwidthURL for a custom file.</li>
-	 * <li><strong>sniffBandwidthURL</strong> (String) - The file to load for the bandwidth sniff.</li>
-	 * <li><strong>sniffCPU</strong> (Boolean) - Sniff CPU on startup.</li>
 	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress change events.</li>
 	 * <li><strong>(in development)trackingMonitor</strong> (Boolean) - Connect to the tracking monitor, and send notifications from the javascript tracking library to the trackingMonitor.</li>
 	 * <li><strong>(in development)trackingSimulateXMLFile</strong> (String) - The path to a tracking xml file to use for making simulated tracking calls. This is specifically for when you're in the Flash IDE and need to at least simulate tracking calls for QA. The tags get sent to the tracking monitor.</li>
@@ -60,6 +84,34 @@ package net.guttershark.control
 	 */
 	public class DocumentController extends CoreSprite
 	{
+	
+		/**
+		 * The Kilo-Bytes per second that the movie downloaded at.
+		 */
+		public static var KBPS:Number;
+		
+		/**
+		 * A friendlier representation of the bandwidth.
+		 * 
+		 * <ul>
+		 * <li>If kpbs is lower than 5, this is set to "trickle", meaning 56Kb dial up or slower.</li>
+		 * <li>If kbps is lower than 32, this is set to "low", generally meaning a slow DSL.</li>
+		 * <li>If kbps is lower than 132, this is set to "med", generally meaning an ok T1 line.</li>
+		 * <li>If kpbs is higher than 132, this is set to "high", which could be a dsl,cable,or t1 that's 
+		 * performing very well.</li>
+		 * </ul>
+		 */
+		public static var bandwidth:String;
+		
+		/**
+		 * The raw benchmark that was calculated for the cpuEstimation.
+		 */
+		public static var cpuBenchmark:Number;
+		
+		/**
+		 * An estimation for cpu speed - fast, med, or slow.
+		 */
+		public static var cpuEstimation:String;
 		
 		/**
 		 * The model XML - this is the xml that gets loaded from flashvars.model property.
@@ -80,11 +132,6 @@ package net.guttershark.control
 		 * An akamai Ident instance.
 		 */
 		private var ident:Ident;
-		
-		/**
-		 * An instance of a bandwidth object for bandwidth sniffing.
-		 */
-		private var _bandwidthSniffer:Bandwidth;
 
 		/**
 		 * The timer used to initiate the ping loader.
@@ -115,6 +162,21 @@ package net.guttershark.control
 		 * Loader for tracking xml when needed;
 		 */
 		private var trackingXMLLoader:XMLLoader;
+		
+		/**
+		 * The start time of the first progress event from the swf downloading.
+		 */
+		private var startTime:Number;
+		
+		/**
+		 * The end time after the swf has downloaded.
+		 */
+		private var endTime:Number;
+		
+		/**
+		 * The movies total bytes.
+		 */
+		private var totalBytes:Number;
 
 		/**
 		 * Constructor for DocumentController instances. This should not
@@ -123,17 +185,16 @@ package net.guttershark.control
 		public function DocumentController()
 		{
 			super();
-			stage.stageFocusRect = false;
+			loaderInfo.addEventListener(Event.COMPLETE,onSWFComplete);
+			stage.stageFocusRect=false;
 			initStage();
 			online = true;
 			setupFlashvars();
-			LayoutManager.Stage=stage;
+			LayoutManager.SetStageReference(stage);
 			if(flashvars.macMouseWheel) MacMouseWheel.setup(stage);
 			if(flashvars.swfAddress && !utils.player.isStandAlonePlayer() && !utils.player.isIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
 			if(flashvars.trackingMonitor) setupTrackingMonitor();
-			if(flashvars.sniffCPU) CPU.calculate();
-			if(flashvars.sniffBandwidth) sniffBandwidth();
 			if(flashvars.model) loadModel();
 			if(flashvars.akamaiHost) loadAkamai();
 			if(flashvars.onlineStatus) initOnlineStatus();
@@ -144,6 +205,52 @@ package net.guttershark.control
 				restoreSharedObject();
 				setupComplete();
 			}
+		}
+		
+		/**
+		 * On swf complete loaded.
+		 */
+		private function onSWFComplete(e:Event):void
+		{
+			startTime = 0;
+			endTime = getTimer();
+			totalBytes = loaderInfo.bytesTotal;
+			loaderInfo.removeEventListener(Event.COMPLETE,onSWFComplete);
+			var kbytes:Number = (totalBytes/1024);
+			KBPS = Math.round((kbytes/Math.ceil(((endTime-startTime)/1000))));
+			bandwidth="high";
+			if(KBPS<5)bandwidth="trickle";
+			if(KBPS<32)bandwidth="low";
+			if(KBPS<132)bandwidth="med";
+			if(KBPS>=(kbytes-1))bandwidth="high";
+			endTime = NaN;
+			startTime = NaN;
+			totalBytes = NaN;
+			var mc:MovieClip = new MovieClip();
+			mc.graphics.beginFill(0xFF0066);
+			mc.graphics.drawRect(0, 0, 200, 200);
+			mc.graphics.endFill();
+			var blurFilter:BlurFilter = new BlurFilter(4,4,1);
+			var filters:Array = [];
+			var passes:int = 3;
+			var h:int = 0;
+			var i:int = 0;
+			var t:Number;
+			var benchmark:Number;
+			for(h;h<passes;h++)
+			{
+				t = getTimer();
+				for(i=0;i<((h+1)*200);i++)
+				{
+					filters.push(blurFilter);
+					mc.filters = filters;
+				}
+				benchmark = (getTimer() - t);
+				filters = [];
+			}
+			if(benchmark<45)cpuEstimation="fast";
+			else if(benchmark<80)cpuEstimation="medium";
+			else cpuEstimation = "slow";
 		}
 		
 		/**
@@ -211,17 +318,6 @@ package net.guttershark.control
 			lc = new LocalConnection();
 			lc.addEventListener(StatusEvent.STATUS, onLCStatus);
 			ExternalInterface.addCallback("tracked", onJSTrack);
-		}
-		
-		/**
-		 * Sniff the client's bandwidth.
-		 */
-		private function sniffBandwidth():void
-		{
-			if(flashvars.sniffBandwidthURL) _bandwidthSniffer = new Bandwidth(new URLRequest(flashvars.sniffBandwidthURL));
-			else _bandwidthSniffer = new Bandwidth();
-			_bandwidthSniffer.contentLoader.addEventListener(Event.COMPLETE, onBandwidthComplete);
-			_bandwidthSniffer.detect();
 		}
 		
 		/**
@@ -355,23 +451,6 @@ package net.guttershark.control
                     break;
             }
 		}
-		
-		/**
-		 * Handle the bandwidth sniff complete.
-		 */
-		private function onBandwidthComplete(e:Event):void
-		{
-			_bandwidthSniffer.contentLoader.removeEventListener(Event.COMPLETE,onBandwidthComplete);
-			_bandwidthSniffer.dispose();
-			_bandwidthSniffer = null;
-			onBandwidthSniffComplete();
-		}
-		
-		/**
-		 * A method you can override to hook into the bandwidth sniff
-		 * complete event.
-		 */
-		protected function onBandwidthSniffComplete():void{}
 	
 		/**
 		 * On ping complete.
