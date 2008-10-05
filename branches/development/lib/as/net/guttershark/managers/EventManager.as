@@ -31,9 +31,8 @@ package net.guttershark.managers
 	import net.guttershark.support.preloading.events.AssetCompleteEvent;
 	import net.guttershark.support.preloading.events.AssetErrorEvent;
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
-	import net.guttershark.util.Bandwidth;
 	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;		
+	import net.guttershark.util.XMLLoader;
 
 	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
@@ -395,14 +394,6 @@ package net.guttershark.managers
 				return;
 			}
 			
-			if(obj is Bandwidth)
-			{
-				var b:Bandwidth = Bandwidth(obj);
-				edinfo[b.contentLoader] = edinfo[obj];
-				if(callbackPrefix + "Complete" in callbackDelegate || cycleAllThroughTracking) b.contentLoader.addEventListener(Event.COMPLETE, onBandwidthComplete,false,0,true);
-				return;
-			}
-			
 			if(obj is SoundManager)
 			{
 				if((callbackPrefix + "Change") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE,onSoundChange,false,0,true);
@@ -574,11 +565,6 @@ package net.guttershark.managers
 		private function onSoundChange(e:Event):void
 		{
 			handleEvent(e,"Change");
-		}
-		
-		private function onBandwidthComplete(e:Event):void
-		{
-			handleEvent(e,"Complete");
 		}
 		
 		private function onAssetComplete(ace:AssetCompleteEvent):void
@@ -888,14 +874,6 @@ package net.guttershark.managers
 				var x:XMLLoader = XMLLoader(obj);
 				edinfo[x.contentLoader] = null;
 				x.contentLoader.removeEventListener(Event.COMPLETE,onXMLLoaderComplete);
-				return;
-			}
-			
-			if(obj is Bandwidth)
-			{
-				var b:Bandwidth = Bandwidth(obj);
-				edinfo[b.contentLoader] = null;
-				b.contentLoader.removeEventListener(Event.COMPLETE, onBandwidthComplete);
 				return;
 			}
 			

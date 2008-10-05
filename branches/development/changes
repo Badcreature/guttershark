@@ -1,3 +1,12 @@
+==revision 394==
+-removed Bandwidth class
+-removed CPU class
+-integrated bandwidth sniffing into DocumentController, it sniffs bandwidth based off of time taken to download the swf.
+-integrated cpu estimation into DocumentController, it now estimates the cpu by default.
+-removed references to Bandwidth classes from EventManager.
+-Change the set StageReference to a function SetStageReference().
+
+
 ==revision 393==
 -fixed revision entry in this changes file.
 
