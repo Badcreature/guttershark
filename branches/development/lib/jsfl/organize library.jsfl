@@ -38,6 +38,14 @@ for(i;i<l;i++)
 	var item = items[i];
 	if(item.name.indexOf("Component Assets")>-1) continue;
 	if(item.name.indexOf("FLV Playback Skins")>-1) continue;
+	if(item.name.indexOf("movieclips")>-1) continue;
+	if(item.name.indexOf("bitmaps")>-1) continue;
+	if(item.name.indexOf("buttons")>-1) continue;
+	if(item.name.indexOf("components")>-1) continue;
+	if(item.name.indexOf("fonts")>-1) continue;
+	if(item.name.indexOf("graphics")>-1) continue;
+	if(item.name.indexOf("sounds")>-1) continue;
+	if(item.name.indexOf("videos")>-1) continue;
 	switch(items[i].itemType)
 	{
 		case "undefined":
