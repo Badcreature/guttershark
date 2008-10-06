@@ -1,3 +1,10 @@
+==revision 397==
+-committed changes file.
+
+==revision 396==
+-fixed small issue in organize library jsfl. now makes sure not to move clips inside of top level folders that are in sub
+folders for organizational purposes.
+
 ==revision 395==
 -added new logo 1st draft.
 
