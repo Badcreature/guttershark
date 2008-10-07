@@ -1,3 +1,12 @@
+==revision 398==
+-removed flash library. The flash library functionality is now in the AssetManager.
+-removed GarbageCollector class. This isn't ever needed, as the garbage collector is extremely efficient
+-added 'get pixelsToFill' getter to PreloadController
+-removed references to FlashLibrary from CoreClip and CoreSprite
+-Added flash library functionality to AssetManager
+-fixed null reference to the 'display' property in Utilities.
+-added initial docs for omniture support into tracking.xml. Omniture isn't implemented yet, but will be soon.
+
 ==revision 397==
 -committed changes file.
 
