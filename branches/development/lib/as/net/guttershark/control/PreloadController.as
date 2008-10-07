@@ -309,6 +309,14 @@ package net.guttershark.control
 		}
 		
 		/**
+		 * The number of pixels that this preloader should fill.
+		 */
+		public function get pixelsToFill():int
+		{
+			return totalPixelsToFill;
+		}
+
+		/**
 		 * The last completed asset.
 		 */
 		public function get lastCompletedAsset():Asset

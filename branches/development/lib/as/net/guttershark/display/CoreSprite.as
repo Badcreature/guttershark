@@ -12,8 +12,7 @@ package net.guttershark.display
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.util.Assertions;
-	import net.guttershark.util.FlashLibrary;
-	import net.guttershark.util.Utilities;		
+	import net.guttershark.util.Utilities;	
 
 	/**
 	 * The CoreSprite class is a base class that provides
@@ -60,11 +59,6 @@ package net.guttershark.display
 		protected var sm:ServiceManager;
 
 		/**
-		 * The singleton instance of the FlashLibrary.
-		 */
-		protected var fb:FlashLibrary;
-
-		/**
 		 * The SoundManager singleton instance.
 		 */
 		protected var snm:SoundManager;
@@ -97,7 +91,6 @@ package net.guttershark.display
 			lgm = LanguageManager.gi();
 			am = AssetManager.gi();
 			sm = ServiceManager.gi();
-			fb = FlashLibrary.gi();
 			snm = SoundManager.gi();
 			ast = Assertions.gi();
 			utils = Utilities.gi();
@@ -142,7 +135,6 @@ package net.guttershark.display
 			lgm = null;
 			am = null;
 			sm = null;
-			fb = null;
 			snm = null;
 			ast = null;
 			utils = null;
