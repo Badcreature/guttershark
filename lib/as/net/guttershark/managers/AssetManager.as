@@ -1,9 +1,26 @@
 package net.guttershark.managers
 {
-	import flash.display.Bitmap;	import flash.display.Loader;	import flash.display.MovieClip;	import flash.display.Sprite;	import flash.media.Sound;	import flash.net.NetStream;	import flash.text.Font;	import flash.text.StyleSheet;	import flash.utils.Dictionary;		import net.guttershark.display.FLV;	import net.guttershark.util.Assertions;	import net.guttershark.util.Singleton;	import net.guttershark.util.XMLLoader;	
-	/**
+	import flash.display.Bitmap;
+	import flash.display.Loader;
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.media.Sound;
+	import flash.net.NetStream;
+	import flash.system.ApplicationDomain;
+	import flash.text.Font;
+	import flash.text.StyleSheet;
+	import flash.utils.Dictionary;
+	
+	import net.guttershark.display.FLV;
+	import net.guttershark.util.Assertions;
+	import net.guttershark.util.Singleton;
+	import net.guttershark.util.XMLLoader;		
+
+	/**
 	 * The AssetManager class is a singleton that stores all assets
-	 * loaded by any PreloadController.
+	 * loaded by any PreloadController, provides shortcuts
+	 * for accessing those items and shortcuts for getting items
+	 * out of the library.
 	 * 
 	 * @see net.guttershark.control.PreloadController PreloadController Class
 	 */
@@ -34,6 +51,11 @@ package net.guttershark.managers
 		 * A lookup to objects by source utl path.
 		 */
 		private var sourceLookup:Dictionary;
+		
+		/**
+		 * The current application domain.
+		 */
+		private var cd:ApplicationDomain;
 
 		/**
 		 * @private
@@ -43,10 +65,11 @@ package net.guttershark.managers
 		{
 			Singleton.assertSingle(AssetManager);
 			assets = new Dictionary(false);
-			sourceLookup = new Dictionary(false);
+			sourceLookup = new Dictionary(true);
 			ast = Assertions.gi();
+			cd = ApplicationDomain.currentDomain;
 		}
-		
+
 		/**
 		 * Singleton Instance.
 		 */
@@ -294,13 +317,20 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Get a Sound asset.
+		 * Get a sound, that was either preloaded, or from the current
+		 * application domain's library.
 		 * 
 		 * @param libraryName The library name used when the asset was registered.
 		 */
 		public function getSound(libraryName:String):Sound
 		{
 			ast.notNil(libraryName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(libraryName))
+			{
+				var instance:Class = cd.getDefinition(libraryName) as Class;
+				var s:Sound = new instance() as Sound;
+				return s;
+			}
 			if(assets[libraryName] != null) return getAsset(libraryName) as Sound;
 			throw new Error("Sound {" + libraryName + "} was not found.");
 		}
@@ -342,6 +372,74 @@ package net.guttershark.managers
 			f.volume = SoundManager.gi().volume;
 			return f;
 		}
+		
+		/**
+		 * Get a movie clip from the current application domain's library -
+		 * meaning the top most running swf's library (or the shell).
+		 * 
+		 * @param libraryName The export class name from the library.
+		 */
+		public function getMovieClip(libraryName:String):MovieClip
+		{
+			ast.notNil(libraryName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(libraryName))
+			{
+				var instance:Class = cd.getDefinition(libraryName) as Class;
+				var s:MovieClip = new instance() as MovieClip;
+				return s;
+			}
+			throw new Error("MovieClip {" + libraryName + "} was not found.");
+		}
+
+		/**
+		 * Get a font from the current application domain's library -
+		 * meaning the top most running swf's library (or the shell).
+		 * 
+		 * @param libraryName The export class name from the library.
+		 */
+		public function getFont(libraryName:String):Font
+		{
+			ast.notNil(libraryName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(libraryName))
+			{
+				var instance:Class = cd.getDefinition(libraryName) as Class;
+				var f:Font = new instance() as Font;
+				Font.registerFont(instance);
+				return f;
+			}
+			throw new Error("Font {" + libraryName + "} was not found.");
+		}
+		
+		/**
+		 * Get a sprite from the current application domain's library -
+		 * meaning the top most running swf's library (or the shell).
+		 * 
+		 * @param libraryName The export class name from the library.
+		 */
+		public function getSprite(libraryName:String):Sprite
+		{
+			ast.notNil(libraryName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(libraryName))
+			{
+				var instance:Class = cd.getDefinition(libraryName) as Class;
+				var s:Sprite = new instance() as Sprite;
+				return s;
+			}
+			throw new Error("Sprite {" + libraryName + "} was not found.");
+		}
+		
+		/**
+		 * Get a class reference to a definition from the current application
+		 * domain - meaning the top most running swf's library (or the shell).
+		 * 
+		 * @param libraryName The item name in the library.
+		 */
+		public function getClass(libraryName:String):Class
+		{
+			ast.notNil(libraryName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(libraryName)) return cd.getDefinition(libraryName) as Class;
+			throw new Error("Class {" + libraryName + "} was not found.");
+		}
 
 		/**
 		 * Purge all assets from the library. The AssetLibrary is still
@@ -350,7 +448,7 @@ package net.guttershark.managers
 		public function dispose():void
 		{
 			assets = new Dictionary(false);
-			sourceLookup = new Dictionary(false);
+			sourceLookup = new Dictionary(true);
 			_lastLibraryName = null;
 		}
 	}

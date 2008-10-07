@@ -8,47 +8,56 @@
 			webtrends
 			atlas
 			ganalytics
+			omniture
 			redirect
 		
 		#webtrends
 			The webtrends node is a comma seperated list of values.
 			0=dcsuri, 1=ti, 2=cg_n
+			(IE: <webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>)
 		
 		#atlas
-			An atlas tag. Is just a 1x1 gif.
+			An atlas tag. Is just a 1x1 gif. Any URL can be placed
+			here (IE: <atlas>http://www.google.com/g.jpg</atlas>)
 		
 		#ganalitycs
 			The ganalytics tag is for google analytics, it fires a
 			pagetrack with the value of whatever is in the tag.
+			Anything can be placed here as well, which will be 
+			handed to _pageTracker (IE: <ganalytics>/coolwhip/whip</ganalytics>)
 		
 		#redirect
 			The redirect tag supports these attributes:
-				target -> any valid HTML 4 target for an <a> tag.
-				windowParameters -> any valid javascript window parameters
+				target -> any valid "target" for an <a> tag.
+				windowParameters -> any valid javascript window parameters ("width=200,height=200")
 			Examples:
-				normal redirect in _self (default) -> <redirect>http://www.google.com</redirect>
-				popup with window parameters -> 
+				#->Redirects to google in _self.
+					<redirect>http://www.google.com</redirect>
+				#->Redirects to google in a popup window.
 					<redirect target="_blank" windowParameters="width=200,height=200">http://www.google.com</redirect>
 				
-		If any nodes (webtrends,atlas,ganalytics,redirect) aren't in a target <track>
-		node, that functionality is not attempted. So you could leave
-		out the webtrends tag for a track, and it will not attempt to fire
-		webtrends. Same for any other nodes, and you can mix and match how you like.
+		#omniture
+			Omniture tags are seperated by commas (channel,campaign,products,pageName,prop1,eVar,events)
+		
+		You can mix and match any node types - to call, or not call tracking types.
 	-->
 	<track id="ganalyticsTest">
 		<ganalytics>/coolwhip/whip</ganalytics>
+		<omniture>home,globalCampaign,;productA;productB,pageName,50,someEvent</omniture>
 	</track>
 	<track id="goToGoogle">
 		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
 		<atlas>http://www.google.com/g.jpg</atlas>
 		<redirect>http://www.google.com</redirect>
 		<ganalytics>/asdf/asdf</ganalytics>
+		<omniture>home,globalCampaign,;productA;productB,pageName,50,someEvent</omniture>
 	</track>
 	<track id="goToGooglePopup">
 		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
 		<atlas>http://www.google.com/g.jpg</atlas>
 		<redirect target="_blank" windowParameters="width=200,height=200">http://www.google.com</redirect>
 		<ganalytics>/asdf/asdf</ganalytics>
+		<omniture>home,globalCampaign,;productA;productB,pageName,50,someEvent</omniture>
 	</track>
 	<track id="noRedirectsOrPopups">
 		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>

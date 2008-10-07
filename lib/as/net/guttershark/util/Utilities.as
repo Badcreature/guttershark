@@ -124,6 +124,7 @@ package net.guttershark.util
 			color = ColorUtils.gi();
 			date = DateUtils.gi();
 			dict = DictionaryUtils.gi();
+			display = DisplayListUtils.gi();
 			mouse = MouseUtils.gi();
 			object = ObjectUtils.gi();
 			scope = ScopeUtils.gi();
