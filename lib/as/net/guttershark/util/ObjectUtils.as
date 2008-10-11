@@ -35,8 +35,7 @@ package net.guttershark.util
 		}
 
 		/**
-		 * Clone an object instance - this is not recommended to clone
-		 * anything other than a native top level Object.
+		 * Clone an object instance.
 		 * 
 		 * @example Cloning a generic object:
 		 * <listing>	

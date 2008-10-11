@@ -3,14 +3,12 @@ package
 	import flash.text.TextField;
 	
 	import net.guttershark.control.DocumentController;
-	import net.guttershark.managers.KeyManager;		
+	import net.guttershark.managers.KeyManager;	
 
 	public class Main extends DocumentController
 	{
 		
 		public var textfeeld:TextField;
-
-		private var keyboardEventManager:KeyManager;
 
 		public function Main()
 		{
@@ -19,18 +17,30 @@ package
 		
 		override protected function setupComplete():void
 		{
-			keyboardEventManager = KeyManager.gi();
-			keyboardEventManager.addMapping(stage, "CONTROL+SHIFT+M", onWhatever);
-			keyboardEventManager.addMapping(stage,"Whatup",onWordup);
-			keyboardEventManager.addMapping(stage,"f", onW);
-			keyboardEventManager.addMapping(stage, " ", onSpace);
-			keyboardEventManager.addMapping(stage,"CONTROL+SHIFT+F", onWhatever);
-			keyboardEventManager.addMapping(stage,"CONTROL+SHIFT+F+M",onWhatever);
-			keyboardEventManager.addMapping(stage,"CONTROL",onControl);
-			keyboardEventManager.addMapping(stage,"CONTROL+m",onm);
-			keyboardEventManager.addMapping(stage,"SHIFT",onW);
-			
-			keyboardEventManager.addMapping(textfeeld, "ENTER", onTFEnter);
+			km = KeyManager.gi();
+			km.addMapping(stage,"CONTROL+SHIFT+M",onWhatever);
+			km.addMapping(stage,"Whatup",onWordup);
+			km.addMapping(stage,"f",onW);
+			km.addMapping(stage," ",onSpace);
+			km.addMapping(stage,"CONTROL+SHIFT+F", onWhatever);
+			km.addMapping(stage,"CONTROL+SHIFT+F+M",onWhatever);
+			km.addMapping(stage,"CONTROL",onControl);
+			km.addMapping(stage,"CONTROL+m",onm);
+			km.addMapping(stage,"SHIFT",onW);
+			km.addMapping(textfeeld,"ENTER",onTFEnter);
+			km.am(stage,"RIGHT",onRight,true,onRightRepeat);
+		}
+		
+		private function onRight():void
+		{
+			trace("right down");
+		}
+		
+		
+		private function onRightRepeat():void
+		{
+			trace("right down repeat");
+			textfeeld.x+=1;
 		}
 		
 		public function onTFEnter():void
