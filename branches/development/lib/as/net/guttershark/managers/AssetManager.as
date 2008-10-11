@@ -18,9 +18,9 @@ package net.guttershark.managers
 
 	/**
 	 * The AssetManager class is a singleton that stores all assets
-	 * loaded by any PreloadController, provides shortcuts
-	 * for accessing those items and shortcuts for getting items
-	 * out of the library.
+	 * loaded by any PreloadController, it provides shortcuts
+	 * for accessing those items, and shortcuts for getting items
+	 * out of the flash library.
 	 * 
 	 * @see net.guttershark.control.PreloadController PreloadController Class
 	 */
@@ -59,7 +59,7 @@ package net.guttershark.managers
 
 		/**
 		 * @private
-		 * Constructor for AssetLibrary instances.
+		 * Constructor for AssetManager instances.
 		 */
 		public function AssetManager()
 		{
@@ -377,55 +377,55 @@ package net.guttershark.managers
 		 * Get a movie clip from the current application domain's library -
 		 * meaning the top most running swf's library (or the shell).
 		 * 
-		 * @param libraryName The export class name from the library.
+		 * @param exportName The export class name from the library.
 		 */
-		public function getMovieClip(libraryName:String):MovieClip
+		public function getMovieClip(exportName:String):MovieClip
 		{
-			ast.notNil(libraryName,"Parameter libraryName cannot be null");
-			if(cd.hasDefinition(libraryName))
+			ast.notNil(exportName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(exportName))
 			{
-				var instance:Class = cd.getDefinition(libraryName) as Class;
+				var instance:Class = cd.getDefinition(exportName) as Class;
 				var s:MovieClip = new instance() as MovieClip;
 				return s;
 			}
-			throw new Error("MovieClip {" + libraryName + "} was not found.");
+			throw new Error("MovieClip {" + exportName + "} was not found.");
 		}
 
 		/**
 		 * Get a font from the current application domain's library -
 		 * meaning the top most running swf's library (or the shell).
 		 * 
-		 * @param libraryName The export class name from the library.
+		 * @param exportName The export class name from the library.
 		 */
-		public function getFont(libraryName:String):Font
+		public function getFont(exportName:String):Font
 		{
-			ast.notNil(libraryName,"Parameter libraryName cannot be null");
-			if(cd.hasDefinition(libraryName))
+			ast.notNil(exportName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(exportName))
 			{
-				var instance:Class = cd.getDefinition(libraryName) as Class;
+				var instance:Class = cd.getDefinition(exportName) as Class;
 				var f:Font = new instance() as Font;
 				Font.registerFont(instance);
 				return f;
 			}
-			throw new Error("Font {" + libraryName + "} was not found.");
+			throw new Error("Font {" + exportName + "} was not found.");
 		}
 		
 		/**
 		 * Get a sprite from the current application domain's library -
 		 * meaning the top most running swf's library (or the shell).
 		 * 
-		 * @param libraryName The export class name from the library.
+		 * @param exportName The export class name from the library.
 		 */
-		public function getSprite(libraryName:String):Sprite
+		public function getSprite(exportName:String):Sprite
 		{
-			ast.notNil(libraryName,"Parameter libraryName cannot be null");
-			if(cd.hasDefinition(libraryName))
+			ast.notNil(exportName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(exportName))
 			{
-				var instance:Class = cd.getDefinition(libraryName) as Class;
+				var instance:Class = cd.getDefinition(exportName) as Class;
 				var s:Sprite = new instance() as Sprite;
 				return s;
 			}
-			throw new Error("Sprite {" + libraryName + "} was not found.");
+			throw new Error("Sprite {" + exportName + "} was not found.");
 		}
 		
 		/**
@@ -434,15 +434,15 @@ package net.guttershark.managers
 		 * 
 		 * @param libraryName The item name in the library.
 		 */
-		public function getClass(libraryName:String):Class
+		public function getClass(exportName:String):Class
 		{
-			ast.notNil(libraryName,"Parameter libraryName cannot be null");
-			if(cd.hasDefinition(libraryName)) return cd.getDefinition(libraryName) as Class;
-			throw new Error("Class {" + libraryName + "} was not found.");
+			ast.notNil(exportName,"Parameter libraryName cannot be null");
+			if(cd.hasDefinition(exportName)) return cd.getDefinition(exportName) as Class;
+			throw new Error("Class {" + exportName + "} was not found.");
 		}
 
 		/**
-		 * Purge all assets from the library. The AssetLibrary is still
+		 * Purge all assets from the library. The AssetManager is still
 		 * usable after a dispose, just the assets are disposed of.
 		 */
 		public function dispose():void

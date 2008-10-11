@@ -38,10 +38,17 @@ package net.guttershark.control
 	import net.guttershark.util.XMLLoader;
 	import net.guttershark.util.akamai.Ident;
 
+	//<li><strong>(in development)trackingMonitor</strong> (Boolean) - Connect to the tracking monitor, and send notifications from the javascript tracking library to the trackingMonitor.</li>
+	//<li><strong>(in development)trackingSimulateXMLFile</strong> (String) - The path to a tracking xml file to use for making simulated tracking calls. This is specifically for when you're in the Flash IDE and need to at least simulate tracking calls for QA. The tags get sent to the tracking monitor.</li>
+
+
 	/**
 	 * The DocumentController class is the document class for an FLA, it contains
 	 * default startup functionality that you can hook into, and all logic
 	 * is controllable through flashvars.
+	 * 
+	 * The DocumentController also detects bandwidth, based off of the swf size
+	 * and how much time it took to download.
 	 * 
 	 * <p>Available FlashVar Properties:</p>
 	 * <ul>
@@ -53,8 +60,6 @@ package net.guttershark.control
 	 * <li><strong>onlineStatusPingFrequency</strong> (Number) - Specify the ping time in milliseconds. The default is 60000 (1 minute).</li>
 	 * <li><strong>onlineStatusPingURL</strong> (String) - Specify the URL to an image to ping for online status. The default is "./ping.png".</li>
 	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress change events.</li>
-	 * <li><strong>(in development)trackingMonitor</strong> (Boolean) - Connect to the tracking monitor, and send notifications from the javascript tracking library to the trackingMonitor.</li>
-	 * <li><strong>(in development)trackingSimulateXMLFile</strong> (String) - The path to a tracking xml file to use for making simulated tracking calls. This is specifically for when you're in the Flash IDE and need to at least simulate tracking calls for QA. The tags get sent to the tracking monitor.</li>
 	 * </ul>
 	 * 
 	 * <p>Flashvar properties can be supplied when running in the Flash IDE 
@@ -86,7 +91,7 @@ package net.guttershark.control
 	{
 	
 		/**
-		 * The Kilo-Bytes per second that the movie downloaded at.
+		 * The KiloBytes per second that the movie downloaded at.
 		 */
 		public static var KBPS:Number;
 		
@@ -203,7 +208,6 @@ package net.guttershark.control
 				initModel();
 				if(utils.player.isIDEPlayer()||utils.player.isStandAlonePlayer()) initPathsForStandalone();
 				restoreSharedObject();
-				setupComplete();
 			}
 		}
 		
@@ -250,7 +254,8 @@ package net.guttershark.control
 			}
 			if(benchmark<45)cpuEstimation="fast";
 			else if(benchmark<80)cpuEstimation="medium";
-			else cpuEstimation = "slow";
+			else cpuEstimation="slow";
+			if(!flashvars.model) setupComplete();
 		}
 		
 		/**

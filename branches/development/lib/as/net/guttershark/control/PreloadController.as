@@ -13,7 +13,7 @@ package net.guttershark.control
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.support.preloading.workers.WorkerInstances;
 	import net.guttershark.util.ArrayUtils;
-	import net.guttershark.util.FrameDelay;	
+	import net.guttershark.util.FrameDelay;
 
 	/**
 	 * Dispatched for each asset that has completed downloading.
@@ -233,7 +233,7 @@ package net.guttershark.control
 		public function addItems(items:Array):void
 		{
 			if(!this.loadItems[0]) this.loadItems = art.clone(items);
-			else this.loadItems.concat(items);
+			else this.loadItems.concat(art.clone(items));
 			loadItemsDuplicate = art.clone(loadItems);
 		}
 		

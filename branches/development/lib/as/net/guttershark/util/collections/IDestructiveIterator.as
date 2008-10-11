@@ -1,1 +1,0 @@
-package net.guttershark.util.collections{	/**	 * IDestructiveIterator is a marker interface marking Iterators which are "destructive"; 	 * meaning they act directly on the collection they are iterating removing elements along its way.	 */	public interface IDestructiveIterator{}}

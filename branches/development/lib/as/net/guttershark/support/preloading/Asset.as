@@ -58,9 +58,9 @@ package net.guttershark.support.preloading
 		/**
 		 * Constructor for Asset instances.
 		 * 
-		 * @param source The source URL to the asset
-		 * @param libraryName The name to be used in an AssetLibrary
-		 * @param forceFileType	Force the asset's file type (file extension without the ".", EX: xml);
+		 * @param source The source URL to the asset.
+		 * @param libraryName The name to be used in the AssetManager.
+		 * @param forceFileType	Force the asset's file type (file extension without the ".", EX: xml).
 		 */
 		public function Asset(source:String, libraryName:String = null, forceFileType:String = null)
 		{
