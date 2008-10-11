@@ -237,7 +237,7 @@ package net.guttershark.util
 			if(p_string == null || !contains(p_string,p_delim)) return arr;
 			var chrIndex:uint = 0;
 			var strLen:uint = p_string.length;
-			var replPatt:RegExp = new RegExp("[^" + escapePattern(p_delim) + "]+$");
+			var replPatt:RegExp = new RegExp("[^" + escapePattern(p_delim) + "]+$","");
 			while(chrIndex < strLen)
 			{
 				var subString:String = p_string.substr(chrIndex,p_len);
