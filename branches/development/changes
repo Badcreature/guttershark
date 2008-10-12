@@ -1,3 +1,12 @@
+==revision 402==
+-added onBandwidthAndCPUReady hook method in DocumentController.
+
+==revision 401==
+fixed regex problem with second parameter.
+
+==revision 400==
+-took out a bunch of iterators that weren't used.
+
 ==revision 398==
 -removed flash library. The flash library functionality is now in the AssetManager.
 -removed GarbageCollector class. This isn't ever needed, as the garbage collector is extremely efficient
