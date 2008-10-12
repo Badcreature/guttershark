@@ -3,7 +3,6 @@
 ME=`whoami`
 ASDOC="/Users/${ME}/dev/flex3sdk/bin/"
 AS_PATH="/Users/${ME}/dev/codelibs/as/"
-
 rm -rf ./docs/*
 ${ASDOC}asdoc \
 -source-path ./lib/as/ \
