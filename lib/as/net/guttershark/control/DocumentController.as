@@ -208,6 +208,7 @@ package net.guttershark.control
 				initModel();
 				if(utils.player.isIDEPlayer()||utils.player.isStandAlonePlayer()) initPathsForStandalone();
 				restoreSharedObject();
+				setupComplete();
 			}
 		}
 		
@@ -255,8 +256,19 @@ package net.guttershark.control
 			if(benchmark<45)cpuEstimation="fast";
 			else if(benchmark<80)cpuEstimation="medium";
 			else cpuEstimation="slow";
-			if(!flashvars.model) setupComplete();
+			onBandwidthAndCPUReady();
 		}
+		
+		/**
+		 * A method you can override to hook into the completion
+		 * of bandwidth calculation, and cpu estimation.
+		 * 
+		 * <p>This is needed because setupComplete may fire before
+		 * the SWF has completely downloaded. The swf must be
+		 * completely downloaded before bandwidth is calculated
+		 * and cpu is estamated.</p>
+		 */
+		protected function onBandwidthAndCPUReady(){}
 		
 		/**
 		 * A stub method you can override to initialize stage properties.
