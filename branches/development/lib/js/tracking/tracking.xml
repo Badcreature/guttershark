@@ -35,29 +35,23 @@
 					<redirect>http://www.google.com</redirect>
 				#->Redirects to google in a popup window.
 					<redirect target="_blank" windowParameters="width=200,height=200">http://www.google.com</redirect>
-				
-		#omniture
-			Omniture tags are seperated by commas (channel,campaign,products,pageName,prop1,eVar,events)
 		
 		You can mix and match any node types - to call, or not call tracking types.
 	-->
 	<track id="ganalyticsTest">
 		<ganalytics>/coolwhip/whip</ganalytics>
-		<omniture>home,globalCampaign,;productA;productB,pageName,50,someEvent</omniture>
 	</track>
 	<track id="goToGoogle">
 		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
 		<atlas>http://www.google.com/g.jpg</atlas>
 		<redirect>http://www.google.com</redirect>
 		<ganalytics>/asdf/asdf</ganalytics>
-		<omniture>home,globalCampaign,;productA;productB,pageName,50,someEvent</omniture>
 	</track>
 	<track id="goToGooglePopup">
 		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
 		<atlas>http://www.google.com/g.jpg</atlas>
 		<redirect target="_blank" windowParameters="width=200,height=200">http://www.google.com</redirect>
 		<ganalytics>/asdf/asdf</ganalytics>
-		<omniture>home,globalCampaign,;productA;productB,pageName,50,someEvent</omniture>
 	</track>
 	<track id="noRedirectsOrPopups">
 		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
