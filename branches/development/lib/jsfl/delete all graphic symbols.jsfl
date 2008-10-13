@@ -1,3 +1,6 @@
+/**
+ * Deletes all graphic symbols from the library.
+ */
 var dom = fl.getDocumentDOM();
 var items = dom.library.items;
 var lib= dom.library;
