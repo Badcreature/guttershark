@@ -268,7 +268,7 @@ package net.guttershark.control
 		 * completely downloaded before bandwidth is calculated
 		 * and cpu is estamated.</p>
 		 */
-		protected function onBandwidthAndCPUReady(){}
+		protected function onBandwidthAndCPUReady():void{}
 		
 		/**
 		 * A stub method you can override to initialize stage properties.
