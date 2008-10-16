@@ -1,3 +1,6 @@
+==revsion 403==
+-updated the createRemotingService method on ServiceManager to handle overwriteIfExists better.
+
 ==revision 402==
 -added onBandwidthAndCPUReady hook method in DocumentController.
 

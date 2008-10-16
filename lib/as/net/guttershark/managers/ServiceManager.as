@@ -105,13 +105,13 @@ package net.guttershark.managers
 		 */
 		public function createRemotingService(id:String,gateway:String,endpoint:String,objectEncoding:int,attempts:int=1,timeout:int=10000,limiter:Boolean=false,overwriteIfExists:Boolean=true,username:String=null,password:String=null):void
 		{
-			if(services[id] && !overwriteIfExists) return;
+			if(services[id]&&!overwriteIfExists)return;
 			var rc:RemotingConnection;
-			if(rcp[gateway] && overwriteIfExists) rcp[gateway].dispose();
-			if(!rcp[gateway] || overwriteIfExists) rc = rcp[gateway] = new RemotingConnection(gateway,objectEncoding); 
-			else rc = rcp[gateway];
-			if(username && password) rc.setCredentials(username,password);
-			services[id] = new RemotingService(rc,endpoint,attempts,timeout,limiter);
+			if(rcp[gateway])rc=rcp[gateway];
+			else rc=rcp[gateway]=new RemotingConnection(gateway,objectEncoding);
+			if(username&&password)rc.setCredentials(username,password);
+			if(services[id]&&overwriteIfExists)services[id].dispose();
+			services[id]=new RemotingService(rc,endpoint,attempts,timeout,limiter);
 		}
 		
 		/**
