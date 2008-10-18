@@ -1,3 +1,6 @@
+==revision 409==
+-added event callback for context menu method from model.
+
 ==revision 408==
 -added x/y to setter utils
 -added context menus to model
