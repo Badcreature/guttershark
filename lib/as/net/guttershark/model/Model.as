@@ -561,6 +561,8 @@ package net.guttershark.model
 		 */
 		public function getContextMenuById(id:String,itemClickHandler:Function,ignoreCachedMenus:Boolean=false):ContextMenu
 		{
+			checkForXML();
+			ast.notNil(id,"Parameter {id} cannot be null.");
 			var cid:String="cmenu_"+id;
 			if(modelcache.isCached(cid) && !ignoreCachedMenus)return modelcache.getCachedObject(cid) as ContextMenu;
 			var cm:ContextMenu = new ContextMenu();
