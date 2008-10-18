@@ -568,12 +568,8 @@ package net.guttershark.model
 			var it:ContextMenuItem;
 			for each(var x:XML in children)
 			{
-				if(x.name()=="seperator")
-				{
-					sep=true;
-					continue;
-				}
-				if(x.name()=="item")
+				if(x.name()=="seperator")sep=true;
+				else if(x.name()=="item")
 				{
 					it=new ContextMenuItem(x.@label,sep);
 					it.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,itemClickHandler,false,0,true);
