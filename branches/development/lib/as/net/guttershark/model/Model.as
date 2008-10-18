@@ -261,8 +261,8 @@ package net.guttershark.model
 						username = (r.@username!=undefined) ? r.@username : r.@userid;
 						password = r.@password;
 					}
-					if(r.@url != undefined) gateway = r.@url;
-					if(r.@path != undefined) gateway = getPath(r.@path.toString());
+					if(r.@url!=undefined)gateway=r.@url;
+					if(r.@path!=undefined&&isPathDefined(r.@path.toString()))gateway=getPath(r.@path.toString());
 					if(!gateway) throw new Error("Gateway not found, you must have a url or path attribute on defined on the gateway node.");
 					if(r.@objectEncoding!=undefined) oe = int(r.@objectEncoding);
 					if(oe != 3 && oe != 0) throw new Error("ObjectEncoding can only be 0 or 3.");
