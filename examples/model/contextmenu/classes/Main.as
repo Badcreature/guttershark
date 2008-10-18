@@ -1,11 +1,10 @@
 package
 {
-	import flash.events.ContextMenuEvent;	
-	import flash.ui.ContextMenu;	
-	import flash.display.MovieClip;	
+	import flash.display.MovieClip;
+	import flash.events.ContextMenuEvent;
 	
 	import net.guttershark.control.DocumentController;	
-	
+
 	public class Main extends DocumentController 
 	{
 		
@@ -26,8 +25,7 @@ package
 			mc.graphics.beginFill(0xff0066);
 			mc.graphics.drawRect(0,0,100,15);
 			mc.graphics.endFill();
-			var cm:ContextMenu = ml.getContextMenuById("menu1",onItemClick);
-			mc.contextMenu=cm;
+			mc.contextMenu=ml.getContextMenuById("menu1",onItemClick);
 			addChild(mc);
 		}
 		
