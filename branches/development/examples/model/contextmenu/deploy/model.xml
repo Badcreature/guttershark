@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<contextmenus>
+		<contextmenu id="menu1" builtInItems="false">
+			<item label="hello world" />
+			<item label="olver" />
+			<seperator/>
+			<item label="aaron" />
+		</contextmenu>
+	</contextmenus>
+</model>
