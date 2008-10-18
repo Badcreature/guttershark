@@ -285,8 +285,8 @@ package net.guttershark.model
 			var payload:Array = [];
 			for each(var n:XML in a)
 			{
-				if(!n.attribute("preload")) continue;
-				var src:String = n.@source || n.@src;
+				if(n.@preload == undefined||n.@preload=="false")continue;
+				var src:String = n.@source||n.@src;
 				if(n.attribute("path")!=undefined) src = getPath(n.@path.toString()) + src;
 				var ast:Asset = new Asset(src,n.@libraryName);
 				payload.push(ast);
