@@ -270,8 +270,8 @@ package net.guttershark.model
 				}
 				else
 				{
-					if(s.@url != undefined) url = s.@url;
-					if(s.@path != undefined) url = getPath(s.@path.toString());
+					if(s.@url != undefined)url=s.@url;
+					if(s.@path!=undefined&&isPathDefined(s.@path.toString()))url=getPath(s.@path.toString());
 					if(s.@responseFormat != undefined) drf = s.@responseFormat;
 					if(drf != null && drf != "variables" && drf != "xml" && drf != "text" && drf != "binary") throw new Error("The defined response format is not supported, only xml|text|binary|variables is supported.");
 					sm.createHTTPService(s.@id, url, attempts, timeout, limiter, drf);
