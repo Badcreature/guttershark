@@ -255,5 +255,24 @@ package net.guttershark.util
 			}
 			for(k;k<l;k++) a[k].autoSize = value;
 		}
+		
+		/**
+		 * Set the x property on multiple object.
+		 * 
+		 * @param value The x value.
+		 * @param ..objs An array of objects with the x property.
+		 */
+		public function x(value:Number, ...objs:Array):void
+		{
+			var l:int = objs.length;
+			var k:int = 0;
+			var a:Array = objs;
+			if(objs[0] is Array)
+			{
+				a = objs[0];
+				l = a.length;
+			}
+			for(k;k<l;k++) a[k].x = value;
+		}
 	}
 }

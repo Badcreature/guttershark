@@ -1,5 +1,7 @@
 package net.guttershark.model 
 {
+	import flash.ui.ContextMenuItem;	
+	import flash.ui.ContextMenu;	
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
@@ -156,7 +158,12 @@ package net.guttershark.model
 		/**
 		 * A cache for text formats and stylesheets.
 		 */
-		private var formatcache:Cache;
+		private var modelcache:Cache;
+		
+		/**
+		 * A reference to the context menu xml node.
+		 */
+		private var contextmenus:XMLList;
 
 		/**
 		 * @private
@@ -168,7 +175,7 @@ package net.guttershark.model
 			paths = new Dictionary();
 			ast = Assertions.gi();
 			utils = Utilities.gi();
-			formatcache = new Cache();
+			modelcache = new Cache();
 		}
 
 		/**
@@ -194,6 +201,7 @@ package net.guttershark.model
 			if(_model.service) services = _model.services;
 			if(_model.textformats) textformats = _model.textformats;
 			if(_model.content) contents = _model.content;
+			if(_model.contextmenus) contextmenus = _model.contextmenus;
 		}
 		
 		/**
@@ -461,12 +469,12 @@ package net.guttershark.model
 		public function getStyleSheetById(id:String):StyleSheet
 		{
 			var cacheId:String = "css_"+id;
-			if(formatcache.isCached(cacheId)) return formatcache.getCachedObject(cacheId);
+			if(modelcache.isCached(cacheId)) return modelcache.getCachedObject(cacheId);
 			var n:XMLList = stylesheets.stylesheet.(@id==id);
 			if(!n) return null;
 			var s:StyleSheet = new StyleSheet();
 			s.parseCSS(n.toString());
-			formatcache.cacheObject(cacheId,s);
+			modelcache.cacheObject(cacheId,s);
 			return s;
 		}
 		
@@ -495,7 +503,7 @@ package net.guttershark.model
 		public function getTextFormatById(id:String):TextFormat
 		{
 			var cacheId:String = "tf_"+id;
-			if(formatcache.isCached(cacheId)) return formatcache.getCachedObject(cacheId) as TextFormat;
+			if(modelcache.isCached(cacheId)) return modelcache.getCachedObject(cacheId) as TextFormat;
 			var n:XMLList = textformats.textformat.(@id==id);
 			var tf:TextFormat = new TextFormat();
 			if(n.attribute("align")!=undefined) tf.align = n.@align;
@@ -513,7 +521,7 @@ package net.guttershark.model
 			if(n.attribute("rightMargin")!=undefined) tf.rightMargin = int(n.@rightMargin);
 			if(n.attribute("size")!=undefined) tf.size = int(n.@size);
 			if(n.attribute("underline")!=undefined) tf.underline = utils.string.toBoolean(n.@underline);
-			formatcache.cacheObject(cacheId,tf);
+			modelcache.cacheObject(cacheId,tf);
 			return tf;
 		}
 
@@ -539,6 +547,37 @@ package net.guttershark.model
 		{
 			var n:XMLList = contents..text.(@id==id);
 			return n.toString();
+		}
+		
+		/**
+		 * Get's a context menu from the model xml.
+		 * 
+		 * @param id The id of the context menu to build and return.
+		 */
+		public function getContextMenuById(id:String):ContextMenu
+		{
+			var cid:String="cmenu_"+id;
+			if(modelcache.isCached(cid))return modelcache.getCachedObject(cid) as ContextMenu;
+			var cm:ContextMenu = new ContextMenu();
+			var c:XMLList=contextmenus..contextmenu.(@id==id);
+			if(c.@builtInItems=="false")cm.hideBuiltInItems();
+			var children:XMLList=c.children();
+			var sep:Boolean;
+			for each(var x:XML in children)
+			{
+				if(x.name()=="seperator")
+				{
+					sep=true;
+					continue;
+				}
+				if(x.name()=="item")
+				{
+					cm.customItems.push(new ContextMenuItem(x.@label,sep));
+					sep=false;
+				}
+			}
+			modelcache.cacheObject(cid,cm);
+			return cm;
 		}
 	}
 }
