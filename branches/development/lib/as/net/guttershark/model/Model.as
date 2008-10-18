@@ -1,13 +1,14 @@
 package net.guttershark.model 
 {
-	import flash.ui.ContextMenuItem;	
-	import flash.ui.ContextMenu;	
+	import flash.events.ContextMenuEvent;
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.text.StyleSheet;
 	import flash.text.TextFormat;
+	import flash.ui.ContextMenu;
+	import flash.ui.ContextMenuItem;
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.managers.ServiceManager;
@@ -15,7 +16,7 @@ package net.guttershark.model
 	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
 	import net.guttershark.util.Utilities;
-	import net.guttershark.util.cache.Cache;	
+	import net.guttershark.util.cache.Cache;		
 
 	/**
 	 * The Model Class provides shortcuts for parsing a model xml file as
@@ -553,8 +554,9 @@ package net.guttershark.model
 		 * Get's a context menu from the model xml.
 		 * 
 		 * @param id The id of the context menu to build and return.
+		 * @param itemClickHandler A function event callback for the menu item select event.
 		 */
-		public function getContextMenuById(id:String):ContextMenu
+		public function getContextMenuById(id:String,itemClickHandler:Function):ContextMenu
 		{
 			var cid:String="cmenu_"+id;
 			if(modelcache.isCached(cid))return modelcache.getCachedObject(cid) as ContextMenu;
@@ -563,6 +565,7 @@ package net.guttershark.model
 			if(c.@builtInItems=="false")cm.hideBuiltInItems();
 			var children:XMLList=c.children();
 			var sep:Boolean;
+			var it:ContextMenuItem;
 			for each(var x:XML in children)
 			{
 				if(x.name()=="seperator")
@@ -572,7 +575,9 @@ package net.guttershark.model
 				}
 				if(x.name()=="item")
 				{
-					cm.customItems.push(new ContextMenuItem(x.@label,sep));
+					it=new ContextMenuItem(x.@label,sep);
+					it.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,itemClickHandler,false,0,true);
+					cm.customItems.push(it);
 					sep=false;
 				}
 			}
