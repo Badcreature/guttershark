@@ -555,29 +555,29 @@ package net.guttershark.model
 		 * 
 		 * @param id The id of the context menu to build and return.
 		 * @param itemClickHandler A function event callback for the menu item select event.
+		 * @param ignoreCachedMenus Whether or not to re-create the context menu, even though
+		 * a cached menu may exist. This is specifically for event handling, as if a menu is cached,
+		 * the function callback will not be updated.
 		 */
-		public function getContextMenuById(id:String,itemClickHandler:Function):ContextMenu
+		public function getContextMenuById(id:String,itemClickHandler:Function,ignoreCachedMenus:Boolean=false):ContextMenu
 		{
 			var cid:String="cmenu_"+id;
-			if(modelcache.isCached(cid))return modelcache.getCachedObject(cid) as ContextMenu;
+			if(modelcache.isCached(cid) && !ignoreCachedMenus)return modelcache.getCachedObject(cid) as ContextMenu;
 			var cm:ContextMenu = new ContextMenu();
-			var c:XMLList=contextmenus..contextmenu.(@id==id);
-			if(c.@builtInItems=="false")cm.hideBuiltInItems();
+			var c:XMLList=contextmenus..menu.(@id==id);
+			if(c.@builtInItems==undefined||c.@builtInItems=="false")cm.hideBuiltInItems();
 			var children:XMLList=c.children();
 			var sep:Boolean;
 			var it:ContextMenuItem;
 			for each(var x:XML in children)
 			{
-				if(x.name()=="seperator")sep=true;
-				else if(x.name()=="item")
-				{
-					it=new ContextMenuItem(x.@label,sep);
-					it.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,itemClickHandler,false,0,true);
-					cm.customItems.push(it);
-					sep=false;
-				}
+				sep=false;
+				if(x.@seperator=="true")sep=true;
+				it=new ContextMenuItem(x.@label,sep);
+				it.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,itemClickHandler,false,0,true);
+				cm.customItems.push(it);
 			}
-			modelcache.cacheObject(cid,cm);
+			if(!ignoreCachedMenus)modelcache.cacheObject(cid,cm);
 			return cm;
 		}
 	}
