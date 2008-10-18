@@ -1,5 +1,6 @@
 package
 {
+	import flash.events.ContextMenuEvent;	
 	import flash.ui.ContextMenu;	
 	import flash.display.MovieClip;	
 	
@@ -25,7 +26,12 @@ package
 			mc.graphics.beginFill(0xff0066);
 			mc.graphics.drawRect(0,0,100,15);
 			mc.graphics.endFill();
-			var cm:ContextMenu = ml.getContextMenuById("menu1");
+			var cm:ContextMenu = ml.getContextMenuById("menu1",onItemClick);
 			mc.contextMenu=cm;
 			addChild(mc);
+		}
+		
+		private function onItemClick(e:ContextMenuEvent):void
+		{
+			trace("clicked");
 		}	}}

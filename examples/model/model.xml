@@ -19,6 +19,14 @@
 	<textformats>
 		<textformat id="theTF" font="Arial" color="0xFF0066" bold="true" />
 	</textformats>
+	<contextmenus>
+		<contextmenu id="menu1" builtInItems="false">
+			<item label="hello world" />
+			<item label="olver" />
+			<seperator/>
+			<item label="aaron" />
+		</contextmenu>
+	</contextmenus>
 	<stylesheets>
 		<stylesheet id="colors">
 			<![CDATA[
