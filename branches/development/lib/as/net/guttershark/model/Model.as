@@ -1,8 +1,5 @@
 package net.guttershark.model 
 {
-	import net.guttershark.managers.ContextMenuManager;	
-	
-	import flash.events.ContextMenuEvent;
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
@@ -10,9 +7,9 @@ package net.guttershark.model
 	import flash.text.StyleSheet;
 	import flash.text.TextFormat;
 	import flash.ui.ContextMenu;
-	import flash.ui.ContextMenuItem;
 	import flash.utils.Dictionary;
 	
+	import net.guttershark.managers.ContextMenuManager;
 	import net.guttershark.managers.ServiceManager;
 	import net.guttershark.support.preloading.Asset;
 	import net.guttershark.util.Assertions;
@@ -573,10 +570,6 @@ package net.guttershark.model
 		 * from a menu that is defined in the model.
 		 * 
 		 * @param id The id of the context menu to build and return.
-		 * @param itemClickHandler A function event callback for the menu item select event.
-		 * @param ignoreCachedMenus Whether or not to re-create the context menu, even though
-		 * a cached menu may exist. This is specifically for event handling, as if a menu is cached,
-		 * the function callback will not be updated.
 		 */
 		public function createContextMenuById(id:String):ContextMenu
 		{
@@ -599,7 +592,6 @@ package net.guttershark.model
 				items.push(it);
 			}
 			return ContextMenuManager.gi().createMenu(id,items);
-			return cm;
 		}
 	}
 }
