@@ -3,7 +3,7 @@
 	<contextmenus>
 		<menu id="menu1">
 			<item id="home" label="home" />
-			<item id="back" label="GO BACK" seperator="true"/>
+			<item id="back" label="GO BACK" sep="true"/>
 		</menu>
 	</contextmenus>
 </model>
