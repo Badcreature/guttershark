@@ -455,7 +455,7 @@ package net.guttershark.managers
 			{
 				if(!cmm.isMenuRegistered(obj as ContextMenu))
 				{
-					trace("WARNING: Context menu events will not function from the evnet manager, unless you've created it through the ContextMenuManager.");
+					trace("WARNING: Context menu events will not function from the event manager, unless you've created it through the ContextMenuManager.");
 					return;
 				}
 				var ids:Array=cmm.getIdsForMenu(obj as ContextMenu);
