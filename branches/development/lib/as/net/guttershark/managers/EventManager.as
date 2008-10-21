@@ -465,7 +465,7 @@ package net.guttershark.managers
 				for(j;j<l;j++)
 				{
 					id=ids[j];
-					if((callbackPrefix+id) in callbackDelegate)cmm.getItemFromMenuByMenuAndId(ContextMenu(obj),id).addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,onContextMenuSelect);
+					if((callbackPrefix+id) in callbackDelegate)cmm.getItemFromMenuByMenuAndId(ContextMenu(obj),id).addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,onContextMenuSelect,false,0,true);
 				}
 			}
 		}
