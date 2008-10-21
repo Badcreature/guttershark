@@ -1,6 +1,5 @@
 package net.guttershark.managers 
 {
-	import flash.events.EventDispatcher;
 	import flash.ui.ContextMenu;
 	import flash.ui.ContextMenuItem;
 	import flash.utils.Dictionary;
@@ -13,7 +12,7 @@ package net.guttershark.managers
 	 * menus. And if you use this class for context menu creation, you
 	 * can use the event manager to handle events.
 	 */
-	final public class ContextMenuManager extends EventDispatcher
+	final public class ContextMenuManager
 	{
 
 		/**
