@@ -1,9 +1,10 @@
 package
 {
 	import flash.display.MovieClip;
-	import flash.events.ContextMenuEvent;
 	
-	import net.guttershark.control.DocumentController;	
+	import net.guttershark.control.DocumentController;
+	import net.guttershark.managers.ContextMenuManager;
+	import net.guttershark.support.contextmenumanager.CContextMenuEvent;	
 
 	public class Main extends DocumentController 
 	{
@@ -12,6 +13,7 @@ package
 
 		public function Main()
 		{
+			super();
 		}
 		
 		override protected function flashvarsForStandalone():Object
@@ -25,11 +27,27 @@ package
 			mc.graphics.beginFill(0xff0066);
 			mc.graphics.drawRect(0,0,100,15);
 			mc.graphics.endFill();
-			mc.contextMenu=ml.getContextMenuById("menu1",onItemClick);
 			addChild(mc);
+			
+			var cmm:ContextMenuManager = ContextMenuManager.gi();
+			
+			//use the cmm directly.
+			//cmm.createMenu("menu1",[{id:"home",label:"home"},{id:"back",label:"GO BACK",sep:true}]);
+			//mc.contextMenu=cmm.getMenu("menu1");
+			
+			//use model
+			mc.contextMenu = ml.createContextMenuById("menu1");
+			
+			//events
+			em.he(mc.contextMenu,this,"onCM");
 		}
 		
-		private function onItemClick(e:ContextMenuEvent):void
+		public function onCMhome():void
 		{
-			trace("clicked");
+			trace("on home");
+		}
+		
+		public function onCMback():void
+		{
+			trace("go back");
 		}	}}
