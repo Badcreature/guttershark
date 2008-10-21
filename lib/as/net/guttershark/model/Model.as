@@ -584,7 +584,7 @@ package net.guttershark.model
 			{
 				if(x.@id==undefined) throw new Error("You must have an 'id' attribute declared on each menu item.");
 				sep=false;
-				if(x.@seperator=="true")sep=true;
+				if(x.@sep=="true")sep=true;
 				it={};
 				it.label=x.@label;
 				it.sep=sep;
