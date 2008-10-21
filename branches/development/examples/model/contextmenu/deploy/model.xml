@@ -2,9 +2,8 @@
 <model>
 	<contextmenus>
 		<menu id="menu1">
-			<item label="hello world" />
-			<item label="olver" />
-			<item label="aaron" seperator="true"/>
+			<item id="home" label="home" />
+			<item id="back" label="GO BACK" seperator="true"/>
 		</menu>
 	</contextmenus>
 </model>

@@ -1,3 +1,8 @@
+==revision 410==
+-initial context menu manager
+-initial event manager updates for context menu manager.
+-updated model to work with new context menu manager.
+
 ==revision 409==
 -added event callback for context menu method from model.
 

@@ -1,5 +1,8 @@
 package net.guttershark.managers 
 {
+	import flash.ui.ContextMenuItem;	
+	import flash.events.ContextMenuEvent;	
+	import flash.ui.ContextMenu;	
 	import flash.display.InteractiveObject;	import flash.display.LoaderInfo;	import flash.events.ActivityEvent;	import flash.events.DataEvent;	import flash.events.Event;	import flash.events.FocusEvent;	import flash.events.IEventDispatcher;	import flash.events.KeyboardEvent;	import flash.events.MouseEvent;	import flash.events.ProgressEvent;	import flash.events.StatusEvent;	import flash.events.TextEvent;	import flash.events.TimerEvent;	import flash.media.Camera;	import flash.media.Microphone;	import flash.media.Sound;	import flash.net.FileReference;	import flash.net.NetConnection;	import flash.net.NetStream;	import flash.net.Socket;	import flash.net.URLLoader;	import flash.text.TextField;	import flash.utils.Dictionary;	import flash.utils.Timer;		import net.guttershark.control.PreloadController;	import net.guttershark.display.FLV;	import net.guttershark.support.events.FLVEvent;	import net.guttershark.support.preloading.events.AssetCompleteEvent;	import net.guttershark.support.preloading.events.AssetErrorEvent;	import net.guttershark.support.preloading.events.PreloadProgressEvent;	import net.guttershark.util.Tracking;	import net.guttershark.util.XMLLoader;	
 	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
@@ -221,6 +224,11 @@ package net.guttershark.managers
 		 * lookup for interactive objects events.
 		 */
 		private var eventsByObject:Dictionary;
+		
+		/**
+		 * The context menu manager - or context menu objects.
+		 */
+		private var cmm:ContextMenuManager;
 
 		/**
 		 * Singleton access.
@@ -243,6 +251,7 @@ package net.guttershark.managers
 			edinfo = new Dictionary();
 			eventsByObject = new Dictionary();
 			h = new Dictionary();
+			cmm=ContextMenuManager.gi();
 		}
 		
 		/**
@@ -345,7 +354,6 @@ package net.guttershark.managers
 				return;
 			}
 			
-			
 			if(obj is TextField)
 			{
 				if((callbackPrefix + "Change") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(Event.CHANGE, onTextFieldChange,false,0,true);
@@ -442,6 +450,31 @@ package net.guttershark.managers
 				if((callbackPrefix + "UploadCompleteData") in callbackDelegate || cycleAllThroughTracking) obj.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, onFRUploadCompleteData,false,0,true);
 				return;
 			}
+			
+			if(obj is ContextMenu)
+			{
+				if(!cmm.isMenuRegistered(obj as ContextMenu))
+				{
+					trace("WARNING: Context menu events will not function from the evnet manager, unless you've created it through the ContextMenuManager.");
+					return;
+				}
+				var ids:Array=cmm.getIdsForMenu(obj as ContextMenu);
+				var j:int=0;
+				var l:int=ids.length;
+				var id:String;
+				for(j;j<l;j++)
+				{
+					id=ids[j];
+					if((callbackPrefix+id) in callbackDelegate)cmm.getItemFromMenuByMenuAndId(ContextMenu(obj),id).addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,onContextMenuSelect);
+				}
+			}
+		}
+		
+		private function onContextMenuSelect(ce:ContextMenuEvent):void
+		{
+			var e:* ={};
+			e.target=cmm.getMenuFromItem(ContextMenuItem(ce.target));
+			handleEvent(e,cmm.getIdFromMenuItem(ContextMenuItem(ce.target)));
 		}
 		
 		private function onFLVSeekNotify(fe:FLVEvent):void

@@ -1,5 +1,7 @@
 package net.guttershark.model 
 {
+	import net.guttershark.managers.ContextMenuManager;	
+	
 	import flash.events.ContextMenuEvent;
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
@@ -232,6 +234,20 @@ package net.guttershark.model
 		}
 		
 		/**
+		 * Get an array of asset objects, from the provided id's.
+		 * 
+		 * @param ...libraryNames An array of library names.
+		 */
+		public function getAssetsByLibraryNames(...libraryNames:Array):Array
+		{
+			var p:Array=[];
+			var i:int = 0;
+			var l:int = libraryNames.length;
+			for(i;i<l;i++) p[i]=getAssetByLibraryName(libraryNames[i]);
+			return p;
+		}
+		
+		/**
 		 * Initializes all services defined in the model XML with the ServiceManager.
 		 */
 		public function initServices():void
@@ -337,9 +353,11 @@ package net.guttershark.model
 		 */
 		public function navigateToLink(id:String):void
 		{
+			trace("nav to url");
 			var req:URLRequest = getLink(id);
 			var w:String = getLinkWindow(id);
-			navigateToURL(req,w);
+			trace(req.url);
+			navigateToURL(req);
 		}
 
 		/**
@@ -551,7 +569,8 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Get's a context menu from the model xml.
+		 * Creates a new context menu with the context menu manager,
+		 * from a menu that is defined in the model.
 		 * 
 		 * @param id The id of the context menu to build and return.
 		 * @param itemClickHandler A function event callback for the menu item select event.
@@ -559,27 +578,27 @@ package net.guttershark.model
 		 * a cached menu may exist. This is specifically for event handling, as if a menu is cached,
 		 * the function callback will not be updated.
 		 */
-		public function getContextMenuById(id:String,itemClickHandler:Function,ignoreCachedMenus:Boolean=false):ContextMenu
+		public function createContextMenuById(id:String):ContextMenu
 		{
 			checkForXML();
 			ast.notNil(id,"Parameter {id} cannot be null.");
-			var cid:String="cmenu_"+id;
-			if(modelcache.isCached(cid) && !ignoreCachedMenus)return modelcache.getCachedObject(cid) as ContextMenu;
-			var cm:ContextMenu = new ContextMenu();
 			var c:XMLList=contextmenus..menu.(@id==id);
-			if(c.@builtInItems==undefined||c.@builtInItems=="false")cm.hideBuiltInItems();
 			var children:XMLList=c.children();
 			var sep:Boolean;
-			var it:ContextMenuItem;
+			var it:Object={};
+			var items:Array=[];
 			for each(var x:XML in children)
 			{
+				if(x.@id==undefined) throw new Error("You must have an 'id' attribute declared on each menu item.");
 				sep=false;
 				if(x.@seperator=="true")sep=true;
-				it=new ContextMenuItem(x.@label,sep);
-				it.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,itemClickHandler,false,0,true);
-				cm.customItems.push(it);
+				it={};
+				it.label=x.@label;
+				it.sep=sep;
+				it.id=x.@id;
+				items.push(it);
 			}
-			if(!ignoreCachedMenus)modelcache.cacheObject(cid,cm);
+			return ContextMenuManager.gi().createMenu(id,items);
 			return cm;
 		}
 	}
