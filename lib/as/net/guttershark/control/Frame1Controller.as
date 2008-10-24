@@ -13,6 +13,7 @@ package net.guttershark.control
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
+	import flash.ui.ContextMenu;	
 
 	/**
 	 * The Frame1Controller class is a controller
@@ -93,7 +94,9 @@ package net.guttershark.control
 		{
 			super();
 			stop();
-			_pixelsToFill = pixelsToFill;
+			contextMenu=new ContextMenu();
+			contextMenu.hideBuiltInItems();
+			_pixelsToFill=pixelsToFill;
 			if(this.totalFrames<2) throw new Error("You must have more than 1 frame in the movie to use Frame1Controller");
 			loaderInfo.addEventListener(ProgressEvent.PROGRESS,onp,false,0,true);
 			loaderInfo.addEventListener(Event.COMPLETE,onc,false,0,true);

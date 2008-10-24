@@ -5,7 +5,8 @@ package net.guttershark.managers
 	import flash.utils.Dictionary;
 	
 	import net.guttershark.util.Assertions;
-	import net.guttershark.util.Singleton;	
+	import net.guttershark.util.Singleton;
+	import net.guttershark.util.cache.Cache;		
 
 	/**
 	 * The ContextManager class simplifies creating and using context
@@ -56,6 +57,11 @@ package net.guttershark.managers
 		private var ast:Assertions;
 		
 		/**
+		 * The menu cache.
+		 */
+		private var menuCache:Cache;
+
+		/**
 		 * Singleton access.
 		 */
 		public static function gi():ContextMenuManager
@@ -70,13 +76,19 @@ package net.guttershark.managers
 		public function ContextMenuManager()
 		{
 			Singleton.assertSingle(ContextMenuManager);
-			ast = Assertions.gi();
+			ast=Assertions.gi();
 			menus=[];
 			menusById=new Dictionary();
 			idsByMenu=new Dictionary();
-			itemsByMenuAndId = new Dictionary();
+			itemsByMenuAndId=new Dictionary();
 			idsByItems=new Dictionary();
 			menusByItems=new Dictionary();
+			menuCache=new Cache();
+		}
+		
+		public function hideBuiltInItemsGlobally():void
+		{
+			
 		}
 		
 		/**
@@ -90,9 +102,13 @@ package net.guttershark.managers
 		{
 			ast.notNil(id,"Parameter {id} cannot be null");
 			ast.notNilOrEmpty(items,"Paramaeter {items} cannot be null or empty");
+			var i:int=0;
+			var l:int=items.length;
+			for(i;i<l;i++) if(!items[i].id) throw new Error("Every context item must have an id associated with it.");
+			if(menuCache.isCached(id)) return menuCache.getCachedObject(id) as ContextMenu;
 			if(menusById[id])
 			{
-				trace("WARNING: A context menu already existed with that id, the previous one has been disposed and written over.");
+				trace("WARNING: A context menu already existed with that id, the previous one has been disposed and over-written.");
 				disposeMenu(id);
 			}
 			var cm:ContextMenu=new ContextMenu();
@@ -104,10 +120,9 @@ package net.guttershark.managers
 			var mu:Object;
 			var cmi:ContextMenuItem;
 			var itms:Array=[];
-			var i:int=0;
-			var l:int=items.length;
 			var muid:String;
 			var label:String;
+			i=0;
 			for(i;i<l;i++)
 			{
 				mu=items[i];
@@ -123,6 +138,7 @@ package net.guttershark.managers
 				menusByItems[cmi]=cm;
 			}
 			cm.customItems=itms;
+			menuCache.cacheObject(id,cm);
 			return cm;
 		}
 		
@@ -135,8 +151,13 @@ package net.guttershark.managers
 		public function getMenu(id:String):ContextMenu
 		{
 			ast.notNil(id,"Parameter {id} cannot be null");
+			if(menuCache.isCached(id)) return menuCache.getCachedObject(id) as ContextMenu;
 			var cm:ContextMenu=menusById[id];
-			if(!cm) return null;
+			if(!cm)
+			{
+				trace("WARNING: Context menu {"+id+"} not found, returning null.");
+				return null;
+			}
 			return cm;
 		}
 		
@@ -201,14 +222,20 @@ package net.guttershark.managers
 		 */
 		public function disposeMenu(id:String):void
 		{
-			// menus.splice(...)
-			/*ast.notNil(id,"Parameter {id} cannot be null.");
 			if(!menusById[id])return;
 			var cm:ContextMenu=menusById[id];
-			if(menuCallbacks[id])
+			var ids:Array=idsByMenu[cm];
+			var itms:Array=cm.customItems;
+			var i:int=0;
+			var l:int=itms.length;
+			for(i;i<l;i++)
 			{
-				var i:int=0;
-				var l:int=menuCallbacks[id].length;
-				for(i;i<l;i++)cm.removeEventListener(CContextMenuEvent.ITEM_CLICK,menuCallbacks[i]);
-			}*/
+				var itm:ContextMenuItem=ContextMenuItem(itms[id]);
+				idsByItems[itm]=menusByItems[itm]=null;
+			}
+			idsByMenu[cm]=null;
+			menusById[id]=null;
+			i=0;
+			l=ids.length;
+			for(i;i<l;i++)itemsByMenuAndId[cm][ids[i]]=null;
 		}	}}

@@ -1,7 +1,7 @@
 package net.guttershark.display
 {
 	import flash.text.TextField;
-	import flash.utils.setTimeout;		
+	import flash.utils.setTimeout;	
 
 	/**
 	 * The BaseErrorView class provides some default functionality
@@ -9,7 +9,7 @@ package net.guttershark.display
 	 */
 	public class BaseErrorView extends BaseFormView
 	{
-		
+
 		/**
 		 * An error message text field.
 		 */

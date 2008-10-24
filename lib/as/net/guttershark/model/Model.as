@@ -276,7 +276,7 @@ package net.guttershark.model
 					}
 					if(r.@url!=undefined)gateway=r.@url;
 					if(r.@path!=undefined&&isPathDefined(r.@path.toString()))gateway=getPath(r.@path.toString());
-					if(!gateway) throw new Error("Gateway not found, you must have a url or path attribute on defined on the gateway node.");
+					if(!gateway) throw new Error("Gateway not found, you must have a url or path attribute defined on the gateway node.");
 					if(r.@objectEncoding!=undefined) oe = int(r.@objectEncoding);
 					if(oe != 3 && oe != 0) throw new Error("ObjectEncoding can only be 0 or 3.");
 					sm.createRemotingService(s.@id,gateway,s.@endpoint,oe,attempts,timeout,limiter,true,username,password);

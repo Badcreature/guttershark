@@ -1,5 +1,7 @@
 package net.guttershark.display
 {
+	import net.guttershark.managers.ContextMenuManager;	
+	
 	import flash.display.MovieClip;
 	
 	import net.guttershark.control.PreloadController;
@@ -77,6 +79,11 @@ package net.guttershark.display
 		 * The Utilities singleton instance.
 		 */
 		protected var utils:Utilities;
+		
+		/**
+		 * An instance of the context menu manager.
+		 */
+		protected var cmm:ContextMenuManager;
 
 		/**
 		 * Constructor for CoreClips instances.
@@ -84,16 +91,17 @@ package net.guttershark.display
 		public function CoreClip()
 		{
 			super();
-			em = EventManager.gi();
-			ml = Model.gi();
-			lm = new LayoutManager(this);
-			km = KeyManager.gi();
-			lgm = LanguageManager.gi();
-			am = AssetManager.gi();
-			sm = ServiceManager.gi();
-			snm = SoundManager.gi();
-			ast = Assertions.gi();
-			utils = Utilities.gi();
+			em=EventManager.gi();
+			ml=Model.gi();
+			lm=new LayoutManager(this);
+			km=KeyManager.gi();
+			lgm=LanguageManager.gi();
+			am=AssetManager.gi();
+			sm=ServiceManager.gi();
+			snm=SoundManager.gi();
+			ast=Assertions.gi();
+			utils=Utilities.gi();
+			cmm=ContextMenuManager.gi();
 		}
 
 		/**
@@ -128,16 +136,17 @@ package net.guttershark.display
 		 */
 		public function dispose():void
 		{
-			em = null;
-			ml = null;
-			lm = null;
-			km = null;
-			lgm = null;
-			am = null;
-			sm = null;
-			snm = null;
-			ast = null;
-			utils = null;
+			em=null;
+			ml=null;
+			lm=null;
+			km=null;
+			lgm=null;
+			am=null;
+			sm=null;
+			snm=null;
+			ast=null;
+			utils=null;
+			cmm=null;
 		}
 	}
 }

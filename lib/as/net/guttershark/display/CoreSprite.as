@@ -4,6 +4,7 @@ package net.guttershark.display
 	
 	import net.guttershark.control.PreloadController;
 	import net.guttershark.managers.AssetManager;
+	import net.guttershark.managers.ContextMenuManager;
 	import net.guttershark.managers.EventManager;
 	import net.guttershark.managers.KeyManager;
 	import net.guttershark.managers.LanguageManager;
@@ -12,7 +13,7 @@ package net.guttershark.display
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.util.Assertions;
-	import net.guttershark.util.Utilities;	
+	import net.guttershark.util.Utilities;		
 
 	/**
 	 * The CoreSprite class is a base class that provides
@@ -79,21 +80,27 @@ package net.guttershark.display
 		protected var utils:Utilities;
 
 		/**
+		 * An instance of the context menu manager.
+		 */
+		protected var cmm:ContextMenuManager;
+
+		/**
 		 * Constructor for CoreSprite instances.
 		 */
 		public function CoreSprite()
 		{
 			super();
-			em = EventManager.gi();
-			ml = Model.gi();
-			lm = new LayoutManager(this);
-			km = KeyManager.gi();
-			lgm = LanguageManager.gi();
-			am = AssetManager.gi();
-			sm = ServiceManager.gi();
-			snm = SoundManager.gi();
-			ast = Assertions.gi();
-			utils = Utilities.gi();
+			em=EventManager.gi();
+			ml=Model.gi();
+			lm=new LayoutManager(this);
+			km=KeyManager.gi();
+			lgm=LanguageManager.gi();
+			am=AssetManager.gi();
+			sm=ServiceManager.gi();
+			snm=SoundManager.gi();
+			ast=Assertions.gi();
+			utils=Utilities.gi();
+			cmm=ContextMenuManager.gi();
 		}
 
 		/**
@@ -128,16 +135,17 @@ package net.guttershark.display
 		 */
 		public function dispose():void
 		{
-			em = null;
-			ml = null;
-			lm = null;
-			km = null;
-			lgm = null;
-			am = null;
-			sm = null;
-			snm = null;
-			ast = null;
-			utils = null;
+			em=null;
+			ml=null;
+			lm=null;
+			km=null;
+			lgm=null;
+			am=null;
+			sm=null;
+			snm=null;
+			ast=null;
+			utils=null;
+			cmm=null;
 		}
 	}
 }
