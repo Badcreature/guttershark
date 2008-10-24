@@ -10,10 +10,10 @@ package net.guttershark.util
 	 * 
 	 * @example Two uses for each method:
 	 * <listing>	
-	 * var su:SetterUtils = SetterUtils.gi();
+	 * var su:SetterUtils=SetterUtils.gi();
 	 * 
 	 * var mc1,mc2,mc3:MovieClip;
-	 * var mcref:Array = [mc1,mc2,mc3];
+	 * var mcref:Array=[mc1,mc2,mc3];
 	 * 
 	 * su.visible(true,mc1,mc2,mc3); //rest style.
 	 * 
@@ -37,7 +37,7 @@ package net.guttershark.util
 		 */
 		public static function gi():SetterUtils
 		{
-			if(!inst) inst = Singleton.gi(SetterUtils);
+			if(!inst) inst=Singleton.gi(SetterUtils);
 			return inst;
 		}
 		
@@ -57,15 +57,15 @@ package net.guttershark.util
 		 */
 		public function buttonMode(value:Boolean, ...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].buttonMode = value;
+			for(k;k<l;k++) a[k].buttonMode=value;
 		}
 		
 		/**
@@ -76,15 +76,15 @@ package net.guttershark.util
 		 */
 		public function visible(value:Boolean, ...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].visible = value;
+			for(k;k<l;k++) a[k].visible=value;
 		}
 		
 		/**
@@ -95,15 +95,15 @@ package net.guttershark.util
 		 */
 		public function alpha(value:Number, ...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].alpha = value;
+			for(k;k<l;k++) a[k].alpha=value;
 		}
 		
 		/**
@@ -114,15 +114,15 @@ package net.guttershark.util
 		 */
 		public function cacheAsBitmap(value:Boolean, ...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].cacheAsBitmap = value;
+			for(k;k<l;k++) a[k].cacheAsBitmap=value;
 		}
 		
 		/**
@@ -133,15 +133,15 @@ package net.guttershark.util
 		 */
 		public function useHandCursor(value:Boolean, ...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].useHandCursor = value;
+			for(k;k<l;k++) a[k].useHandCursor=value;
 		}	
 		
 		/**
@@ -152,15 +152,15 @@ package net.guttershark.util
 		 */
 		public function mouseChildren(value:Boolean,...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].mouseChildren = value;
+			for(k;k<l;k++) a[k].mouseChildren=value;
 		}
 		
 		/**
@@ -171,15 +171,15 @@ package net.guttershark.util
 		 */
 		public function mouseEnabled(value:Boolean,...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].mouseEnabled = value;
+			for(k;k<l;k++) a[k].mouseEnabled=value;
 		}
 		
 		/**
@@ -189,14 +189,14 @@ package net.guttershark.util
 		 */
 		public function tabIndex(...fields:Array):void
 		{
-			var l:int = fields.length;
-			var k:int = 0;
+			var l:int=fields.length;
+			var k:int=0;
 			if(fields[0] is Array)
 			{
-				fields = fields[0];
-				l = fields.length;
+				fields=fields[0];
+				l=fields.length;
 			}
-			for(k;k<l;k++) fields[k].tabIndex = ++k;
+			for(k;k<l;k++) fields[k].tabIndex=++k;
 		}
 		
 		/**
@@ -207,15 +207,15 @@ package net.guttershark.util
 		 */
 		public function tabChildren(value:Boolean,...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].tabChildren = value;
+			for(k;k<l;k++) a[k].tabChildren=value;
 		}
 		
 		/**
@@ -226,15 +226,15 @@ package net.guttershark.util
 		 */
 		public function tabEnabled(value:Boolean,...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].tabEnabled = value;
+			for(k;k<l;k++) a[k].tabEnabled=value;
 		}
 		
 		/**
@@ -245,15 +245,15 @@ package net.guttershark.util
 		 */
 		public function autoSize(value:String, ...fields:Array):void
 		{
-			var l:int = fields.length;
-			var k:int = 0;
-			var a:Array = fields;
+			var l:int=fields.length;
+			var k:int=0;
+			var a:Array=fields;
 			if(fields[0] is Array)
 			{
-				a = fields[0];
-				l = a.length;
+				a=fields[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].autoSize = value;
+			for(k;k<l;k++) a[k].autoSize=value;
 		}
 		
 		/**
@@ -264,15 +264,52 @@ package net.guttershark.util
 		 */
 		public function x(value:Number, ...objs:Array):void
 		{
-			var l:int = objs.length;
-			var k:int = 0;
-			var a:Array = objs;
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
 			if(objs[0] is Array)
 			{
-				a = objs[0];
-				l = a.length;
+				a=objs[0];
+				l=a.length;
 			}
-			for(k;k<l;k++) a[k].x = value;
+			for(k;k<l;k++) a[k].x=value;
+		}
+		
+		/**
+		 * Set the y property on multiple object.
+		 * 
+		 * @param value The y value.
+		 * @param ..objs An array of objects with the x property.
+		 */
+		public function y(value:Number, ...objs:Array):void
+		{
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
+			if(objs[0] is Array)
+			{
+				a=objs[0];
+				l=a.length;
+			}
+			for(k;k<l;k++)a[k].y=value;
+		}
+		
+		/**
+		 * Toggles the visible property on all objects provided.
+		 * 
+		 * @param objs The objects to toggle the visible property on.
+		 */
+		public function toggleVisible(...objs:Array):void
+		{
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
+			if(objs[0] is Array)
+			{
+				a=objs[0];
+				l=a.length;
+			}
+			for(k;k<l;k++)a[k].visible=!a[k].visible;
 		}
 	}
 }

@@ -22,6 +22,7 @@ package net.guttershark.control
 	import flash.net.LocalConnection;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestHeader;
+	import flash.ui.ContextMenu;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	import flash.utils.getTimer;
@@ -36,7 +37,7 @@ package net.guttershark.control
 	import net.guttershark.util.PlayerUtils;
 	import net.guttershark.util.Tracking;
 	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;
+	import net.guttershark.util.akamai.Ident;		
 
 	//<li><strong>(in development)trackingMonitor</strong> (Boolean) - Connect to the tracking monitor, and send notifications from the javascript tracking library to the trackingMonitor.</li>
 	//<li><strong>(in development)trackingSimulateXMLFile</strong> (String) - The path to a tracking xml file to use for making simulated tracking calls. This is specifically for when you're in the Flash IDE and need to at least simulate tracking calls for QA. The tags get sent to the tracking monitor.</li>
@@ -192,6 +193,8 @@ package net.guttershark.control
 			super();
 			loaderInfo.addEventListener(Event.COMPLETE,onSWFComplete);
 			stage.stageFocusRect=false;
+			contextMenu=new ContextMenu();
+			contextMenu.hideBuiltInItems();
 			initStage();
 			online = true;
 			setupFlashvars();
