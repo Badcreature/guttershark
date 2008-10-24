@@ -86,11 +86,6 @@ package net.guttershark.managers
 			menuCache=new Cache();
 		}
 		
-		public function hideBuiltInItemsGlobally():void
-		{
-			
-		}
-		
 		/**
 		 * Create a new context menu.
 		 * 
