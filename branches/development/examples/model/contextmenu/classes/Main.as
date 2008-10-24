@@ -3,8 +3,7 @@ package
 	import flash.display.MovieClip;
 	
 	import net.guttershark.control.DocumentController;
-	import net.guttershark.managers.ContextMenuManager;
-	import net.guttershark.support.contextmenumanager.CContextMenuEvent;	
+	import net.guttershark.managers.ContextMenuManager;	
 
 	public class Main extends DocumentController 
 	{
@@ -32,11 +31,11 @@ package
 			var cmm:ContextMenuManager = ContextMenuManager.gi();
 			
 			//use the cmm directly.
-			//cmm.createMenu("menu1",[{id:"home",label:"home"},{id:"back",label:"GO BACK",sep:true}]);
-			//mc.contextMenu=cmm.getMenu("menu1");
+			cmm.createMenu("menu1",[{id:"home",label:"home"},{id:"back",label:"GO BACK",sep:true}]);
+			mc.contextMenu=cmm.getMenu("menu1");
 			
 			//use model
-			mc.contextMenu = ml.createContextMenuById("menu1");
+			//mc.contextMenu = ml.createContextMenuById("menu1");
 			
 			//events
 			em.he(mc.contextMenu,this,"onCM");
