@@ -324,9 +324,11 @@ package net.guttershark.model
 		public function getLink(id:String):URLRequest
 		{
 			checkForXML();
-			var link:XMLList = links..link.(@id == id);
+			var link:XMLList = links..link.(@id==id);
 			if(!link) return null;
-			var u:URLRequest = new URLRequest(link.@url);
+			var u:URLRequest;
+			if(link.@url!=undefined)u=new URLRequest(link.@url);
+			else if(link.@href!=undefined)u=new URLRequest(link.@href);
 			return u;
 		}
 		
@@ -350,11 +352,9 @@ package net.guttershark.model
 		 */
 		public function navigateToLink(id:String):void
 		{
-			trace("nav to url");
-			var req:URLRequest = getLink(id);
-			var w:String = getLinkWindow(id);
-			trace(req.url);
-			navigateToURL(req);
+			var req:URLRequest=getLink(id);
+			var w:String=getLinkWindow(id);
+			navigateToURL(req,w);
 		}
 
 		/**
