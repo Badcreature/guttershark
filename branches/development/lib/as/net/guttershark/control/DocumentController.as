@@ -94,7 +94,7 @@ package net.guttershark.control
 		/**
 		 * The version of guttershark.
 		 */
-		public static const VERSION:String="1.0.496";
+		public static const VERSION:String="1.0.433";
 	
 		/**
 		 * The KiloBytes per second that the movie downloaded at.
