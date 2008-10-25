@@ -3,7 +3,9 @@ package net.guttershark.managers
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
+	import flash.utils.clearInterval;
 	import flash.utils.clearTimeout;
+	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 	
 	import net.guttershark.util.Singleton;	
@@ -66,6 +68,16 @@ package net.guttershark.managers
 		 */
 		private var mappingCountByScope:Dictionary;
 		
+		/**
+		 * The repeat callback interval.
+		 */
+		private var repeatCallback:Number;
+		
+		/**
+		 * The current mapping repeating is executing.
+		 */
+		private var repeatingFor:String;
+
 		/**
 		 * Singleton Instance.
 		 */
@@ -184,12 +196,14 @@ package net.guttershark.managers
 		 * @param scope The scope in which to add the keyboard events to.
 		 * @param mapping The mapping to listen for.
 		 * @param callback The callback function.
+		 * @param repeatCallbackWhileDown
 		 */
-		public function addMapping(scope:*, mapping:String, callback:Function):void
+		public function addMapping(scope:*,mapping:String,callback:Function,repeatCallbackWhileDown:Boolean=false,repeatWhileDownCallback:Function=null):void
 		{
+			//if(repeatCallbackWhileDown) throw new Error("A repeatWhileDownCallback must be supplied in order to use the repeating callbacks for down events.");
 			if(mapping.length == 1) addCharMapping(scope,mapping,callback);
-			else if(mapping.indexOf("+") > -1) addSequenceMapping(scope,mapping,callback);
-			else if(isShortcutForKeycode(mapping)) addSequenceMapping(scope,mapping,callback);
+			else if(isShortcutForKeycode(mapping)) addSequenceMapping(scope,mapping,callback,repeatCallbackWhileDown,repeatWhileDownCallback);
+			else if(mapping.indexOf("+") > -1) addSequenceMapping(scope,mapping,callback,repeatCallbackWhileDown,repeatWhileDownCallback);
 			else addWordMapping(scope, mapping, callback);
 		}
 		
@@ -198,9 +212,9 @@ package net.guttershark.managers
 		 * 
 		 * @see #addMapping()
 		 */
-		public function am(scope:*, mapping:String, callback:Function):void
+		public function am(scope:*, mapping:String, callback:Function,repeatCallbackWhileDown:Boolean=false,repeatWhileDownCallback:Function=null):void
 		{
-			addMapping(scope,mapping,callback);
+			addMapping(scope,mapping,callback,repeatCallbackWhileDown,repeatWhileDownCallback);
 		}
 		
 		/**
@@ -534,15 +548,22 @@ package net.guttershark.managers
 		 * @param word The word to listen for.
 		 * @param callback The callback function.
 		 */
-		private function addSequenceMapping(scope:*, sequence:String, callback:Function):void
+		private function addSequenceMapping(scope:*,sequence:String,callback:Function,repeatWhileDown:Boolean,repeatWhileDownCallback:Function):void
 		{
 			if(!sequenceCallbacks[scope])
 			{
-				scope.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDownForSequence);
-				scope.addEventListener(KeyboardEvent.KEY_UP, onKeyUpForSequence);
+				scope.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDownForSequence);
+				scope.addEventListener(KeyboardEvent.KEY_UP,onKeyUpForSequence);
 				sequenceCallbacks[scope] = new Dictionary();
+				
 			}
-			sequenceCallbacks[scope][sequence] = callback;
+			if(!sequenceCallbacks[scope][sequence]) sequenceCallbacks[scope][sequence] = new Dictionary();
+			sequenceCallbacks[scope][sequence]['callback']=callback;
+			if(repeatWhileDown)
+			{
+				sequenceCallbacks[scope][sequence]["repeatwhiledown"]=repeatWhileDown;
+				sequenceCallbacks[scope][sequence]["repeatcallback"]=repeatWhileDownCallback;
+			}
 			if(!mappingCountByScope[scope])
 			{
 				mappingCountByScope[scope] = new Dictionary();
@@ -572,13 +593,13 @@ package net.guttershark.managers
 		 * @param scope The scope in which the keyboard event was added.
 		 * @param word The word that was being listened for.
 		 */
-		private function removeWordMapping(scope:*, word:String):void
+		private function removeWordMapping(scope:*,word:String):void
 		{
-			if(!wordMappings[scope]) return;
-			if(!wordMappings[scope][word]) return;
-			wordMappings[scope][word] = null;
-			if(mappingCountByScope[scope]['word'] > 0) mappingCountByScope[scope]['word']--;
-			if(mappingCountByScope[scope]['word'] == 0) scope.removeEventListener(KeyboardEvent.KEY_UP, onKeyUpForWordMapping);
+			if(!wordMappings[scope])return;
+			if(!wordMappings[scope][word])return;
+			wordMappings[scope][word]=null;
+			if(mappingCountByScope[scope]['word']>0)mappingCountByScope[scope]['word']--;
+			if(mappingCountByScope[scope]['word']==0)scope.removeEventListener(KeyboardEvent.KEY_UP, onKeyUpForWordMapping);
 		}
 		
 		/**
@@ -589,9 +610,12 @@ package net.guttershark.managers
 		 */
 		private function removeSequenceMapping(scope:*, mapping:String):void
 		{
-			sequenceCallbacks[scope][mapping] = null;
-			if(mappingCountByScope[scope]['sequence'] > 0) mappingCountByScope[scope]['sequence']--;
-			if(mappingCountByScope[scope]['sequence'] == 0)
+			sequenceCallbacks[scope][mapping]=null;
+			sequenceCallbacks[scope][mapping]['repeatwhiledown']=null;
+			sequenceCallbacks[scope][mapping]['repeatcallback']=null;
+			sequenceCallbacks[scope][mapping]['callback']=null;
+			if(mappingCountByScope[scope]['sequence']>0)mappingCountByScope[scope]['sequence']--;
+			if(mappingCountByScope[scope]['sequence']==0)
 			{
 				sequenceCallbacks[scope] = null;
 				scope.removeEventListener(KeyboardEvent.KEY_UP, onKeyUpForSequence);
@@ -636,11 +660,16 @@ package net.guttershark.managers
 		 */
 		private function onKeyUpForSequence(ke:KeyboardEvent):void
 		{
+			var scope:* = ke.target;
 			var char:String = getShortcutForKey(ke.keyCode);
-			if(char == null) char = String.fromCharCode(ke.charCode);
-			var test:String = char + "+";
+			if(char==null) char = String.fromCharCode(ke.charCode);
+			var test:String = char+"+";
 			var i:int = 0;
-			for(i;i<4;i++) if(keysDown.indexOf(test) > -1) keysDown = keysDown.replace(test,"");
+			for(i;i<4;i++)if(keysDown.indexOf(test)>-1)keysDown=keysDown.replace(test,"");
+			if(repeatCallback)stopRepeatingCallback();
+			if(!keysDown||keysDown=="")return;
+			if(!sequenceCallbacks[scope][keysDown]) return;
+			if(sequenceCallbacks[scope][keysDown]['repeatwhiledown']===true)setTimeout(startRepeatingCallback,200,scope,keysDown);
 		}
 		
 		/**
@@ -652,13 +681,49 @@ package net.guttershark.managers
 			if(!sequenceCallbacks[scope]) return;
 			var char:String = getShortcutForKey(ke.keyCode);
 			if(char == null) char = String.fromCharCode(ke.charCode);
-			var c:String = char + "+";
-			if(!keysDown) keysDown = "";
-			if(keysDown.indexOf(c) > -1) return;
-			keysDown += c;
-			var m:String = keysDown.substring(0,keysDown.length - 1);
-			if(!sequenceCallbacks[scope][m]) return;
-			if(sequenceCallbacks[scope][m]) sequenceCallbacks[scope][m]();
+			var c:String=char+"+";
+			if(!keysDown)keysDown="";
+			if(keysDown.indexOf(c)>-1)return;
+			keysDown+=c;
+			var m:String=keysDown.substring(0,keysDown.length-1);
+			if(!sequenceCallbacks[scope][m])return;
+			if(sequenceCallbacks[scope][m])sequenceCallbacks[scope][m]['callback']();
+			if(sequenceCallbacks[scope][m]['repeatwhiledown'])setTimeout(startRepeatingCallback,200,scope,m);
+		}
+		
+		/**
+		 * Starts the repeating down events.
+		 */
+		private function startRepeatingCallback(scope:*,sequence:String):void
+		{
+			if(!keysDown)return;
+			var m:String=keysDown.substring(0,keysDown.length-1);
+			if(sequence!=m)return;
+			if(repeatCallback>0)stopRepeatingCallback();
+			repeatingFor = sequence;
+			repeatCallback=setInterval(ontick,150,scope,sequence);
+		}
+		
+		/**
+		 * Stops repeating the callbacks.
+		 */
+		private function stopRepeatingCallback():void
+		{
+			clearInterval(repeatCallback);
+		}
+		
+		/**
+		 * on tick, repeats a callback.
+		 */
+		private function ontick(scope:*,sequence:String):void
+		{
+			if(!sequenceCallbacks[scope][sequence])return;
+			if(!sequenceCallbacks[scope][sequence]['repeatwhiledown'])
+			{
+				stopRepeatingCallback();
+				return;
+			}
+			sequenceCallbacks[scope][sequence]['repeatcallback']();
 		}
 		
 		/**

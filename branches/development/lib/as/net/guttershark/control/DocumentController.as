@@ -90,6 +90,11 @@ package net.guttershark.control
 	 */
 	public class DocumentController extends CoreSprite
 	{
+		
+		/**
+		 * The version of guttershark.
+		 */
+		public static const VERSION:String="1.0.496";
 	
 		/**
 		 * The KiloBytes per second that the movie downloaded at.
@@ -601,6 +606,31 @@ package net.guttershark.control
 		public function startOnlineStatus():void
 		{
 			statusPingTimer.start();
+		}
+		
+		/**
+		 * Check a version against the guttershark version
+		 * - an error is thrown if they don't match.
+		 * 
+		 * @example Using the versionCheck method:
+		 * <listing>
+		 * override protected function setupComplete():void
+		 * {
+		 *     versionCheck("1.0.496"); //throws error if 1.0.496 does not match the DocumentController.VERSION property.
+		 * }
+		 * </listing>
+		 * 
+		 * @param version The version of guttershark you're using.
+		 * @param suppress Whether or not to suppress the error that's thrown, and just trace a warning instead.
+		 */
+		public function versionCheck(version:String,suppress:Boolean=false):void
+		{
+			var err:String = "The specified version, and the version of guttershark you're linking against do not match. There could be differences in the code bases.";
+			if(version!=VERSION)
+			{
+				if(suppress)trace("WARNING: "+err);
+				else throw new Error(err);
+			}
 		}
 	}
 }
