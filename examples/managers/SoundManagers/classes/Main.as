@@ -6,7 +6,7 @@ package
 	import fl.controls.Slider;
 	
 	import net.guttershark.control.DocumentController;
-	import net.guttershark.managers.SoundManager2;		
+	import net.guttershark.managers.SoundManager;		
 
 	public class Main extends DocumentController 
 	{
@@ -18,8 +18,8 @@ package
 		public var toggleVolume:MovieClip;
 		public var slider:Slider;
 		public var isSoundPlaying:MovieClip;
-		private var snm2:SoundManager2;
-		
+		private var snm2:SoundManager;
+
 		public function Main()
 		{
 			super();
@@ -28,7 +28,7 @@ package
 		override protected function setupComplete():void
 		{
 			utils.setters.buttonMode(true,playEffect,stopAllEffects,stopAllEnvironments,playEnvironment,stopAll,toggleVolume,isSoundPlaying);
-			snm2=SoundManager2.gi();
+			snm2=snm;
 			snm2.addSound("sparkle",am.getSound("Sparkle"));
 			snm2.addSound("martini",am.getSound("Martini"));
 			em.he(playEffect,this,"onPlayEffect");
