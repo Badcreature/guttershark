@@ -63,8 +63,8 @@ package net.guttershark.util
 			if(isDone)
 			{
 				FramePulse.RemoveEnterFrameListener(handleEnterFrame);
-				if(params == null) callback();		
-				else callback.apply(null, params);
+				if(params==null) callback();
+				else callback.apply(null,params);
 			}
 			else
 			{

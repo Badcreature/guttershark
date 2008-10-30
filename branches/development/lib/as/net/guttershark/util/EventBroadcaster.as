@@ -10,6 +10,10 @@ package net.guttershark.util
 	 * <p>Using this class is not recommended, as it leads to spaghetti
 	 * events - but is here for those who feel the need.</p>
 	 * 
+	 * <p>This class really should only be used when you need
+	 * swf to swf communication, without needing a reference to
+	 * a swf.</p>
+	 * 
 	 * @example	Using the EventBroadcaster:
 	 * <listing>	
 	 * private function onTest(e:Event):void

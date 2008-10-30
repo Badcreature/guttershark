@@ -13,7 +13,7 @@ package net.guttershark.display
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.util.Assertions;
-	import net.guttershark.util.Utilities;		
+	import net.guttershark.util.Utilities;
 
 	/**
 	 * The CoreSprite class is a base class that provides

@@ -15,7 +15,7 @@ package net.guttershark.model
 	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
 	import net.guttershark.util.Utilities;
-	import net.guttershark.util.cache.Cache;		
+	import net.guttershark.util.cache.Cache;
 
 	/**
 	 * The Model Class provides shortcuts for parsing a model xml file as
@@ -58,6 +58,12 @@ package net.guttershark.model
 	 *    &lt;textformats&gt;
 	 *        &lt;textformat id="theTF" font="Arial" color="0xFF0066" bold="true" /&gt;
 	 *    &lt;/textformats&gt;
+	 *    &lt;contextmenus&gt;
+	 *        &lt;menu id="menu1"&gt;
+	 *            &lt;item id="home" label="home" /&gt;
+	 *            &lt;item id="back" label="GO BACK" sep="true"/&gt;
+	 *        &lt;/menu&gt;
+	 *    &lt;/contextmenus&gt;
 	 * &lt;/model&gt;
 	 * </listing>
 	 */
@@ -231,7 +237,7 @@ package net.guttershark.model
 		}
 		
 		/**
-		 * Get an array of asset objects, from the provided id's.
+		 * Get an array of asset objects, from the provided library names.
 		 * 
 		 * @param ...libraryNames An array of library names.
 		 */
@@ -242,6 +248,20 @@ package net.guttershark.model
 			var l:int = libraryNames.length;
 			for(i;i<l;i++) p[i]=getAssetByLibraryName(libraryNames[i]);
 			return p;
+		}
+		
+		/**
+		 * Get's an array of asset objects, defined by a group node.
+		 * 
+		 * @param groupId The id of the group node.
+		 */
+		public function getAssetGroup(groupId:String):Array
+		{
+			var x:XMLList=assets..group.(@id==groupId);
+			var n:XML;
+			var payload:Array=[];
+			for each(n in x..asset) payload.push(getAssetByLibraryName(n.@libraryName));
+			return payload;
 		}
 		
 		/**
@@ -592,6 +612,15 @@ package net.guttershark.model
 				items.push(it);
 			}
 			return ContextMenuManager.gi().createMenu(id,items);
+		}
+		
+		/**
+		 * Dispose of the internal cache. The internal cache
+		 * caches textformats and stylesheets.
+		 */
+		public function disposeCache():void
+		{
+			modelcache.purgeAll();
 		}
 	}
 }

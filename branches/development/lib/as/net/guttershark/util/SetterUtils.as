@@ -33,6 +33,11 @@ package net.guttershark.util
 		private static var inst:SetterUtils;
 		
 		/**
+		 * The MathUtils singleton instance.
+		 */
+		private var mu:MathUtils;
+		
+		/**
 		 * Singleton access.
 		 */
 		public static function gi():SetterUtils
@@ -47,6 +52,7 @@ package net.guttershark.util
 		public function SetterUtils()
 		{
 			Singleton.assertSingle(SetterUtils);
+			mu=MathUtils.gi();
 		}
 
 		/**
@@ -310,6 +316,54 @@ package net.guttershark.util
 				l=a.length;
 			}
 			for(k;k<l;k++)a[k].visible=!a[k].visible;
+		}
+		
+		/**
+		 * Flip the alpha property on all objects provide, if the
+		 * alpha on an object is equal to either val1 or val2, the
+		 * values are flipped.
+		 * 
+		 * @param val1 The first alpha value.
+		 * @param val2 The second alpha value.
+		 * @param objs The objects to toggle the visible property on.
+		 */
+		public function flipAlpha(val1:Number,val2:Number,...objs:Array):void
+		{
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
+			if(objs[0] is Array)
+			{
+				a=objs[0];
+				l=a.length;
+			}
+			var obj:*;
+			var al:Number;
+			for(k;k<l;k++)
+			{
+				obj=a[k];
+				al=mu.sanitizeFloat(obj.alpha,1);
+				if(al==val1)obj.alpha=val2;
+				else if(al==val2)obj.alpha=val1;
+			}
+		}
+		
+		/**
+		 * Set any property to the specified value, on all objects.
+		 * 
+		 * @param objs The objects to toggle the visible property on.
+		 */
+		public function prop(prop:String,value:*,...objs:Array):void
+		{
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
+			if(objs[0] is Array)
+			{
+				a=objs[0];
+				l=a.length;
+			}
+			for(k;k<l;k++)a[k][prop]=value;
 		}
 	}
 }

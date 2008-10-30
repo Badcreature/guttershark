@@ -14,7 +14,7 @@ package net.guttershark.managers
 	import net.guttershark.display.FLV;
 	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
-	import net.guttershark.util.XMLLoader;		
+	import net.guttershark.util.XMLLoader;
 
 	/**
 	 * The AssetManager class is a singleton that stores all assets
