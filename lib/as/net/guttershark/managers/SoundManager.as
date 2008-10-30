@@ -164,26 +164,27 @@ package net.guttershark.managers
 		}
 		
 		/**
-		 * Add a sprite who's volume will be controlled by the manager.
+		 * Add an object who's volume will be controlled by the manager.
 		 * 
 		 * @param obj The sprite who's volume you want to control.
 		 */
-		public function addSprite(sprite:Sprite):void
+		public function addObject(obj:*):void
 		{
-			ast.notNil(sprite,"Parameter {sprite} cannot be null.");
-			sprites[sprite]=sprite;
+			if(!("soundTransform" in obj)) throw new Error("The object added must have a soundTransform property.");
+			ast.notNil(obj,"Parameter {obj} cannot be null.");
+			sprites[obj]=obj;
 		}
 		
 		/**
-		 * Remove a sprite from sound control.
+		 * Remove an object from sound control.
 		 * 
 		 * @param obj The sprite to remove.
 		 */
-		public function removeSprite(sprite:Sprite):void
+		public function removeObject(obj:*):void
 		{
-			if(!sprite)return;
-			sprites[sprite]=null;
-			delete sprites[sprite];
+			if(!obj)return;
+			sprites[obj]=null;
+			delete sprites[obj];
 		}
 		
 		/**
@@ -245,8 +246,9 @@ package net.guttershark.managers
 		 * 
 		 * @param id The sound id.
 		 */
-		public function playEffectSound(id:String,customVolume:Number=-1):void
+		public function playEffectSound(id:String,customVolume:Number=-1,forceIfMuted:Boolean=false):void
 		{
+			if(transform.volume==0&&!forceIfMuted)return;
 			if(!sounds[id])return;
 			var s:Sound=Sound(sounds[id]);
 			var t:SoundTransform=transform;
@@ -421,10 +423,10 @@ package net.guttershark.managers
 					playingSounds[key]=null;
 				}
 			}
-			var obj:Sprite;
+			var obj:*;
 			for each(obj in sprites)
 			{
-				if(obj)obj.soundTransform.volume=level;
+				if(obj)obj.soundTransform=new SoundTransform(level,0);
 				else
 				{
 					sprites[obj]=null;

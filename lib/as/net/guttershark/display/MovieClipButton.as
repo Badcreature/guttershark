@@ -39,7 +39,7 @@ package net.guttershark.display
 	 * be dispatched. If you absolutely need mouse events even though the button is locked,
 	 * you can add an event listener with a higher priority than 10.</p>
 	 */
-	public class MovieClipButton extends MovieClip
+	public dynamic class MovieClipButton extends MovieClip
 	{
 
 		/**

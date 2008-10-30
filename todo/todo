@@ -1,10 +1,13 @@
-
 -optimizations ( cast objects when accessing array(].) , cast to ints in loops, only use ints in loops)
 -docs
 -tools
 -key manager update.
--model - fix navToLink()
 -dispose events in EM from context menus.
+-add delete dict[key] to anywhere dicts are used and cleanedup.
+-decorators
+  --sound movie clip
+  --reversable movie clip
+-logic utils?
 
 "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC",  "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
 
@@ -12,8 +15,8 @@
 -swc creation (air || flash tool)
 -doc command creation
 -bugs - sharedOBject bug, export classes bug, write XML
--java scaffolding commandline toole
--update all preferences to save to xml
+-java scaffolding commandline tool
+-update all preferences to save to amf file
 -library tool (batch publish)
 -manage profiles
 

@@ -1,11 +1,10 @@
 package net.guttershark.display
 {
-	import net.guttershark.managers.ContextMenuManager;	
-	
 	import flash.display.MovieClip;
 	
 	import net.guttershark.control.PreloadController;
 	import net.guttershark.managers.AssetManager;
+	import net.guttershark.managers.ContextMenuManager;
 	import net.guttershark.managers.EventManager;
 	import net.guttershark.managers.KeyManager;
 	import net.guttershark.managers.LanguageManager;
@@ -14,7 +13,7 @@ package net.guttershark.display
 	import net.guttershark.managers.SoundManager;
 	import net.guttershark.model.Model;
 	import net.guttershark.util.Assertions;
-	import net.guttershark.util.Utilities;	
+	import net.guttershark.util.Utilities;		
 
 	/**
 	 * The CoreClip class is a base class that provides

@@ -148,6 +148,11 @@ package net.guttershark.control
 			return _pixelsToFill;
 		}
 		
+		protected function set pixelsToFill(val:int):void
+		{
+			_pixelsToFill=val;
+		}
+
 		/**
 		 * Dispose of this frame 1 controller, you should always call 
 		 * super.dispose() if you override this.
