@@ -2,6 +2,7 @@ package net.guttershark.control
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.system.LoaderContext;
 	
 	import net.guttershark.managers.AssetManager;
 	import net.guttershark.support.preloading.Asset;
@@ -13,7 +14,7 @@ package net.guttershark.control
 	import net.guttershark.support.preloading.events.PreloadProgressEvent;
 	import net.guttershark.support.preloading.workers.WorkerInstances;
 	import net.guttershark.util.ArrayUtils;
-	import net.guttershark.util.FrameDelay;
+	import net.guttershark.util.FrameDelay;		
 
 	/**
 	 * Dispatched for each asset that has completed downloading.
@@ -199,27 +200,34 @@ package net.guttershark.control
 		 * ArrayUtils singleton.
 		 */
 		private var art:ArrayUtils;
+		
+		/**
+		 * The loader context for all loading.
+		 */
+		private var loaderContext:LoaderContext;
 
 		/**
 		 * Constructor for PreloadController instances.
 		 * 
-		 * @param  pixelsToFill The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
+		 * @param pixelsToFill The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
+		 * @param loaderContext The loader context for all assets being loaded through this preload controller.
 		 * 
 		 * @see net.guttershark.preloading.events.PreloadProgressEvent PreloadProgressEvent event
 		 */
-		public function PreloadController(pixelsToFill:int = 100)
+		public function PreloadController(pixelsToFill:int=100,loaderContext:LoaderContext=null)
 		{
 			if(pixelsToFill<=0) throw new ArgumentError("Pixels to fill must be greater than zero.");
 			WorkerInstances.RegisterDefaultWorkers();
-			art = ArrayUtils.gi();
-			totalPixelsToFill = pixelsToFill;
-			bytesTotalPool = [];
-			bytesLoadedPool = [];
-			loadingItemsPool = [];
-			loadItems = [];
-			loaded = 0;
-			loadErrors = 0;
-			_working = false;
+			this.loaderContext=loaderContext;
+			art=ArrayUtils.gi();
+			totalPixelsToFill=pixelsToFill;
+			bytesTotalPool=[];
+			bytesLoadedPool=[];
+			loadingItemsPool=[];
+			loadItems=[];
+			loaded=0;
+			loadErrors=0;
+			_working=false;
 		}
 		
 		/**
@@ -353,10 +361,11 @@ package net.guttershark.control
 		private function load():void
 		{
 			if(!_working) return;
-			var item:Asset = Asset(this.loadItems.shift());
-			currentItem = item;
-			loadingItemsPool[item.source] = item;
-			item.load(this);
+			var item:Asset=Asset(this.loadItems.shift());
+			currentItem=item;
+			loadingItemsPool[item.source]=item;
+			//item.load(this);
+			item.load(this,loaderContext);
 		}
 		
 		/**
