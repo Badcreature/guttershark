@@ -1,5 +1,6 @@
 package net.guttershark.support.preloading.workers
 {
+	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.HTTPStatusEvent;
@@ -7,13 +8,14 @@ package net.guttershark.support.preloading.workers
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
+	import flash.system.LoaderContext;
 	
 	import net.guttershark.support.preloading.Asset;
 	import net.guttershark.support.preloading.events.AssetCompleteEvent;
 	import net.guttershark.support.preloading.events.AssetErrorEvent;
 	import net.guttershark.support.preloading.events.AssetOpenEvent;
 	import net.guttershark.support.preloading.events.AssetProgressEvent;
-	import net.guttershark.support.preloading.events.AssetStatusEvent;	
+	import net.guttershark.support.preloading.events.AssetStatusEvent;		
 
 	/**
 	 * Dispatched when the worker has completed downloading the asset.
@@ -139,6 +141,11 @@ package net.guttershark.support.preloading.workers
 		public var bytesTotal:Number = -1;
 		
 		/**
+		 * The loader context for the asset being loaded.
+		 */
+		public var loaderContext:LoaderContext;
+
+		/**
 		 * Load an asset.
 		 * 
 		 * <p>This will throw an exception if you do not override the method.</p>
@@ -151,7 +158,7 @@ package net.guttershark.support.preloading.workers
 		}
 		
 		/**
-		 * Starts loading of the internal loader instance.
+		 * Starts loading the internal loader instance.
 		 * 
 		 * <p>The loader you set for the internal loader must have a "load" method
 		 * defined and accept a URLRequest</p>
@@ -160,7 +167,8 @@ package net.guttershark.support.preloading.workers
 		{
 			if(!request) throw new Error("The internal request object was null, you need to prepate the request object in your subclass.");
 			if(!loader) throw new Error("The internal loader object was null, you need to prepate the loader object in your subclass");
-			loader.load(request);
+			if((loader is Loader)&&loaderContext)loader.load(request,loaderContext);
+			else loader.load(request);
 		}
 				
 		/** 

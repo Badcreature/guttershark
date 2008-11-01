@@ -1,5 +1,8 @@
 package net.guttershark.support.preloading
 {
+	import flash.system.LoaderContext;	
+	import flash.system.SecurityDomain;	
+	import flash.system.ApplicationDomain;	
 	import flash.events.SecurityErrorEvent;
 	
 	import net.guttershark.control.PreloadController;
@@ -86,12 +89,14 @@ package net.guttershark.support.preloading
 		 * Starts the load process for this item.
 		 * 
 		 * @param controller A preload controller that is controlling this asset.
+		 * @param loaderContext A loader context object.
 		 */
-		public function load(controller:PreloadController):void
+		public function load(controller:PreloadController,loaderContext:LoaderContext=null):void
 		{
 			this.controller = controller;
-			worker = WorkerInstances.GetWorkerInstance(fileType);
+			worker=WorkerInstances.GetWorkerInstance(fileType);
 			addListenersToWorker();
+			worker.loaderContext=loaderContext;
 			worker.load(this);
 		}
 		
