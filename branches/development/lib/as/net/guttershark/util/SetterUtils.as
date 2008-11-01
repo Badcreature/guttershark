@@ -301,6 +301,24 @@ package net.guttershark.util
 		}
 		
 		/**
+		 * Set any property to the specified value, on all objects.
+		 * 
+		 * @param objs The objects to toggle the visible property on.
+		 */
+		public function prop(prop:String,value:*,...objs:Array):void
+		{
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
+			if(objs[0] is Array)
+			{
+				a=objs[0];
+				l=a.length;
+			}
+			for(k;k<l;k++)a[k][prop]=value;
+		}
+		
+		/**
 		 * Toggles the visible property on all objects provided.
 		 * 
 		 * @param objs The objects to toggle the visible property on.
@@ -349,11 +367,16 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Set any property to the specified value, on all objects.
+		 * Toggle any property on any object - if the
+		 * current value of the property is value1,
+		 * it will be set to value2, as well as the
+		 * reverse.
 		 * 
-		 * @param objs The objects to toggle the visible property on.
+		 * @param prop The property to toggle.
+		 * @param value1 The first value.
+		 * @param value2 The second value.
 		 */
-		public function prop(prop:String,value:*,...objs:Array):void
+		public function flipProp(prop:String,value1:*,value2:*,...objs:Array):void
 		{
 			var l:int=objs.length;
 			var k:int=0;
@@ -363,7 +386,33 @@ package net.guttershark.util
 				a=objs[0];
 				l=a.length;
 			}
-			for(k;k<l;k++)a[k][prop]=value;
+			var obj:*;
+			for(k;k<l;k++)
+			{
+				obj=a[k];
+				if(obj[prop]==value1)obj[prop]=value2;
+				else if(obj[prop]==value2)obj[prop]=value1;
+			}
+		}
+		
+		/**
+		 * Toggles the value of a boolean property to the opposite value
+		 * for all objects provided.
+		 * 
+		 * @param prop The property to toggle.
+		 * @param objs All objects whose property will be flipped.
+		 */
+		public function flipBoolean(prop:String, ...objs:Array):void
+		{
+			var l:int=objs.length;
+			var k:int=0;
+			var a:Array=objs;
+			if(objs[0] is Array)
+			{
+				a=objs[0];
+				l=a.length;
+			}
+			for(k;k<l;k++)a[k][prop]=!a[k][prop];
 		}
 	}
 }
