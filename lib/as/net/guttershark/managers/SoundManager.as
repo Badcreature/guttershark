@@ -198,6 +198,19 @@ package net.guttershark.managers
 		}
 		
 		/**
+		 * Check of any of the give sounds are playing.
+		 * 
+		 * @param ...soundIds An array of sound ids to check.
+		 */
+		public function isAnySoundPlaying(...soundIds:Array):Boolean
+		{
+			var i:int=0;
+			var l:int=soundIds.length;
+			for(i;i<l;i++) if(playingSounds[soundIds[i]])return true;
+			return false;
+		}
+		
+		/**
 		 * Play a sound.
 		 * 
 		 * @param id The sound id.
@@ -212,7 +225,7 @@ package net.guttershark.managers
 			var t:SoundTransform=transform;
 			if(customVolume!=-1)t=new SoundTransform(customVolume,0);
 			if(customVolume<0&&customVolume!=-1)t=new SoundTransform(0,0);
-			if(customVolume>1)t=new SoundTransform(1,0);
+			//if(customVolume>1)t=new SoundTransform(1,0);
 			var ch:SoundChannel=allPlayingSounds[id]=playingSounds[id]=s.play(startOffset,loopCount,t);
 			ch.addEventListener(Event.SOUND_COMPLETE,onSoundComplete);
 			playingIdsByChannel[ch]=id;
@@ -229,13 +242,14 @@ package net.guttershark.managers
 		 */
 		public function playEnvSound(id:String,customVolume:Number=-1):void
 		{
+			trace("play env sound:",id);
 			if(!sounds[id])return;
 			if(playingEnvSounds[id])return;
 			var s:Sound=Sound(sounds[id]);
 			var t:SoundTransform=transform;
 			if(customVolume!=-1)t=new SoundTransform(customVolume,0);
 			if(customVolume<0&&customVolume!=-1)t=new SoundTransform(0,0);
-			if(customVolume>1)t=new SoundTransform(1,0);
+			//if(customVolume>1)t=new SoundTransform(1,0);
 			var ch:SoundChannel=allPlayingSounds[id]=playingEnvSounds[id]=s.play(0,environmentSoundLoopCount,t);
 			ch.addEventListener(Event.SOUND_COMPLETE,onSoundComplete);
 			playingIdsByChannel[ch]=id;
@@ -248,13 +262,14 @@ package net.guttershark.managers
 		 */
 		public function playEffectSound(id:String,customVolume:Number=-1,forceIfMuted:Boolean=false):void
 		{
+			trace("play eff sound:",id);
 			if(transform.volume==0&&!forceIfMuted)return;
 			if(!sounds[id])return;
 			var s:Sound=Sound(sounds[id]);
 			var t:SoundTransform=transform;
 			if(customVolume!=-1)t=new SoundTransform(customVolume,0);
 			if(customVolume<0&&customVolume!=-1)t=new SoundTransform(0,0);
-			if(customVolume>1)t=new SoundTransform(1,0);
+			//if(customVolume>1)t=new SoundTransform(1,0);
 			var ch:SoundChannel=allPlayingSounds[id]=playingEffectSounds[id]=s.play(0,0,t);
 			ch.addEventListener(Event.SOUND_COMPLETE,onSoundComplete);
 			playingIdsByChannel[ch]=id;

@@ -1,0 +1,49 @@
+package net.guttershark.decorators 
+{
+	import flash.display.MovieClip;
+	import flash.events.Event;	
+
+	/**
+	 * The ReversableClip class decorates a
+	 * movie clip with play in reverse functionality.
+	 */
+	final public class ReversableClip
+	{
+		
+		/**
+		 * The clip being decorated.
+		 */	
+		private var clip:MovieClip;
+		
+		/**
+		 * Constructor for ReversableClip instances.
+		 * 
+		 * @param clip The movie clip to decorate.
+		 */
+		public function ReversableClip(clip:MovieClip)
+		{
+			this.clip=clip;
+			this.clip.wasReverse=false;
+		}
+		
+		/**
+		 * Play the movie clip in reverse.
+		 */
+		public function playReverse():void
+		{
+			clip.wasReverse=true;
+			clip.addEventListener(Event.ENTER_FRAME,onEnterFrame,false,0,true);
+		}
+		
+		/**
+		 * on enter frame of clip.
+		 */
+		private function onEnterFrame(e:Event):void
+		{
+			if(clip.currentFrame==1)
+			{
+				clip.removeEventListener(Event.ENTER_FRAME,onEnterFrame);
+				return;
+			}
+			clip.gotoAndPlay(clip.currentFrame-1);
+		}	}}

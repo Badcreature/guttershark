@@ -2,11 +2,16 @@ package net.guttershark.util
 {
 	import flash.events.StatusEvent;
 	import flash.external.ExternalInterface;
-	import flash.net.LocalConnection;	
+	import flash.net.LocalConnection;		
 
 	/**
 	 * The Tracking class sends tracking calls through 
-	 * ExternalInterface to the javascript tracking framework.
+	 * ExternalInterface to the guttershark, javascript
+	 * tracking framework.
+	 * 
+	 * <p>You can shut off the default behavior, of using
+	 * the guttershark, javascript tracking framework, to
+	 * have the tracking calls made from flash.</p>
 	 * 
 	 * @see external (external: guttershark/lib/js/tracking/)
 	 */
@@ -23,18 +28,28 @@ package net.guttershark.util
 		public static var simulationTrackingXML:XML;
 		
 		/**
+		 * Whether or not to use the guttershark, javascript
+		 * tracking framework.
+		 */
+		public static var useTrackingFramework:Boolean=true;
+		
+		/**
+		 * The tracking xml.
+		 */
+		public static var trackingXML:XML;
+		
+		/**
 		 * Local connection for the tracking monitor.
 		 */
 		private static var lc:LocalConnection;
 
 		/**
-		 * Make a tracking call. If SimulateTrackingXML is set, it will
-		 * only send 'simulated' tracking tags to the tracking monitor.
+		 * Make a tracking call.
 		 * 
-		 * @param	xmlid	The id in tracking.xml to make tracking calls for.
-		 * @param	appendData	Any dynamic data to be sent to the tracking framework.
+		 * @param xmlid The id in tracking.xml to make tracking calls for.
+		 * @param appendData Any dynamic data to be sent to the tracking framework.
 		 */
-		public static function track(xmlid:String, appendData:Array = null):void
+		public static function track(xmlid:String,appendData:Array=null):void
 		{
 			if(!xmlid) throw new ArgumentError("Parameter xmlid cannot be null.");
 			if(simulationTrackingXML)
@@ -42,23 +57,56 @@ package net.guttershark.util
 				simulateCall(xmlid,appendData);
 				return;
 			}
-			if(PlayerUtils.gi().isStandAlonePlayer() || PlayerUtils.gi().isIDEPlayer()) return;
-			ExternalInterface.call("flashTrack",xmlid,appendData);
+			if(!useTrackingFramework)
+			{
+				webtrends(xmlid,appendData);
+			}
+			else
+			{
+				if(PlayerUtils.gi().isStandAlonePlayer()||PlayerUtils.gi().isIDEPlayer()) return;
+				ExternalInterface.call("flashTrack",xmlid,appendData);
+			}
 		}
 		
+		/**
+		 * Makes webtrends calls.
+		 */
+		private static function webtrends(id:String,appendArr:Array):void
+		{
+			if(!id) return;
+			if(appendArr)trace("webtrends: ",id,appendArr);
+			else trace("webtrends: ",id);
+			var tagStr:String=trackingXML.track.(@id==id).webtrends.toString();
+			var parts:Array=tagStr.split(",");
+			var dcsuri:String=parts[0];
+			var ti:String=parts[1];
+			var cg_n:String=parts[2];
+			if(!cg_n)cg_n="undefined";
+			if(appendArr)
+			{
+				if(appendArr[0]!=null)dcsuri+=appendArr[0];
+				if(appendArr[1]!=null)ti+=appendArr[1];
+				if(appendArr[2]!=null)cg_n+=appendArr[2];
+			}
+			ExternalInterface.call("dcsMultiTrack",'DCS.dcsuri',dcsuri,'WT.ti',ti,'WT_cg_n',cg_n);
+		}
+
 		/**
 		 * Send a simulated message to the tracking monitor.
 		 */
 		private static function simulateCall(id:String, webAppendData:Array = null):void
 		{
 			if(!lc) lc = new LocalConnection();
-			lc.addEventListener(StatusEvent.STATUS, ons);
+			lc.addEventListener(StatusEvent.STATUS,ons);
 			var n:XMLList = simulationTrackingXML.track.(@id == id);
 			if(n.webtrends != undefined) simulateWebtrends(n.webtrends.toString());
 			if(n.atlas != undefined) simulateAtlas(n.atlas.toString());
 			if(n.ganalytics != undefined) simulateGoogle(n.ganalytics.toString());
 		}
 		
+		/**
+		 * On status.
+		 */
 		private static function ons(se:StatusEvent):void{}
 		
 		/**
