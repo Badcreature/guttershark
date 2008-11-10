@@ -16,7 +16,7 @@ package net.guttershark.model
 	import net.guttershark.util.Singleton;
 	import net.guttershark.util.Utilities;
 	import net.guttershark.util.cache.Cache;
-
+	
 	/**
 	 * The Model Class provides shortcuts for parsing a model xml file as
 	 * well as other model centric methods.
@@ -335,7 +335,7 @@ package net.guttershark.model
 			}
 			return payload;
 		}
-
+		
 		/**
 		 * Creates and returns a URLRequest from a link node.
 		 * 
@@ -350,6 +350,18 @@ package net.guttershark.model
 			if(link.@url!=undefined)u=new URLRequest(link.@url);
 			else if(link.@href!=undefined)u=new URLRequest(link.@href);
 			return u;
+		}
+		
+		/**
+		 * Check whether or not a link is defined in the model.
+		 * 
+		 * @param id The link id.
+		 */
+		public function doesLinkExist(id:String):Boolean
+		{
+			var link:XMLList = links..link.(@id==id);
+			if(!link||link==null)return false;
+			return true;
 		}
 		
 		/**

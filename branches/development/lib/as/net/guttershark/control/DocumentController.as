@@ -10,8 +10,22 @@
  */
 package net.guttershark.control
 {
+	import net.guttershark.display.CoreSprite;
+	import net.guttershark.managers.LayoutManager;
+	import net.guttershark.model.Model;
+	import net.guttershark.util.PlayerUtils;
+	import net.guttershark.util.Tracking;
+	import net.guttershark.util.XMLLoader;
+	import net.guttershark.util.akamai.Ident;
+	
+	import com.asual.swfaddress.SWFAddress;
+	import com.asual.swfaddress.SWFAddressEvent;
+	import com.pixelbreaker.ui.osx.MacMouseWheel;
+	
 	import flash.display.Loader;
 	import flash.display.MovieClip;
+	import flash.display.Stage;
+	import flash.display.StageDisplayState;
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
@@ -22,27 +36,13 @@ package net.guttershark.control
 	import flash.net.LocalConnection;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestHeader;
-	import flash.ui.ContextMenu;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	import flash.utils.getTimer;
-	
-	import com.asual.swfaddress.SWFAddress;
-	import com.asual.swfaddress.SWFAddressEvent;
-	import com.pixelbreaker.ui.osx.MacMouseWheel;
-	
-	import net.guttershark.display.CoreSprite;
-	import net.guttershark.managers.LayoutManager;
-	import net.guttershark.model.Model;
-	import net.guttershark.util.PlayerUtils;
-	import net.guttershark.util.Tracking;
-	import net.guttershark.util.XMLLoader;
-	import net.guttershark.util.akamai.Ident;		
 
 	//<li><strong>(in development)trackingMonitor</strong> (Boolean) - Connect to the tracking monitor, and send notifications from the javascript tracking library to the trackingMonitor.</li>
 	//<li><strong>(in development)trackingSimulateXMLFile</strong> (String) - The path to a tracking xml file to use for making simulated tracking calls. This is specifically for when you're in the Flash IDE and need to at least simulate tracking calls for QA. The tags get sent to the tracking monitor.</li>
-
-
+	
 	/**
 	 * The DocumentController class is the document class for an FLA, it contains
 	 * default startup functionality that you can hook into, and all logic
@@ -92,10 +92,15 @@ package net.guttershark.control
 	{
 		
 		/**
+		 * A stage reference for display state toggling.
+		 */
+		private static var StageRef:Stage;
+
+		/**
 		 * The version of guttershark.
 		 */
 		public static const VERSION:String="1.0.435";
-	
+		
 		/**
 		 * The KiloBytes per second that the movie downloaded at.
 		 */
@@ -198,12 +203,12 @@ package net.guttershark.control
 			super();
 			loaderInfo.addEventListener(Event.COMPLETE,onSWFComplete);
 			stage.stageFocusRect=false;
-			contextMenu=new ContextMenu();
-			contextMenu.hideBuiltInItems();
-			initStage();
+			stage.showDefaultContextMenu=false;
 			online = true;
 			setupFlashvars();
+			initStage();
 			LayoutManager.SetStageReference(stage);
+			StageRef=stage;
 			if(flashvars.macMouseWheel) MacMouseWheel.setup(stage);
 			if(flashvars.swfAddress && !utils.player.isStandAlonePlayer() && !utils.player.isIDEPlayer()) SWFAddress.addEventListener(SWFAddressEvent.CHANGE,swfAddressChange);
 			if(flashvars.trackingSimulateXMLFile) setupSimulateTracking();
@@ -609,11 +614,11 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * Check a version against the guttershark version
-		 * - an error is thrown if they don't match.
+		 * Check a version against the guttershark version - an error
+		 * is thrown if they don't match.
 		 * 
 		 * @example Using the versionCheck method:
-		 * <listing>
+		 * <listing>	
 		 * override protected function setupComplete():void
 		 * {
 		 *     versionCheck("1.0.496"); //throws error if 1.0.496 does not match the DocumentController.VERSION property.
@@ -631,6 +636,16 @@ package net.guttershark.control
 				if(suppress)trace("WARNING: "+err);
 				else throw new Error(err);
 			}
+		}
+		
+		/**
+		 * Toggle fullscreen display mode.
+		 */
+		public static function toggleFullScreen():void
+		{
+			if(!StageRef)return;
+			if(StageRef.displayState==StageDisplayState.FULL_SCREEN)StageRef.displayState=StageDisplayState.NORMAL;
+			else StageRef.displayState=StageDisplayState.FULL_SCREEN;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package net.guttershark.control
 {
+	import flash.system.ApplicationDomain;	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.system.LoaderContext;
@@ -69,6 +70,9 @@ package net.guttershark.control
 	 * The PreloadController class is a controller you use for loading Assets - it provides you
 	 * with methods for starting, stopping, pausing, resuming and prioritizing of assets, 
 	 * and registers all loaded assets with the AssetManager.
+	 * 
+	 * <p>By defualt, the preload controller loads all swf's and bitmap's into the same
+	 * application domain. Unless specified otherwise in the constructor.</p>
 	 * 
 	 * @example Using the preload controller:
 	 * <listing>		
@@ -210,7 +214,7 @@ package net.guttershark.control
 		 * Constructor for PreloadController instances.
 		 * 
 		 * @param pixelsToFill The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
-		 * @param loaderContext The loader context for all assets being loaded through this preload controller.
+		 * @param loaderContext The loader context for all assets being loaded with this preload controller.
 		 * 
 		 * @see net.guttershark.preloading.events.PreloadProgressEvent PreloadProgressEvent event
 		 */
@@ -218,7 +222,8 @@ package net.guttershark.control
 		{
 			if(pixelsToFill<=0) throw new ArgumentError("Pixels to fill must be greater than zero.");
 			WorkerInstances.RegisterDefaultWorkers();
-			this.loaderContext=loaderContext;
+			if(!loaderContext) this.loaderContext=new LoaderContext(false,ApplicationDomain.currentDomain);
+			else this.loaderContext=loaderContext;
 			art=ArrayUtils.gi();
 			totalPixelsToFill=pixelsToFill;
 			bytesTotalPool=[];
@@ -493,7 +498,7 @@ package net.guttershark.control
 			updateLoading();
 			dispatchEvent(new AssetErrorEvent(AssetErrorEvent.ERROR,e.asset));
 		}
-
+		
 		/**
 		 * @private
 		 * 

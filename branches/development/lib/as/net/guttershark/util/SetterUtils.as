@@ -367,14 +367,14 @@ package net.guttershark.util
 		}
 		
 		/**
-		 * Toggle any property on any object - if the
-		 * current value of the property is value1,
-		 * it will be set to value2, as well as the
-		 * reverse.
+		 * Toggle any property on any object - if the current value
+		 * of the property is value1, it will be set to value2, as
+		 * well as the reverse.
 		 * 
 		 * @param prop The property to toggle.
 		 * @param value1 The first value.
 		 * @param value2 The second value.
+		 * @param ...objs The objects whose property will be toggled.
 		 */
 		public function flipProp(prop:String,value1:*,value2:*,...objs:Array):void
 		{

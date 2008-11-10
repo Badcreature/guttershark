@@ -95,6 +95,41 @@ package net.guttershark.util
 		}
 		
 		/**
+		 * Get an array of 50 state abbreviations.
+		 */
+		public function getStateAbbreviationsArray():Array
+		{
+			return ["AL","AK","AZ","AR","CA","CO","CT","DC",
+			"DE","FL","GA","HI","ID","IL","IN","IA","KS",
+			"KY","LA","ME","MD","MA","MI","MN","MS","MO",
+			"MT","NE","NV","NH","NJ","NM","NY","NC","ND",
+			"OH","OK","OR","PA","RI","SC","SD","TN","TX",
+			"UT","VT","VA","WA","WV","WI","WY"];
+		}
+		
+		/**
+		 * Returns an array of state abbreviations (50 states), plus
+		 * some extra according to the usps abbreviations list
+		 * (http://www.usps.com/ncsc/lookups/abbr_state.txt).
+		 */
+		public function getExtendedStateAbbreviationsArray():Array
+		{
+			return [
+				"AL","AK","AS","AZ",
+				"AR","CA","CO","CT","DE","DC",
+				"FM","FL","GA","GU","HI","ID",
+				"IL","IN","IA","KS","KY","LA",
+				"ME","MH","MD","MA","MI","MN",
+				"MS","MO","MT","NE","NV","NH",
+				"NJ","NM","NY","NC","ND","MP",
+				"OH","OK","OR","PW","PA","PR",
+				"RI","SC","SD","TN","TX","UT",
+				"VT","VI","VA","WA","WV","WI",
+				"WY","AE","AA","AP"
+			];
+		}
+		
+		/**
 		 * Check that a string is a valid http URL.
 		 * 
 		 * @param str The string to evaluate.
