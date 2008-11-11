@@ -260,7 +260,7 @@ package net.guttershark.model
 			var x:XMLList=assets..group.(@id==groupId);
 			var n:XML;
 			var payload:Array=[];
-			for each(n in x..asset) payload.push(getAssetByLibraryName(n.@libraryName));
+			for each(n in x..asset)payload.push(getAssetByLibraryName(n.@libraryName));
 			return payload;
 		}
 		

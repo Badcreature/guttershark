@@ -81,7 +81,7 @@ package net.guttershark.decorators
 		 * available on this class, that will automatically
 		 * get applied.</p>
 		 * 
-		 * @example Passing a sound object.
+		 * @example Passing a sound object:
 		 * <listing>	
 		 * var sd:SoundDecorator=new SoundDecorator(mySprite,{clickSound:"blip",overSound:"ringSound"});
 		 * </listing>

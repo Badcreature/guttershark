@@ -160,13 +160,13 @@ package net.guttershark.util
 		 * Merge two arrays into one.
 		 * 
 		 * @param a The first array.
-		 * @param b The second array. 
+		 * @param b The second array.
 		 */
-		public function merge(a:Array, b:Array):Array 
+		public function merge(a:Array, b:Array):Array
 		{
-			var c:Array = b.concat();
-			var i:int = c.length - 1;
-			for(i;i>-1;i--) c.unshift(a[i]);
+			var c:Array=b.concat();
+			var i:int=a.length-1;
+			for(i;i>-1;i--)c.unshift(a[i]);
 			return c;
 		}	
 

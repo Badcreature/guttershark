@@ -247,7 +247,7 @@ package net.guttershark.control
 		{
 			if(!this.loadItems[0]) this.loadItems = art.clone(items);
 			else this.loadItems.concat(art.clone(items));
-			loadItemsDuplicate = art.clone(loadItems);
+			loadItemsDuplicate=art.clone(loadItems);
 		}
 		
 		/**

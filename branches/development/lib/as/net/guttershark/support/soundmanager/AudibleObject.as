@@ -486,7 +486,11 @@ package net.guttershark.support.soundmanager
 		{
 			if(transform.volume!=level)dispatchEvent(new AudioEvent(AudioEvent.VOLUME_CHANGE));
 			transform.volume=level;
-			if(type=="s")channel.soundTransform=transform;
+			if(type=="s")
+			{
+				if(!channel)return;
+				channel.soundTransform=transform;
+			}
 			else obj.soundTransform=transform;
 		}
 		
@@ -663,7 +667,6 @@ package net.guttershark.support.soundmanager
 			pausePosition=NaN;
 			_pixelsToFill=0;
 			mu=null;
-			
 		}
 		
 		/**
