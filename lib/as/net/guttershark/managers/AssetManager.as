@@ -360,6 +360,19 @@ package net.guttershark.managers
 		}
 		
 		/**
+		 * Check whether or not a net stream is 100% loaded.
+		 * 
+		 * @param libraryName The library name used when the asset was registered.
+		 */
+		public function isNetStreamLoaded(libraryName:String):Boolean
+		{
+			ast.notNil(libraryName,"Parameter {libraryName} cannot be null");
+			if(assets[libraryName]!=null) var ns:NetStream=NetStream(getAsset(libraryName));
+			else throw new Error("NetStream {"+libraryName+"} not available.");
+			return (ns.bytesLoaded>=ns.bytesTotal);
+		}
+		
+		/**
 		 * Get an flv instance.
 		 * 
 		 * @param libraryName The library name used when the asset was registered.

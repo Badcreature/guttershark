@@ -3,6 +3,7 @@
  * on all selected items in the library.
  */
 var newBaseClass = prompt("Enter the new base class", "");
+if(newBaseClass==null||newBaseClass=="null"||newBaseClass==undefined)return;
 var items = fl.getDocumentDOM().library.getSelectedItems();
 var i=0;
 for(i; i < items.length; i++)

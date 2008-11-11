@@ -6,6 +6,14 @@ package net.guttershark.decorators
 	/**
 	 * The ReversableClip class decorates a
 	 * movie clip with play in reverse functionality.
+	 * 
+	 * @example Decorating a movie clip with reversable clip:
+	 * <listing>	
+	 * var myClip:MovieClip;
+	 * var rm:ReversableMovieClip=new ReversableMovieClip(myClip);
+	 * myClip.gotoAndStop(myClip.totalFrames);
+	 * rm.playReverse();
+	 * </listing>
 	 */
 	final public class ReversableClip
 	{
@@ -23,7 +31,6 @@ package net.guttershark.decorators
 		public function ReversableClip(clip:MovieClip)
 		{
 			this.clip=clip;
-			this.clip.wasReverse=false;
 		}
 		
 		/**
@@ -31,7 +38,6 @@ package net.guttershark.decorators
 		 */
 		public function playReverse():void
 		{
-			clip.wasReverse=true;
 			clip.addEventListener(Event.ENTER_FRAME,onEnterFrame,false,0,true);
 		}
 		
@@ -46,4 +52,14 @@ package net.guttershark.decorators
 				return;
 			}
 			clip.gotoAndPlay(clip.currentFrame-1);
+		}
+		
+		/**
+		 * Dispose of this reversable clip.
+		 */
+		public function dispose():void
+		{
+			if(!clip)return;
+			clip.removeEventListener(Event.ENTER_FRAME,onEnterFrame);
+			clip=null;
 		}	}}
