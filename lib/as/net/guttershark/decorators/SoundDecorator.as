@@ -10,6 +10,10 @@ package net.guttershark.decorators
 	/**
 	 * The SoundDecorator class decorates a sprite with
 	 * sound functionality for most mouse events.
+	 * 
+	 * <p>Internally, the sound decorator uses the sound manager,
+	 * so any sounds you want to play must have been registered
+	 * with the sound manager before they play.</p>
 	 */
 	final public class SoundDecorator
 	{

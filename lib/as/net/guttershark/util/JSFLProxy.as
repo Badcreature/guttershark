@@ -13,8 +13,6 @@ package net.guttershark.util
 	 * <code>MMExecute("fl.getDocumentDOM().path")</code>, but it does relieve
 	 * calling script files, or functions withing script files, and
 	 * handling parameters, and responses from the script.</p>
-	 * 
-	 * @see #runScript()
 	 */
 	final public class JSFLProxy
 	{
@@ -149,4 +147,6 @@ package net.guttershark.util
 			trace(msg);
 			if(escap) MMExecute("fl.trace('"+escape(msg.toString())+"')");
 			else MMExecute("fl.trace('"+msg.toString()+"')");
-		}	}}
+		}
+	}
+}

@@ -12,8 +12,6 @@ package net.guttershark.util.akamai
 	 * service returns an XML file with an IP address in it.
 	 * Ident services take geographical positions into account and returns 
 	 * the best IP address to use for a Flash Media Server on Akamai's network.
-	 * 
-	 * @see	#findBestIPForAkamaiApplication()
 	 */
 	final public class Ident
 	{
@@ -57,8 +55,6 @@ package net.guttershark.util.akamai
 		 * }
 		 * i.findBestIPForAkamaiApplication("http://cp44952.edgefcs.net/");
 		 * </listing>
-		 * 
-		 * @see net.guttershark.akamai.AkamaiNCManager
 		 */
 		public function findBestIPForAkamaiApplication(akamaiAppURL:String):void
 		{

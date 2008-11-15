@@ -19,8 +19,6 @@ package net.guttershark.util.autosuggest
 	 * 
 	 * <p>Now assume you started typing "Fl", the AutoSuggest instance would return an
 	 * array of AutoSuggestMatches. The two that matched were Flash and Flex.</p>
-	 * 
-	 * @see net.guttershark.util.autosuggest.AutoSuggestMatch
 	 */
 	public class AutoSuggest
 	{
@@ -82,8 +80,6 @@ package net.guttershark.util.autosuggest
 		 * @param term The term to search for.
 		 * @param returnLowercaseMatches Return all lowercase matches.
 		 * @return Array An array of AutoSuggestMatches.
-		 * 
-		 * @see net.guttershark.util.AutoSuggestMatch
 		 */
 		public function search(term:String,returnLowercaseMatches:Boolean=true):Array
 		{

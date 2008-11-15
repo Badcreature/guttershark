@@ -2,12 +2,12 @@ package net.guttershark.decorators
 {
 	import net.guttershark.model.Model;
 	
-	import flash.display.Sprite;
+	import flash.display.Sprite;		
 
 	/**
 	 * The NavigateToLink class decorates any sprite,
 	 * with "navigateToLink" functionality tied in with the
-	 * Model class. The linkId must be a link node in the model.
+	 * model.
 	 * 
 	 * @example Decorating a clip to navigate to a link on click:
 	 * <listing>	
@@ -42,16 +42,17 @@ package net.guttershark.decorators
 		/**
 		 * Constructor for new NavigateToLink instances.
 		 * 
-		 * @param clip The movie clip to decorate.
+		 * @param clip The sprite to decorate.
 		 * @param modelLinkId The link id from the model to navigate to.
-		 * @param reactToEvent What event to react to, which in turn causes the navigation to the link.
+		 * @param reactToEvent What event to react to.
 		 */
-		public function NavigateToLink(clip:Sprite,modelLinkId:String,reactToEvent:String="click")
+		public function NavigateToLink(sp:Sprite,modelLinkId:String,reactToEvent:String="click")
 		{
-			if(!clip)throw new Error("Parameter {clip} cannot be null.");
-			if(!ml.doesLinkExist(modelLinkId)) throw new Error("The modelLinkId {"+modelLinkId+"} does not exist in the model.");
-			clip.addEventListener(reactToEvent,onClipEvent,false,0,true);
-			this.clip=clip;
+			if(!sp)throw new Error("Parameter {sp} cannot be null.");
+			clip=sp;
+			ml=Model.gi();
+			if(!ml.doesLinkExist(modelLinkId))throw new Error("The modelLinkId {"+modelLinkId+"} does not exist in the model.");
+			clip.addEventListener(reactToEvent,onClipEvent);
 			linkId=modelLinkId;
 			event=reactToEvent;
 		}
@@ -65,7 +66,7 @@ package net.guttershark.decorators
 		}
 		
 		/**
-		 * Dispose of this link button decorator.
+		 * Dispose of this decorator.
 		 */
 		public function dispose():void
 		{

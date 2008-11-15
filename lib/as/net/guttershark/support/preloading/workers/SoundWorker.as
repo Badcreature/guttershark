@@ -14,17 +14,14 @@ package net.guttershark.support.preloading.workers
 	 *	
 	 *	<p>This class is not used directly. It is used internally to an
 	 *	Asset instance.</p>
-	 *	
-	 *	@see net.guttershark.preloading.PreloadController PreloadController class
 	 */
 	final public class SoundWorker extends Worker
 	{
 		
 		/**
-		 * Load an asset of type mp3.
+		 * Load an asset of type mp3 or aif.
 		 * 
 		 * @param asset The Asset instance that needs to be loaded.
-		 * @see net.guttershark.preloading.PreloadController PreloadController class
 		 */
 		public override function load(asset:Asset):void
 		{

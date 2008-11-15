@@ -3,8 +3,41 @@ package net.guttershark.managers
 	import flash.ui.ContextMenuItem;	
 	import flash.events.ContextMenuEvent;	
 	import flash.ui.ContextMenu;	
-	import flash.display.InteractiveObject;	import flash.display.LoaderInfo;	import flash.events.ActivityEvent;	import flash.events.DataEvent;	import flash.events.Event;	import flash.events.FocusEvent;	import flash.events.IEventDispatcher;	import flash.events.KeyboardEvent;	import flash.events.MouseEvent;	import flash.events.ProgressEvent;	import flash.events.StatusEvent;	import flash.events.TextEvent;	import flash.events.TimerEvent;	import flash.media.Camera;	import flash.media.Microphone;	import flash.media.Sound;	import flash.net.FileReference;	import flash.net.NetConnection;	import flash.net.NetStream;	import flash.net.Socket;	import flash.net.URLLoader;	import flash.text.TextField;	import flash.utils.Dictionary;	import flash.utils.Timer;		import net.guttershark.control.PreloadController;	import net.guttershark.display.FLV;	import net.guttershark.support.events.FLVEvent;	import net.guttershark.support.preloading.events.AssetCompleteEvent;	import net.guttershark.support.preloading.events.AssetErrorEvent;	import net.guttershark.support.preloading.events.PreloadProgressEvent;	import net.guttershark.util.Tracking;	import net.guttershark.util.XMLLoader;	
-	/**
+	import flash.display.InteractiveObject;
+	import flash.display.LoaderInfo;
+	import flash.events.ActivityEvent;
+	import flash.events.DataEvent;
+	import flash.events.Event;
+	import flash.events.FocusEvent;
+	import flash.events.IEventDispatcher;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import flash.events.ProgressEvent;
+	import flash.events.StatusEvent;
+	import flash.events.TextEvent;
+	import flash.events.TimerEvent;
+	import flash.media.Camera;
+	import flash.media.Microphone;
+	import flash.media.Sound;
+	import flash.net.FileReference;
+	import flash.net.NetConnection;
+	import flash.net.NetStream;
+	import flash.net.Socket;
+	import flash.net.URLLoader;
+	import flash.text.TextField;
+	import flash.utils.Dictionary;
+	import flash.utils.Timer;
+	
+	import net.guttershark.control.PreloadController;
+	import net.guttershark.display.FLV;
+	import net.guttershark.support.events.FLVEvent;
+	import net.guttershark.support.preloading.events.AssetCompleteEvent;
+	import net.guttershark.support.preloading.events.AssetErrorEvent;
+	import net.guttershark.support.preloading.events.PreloadProgressEvent;
+	import net.guttershark.util.Tracking;
+	import net.guttershark.util.XMLLoader;	
+
+	/**
 	 * The EventManager class simplifies events and provides shortcuts for event listeners 
 	 * for AS3 top level classes, guttershark classes, and component events on
 	 * an opt-in basis. Depending on the callbacks you have defined in your callback delegate,
@@ -266,8 +299,6 @@ package net.guttershark.managers
 
 		/**
 		 * A shortcut for the <em><code>handleEvents</em></code> method.
-		 * 
-		 * @see #handleEvents()
 		 */
 		public function he(obj:IEventDispatcher, callbackDelegate:*, callbackPrefix:String, returnEventObjects:Boolean = false, cycleThroughTracking:Boolean = false, cycleAllThroughTracking:Boolean = false, trackingID:String = null):void
 		{

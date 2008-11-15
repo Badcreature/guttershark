@@ -1,17 +1,16 @@
 package net.guttershark.managers
 {
-	import flash.display.Sprite;
+	import gs.TweenMax;
+	
+	import net.guttershark.util.Assertions;
+	import net.guttershark.util.Singleton;
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
-	import flash.utils.Dictionary;
-	
-	import gs.TweenMax;
-	
-	import net.guttershark.util.Assertions;
-	import net.guttershark.util.Singleton;	
+	import flash.utils.Dictionary;	
 
 	/**
 	 * Dispatched when the volume changes.

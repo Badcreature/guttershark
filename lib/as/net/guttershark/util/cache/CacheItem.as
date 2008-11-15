@@ -9,8 +9,6 @@ package net.guttershark.util.cache
 	 * for expirations at an object level.
 	 * 
 	 * <p>This class does not need to be used in order to store something in a Cache.<p>
-	 * 
-	 * @see net.guttershark.util.cache.Cache
 	 */
 	final public class CacheItem
 	{

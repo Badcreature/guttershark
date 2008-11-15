@@ -4,8 +4,6 @@ package net.guttershark.util
 	
 	/**
 	 * The ArrayUtils class contains utility methods for arrays.
-	 * 
-	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class ArrayUtils 
 	{

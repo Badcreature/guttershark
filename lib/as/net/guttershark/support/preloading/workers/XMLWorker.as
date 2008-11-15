@@ -17,8 +17,6 @@ package net.guttershark.support.preloading.workers
 	 *	
 	 * <p>This class is not used directly. It is used internally to an
 	 * Asset instance.</p>
-	 *	
-	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 */
 	final public class XMLWorker extends Worker
 	{	
@@ -27,7 +25,6 @@ package net.guttershark.support.preloading.workers
 		 * Load an asset of type xml.
 		 * 
 		 * @param	asset	The Asset instance that needs to be loaded.
-		 * @see net.guttershark.preloading.PreloadController PreloadController class
 		 */
 		public override function load(asset:Asset):void
 		{

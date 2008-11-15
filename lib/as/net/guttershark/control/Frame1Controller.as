@@ -73,8 +73,6 @@ package net.guttershark.control
 	 *     }
 	 * }
 	 * </listing>
-	 * 
-	 * @see external (external: examples/control/frame1controller).
 	 */
 	public class Frame1Controller extends MovieClip
 	{
@@ -82,8 +80,6 @@ package net.guttershark.control
 		/**
 		 * The amount of pixels that your preloader needs to fill -
 		 * set this so that calculations happen for you.
-		 * 
-		 * @see #onProgress()
 		 */
 		private var _pixelsToFill:int = 100;
 
@@ -159,8 +155,9 @@ package net.guttershark.control
 		 */
 		protected function dispose():void
 		{
-			//delay here, if dispose is called too soon, flashvars might not propogate to a DocumentController.
 			loaderInfo.removeEventListener(ProgressEvent.PROGRESS,onp);
 			loaderInfo.removeEventListener(Event.COMPLETE,onc);
 			_pixelsToFill = 0;
-		}	}}
+		}
+	}
+}

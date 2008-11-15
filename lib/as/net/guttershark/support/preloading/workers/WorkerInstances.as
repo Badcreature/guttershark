@@ -62,6 +62,7 @@ package net.guttershark.support.preloading.workers
 			RegisterWorkerForFileType("xml",XMLWorker);
 			RegisterWorkerForFileType("flv",FLVWorker);
 			RegisterWorkerForFileType("mp3",SoundWorker);
+			RegisterWorkerForFileType("aif",SoundWorker);
 			RegisterWorkerForFileType("css",StyleSheetWorker);
 			defaultsRegistered = true;
 		}

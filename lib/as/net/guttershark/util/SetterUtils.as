@@ -1,5 +1,10 @@
 package net.guttershark.util 
 {
+	import net.guttershark.model.Model;
+	
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.ui.ContextMenu;		
 
 	/**
 	 * The SetterUtils class is a singleton that has utility methods
@@ -22,7 +27,8 @@ package net.guttershark.util
 	 * su.visible(false,mcref);
 	 * </listing>
 	 * 
-	 * @see net.guttershark.util.Utilities Utilities class.
+	 * <p>There are a ton of other methods in here that offer
+	 * the same benefts.</p>
 	 */
 	final public class SetterUtils 
 	{
@@ -413,6 +419,119 @@ package net.guttershark.util
 				l=a.length;
 			}
 			for(k;k<l;k++)a[k][prop]=!a[k][prop];
+		}
+		
+		/**
+		 * Set properties on an object, the properties come from
+		 * the model in a &lt;propset&gt;&lt/propset&gt;
+		 * node.
+		 * 
+		 * @param obj The object whose properties will be updated.
+		 * @param propsId The id of the &lt;propset&gt; node in the model.
+		 */
+		public function propsFromModel(obj:*, propsId:String):void
+		{
+			var ml:Model=Model.gi();
+			if(!ml.xml)throw new Error("The model xml has not been loaded or set, cannot set properties from the model.");
+			var n:XMLList=ml.xml.properties..propset.(@id==propsId);
+			var usedText:Boolean;
+			if(obj is TextField)
+			{
+				var t:TextField=TextField(obj);
+				if(n.textFormat!=undefined&&n.styleSheet!=undefined)trace("WARNING: A textfield cannot have both a stylesheet, and a textformat. One or the other should be used. The stylehsset will be used if you do have both.");
+				if(n.textFormat!=undefined)
+				{
+					var tf:TextFormat=ml.getTextFormatById(n.textFormat.@id);
+					t.defaultTextFormat=tf;
+					t.setTextFormat(tf);
+				}
+				if(n.styleSheet!=undefined)t.styleSheet=ml.getStyleSheetById(n.styleSheet.@id);
+				if(n.text!=undefined||n.htmlText!=undefined)
+				{
+					if(n.text.@id!=undefined)
+					{
+						usedText=true;
+						obj.text=ml.getContentById(n.text.@id);
+					}
+					else if(n.htmlText.@id!=undefined)
+					{
+						usedText=true;
+						obj.htmlText=ml.getContentById(n.htmlText.@id);
+					}
+				}
+			}
+			if(n.contextMenu)
+			{
+				if(n.contextMenu.@id!=undefined)
+				{
+					var cmm:ContextMenu=ml.createContextMenuById(n.contextMenu.@id);
+					obj.contextMenu=cmm;
+				}
+			}
+			var children:XMLList=n.children();
+			var child:XML;
+			for each(child in children)
+			{
+				var k:String=child.name().toString();
+				var s:String=child.toString();
+				if(k=="textFormat"||k=="styleSheet"||k=="contextMenu")continue;
+				if(usedText&&(k=="text"||k=="htmlText"))continue;
+				if(k=="xywh")
+				{
+					var e:int=0;
+					var r:int=4;
+					var props:Array=["x","y","width","height"];
+					var prop:String;
+					for(e;e<r;e++)
+					{
+						prop=props[e];
+						if(child.attribute(prop)!=undefined)
+						{
+							s=child.attribute(prop).toString();
+							if(isPlusMinus(s))obj[prop]=getPlusMinusVal(s,obj[prop]);
+							else obj[prop]=Number(s);
+						}
+					}
+					continue;
+				}
+				if(s=="true")
+				{
+					obj[k]=true;
+					continue;
+				}
+				else if(s=="false")
+				{
+					obj[k]=false;
+					continue;
+				}
+				if(isPlusMinus(s))
+				{
+					obj[k]=getPlusMinusVal(s,Number(obj[k]));
+					continue;
+				}
+				obj[k]=s;
+			}
+		}
+		
+		/**
+		 * Helper method for propsFromModel.
+		 */
+		private function getPlusMinusVal(s:String,curVal:Number):Number
+		{
+			var op:String=s.substr(0,1);
+			var val:Number=Number(s.substr(1,s.length));
+			if(op=="+")return curVal+=val;
+			else if(op=="-")return curVal-=val;
+			return curVal;
+		}
+		
+		/**
+		 * Helper method for propsFromModel.
+		 */
+		private function isPlusMinus(s:String):Boolean
+		{
+			var r:RegExp=/^\+|\-[\.0-9]*$/i;
+			return r.test(s);
 		}
 	}
 }

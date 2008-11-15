@@ -12,8 +12,6 @@ package net.guttershark.util
 	 * <p>You can shut off the default behavior, of using
 	 * the guttershark, javascript tracking framework, to
 	 * have the tracking calls made from flash.</p>
-	 * 
-	 * @see external (external: guttershark/lib/js/tracking/)
 	 */
 	final public class Tracking
 	{

@@ -15,14 +15,12 @@ package net.guttershark.managers
 	import net.guttershark.util.Assertions;
 	import net.guttershark.util.Singleton;
 	import net.guttershark.util.XMLLoader;
-
+	
 	/**
 	 * The AssetManager class is a singleton that stores all assets
 	 * loaded by any PreloadController, it provides shortcuts
 	 * for accessing those items, and shortcuts for getting items
 	 * out of the flash library.
-	 * 
-	 * @see net.guttershark.control.PreloadController PreloadController Class
 	 */
 	final public class AssetManager
 	{	

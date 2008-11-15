@@ -25,7 +25,6 @@ package net.guttershark.support.preloading.events
 		 * 
 		 * @param type The event type.
 		 * @param asset	The Asset that errored out.
-		 * @see	net.guttershark.preloading.Asset Asset class
 		 */
 		public function AssetErrorEvent(type:String, asset:Asset)
 		{

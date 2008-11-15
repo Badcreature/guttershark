@@ -8,8 +8,6 @@ package net.guttershark.util
 
 	/**
 	 * The BitmapUtils class has utility methods for easy access to common Bitmap operations.
-	 * 
-	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class BitmapUtils
 	{

@@ -6,9 +6,6 @@ package net.guttershark.display
 	 * The BaseFormView class defines the base form view
 	 * should implement, to follow a good pattern of the most commonly
 	 * used form functionality.
-	 * 
-	 * @see #onConfirmClick() onConfirmClick() for an example of using function delegates
-	 * correctly.
 	 */
 	public class BaseFormView extends BaseView
 	{
@@ -255,8 +252,6 @@ package net.guttershark.display
 		 * Override this method, and use as the the click event
 		 * handler for a "yes" button - validate this
 		 * form and then call the onYes delegate function.
-		 * 
-		 * @see #onConfirmClick() for a function delegate example.
 		 */
 		public function onYesClick():void{}
 		
@@ -264,8 +259,6 @@ package net.guttershark.display
 		 * Override this method, and use as the the click event
 		 * handler for a "no" button - validate this
 		 * form and then call the onNo delegate function.
-		 * 
-		 * @see #onConfirmClick() for a function delegate example.
 		 */
 		public function onNoClick():void{}
 		
@@ -273,8 +266,6 @@ package net.guttershark.display
 		 * Override this method, and use as the the click event
 		 * handler for a "delete" button - validate this
 		 * form and then call the onDelete delegate function.
-		 * 
-		 * @see #onConfirmClick() for a function delegate example.
 		 */
 		public function onDeleteClick():void{}
 		
@@ -312,8 +303,6 @@ package net.guttershark.display
 		
 		/**
 		 * Hides the delete button.
-		 * 
-		 * @see #hideButtons()
 		 */
 		protected function hideDeleteButton():void
 		{
@@ -322,8 +311,6 @@ package net.guttershark.display
 		
 		/**
 		 * Hides the confirm button.
-		 * 
-		 * @see #hideButtons()
 		 */
 		protected function hideConfirmButton():void
 		{
@@ -332,8 +319,6 @@ package net.guttershark.display
 		
 		/**
 		 * Hides the no button.
-		 * 
-		 * @see #hideButtons()
 		 */
 		protected function hideNoButton():void
 		{
@@ -342,8 +327,6 @@ package net.guttershark.display
 		
 		/**
 		 * Hides the yes button.
-		 * 
-		 * @see #hideButtons()
 		 */
 		protected function hideYesButton():void
 		{
@@ -352,8 +335,6 @@ package net.guttershark.display
 		
 		/**
 		 * Hides the cancel button.
-		 * 
-		 * @see #hideButtons()
 		 */
 		protected function hideCancelButton():void
 		{
@@ -362,8 +343,6 @@ package net.guttershark.display
 		
 		/**
 		 * Hides the ok button.
-		 * 
-		 * @see #hideButtons()
 		 */
 		protected function hideOKButton():void
 		{
@@ -396,8 +375,6 @@ package net.guttershark.display
 		/**
 		 * Shows the ok button, (sets visible to true),
 		 * override to use something other than visible.
-		 * 
-		 * @see #showButtons()
 		 */
 		protected function showOKButton():void
 		{
@@ -407,8 +384,6 @@ package net.guttershark.display
 		/**
 		 * Shows the cancel button, (sets visible to true),
 		 * override to use something other than visible.
-		 * 
-		 * @see #showButtons()
 		 */
 		protected function showCancelButton():void
 		{
@@ -418,8 +393,6 @@ package net.guttershark.display
 		/**
 		 * Shows the confirm button, (sets visible to true),
 		 * override to use something other than visible.
-		 * 
-		 * @see #showButtons()
 		 */
 		protected function showConfirmButton():void
 		{
@@ -429,8 +402,6 @@ package net.guttershark.display
 		/**
 		 * Shows the yes button, (sets visible to true),
 		 * override to use something other than visible.
-		 * 
-		 * @see #showButtons()
 		 */
 		protected function showYesButton():void
 		{
@@ -440,8 +411,6 @@ package net.guttershark.display
 		/**
 		 * Shows the no button, (sets visible to true),
 		 * override to use something other than visible.
-		 * 
-		 * @see #showButtons()
 		 */
 		protected function showNoButton():void
 		{
@@ -451,10 +420,10 @@ package net.guttershark.display
 		/**
 		 * Shows the delete button, (sets visible to true),
 		 * override to use something other than visible.
-		 * 
-		 * @see #showButtons()
 		 */
 		protected function showDeleteButton():void
 		{
 			deleteButton.visible = true;
-		}	}}
+		}
+	}
+}
