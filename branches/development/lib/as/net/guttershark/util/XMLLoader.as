@@ -8,8 +8,6 @@ package net.guttershark.util
 	
 	/**
 	 * The XMLLoader class loads xml.
-	 * 
-	 * @see #load()
 	 */
 	final public class XMLLoader extends EventDispatcher
 	{	

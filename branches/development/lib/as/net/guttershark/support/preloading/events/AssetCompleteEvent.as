@@ -25,7 +25,6 @@ package net.guttershark.support.preloading.events
 		 * 
 		 * @param type The event type.
 		 * @param asset The Asset that has completely downloaded.
-		 * @see	net.guttershark.preloading.Asset Asset class
 		 */
 		public function AssetCompleteEvent(type:String,asset:Asset)
 		{

@@ -14,9 +14,6 @@ package net.guttershark.support.preloading
 
 	/**
 	 * The Asset class defines an asset to preload with a PreloadController.
-	 * 
-	 * @see net.guttershark.control.PreloadController PreloadController class
-	 * @see net.guttershark.managers.AssetManager AssetManager class
 	 */
 	final public class Asset
 	{
@@ -43,8 +40,6 @@ package net.guttershark.support.preloading
 		
 		/**
 		 * The identifier of this item in the AssetManager
-		 * 
-		 * @see net.guttershark.managers.AssetManager AssetManager class.
 		 */
 		public var libraryName:String;
 		

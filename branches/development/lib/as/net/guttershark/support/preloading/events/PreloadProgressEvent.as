@@ -5,8 +5,6 @@ package net.guttershark.support.preloading.events
 	/**
 	 * The PreloadProgressEvent dispatches to notify listeners the overall
 	 * progress of a PreloadController.
-	 * 
-	 * @see net.guttershark.preloading.PreloadController PreloadController class
 	 */
 	final public class PreloadProgressEvent extends Event
 	{

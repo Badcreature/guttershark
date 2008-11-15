@@ -9,13 +9,45 @@ package net.guttershark.managers
 	import net.guttershark.util.cache.Cache;		
 
 	/**
-	 * The ContextManager class simplifies creating and using context
-	 * menus. And if you use this class for context menu creation, you
-	 * can use the event manager to handle events.
+	 * The ContextManager class simplifies creating and
+	 * using context menus.
+	 * 
+	 * <p>You can define context menu's in the model xml
+	 * as well. The model has a method
+	 * <em><strong>createContextMenuById</strong></em> which
+	 * uses this class to create a context menu for you.</p>
+	 * 
+	 * @example Using the context menu manager:
+	 * <listing>	
+	 * var cmm:ContextMenuManager=ContextMenuManager.gi();
+	 * var myClip:MovieClip=new MovieClip();
+	 * myClip.contextMenu=cmm.createMenu("test",[{id:"home",label:"home"},{id:"back",label:"back"}]);
+	 * em.handleEvents(contextMenu,this,"onCM");
+	 * public function onCMhome():void
+	 * {
+	 *     trace("selected home rom context menu");
+	 * }
+	 * </listing>
+	 * 
+	 * @example Using the model to define and create context menus:
+	 * <listing>	
+	 * //in the model xml:
+	 * &lt;contextmenus&gt;
+	 *     &lt;menu id="menu1"&gt;
+	 *         &lt;item id="home" label="home" /&gt;
+	 *         &lt;item id="back" label="GO BACK" sep="true"/&gt;
+	 *     &lt;/menu&gt;
+	 * &lt;/contextmenus&gt;
+	 * 
+	 * //then in some actionscript:
+	 * var ml:Model=Model.gi();
+	 * var myClip:MovieClip=new MovieClip();
+	 * myClip.contextMenu=ml.createContextMenuById("menu1");
+	 * </listing>
 	 */
 	final public class ContextMenuManager
 	{
-
+		
 		/**
 		 * Singleton instance.
 		 */
@@ -90,8 +122,7 @@ package net.guttershark.managers
 		 * Create a new context menu.
 		 * 
 		 * @param id The id of the menu.
-		 * @param items An array of objects used for the context menu
-		 * items - {id:"home",label:"home",sep:true|false}.
+		 * @param items An array of objects used for the context menu items - {id:"home",label:"home",sep:true|false}.
 		 */
 		public function createMenu(id:String,items:Array):ContextMenu
 		{

@@ -26,6 +26,7 @@ package net.guttershark.display
 			addEventListener(Event.REMOVED_FROM_STAGE,onre,false,10,true);
 			addEventListener(Event.ACTIVATE,onac,false,10,true);
 			addEventListener(Event.DEACTIVATE,ond,false,10,true);
+			addEventListener(Event.MOUSE_LEAVE,onml,false,10,true);
 			init();
 		}
 
@@ -33,6 +34,22 @@ package net.guttershark.display
 		 * Initialize this view - called from the constructor.
 		 */
 		protected function init():void{}
+		
+		/**
+		 * on mouse leave.
+		 */
+		private function onml(e:Event):void
+		{
+			onMouseLeave();
+		}
+		
+		/**
+		 * A method you can override to hook into the mouse
+		 * leve event.
+		 */
+		protected function onMouseLeave():void
+		{
+		}
 
 		/**
 		 * on add handler.
@@ -130,21 +147,21 @@ package net.guttershark.display
 		override public function dispose():void{}
 		
 		/**
-		 * Stub method for showing this view - it sets the visible property to true.
+		 * Show this view, set's the visible property to true.
 		 */
 		public function show():void
 		{
-			if(visible) return;
-			visible = true;
+			if(visible)return;
+			visible=true;
 		}
 		
 		/**
-		 * Stub method for hiding this view - it sets the visible property to false.
+		 * Hide this view, set's the visible property to false.
 		 */
 		public function hide():void
 		{
-			if(!visible) return;
-			visible = false;
+			if(!visible)return;
+			visible=false;
 		}
 	}
 }

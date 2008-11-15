@@ -6,8 +6,6 @@ package net.guttershark.util
 	/**
 	 * The DisplayListUtils class contains utlility methods for display
 	 * list manipulation.
-	 * 
-	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class DisplayListUtils
 	{
@@ -116,4 +114,6 @@ package net.guttershark.util
 			var _prop:String = axis == "x" ? "width" : "height";
 			obj[_scale] = -obj[_scale];
 			obj[axis] += obj[_prop];
-		}	}}
+		}
+	}
+}

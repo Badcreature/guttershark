@@ -9,12 +9,12 @@ package net.guttershark.display
 	 */
 	public class BaseErrorView extends BaseFormView
 	{
-
+		
 		/**
 		 * An error message text field.
 		 */
 		public var errorField:TextField;
-
+		
 		/**
 		 * Constructor for BaseErrorView instances.
 		 */

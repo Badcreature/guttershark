@@ -45,13 +45,13 @@ package net.guttershark.control
 	
 	/**
 	 * The DocumentController class is the document class for an FLA, it contains
-	 * default startup functionality that you can hook into, and all logic
+	 * default startup functionality that you can hook into, and most logic
 	 * is controllable through flashvars.
 	 * 
-	 * The DocumentController also detects bandwidth, based off of the swf size
-	 * and how much time it took to download.
+	 * It also detects bandwidth, based off of the swf size and how much time it
+	 * took to download.
 	 * 
-	 * <p>Available FlashVar Properties:</p>
+	 * <p>Available flashvar properties:</p>
 	 * <ul>
 	 * <li><strong>akamaiHost</strong> (String) - An akamai host address to use for the ident service. EX: 'http://cp44952.edgefcs.net/'</li>
 	 * <li><strong>initServices</strong> (Boolean) - Initialize the <code><em>ServiceManager</em></code>, with all of the service declarations defined in a model.xml file.</li>
@@ -63,7 +63,7 @@ package net.guttershark.control
 	 * <li><strong>swfAddress</strong> (Boolean) - Specify whether or not to listen for SWFAddress change events.</li>
 	 * </ul>
 	 * 
-	 * <p>Flashvar properties can be supplied when running in the Flash IDE 
+	 * <p>Flashvar properties can be specified when running in the Flash IDE, which mimic html flashvars, 
 	 * by overriding the <code><a href="#flashvarsForStandalone()">flashvarsForStandalone()</a></code> 
 	 * method. Otherwise you <strong>must</strong> declare the flashvars on the flash object in HTML.</p>
 	 * 
@@ -71,20 +71,15 @@ package net.guttershark.control
 	 * <listing>	
 	 * override protected function flashvarsForStandalone():Object
 	 * {
-	 *     return {model:"model.xml",initServices:true};
+	 *     return {model:"model.xml"};
 	 * }	
 	 * </listing>
 	 * 
-	 * @example Declaring flashvars on a Flash object with SWFObject:
+	 * @example Declaring flashvars on a flash object with SWFObject2:
 	 * <listing>	
 	 * &lt;script type="text/javascript"&gt;
-	 *     // &lt;![CDATA[
-	 *     ...
-	 *     var so = new SWFObject("main.swf", "flaswf", "100%", "100%", "9", "#000");
-	 *     so.addVariable("model","model.xml");
-	 *     so.addVariable("initServices","true");
-	 *     ...
-	 *     // ]]&gt;
+	 *     var vars = {model:"model.xml"};
+	 *     swfobject.embedSWF("main.swf","flashcontent","992","600","9.0.0",null,vars,params,attributes);
 	 * &lt;/script&gt;
 	 * </listing> 
 	 */
@@ -102,9 +97,9 @@ package net.guttershark.control
 		public static const VERSION:String="1.0.435";
 		
 		/**
-		 * The KiloBytes per second that the movie downloaded at.
+		 * The kilobytes per second that the movie downloaded at.
 		 */
-		public static var KBPS:Number;
+		public static var kbps:Number;
 		
 		/**
 		 * A friendlier representation of the bandwidth.
@@ -195,8 +190,8 @@ package net.guttershark.control
 		private var totalBytes:Number;
 
 		/**
-		 * Constructor for DocumentController instances. This should not
-		 * be used directly, only subclassed as a Document Class for an FLA.
+		 * Constructor for DocumentController instances - this should not
+		 * be used directly, only subclassed as a document class for an FLA.
 		 */
 		public function DocumentController()
 		{
@@ -235,12 +230,12 @@ package net.guttershark.control
 			totalBytes = loaderInfo.bytesTotal;
 			loaderInfo.removeEventListener(Event.COMPLETE,onSWFComplete);
 			var kbytes:Number = (totalBytes/1024);
-			KBPS = Math.round((kbytes/Math.ceil(((endTime-startTime)/1000))));
+			kbps=Math.round((kbytes/Math.ceil(((endTime-startTime)/1000))));
 			bandwidth="high";
-			if(KBPS<5)bandwidth="trickle";
-			if(KBPS<32)bandwidth="low";
-			if(KBPS<132)bandwidth="med";
-			if(KBPS>=(kbytes-1))bandwidth="high";
+			if(kbps<5)bandwidth="trickle";
+			if(kbps<32)bandwidth="low";
+			if(kbps<132)bandwidth="med";
+			if(kbps>=(kbytes-1))bandwidth="high";
 			endTime = NaN;
 			startTime = NaN;
 			totalBytes = NaN;
@@ -367,7 +362,7 @@ package net.guttershark.control
 		 * <p>This will only execute if you're running the player as
 		 * standalone.</p>
 		 * 
-		 * <p>See the lib/js/guttershark.js file</p>
+		 * <p>See external (lib/js/guttershark.js) file</p>
 		 */
 		protected function initPathsForStandalone():void{}
 		
@@ -576,9 +571,7 @@ package net.guttershark.control
 		 * </ul>
 		 * </p>
 		 * 
-		 * @param	ip	The IP that was found from the Ident service.
-		 *
-		 * @see net.guttershark.akamai.AkamaiNCManager AkamaiNCManager Class
+		 * @param ip The IP that was found from the Ident service.
 		 */
 		protected function akamaiIdentComplete(ip:String):void{}
 		

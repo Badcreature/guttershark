@@ -16,8 +16,6 @@ package net.guttershark.support.preloading.workers
 	 *	
 	 *	<p>This class is not used directly. It is used internally to an
 	 *	Asset instance.</p>
-	 *	
-	 *	@see net.guttershark.preloading.PreloadController PreloadController class
 	 */
 	final public class SWFWorker extends Worker
 	{	

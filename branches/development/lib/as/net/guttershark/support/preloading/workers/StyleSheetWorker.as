@@ -22,7 +22,6 @@ package net.guttershark.support.preloading.workers
 		 * Load an asset of type css.
 		 * 
 		 * @param asset The Asset instance that needs to be loaded.
-		 * @see net.guttershark.preloading.PreloadController PreloadController class
 		 */
 		public override function load(asset:Asset):void
 		{
@@ -53,4 +52,6 @@ package net.guttershark.support.preloading.workers
 			asset = null;
 			try{loader.close();}catch(error:*){}
 			dispose();
-		}	}}
+		}
+	}
+}

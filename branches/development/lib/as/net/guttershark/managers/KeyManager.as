@@ -12,8 +12,6 @@ package net.guttershark.managers
 
 	/**
 	 * The KeyManager class simplifies working with keyboard events.
-	 * 
-	 * @see KeyManager#addMapping() addMapping() method for an example.
 	 */
 	final public class KeyManager
 	{
@@ -209,8 +207,6 @@ package net.guttershark.managers
 		
 		/**
 		 * A shortcut for the <em><code>addMapping</em></code> method.
-		 * 
-		 * @see #addMapping()
 		 */
 		public function am(scope:*, mapping:String, callback:Function,repeatCallbackWhileDown:Boolean=false,repeatWhileDownCallback:Function=null):void
 		{
@@ -255,8 +251,6 @@ package net.guttershark.managers
 		
 		/**
 		 * A shortcut for the <em><code>removeMapping</em></code> method.
-		 * 
-		 * @see #removeMapping()
 		 */
 		public function rm(scope:*, mapping:String):void
 		{

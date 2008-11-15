@@ -23,14 +23,8 @@ package net.guttershark.util.akamai
      * 
      * <p>The AkamaNCManager class is set on the VideoPlayer class, because the VideoPlayer
      * class is used internally to the FLVPlayback Components.</p>
-     * 
-     * @see #FMS_IP
-     * @see	#AllowNCReuse
-     * @see fl.video.VideoPlayer#iNCManagerClass iNCManager VideoPlayer Property in the Flash API.
-     * @see fl.video.NCManager NCManager class in the Flash API.
-     * @see fl.video.VideoPlayer#iNCManagerClass iNCManagerClass interface in the Flash API.
      */
-   final public class AkamaiNCManager extends NCManager implements INCManager
+    final public class AkamaiNCManager extends NCManager implements INCManager
     {
 	    
 	    /**
@@ -48,8 +42,6 @@ package net.guttershark.util.akamai
 	     * <p>You can manually find the IP of the best Flash Media Server for the client before making
 	     * any attempts to play streams, and set this property. That way no connections to
 	     * an Akamai host name are attempted. But this is not required.</p>
-	     * 
-	     * @see net.guttershark.akamai.Ident Ident class to sniff the best available IP
 	     */ 
 		public static var FMS_IP:String;
     	

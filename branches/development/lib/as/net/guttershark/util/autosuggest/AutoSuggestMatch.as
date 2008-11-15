@@ -21,8 +21,6 @@ package net.guttershark.util.autosuggest
 	 * <p>The highlightedTerm is provided specifically for working with textfields
 	 * and styles. You can set the style of both the span class's to provide a highlight
 	 * effect.</p>
-	 * 
-	 * @see net.guttershark.util.autosuggest.AutoSuggest
 	 */
 	public class AutoSuggestMatch
 	{

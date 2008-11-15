@@ -48,9 +48,6 @@ package net.guttershark.managers
 	 * <p><strong>See the Service and RemotingService classes for additional detailed
 	 * information and examples of the types of requests you can make as well as
 	 * supported call properties.</strong></p>
-	 * 
-	 * @see net.guttershark.support.servicemanager.http.Service Service class.
-	 * @see net.guttershark.support.servicemanager.remoting.RemotingService RemotingService class.
 	 */
 	final public dynamic class ServiceManager extends Proxy
 	{

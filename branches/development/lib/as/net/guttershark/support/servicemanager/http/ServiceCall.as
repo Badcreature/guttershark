@@ -18,8 +18,6 @@ package net.guttershark.support.servicemanager.http
 
 	/**
 	 * The ServiceCall class makes the http calls that a service class requests.
-	 *  
-	 * @see net.guttershark.support.servicemanager.Service Service class.
 	 */
 	final public class ServiceCall extends BaseCall
 	{

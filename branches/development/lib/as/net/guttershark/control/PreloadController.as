@@ -20,42 +20,42 @@ package net.guttershark.control
 	/**
 	 * Dispatched for each asset that has completed downloading.
 	 * 
-	 * @eventType net.guttershark.preloading.events.AssetCompleteEvent
+	 * @eventType net.guttershark.support.preloading.events.AssetCompleteEvent
 	 */
 	[Event("assetComplete", type="net.guttershark.support.preloading.events.AssetCompleteEvent")]
 	
 	/**
 	 * Dispatched for each asset that has started downloading.
 	 * 
-	 * @eventType net.guttershark.preloading.events.AssetOpenEvent
+	 * @eventType net.guttershark.support.preloading.events.AssetOpenEvent
 	 */
 	[Event("assetOpen", type="net.guttershark.support.preloading.events.AssetOpenEvent")]
 	
 	/**
 	 * Dispatched for each asset that has has stopped downloading because of an error.
 	 * 
-	 * @eventType net.guttershark.preloading.events.AssetErrorEvent
+	 * @eventType net.guttershark.support.preloading.events.AssetErrorEvent
 	 */
 	[Event("assetError", type="net.guttershark.support.preloading.events.AssetErrorEvent")]
 	
 	/**
 	 * Dispatched for each asset that is downloading.
 	 * 
-	 * @eventType net.guttershark.preloading.events.AssetProgressEvent
+	 * @eventType net.guttershark.support.preloading.events.AssetProgressEvent
 	 */
 	[Event("assetProgress", type="net.guttershark.support.preloading.events.AssetProgressEvent")]
 	
 	/**
 	 * Dispatched for each asset that generated an http status code other than 0 or 200.
 	 * 
-	 * @eventType net.guttershark.preloading.events.AssetStatusEvent
+	 * @eventType net.guttershark.support.preloading.events.AssetStatusEvent
 	 */
 	[Event("assetStatus", type="net.guttershark.support.preloading.events.AssetStatusEvent")]
 	
 	/**
 	 * Dispatched on progress of the entire PreloadController progress.
 	 * 
-	 * @eventType net.guttershark.preloading.events.PreloadProgressEvent
+	 * @eventType net.guttershark.support.preloading.events.PreloadProgressEvent
 	 */
 	[Event("preloadProgress", type="net.guttershark.support.preloading.events.PreloadProgressEvent")]
 	
@@ -67,11 +67,11 @@ package net.guttershark.control
 	[Event("complete", type="flash.events.Event")]
 
 	/**
-	 * The PreloadController class is a controller you use for loading Assets - it provides you
+	 * The PreloadController class is a controller you use for loading assets - it provides you
 	 * with methods for starting, stopping, pausing, resuming and prioritizing of assets, 
-	 * and registers all loaded assets with the AssetManager.
+	 * and registers all loaded assets with the asset manager.
 	 * 
-	 * <p>By defualt, the preload controller loads all swf's and bitmap's into the same
+	 * <p>By default, the preload controller loads all swf's and bitmap's into the same
 	 * application domain. Unless specified otherwise in the constructor.</p>
 	 * 
 	 * @example Using the preload controller:
@@ -113,13 +113,13 @@ package net.guttershark.control
 	 *    
 	 *    private function onPCProgress(pe:PreloadProgressEvent):void
 	 *    {
-	 *        trace(pe.toString());
+	 *        trace(pe);
 	 *        preloader.width = pe.pixels
 	 *    }
 	 *    
 	 *    private function onPCAssetComplete(e:AssetCompleteEvent):void
 	 *    {
-	 *        trace(e.toString());
+	 *        trace(e);
 	 *    }
 	 *    
 	 *    private function onPCComplete(e:Event):void
@@ -215,8 +215,6 @@ package net.guttershark.control
 		 * 
 		 * @param pixelsToFill The total number of pixels this preloader needs to fill - this is used in calculating both pixels and percent. 
 		 * @param loaderContext The loader context for all assets being loaded with this preload controller.
-		 * 
-		 * @see net.guttershark.preloading.events.PreloadProgressEvent PreloadProgressEvent event
 		 */
 		public function PreloadController(pixelsToFill:int=100,loaderContext:LoaderContext=null)
 		{
@@ -240,8 +238,6 @@ package net.guttershark.control
 		 * these items will be appended to the items to load.
 		 * 
 		 * @param items An array of Asset instances.
-		 * 
-		 * @see net.guttershark.preloading.Asset Asset class
 		 */
 		public function addItems(items:Array):void
 		{
@@ -254,7 +250,6 @@ package net.guttershark.control
 		 * Add items to the controller to load, with top priority.
 		 * 
 		 * @param items An array of Asset instances.
-		 * @see net.guttershark.preloading.Asset Asset class
 		 */
 		public function addPrioritizedItems(items:Array):void
 		{
@@ -270,8 +265,6 @@ package net.guttershark.control
 
 		/**
 		 * Starts loading the assets, and resumes loading from a stopped state.
-		 * 
-		 * @see #stop() stop method
 		 */
 		public function start():void
 		{
@@ -288,8 +281,6 @@ package net.guttershark.control
 		 * Stops this preload controller from loading assets, if there is
 		 * an asset currently loading, that asset will finish loading, but the
 		 * controller will not continue after that.
-		 * 
-		 * @see #start() start method
 		 */
 		public function stop():void
 		{
@@ -322,7 +313,7 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * The number of pixels that this preloader should fill.
+		 * The number of pixels that should be filled.
 		 */
 		public function get pixelsToFill():int
 		{
@@ -415,20 +406,21 @@ package net.guttershark.control
 		}
 		
 		/**
-		 * Resets internal state.
+		 * Resets internal state so the preload controller
+		 * can be re-used if needed.
 		 */
 		public function reset():void
 		{
-			loadErrors = 0;
-			loaded = 0;
-			loadItems = [];
-			loadItemsDuplicate = [];
-			bytesTotalPool = [];
-			bytesLoadedPool = [];
-			if(currentItem) currentItem.dispose();
-			currentItem = null;
-			if(lastCompletedAsset) lastCompleteAsset.dispose();
-			lastCompleteAsset = null;
+			loadErrors=0;
+			loaded=0;
+			loadItems=[];
+			loadItemsDuplicate=[];
+			bytesTotalPool=[];
+			bytesLoadedPool=[];
+			if(currentItem)currentItem.dispose();
+			currentItem=null;
+			if(lastCompletedAsset)lastCompleteAsset.dispose();
+			lastCompleteAsset=null;
 		}
 		
 		/**
@@ -436,16 +428,16 @@ package net.guttershark.control
 		 */
 		public function dispose():void
 		{
-			loadErrors = 0;
-			loaded = 0;
-			loadItems = null;
-			loadItemsDuplicate = null;
-			bytesTotalPool = null;
-			bytesLoadedPool = null;
-			if(currentItem) currentItem.dispose();
-			currentItem = null;
-			if(lastCompletedAsset) lastCompleteAsset.dispose();
-			lastCompleteAsset = null;
+			loadErrors=0;
+			loaded=0;
+			loadItems=null;
+			loadItemsDuplicate=null;
+			bytesTotalPool=null;
+			bytesLoadedPool=null;
+			if(currentItem)currentItem.dispose();
+			currentItem=null;
+			if(lastCompletedAsset)lastCompleteAsset.dispose();
+			lastCompleteAsset=null;
 		}
 
 		/**

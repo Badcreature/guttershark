@@ -6,8 +6,6 @@ package net.guttershark.util
 
 	/**
 	 * The MathUtils class contains various math functions.
-	 * 
-	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class MathUtils
 	{
@@ -232,8 +230,6 @@ package net.guttershark.util
 		 * @param val The number.
 		 * @param min The miniimum range.
 		 * @param max The maximum range.
-		 * 
-		 * @see #clamp()
 		 */
 		public function limit(val:Number, min:Number, max:Number, wrap:Boolean = false):Number
 		{
@@ -401,8 +397,6 @@ package net.guttershark.util
 		 * 
 		 * @param n The number.
 		 * @param precision The floating point precision.
-		 * 
-		 * @see http://www.zeuslabs.us/2007/01/30/flash-floating-point-number-errors/
 		 */
 		public function sanitizeFloat(n:Number, precision:uint = 5):Number 
 		{
@@ -415,8 +409,6 @@ package net.guttershark.util
 		 * 
 		 * @param n1 The first number.
 		 * @param n2 The second number.
-		 * 
-		 * @see http://www.zeuslabs.us/2007/01/30/flash-floating-point-number-errors/
 		 */
 		public function fuzzyEval(n1:Number, n2:Number, precision:int = 5):Boolean
 		{
@@ -984,4 +976,6 @@ package net.guttershark.util
 		public function exabyte2bit(n:Number):Number 
 		{
 			return n * EXABYTE;
-		}	}}
+		}
+	}
+}

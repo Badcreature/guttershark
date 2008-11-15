@@ -18,9 +18,6 @@ package net.guttershark.util
 	 * chains on CoreClip and CoreSprite, which ultimately gets
 	 * rid of static functions which are on an average 50% slower than
 	 * having a property defined.
-	 * 
-	 * @see net.guttershark.display.CoreClip CoreClip class.
-	 * @see net.guttershark.display.CoreSprite CoreSprite class.
 	 */
 	final public class Utilities
 	{
@@ -44,7 +41,8 @@ package net.guttershark.util
 		 * The singleton instance of ColorUtils.
 		 */
 		public var color:ColorUtils;
-		/**
+
+		/**
 		 * The singleton instance of DateUtils.
 		 */
 		public var date:DateUtils;
@@ -80,6 +78,11 @@ package net.guttershark.util
 		public var string:StringUtils;
 		
 		/**
+		 * The singleton isntance of StyleSheetUtils.
+		 */
+		public var styles:StyleSheetUtils;
+
+		/**
 		 * The singleton instance of TextFieldUtils.
 		 */
 		public var text:TextFieldUtils;
@@ -109,7 +112,7 @@ package net.guttershark.util
 		 */
 		public static function gi():Utilities
 		{
-			if(!inst) inst = Singleton.gi(Utilities);
+			if(!inst)inst=Singleton.gi(Utilities);
 			return inst;
 		}
 		
@@ -119,19 +122,22 @@ package net.guttershark.util
 		public function Utilities()
 		{
 			Singleton.assertSingle(Utilities);
-			array = ArrayUtils.gi();
-			bitmap = BitmapUtils.gi();
-			color = ColorUtils.gi();
-			date = DateUtils.gi();
-			dict = DictionaryUtils.gi();
-			display = DisplayListUtils.gi();
-			mouse = MouseUtils.gi();
-			object = ObjectUtils.gi();
-			scope = ScopeUtils.gi();
-			string = StringUtils.gi();
-			text = TextFieldUtils.gi();
-			setters = SetterUtils.gi();
-			filters = FilterUtils.gi();
-			player = PlayerUtils.gi();
-			math = MathUtils.gi();
-		}	}}
+			array=ArrayUtils.gi();
+			bitmap=BitmapUtils.gi();
+			color=ColorUtils.gi();
+			date=DateUtils.gi();
+			dict=DictionaryUtils.gi();
+			display=DisplayListUtils.gi();
+			mouse=MouseUtils.gi();
+			object=ObjectUtils.gi();
+			scope=ScopeUtils.gi();
+			string=StringUtils.gi();
+			text=TextFieldUtils.gi();
+			setters=SetterUtils.gi();
+			filters=FilterUtils.gi();
+			player=PlayerUtils.gi();
+			math=MathUtils.gi();
+			styles=StyleSheetUtils.gi();
+		}
+	}
+}

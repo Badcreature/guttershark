@@ -1,13 +1,16 @@
 package net.guttershark.util
-{	import net.guttershark.util.Assertions;	
+{
+	import net.guttershark.util.Assertions;	
 	
 	import flash.display.Stage;	
-	import flash.text.TextField;	import flash.text.TextFormat;		import net.guttershark.util.Singleton;		
-	/**
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	
+	import net.guttershark.util.Singleton;		
+
+	/**
 	 * The TextFieldUtils class is a singleton that has utility
 	 * methods for common operations with TextFields.
-	 * 
-	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	final public class TextFieldUtils
 	{
@@ -173,4 +176,6 @@ package net.guttershark.util
 			ast.notNil(tf,"Parameter {tf} cannot be null");
 			stage.focus = tf;
 			selectAll(tf);
-		}	}}
+		}
+	}
+}

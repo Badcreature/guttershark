@@ -1,5 +1,14 @@
 package net.guttershark.model 
 {
+	import net.guttershark.managers.ContextMenuManager;
+	import net.guttershark.managers.ServiceManager;
+	import net.guttershark.support.preloading.Asset;
+	import net.guttershark.util.Assertions;
+	import net.guttershark.util.Singleton;
+	import net.guttershark.util.StyleSheetUtils;
+	import net.guttershark.util.Utilities;
+	import net.guttershark.util.cache.Cache;
+	
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
@@ -7,18 +16,10 @@ package net.guttershark.model
 	import flash.text.StyleSheet;
 	import flash.text.TextFormat;
 	import flash.ui.ContextMenu;
-	import flash.utils.Dictionary;
-	
-	import net.guttershark.managers.ContextMenuManager;
-	import net.guttershark.managers.ServiceManager;
-	import net.guttershark.support.preloading.Asset;
-	import net.guttershark.util.Assertions;
-	import net.guttershark.util.Singleton;
-	import net.guttershark.util.Utilities;
-	import net.guttershark.util.cache.Cache;
+	import flash.utils.Dictionary;		
 	
 	/**
-	 * The Model Class provides shortcuts for parsing a model xml file as
+	 * The Model class provides shortcuts for parsing a model xml file as
 	 * well as other model centric methods.
 	 * 
 	 * @example Example model XML file:
@@ -27,7 +28,23 @@ package net.guttershark.model
 	 * &lt;model&gt;
 	 * 	  &lt;content&gt;
 	 *        &lt;text id="helloWorldExample"&gt;&lt;![CDATA[Hello]]&gt;&lt;/text&gt;
+	 *        &lt;text id="sparsley"&gt;&lt;![CDATA[Some more example content]]&gt;&lt;/text&gt;
 	 *    &lt;/content&gt;
+	 *    &lt;properties&gt;
+	 *        &lt;propset id="test"&gt;
+	 *            &lt;textFormat id="theTextFormat" /&gt;
+	 *            &lt;alpha&gt;0.5&lt;/alpha&gt;
+	 *            &lt;xywh x="20" y="+30" width="+100" height="100" /&gt; &lt;!-- optional node for x/y/w/h --&gt;
+	 *            &lt;y&gt;+30&lt;/y&gt;
+	 *            &lt;width&gt;400&lt;/width&gt;
+	 *            &lt;alpha&gt;+.4&lt;/alpha&gt;
+	 *        &lt;/propset&gt;
+	 *        &lt;propset id="tfieldTest"&gt;
+	 *            &lt;styleSheet id="colors3" /&gt;
+	 *            &lt;htmlText&gt;&lt;![CDATA[&lt;p&gt;&lt;span class="pink"&gt;hello&lt;/span&gt; &lt;span class="some"&gt;w&lt;/span&gt;orld&lt;/p&gt;]]&gt;&lt;/htmlText&gt;
+	 *            &lt;htmlText id="sparsley"/&gt; &lt;!-- optionally you can target a content/text node from the model, but not both. --&gt;
+	 *        &lt;/propset&gt;
+	 *    &lt;/properties&gt;
 	 *    &lt;assets&gt;
 	 *        &lt;asset libraryName="clayBanner1" source="clay_banners_1.jpg" preload="true" /&gt;
 	 *        &lt;asset libraryName="clayBanner2" source="clay_banners_2.jpg" /&gt;
@@ -54,6 +71,12 @@ package net.guttershark.model
 	 *            .pink{color:#FF0066}
 	 *        ]]&gt;
 	 *        &lt;/stylesheet&gt;
+	 *        &lt;stylesheet id="colors2"&gt;
+	 *        &lt;![CDATA[
+	 *            .some{color:#FF8548}
+	 *        ]]&gt;
+	 *        &lt;/stylesheet&gt;
+	 *        &lt;stylesheet id="colors3" mergeStyleSheets="colors,colors2" /&gt;
 	 *    &lt;/stylesheets&gt;
 	 *    &lt;textformats&gt;
 	 *        &lt;textformat id="theTF" font="Arial" color="0xFF0066" bold="true" /&gt;
@@ -122,6 +145,12 @@ package net.guttershark.model
 		protected var contents:XMLList;
 		
 		/**
+		 * Stores a reference to the <code>&lt;properties&gt;&lt;/properties&gt;</code>
+		 * node in the model xml.
+		 */
+		protected var properties:XMLList;
+		
+		/**
 		 * A placeholder variable for the movies flashvars - this is
 		 * not set by default, you need to set it in your controller.
 		 */
@@ -131,8 +160,6 @@ package net.guttershark.model
 		 * A placeholder variable for the movies shared object - this is
 		 * not set by default, override <em><code>restoreSharedObject</code></em>
 		 * in your DocumentController, and set this property to a shared object.
-		 * 
-		 * @see net.guttershark.control.DocumentController#restoreSharedObject() restoreSharedObject method.
 		 */
 		public var sharedObject:SharedObject;
 		
@@ -170,6 +197,11 @@ package net.guttershark.model
 		 * A reference to the context menu xml node.
 		 */
 		private var contextmenus:XMLList;
+		
+		/**
+		 * Custom merged stylesheets.
+		 */
+		private var customStyles:Dictionary;
 
 		/**
 		 * @private
@@ -178,10 +210,11 @@ package net.guttershark.model
 		public function Model()
 		{
 			Singleton.assertSingle(Model);
-			paths = new Dictionary();
-			ast = Assertions.gi();
-			utils = Utilities.gi();
-			modelcache = new Cache();
+			paths=new Dictionary();
+			customStyles=new Dictionary();
+			ast=Assertions.gi();
+			utils=Utilities.gi();
+			modelcache=new Cache();
 		}
 
 		/**
@@ -199,7 +232,7 @@ package net.guttershark.model
 		public function set xml(xml:XML):void
 		{
 			ast.notNil(xml, "Parameter xml cannot be null");
-			_model = xml;
+			_model=xml;
 			if(_model.assets) assets = _model.assets;
 			if(_model.links) links = _model.links;
 			if(_model.attributes) attributes = _model.attributes;
@@ -208,6 +241,7 @@ package net.guttershark.model
 			if(_model.textformats) textformats = _model.textformats;
 			if(_model.content) contents = _model.content;
 			if(_model.contextmenus) contextmenus = _model.contextmenus;
+			if(_model.properties)properties=_model.properties;
 		}
 		
 		/**
@@ -227,13 +261,17 @@ package net.guttershark.model
 		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String = null):Asset
 		{
 			checkForXML();
+			var cacheKey:String = "asset_"+libraryName;
+			if(modelcache.isCached(cacheKey))return Asset(modelcache.getCachedObject(cacheKey));
 			ast.notNil(libraryName, "Parameter libraryName cannot be null");
 			var node:XMLList = assets..asset.(@libraryName == libraryName);
 			var ft:String = (node.@forceType != undefined && node.@forceType != "") ? node.@forceType : null;
 			var src:String = node.@source || node.@src;
 			if(prependSourcePath) src=prependSourcePath+src;
 			if(node.@path != undefined) src = getPath(node.@path.toString())+src;
-			return new Asset(src,libraryName,ft);
+			var a:Asset = new Asset(src,libraryName,ft);
+			modelcache.cacheObject(cacheKey,a);
+			return a;
 		}
 		
 		/**
@@ -243,10 +281,14 @@ package net.guttershark.model
 		 */
 		public function getAssetsByLibraryNames(...libraryNames:Array):Array
 		{
+			checkForXML();
+			var cacheKey:String="assets_"+libraryNames.join("");
+			if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Array;
 			var p:Array=[];
 			var i:int = 0;
 			var l:int = libraryNames.length;
 			for(i;i<l;i++) p[i]=getAssetByLibraryName(libraryNames[i]);
+			modelcache.cacheObject(cacheKey,p);
 			return p;
 		}
 		
@@ -257,10 +299,14 @@ package net.guttershark.model
 		 */
 		public function getAssetGroup(groupId:String):Array
 		{
+			checkForXML();
+			var cacheKey:String = "assetGroup_"+groupId; 
+			if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Array;
 			var x:XMLList=assets..group.(@id==groupId);
 			var n:XML;
 			var payload:Array=[];
 			for each(n in x..asset)payload.push(getAssetByLibraryName(n.@libraryName));
+			modelcache.cacheObject(cacheKey,payload);
 			return payload;
 		}
 		
@@ -269,6 +315,7 @@ package net.guttershark.model
 		 */
 		public function initServices():void
 		{
+			checkForXML();
 			var sm:ServiceManager = ServiceManager.gi();
 			var children:XMLList = xml.services.service;
 			var oe:int = 3;
@@ -318,6 +365,7 @@ package net.guttershark.model
 		 */
 		public function getAssetsForPreload():Array
 		{
+			checkForXML();
 			var a:XMLList = assets..asset;
 			if(!a)
 			{
@@ -327,10 +375,10 @@ package net.guttershark.model
 			var payload:Array = [];
 			for each(var n:XML in a)
 			{
-				if(n.@preload == undefined||n.@preload=="false")continue;
-				var src:String = n.@source||n.@src;
-				if(n.attribute("path")!=undefined) src = getPath(n.@path.toString()) + src;
-				var ast:Asset = new Asset(src,n.@libraryName);
+				if(n.@preload==undefined||n.@preload=="false")continue;
+				var src:String=n.@source||n.@src;
+				if(n.attribute("path")!=undefined)src=getPath(n.@path.toString())+src;
+				var ast:Asset=new Asset(src,n.@libraryName);
 				payload.push(ast);
 			}
 			return payload;
@@ -344,11 +392,14 @@ package net.guttershark.model
 		public function getLink(id:String):URLRequest
 		{
 			checkForXML();
+			var key:String = "link_"+id;
+			if(modelcache.isCached(key))return URLRequest(modelcache.getCachedObject(key));
 			var link:XMLList = links..link.(@id==id);
 			if(!link) return null;
 			var u:URLRequest;
 			if(link.@url!=undefined)u=new URLRequest(link.@url);
 			else if(link.@href!=undefined)u=new URLRequest(link.@href);
+			modelcache.cacheObject(key,u);
 			return u;
 		}
 		
@@ -359,6 +410,7 @@ package net.guttershark.model
 		 */
 		public function doesLinkExist(id:String):Boolean
 		{
+			checkForXML();
 			var link:XMLList = links..link.(@id==id);
 			if(!link||link==null)return false;
 			return true;
@@ -372,9 +424,13 @@ package net.guttershark.model
 		public function getLinkWindow(id:String):String
 		{
 			checkForXML();
+			var key:String="window_"+id;
+			if(modelcache.isCached(key))return String(modelcache.getCachedObject(key));
 			var link:XMLList = links..link.(@id == id);
-			if(!link) return null;
-			return link.@window;
+			if(!link)return null;
+			var window:String=link.@window;
+			if(window)modelcache.cacheObject(key,window);
+			return window;
 		}
 		
 		/**
@@ -388,7 +444,7 @@ package net.guttershark.model
 			var w:String=getLinkWindow(id);
 			navigateToURL(req,w);
 		}
-
+		
 		/**
 		 * Get the value from an attribute node.
 		 * 
@@ -396,6 +452,7 @@ package net.guttershark.model
 		 */
 		public function getAttribute(attributeID:String):String
 		{
+			checkForXML();
 			var attr:XMLList = attributes..attribute.(@id == attributeID);
 			if(!attr) return null;
 			return attr.@value;
@@ -411,17 +468,17 @@ package net.guttershark.model
 				if(!warnedAboutEI)
 				{
 					trace("WARNING: ExternalInterface is not available, path logic will use internal dictionary.");
-					warnedAboutEI = true;
+					warnedAboutEI=true;
 				}
-				available = false;
+				available=false;
 				return;
 			}
-			available = true;
+			available=true;
 		}
 		
 		/**
-		 * Check that the siteXML was set on the singleton instance before any attempts
-		 * to read the siteXML variable happen.
+		 * Check that the model xml was set on the singleton instance before any attempts
+		 * to read the xml happens.
 		 */
 		protected function checkForXML():void
 		{
@@ -434,7 +491,7 @@ package net.guttershark.model
 		public function isPathDefined(path:String):Boolean
 		{
 			checkEI();
-			if(!available) return !(paths[path]==false);
+			if(!available)return !(paths[path]==false);
 			return ExternalInterface.call("net.guttershark.Paths.isPathDefined",path);
 		}
 		
@@ -486,10 +543,7 @@ package net.guttershark.model
 		 * available, it uses the guttershark javascript api. Otherwise it's stored in a local
 		 * dictionary.
 		 * 
-		 * 
 		 * @param ...pathIds An array of pathIds whose values will be concatenated together.
-		 * 
-		 * @see #addPath() addPath function.
 		 */
 		public function getPath(...pathIds:Array):String
 		{
@@ -516,14 +570,48 @@ package net.guttershark.model
 		 */
 		public function getStyleSheetById(id:String):StyleSheet
 		{
-			var cacheId:String = "css_"+id;
-			if(modelcache.isCached(cacheId)) return modelcache.getCachedObject(cacheId);
-			var n:XMLList = stylesheets.stylesheet.(@id==id);
-			if(!n) return null;
-			var s:StyleSheet = new StyleSheet();
-			s.parseCSS(n.toString());
+			checkForXML();
+			var cacheId:String="css_"+id;
+			if(modelcache.isCached(cacheId))return StyleSheet(modelcache.getCachedObject(cacheId));
+			if(customStyles[id])return StyleSheet(customStyles[id]);
+			var n:XMLList=stylesheets.stylesheet.(@id==id);
+			if(!n)return null;
+			var s:StyleSheet;
+			if(n.@mergeStyleSheets!=undefined)s=mergeStyleSheetsAs(n.@id,n.@mergeStyleSheets.toString().split(","));
+			else
+			{
+				s=new StyleSheet();
+				s.parseCSS(n.toString());
+			}
 			modelcache.cacheObject(cacheId,s);
 			return s;
+		}
+		
+		/**
+		 * Merge any number of style sheets declared in the model, as a new
+		 * stylesheet with a unique id. The new stylesheet is returned to you,
+		 * and can be accessed again through the <em>getStyleSheetById</em>
+		 * method. You can also declare merged style sheets in the model
+		 * through xml. There is an example in examples/model/model.xml.
+		 * 
+		 * @param newStyleId The id to name the new merged stylesheet.
+		 * @param styleId An array of style ids that are defined in the model.
+		 */
+		public function mergeStyleSheetsAs(newStyleId:String, ...styleIds:Array):StyleSheet
+		{
+			checkForXML();
+			ast.notNil(newStyleId, "Parameter {newStyleId} cannot be null.");
+			ast.notNilOrEmpty(styleIds, "Parameter {styleIds} cannot be null or empty");
+			if(styleIds[0] is Array)styleIds=styleIds[0];
+			var sheets:Array=[];
+			var i:int=0;
+			var l:int=styleIds.length;
+			for(i;i<l;i++)sheets.push(getStyleSheetById(styleIds[i]));
+			var newstyle:StyleSheet=StyleSheetUtils.gi().mergeStyleSheets(sheets);
+			customStyles[newStyleId]=newstyle;
+			var cacheKey:String="css_"+newStyleId;
+			modelcache.cacheObject(cacheKey,newstyle,-1,true);
+			return newstyle;
 		}
 		
 		/**
@@ -550,6 +638,7 @@ package net.guttershark.model
 		 */
 		public function getTextFormatById(id:String):TextFormat
 		{
+			checkForXML();
 			var cacheId:String = "tf_"+id;
 			if(modelcache.isCached(cacheId)) return modelcache.getCachedObject(cacheId) as TextFormat;
 			var n:XMLList = textformats.textformat.(@id==id);
@@ -593,8 +682,11 @@ package net.guttershark.model
 		 */
 		public function getContentById(id:String):String
 		{
-			var n:XMLList = contents..text.(@id==id);
-			return n.toString();
+			checkForXML();
+			var n:XMLList=contents..text.(@id==id);
+			var s:String = n.toString();
+			if(s==null||!s)trace("WARNING: No content was found for id {"+id+"}");
+			return s;
 		}
 		
 		/**

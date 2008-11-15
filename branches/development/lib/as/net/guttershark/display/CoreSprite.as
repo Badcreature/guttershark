@@ -18,7 +18,7 @@ package net.guttershark.display
 	/**
 	 * The CoreSprite class is a base class that provides
 	 * common properties and methods that are used over
-	 * and over in sprites; this class is relief
+	 * and over in sprites - this class is relief
 	 * from having to type the same code over and over.
 	 */
 	public class CoreSprite extends Sprite

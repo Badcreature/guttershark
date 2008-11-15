@@ -4,8 +4,6 @@ package net.guttershark.support.events
 
 	/**
 	 * The FLVEvent class is dispatched from an FLV instance.
-	 * 
-	 * @see net.guttershark.display.FLV FLV class.
 	 */
 	public class FLVEvent extends Event
 	{

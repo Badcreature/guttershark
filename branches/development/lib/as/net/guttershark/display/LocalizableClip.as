@@ -6,15 +6,14 @@
 	
 	/**
 	 * The LocalizableClip class is used with the LanguageManager
-	 * to add localization support at runtime.
+	 * to add language support at runtime.
 	 */
 	public class LocalizableClip extends MovieClip
 	{
-
+	
 		/**
-		 * The instance of the text field we're using for
-		 * localized content - this is set as a public var
-		 * because flash requires it to be public.
+		 * An instance of a text field that sould
+		 * be on the stage.
 		 */
 		public var tfield:TextField;
 		
@@ -34,13 +33,13 @@
 		public function LocalizableClip(tf:TextField=null)
 		{
 			super();
-			this.tfield = tf;
+			this.tfield=tf;
 			addChild(tfield);
-			if(!this.tfield) throw new Error("The movie clip, {" + this.name + "} must have an instance of a Textfield on the stage called 'tfield'.");
+			if(!this.tfield)throw new Error("The movie clip, {"+this.name+"} must have an instance of a Textfield on the stage called 'tfield'.");
 		}
 		
 		/**
-		 * Set the localized text on this clip.
+		 * The text content for this clip.
 		 */
 		public function set localizedText(value:String):void
 		{
@@ -48,7 +47,7 @@
 		}
 		
 		/**
-		 * Read the text on the internal text field.
+		 * The text content for this clip.
 		 */
 		public function get localizedText():String
 		{

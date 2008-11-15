@@ -55,7 +55,7 @@ package net.guttershark.decorators
 		}
 		
 		/**
-		 * Dispose of this reversable clip.
+		 * Dispose of this decorator.
 		 */
 		public function dispose():void
 		{

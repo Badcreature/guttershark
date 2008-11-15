@@ -99,11 +99,6 @@ package net.guttershark.support.preloading.workers
 	 * </listing>
 	 * 
 	 * <p>See the source code in any other worker in this package for subclassing examples.
-	 * 
-	 * @see #loader
-	 * @see #request
-	 * @see #load()
-	 * @see net.guttershark.preloading.Asset 
 	 */
 	public class Worker extends EventDispatcher
 	{

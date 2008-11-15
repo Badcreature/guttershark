@@ -5,8 +5,6 @@ package net.guttershark.util
 	
 	/**
 	 * The ScopeUtils class provides utilities for working with scope.
-	 * 
-	 * @see net.guttershark.util.Utilities Utilities class.
 	 */
 	public class ScopeUtils
 	{
@@ -68,4 +66,5 @@ package net.guttershark.util
 			var k:int = 0;
 			for(k;k<l;k++) target[objs[k]] = source[objs[k]];
 		}
-	}}
+	}
+}
